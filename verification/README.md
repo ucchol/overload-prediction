@@ -5,7 +5,7 @@ Every reported result passes two checks before it is shown.
 1. Second run. The experiment is rerun from a fresh process, and its summary, per trial values and every bootstrap replicate must be identical to the saved ones.
 2. Independent reimplementation. A separate implementation, written from `ANALYSIS_PLAN.md` and `VERIFY_BRIEF.md` without access to the package, recomputes the results from the raw data. `compare_independent.py` compares the two and lists every value outside its tolerance.
 
-The independent implementation is archived in `independent/` as it was written, with its results. To rerun it and the comparison, `sh verification/run_independent.sh PATH_TO_CSV` (about two minutes). The data file is copied only into a temporary folder that is removed afterwards.
+The independent implementations are archived as they were written, with their results, in `independent/` (development data) and `independent_snack/` (confirmatory snack data). To rerun them and the comparisons, `sh verification/run_independent.sh PATH_TO_CSV` (about two minutes) and `sh verification/run_independent_snack.sh` (about ten minutes). Data files are copied only into temporary folders that are removed afterwards.
 
 ## R0 and H1, 9 October 2026
 
@@ -26,3 +26,19 @@ Specification.
 5. Amendment 1 was adopted after the R0 level intervals were seen. It changes only the descriptive level intervals, which become wider, and leaves every model difference and test unchanged up to a common rescaling.
 6. The negative mean gap of B1 was known before the plan, so B1 tests only the slope. In the development data set size is confounded with stimulus content (one trial per set size and information level), which the confirmatory dataset addresses.
 7. The two primary A1a contrasts are strongly dependent, so Holm's correction is conservative there. A bootstrap p value of zero is reported as p < 0.002.
+
+## Exploratory laptop rubric sensitivity, 9 October 2026
+
+Second run identical. Independent implementation (`independent/sens_laptop_1to4.py`) agrees on every compared value, largest difference 2e-12 (`compare_laptop_rubric_1to4.py`).
+
+## H1 confirmatory on the snack data, 9 October 2026
+
+Run once under Amendment 3. Second run identical. The independent implementation (`independent_snack/`), written from Amendment 3 and `VERIFY_BRIEF_SNACK.md`, agrees on every compared value, with a largest difference of 2e-15 for held-out scores, sensitivities and intervals and 4e-8 for the elasticities, whose profile search stops at a tolerance near 1e-9 (`compare_h1_confirmatory.py`).
+
+Issues the reimplementation raised about Amendment 3.
+
+1. C1 compares choice concentration across screen positions with a value model whose position profile is almost exactly uniform, so it tests position effects only, not narrowing on value.
+2. The C2 decision depends on the spacing of the beta grid. The continuous elasticity of C3 peaks near +0.18, between the grid points 0 and +0.5.
+3. The looked-at version uses gaze recorded during the choice, so its held-out scores are measurements rather than predictions and are not compared with the all-items version.
+4. What people look at depends partly on value, so the C3 difference cannot fully separate narrowing from value-guided search.
+5. Bootstrap p values of zero mean p < 0.002.

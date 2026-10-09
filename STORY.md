@@ -10,7 +10,7 @@ When displays grow in the number of options and in the attributes shown for each
 
 | | Behavior | Algorithm |
 |---|---|---|
-| H1 Narrowing with set size | B1 done. Large gap in both tasks, growing with set size for laptops only. Confirmatory C1 (choices across screen positions) frozen in Amendment 3 | A1a done, noise rejected for laptops, uniform sharpening not supported. A1b done, rubric screening predicts poorly. Confirmatory C2 (set size scaling) and C3 (narrowing against noise with gaze) frozen in Amendment 3 |
+| H1 Narrowing with set size | B1 done. Large gap in both tasks, growing with set size for laptops only. Confirmatory C1 done, no concentration on screen positions. Attention narrowed from 82 to 41 percent of the display | A1a done, noise rejected for laptops, sharpening at beta +0.5 not supported. A1b done, rubric screening predicts poorly. Confirmatory C2 done, noise rejected (-10.3%), beta +0.5 not clear, so not supported by its rule. C3 done, sensitivity rises with set size (elasticity +0.18), also among looked-at items |
 | H2 Comparison under sparse information | B2 revealed weights, known for laptops | A2 known on development data, confirmatory dataset to fix |
 | H3 Inputs over rules | B3 known | A3a ladder known, A3b independent cue to fix and run |
 | H4 Cost depends on cue validity | to specify | to specify |
@@ -91,6 +91,32 @@ Verified twice (second run identical, independent agreement on every value). `re
 - No H1 decision changed. B1 gap -15.5 [-18.8, -12.1] and slope -11.7 [-15.5, -7.6] per doubling, both clear. CL at beta -0.5 minus beta 0 was -14.0 [-19.2, -9.2], clear, and beta +0.5 minus beta 0 was +1.8 [-1.9, 5.5]. EBA's 32 minus 8 contrast was -0.42 bits, clear and opposite to the prediction.
 
 Reading. The two 32 option laptop rubrics add noise rather than signal, which fits a scoring or labeling error there. The laptop conclusions do not depend on them.
+
+### 9 Oct 2026. H1 confirmatory, open snack choice data (Amendment 3)
+
+Run once under the frozen amendment, then verified twice (independent blind reimplementation agreeing on every value, largest difference 4e-8 for the elasticities and 2e-15 elsewhere, and an identical second run). `results/h1_confirmatory`. Differences in held-out log score are given as percent changes in the likelihood of the chosen item.
+
+| Test | Result | Decision |
+|---|---|---|
+| C2, CL beta -0.5 minus beta 0 (noise) | -10.3% [-12.0, -8.7], clear, as predicted | supports H1 |
+| C2, CL beta +0.5 minus beta 0 (sharpening) | -1.6% [-3.1, 0.2], not clear | does not support H1 |
+| C2 overall | | not supported |
+| C3, elasticity of CL's sensitivity, all items | +0.18 [0.12, 0.25], clear | sensitivity rises |
+| C3, elasticity among looked-at items | +0.16 [0.09, 0.24], clear | noise rejected |
+| C3, all minus looked-at | +0.02 [-0.00, 0.04], not clear | narrowing of the considered set not supported |
+| C1, concentration across screen positions | mean gap -0.3 points [-0.8, 0.1], slope -0.2 [-0.7, 0.3] | not supported |
+
+Descriptives. The share of the display looked at fell from 82.5 percent at 9 items to 41.4 percent at 36 (known from the original publication), and the chosen item had been looked at in essentially every trial. CL's sensitivity fitted to each set size alone rose from 1.68 at 9 items to 2.19 at 36. Sharpening at beta +0.5 helped the comparison models (DbS_avg +2.7% [0.9, 4.8], MLBA_avg +2.9% [1.1, 5.0], both clear). With one subjective value per item, CL predicted unseen set sizes best (3.8 times chance, against 3.5 for DbS_avg and 2.6 for MLBA_avg).
+
+Reading.
+- The noise account failed again, now in independent data with random displays and no confound between set size and content. Letting sensitivity fall with set size cost a tenth of the likelihood of every choice.
+- Choices grew sharper, not noisier. Sensitivity to liking rose with set size, by about 30 percent from 9 to 36 items, while attention covered a shrinking share of the display. The pre-registered contrast at beta +0.5 overshot this modest rise for CL, which is why C2 fails by its rule. We report that decision as it stands and the elasticity beside it.
+- The rise is not produced by narrowing what is considered. Among the items people looked at, sensitivity rose almost as much as over all items. People inspected less of the display but chose more selectively among what they inspected, which fits satisficing search that stops on a well-liked item (Thomas et al. found probabilistic satisficing fitted these choices well).
+- Positions did not attract choices beyond chance, so the extra concentration of the development data (B1) is not a screen position effect.
+
+Limits stated with the result. The looked-at version uses gaze recorded during the choice, so it is a measurement, not a prediction. What people look at depends partly on value, so C3 cannot fully separate narrowing from value-guided search. The C2 decision depends on the grid spacing of beta. Bootstrap p values of zero mean p < 0.002.
+
+Story update. H1 becomes "larger sets make choices sharper, not noisier". The noise half holds in laptops and snacks. The sharpening half holds as a measured elasticity in snacks and as growing concentration in laptops, but not as the coarse pre-registered contrast.
 
 ## Setup facts checked against the data
 

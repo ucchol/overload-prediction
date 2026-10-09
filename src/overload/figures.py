@@ -134,3 +134,128 @@ def figure_h1(summary: dict, out: Path) -> list[Path]:
     fig.savefig(paths[1], facecolor=SURFACE)
     plt.close(fig)
     return paths
+
+
+def figure_h1_confirmatory(summary: dict, out: Path) -> list[Path]:
+    """Confirmatory H1 on the snack data. Attention, sensitivity by set size and the set size scaling test."""
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8})
+    fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.7))
+    fig.patch.set_facecolor(SURFACE)
+    sizes = np.array(summary["descriptives"]["set_sizes"], float)
+    d = summary["descriptives"]
+
+    def size_axis(ax: plt.Axes) -> None:
+        ax.set_xscale("log", base=2)
+        ax.set_xticks(sizes, labels=[f"{int(n)}" for n in sizes])
+        ax.minorticks_off()
+        ax.set_xlim(7.5, 43)
+        ax.set_xlabel("Items on screen", color=INK_2)
+
+    # a, the share of the display looked at
+    ax = axes[0]
+    _style(ax)
+    looked = d["share_looked_at"]
+    y = np.array([100 * e["point"] for e in looked])
+    lo = y - np.array([100 * e["percentile"][0] for e in looked])
+    hi = np.array([100 * e["percentile"][1] for e in looked]) - y
+    ax.errorbar(sizes, y, yerr=[lo, hi], fmt="none", ecolor=INK, elinewidth=1.0, capsize=0, zorder=2)
+    ax.plot(sizes, y, color=INK, linewidth=1.2, zorder=2)
+    ax.scatter(sizes, y, s=30, marker="o", color=INK, edgecolor=SURFACE, linewidth=1.0, zorder=3)
+    size_axis(ax)
+    ax.set_ylim(0, 100)
+    ax.set_ylabel("Items looked at, % of the display", color=INK_2)
+    ax.set_title("Attention narrows", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    # b, CL's sensitivity fitted to each set size, with the fitted elasticity
+    ax = axes[1]
+    _style(ax)
+    c3 = summary["C3"]
+    grid = np.geomspace(8.5, 38, 60)
+    for key, version, marker, face, style in (
+        ("all_items_C3_trials", "all", "o", SERIES["CL"], "-"),
+        ("seen_items_C3_trials", "seen", "s", SURFACE, "--"),
+    ):
+        rows = d["lambda_alone"][key]
+        y = np.array([e["point"] for e in rows])
+        lo = y - np.array([e["percentile"][0] for e in rows])
+        hi = np.array([e["percentile"][1] for e in rows]) - y
+        x = sizes * (0.96 if version == "all" else 1.04)
+        lam, beta = c3[f"lambda_{version}"], c3[f"beta_{version}"]["point"]
+        ax.plot(grid, lam * ((grid - 1) / 7) ** beta, color=SERIES["CL"], linewidth=1.2, linestyle=style, zorder=1)
+        ax.errorbar(x, y, yerr=[lo, hi], fmt="none", ecolor=SERIES["CL"], elinewidth=1.0, capsize=0, zorder=2)
+        ax.scatter(x, y, s=30, marker=marker, facecolor=face, edgecolor=SERIES["CL"], linewidth=1.2, zorder=3)
+    size_axis(ax)
+    ax.set_ylim(0, 3.0)
+    ax.set_ylabel("Sensitivity to liking, CL", color=INK_2)
+    ax.set_title("Sensitivity rises", color=INK, fontsize=9, loc="left", fontweight="bold")
+    b_all, b_seen = c3["beta_all"], c3["beta_seen"]
+    ax.text(
+        0.96,
+        0.05,
+        "Elasticity with set size\n"
+        f"all {b_all['point']:+.2f} [{b_all['percentile'][0]:.2f}, {b_all['percentile'][1]:.2f}]\n"
+        f"looked at {b_seen['point']:+.2f} [{b_seen['percentile'][0]:.2f}, {b_seen['percentile'][1]:.2f}]",
+        transform=ax.transAxes,
+        color=INK_2,
+        fontsize=7,
+        va="bottom",
+        ha="right",
+    )
+    ax.legend(
+        handles=[
+            Line2D([], [], marker="o", color=SERIES["CL"], markerfacecolor=SERIES["CL"], label="All items"),
+            Line2D(
+                [], [], marker="s", color=SERIES["CL"], markerfacecolor=SURFACE, linestyle="--", label="Looked-at items"
+            ),
+        ],
+        frameon=False,
+        fontsize=7,
+        loc="upper left",
+        labelcolor=INK_2,
+    )
+
+    # c, held-out likelihood against the set size scaling, all items
+    ax = axes[2]
+    _style(ax)
+    ax.axhline(0, color=AXIS, linewidth=1.0, zorder=1)
+    betas = [-1.0, -0.5, 0.0, 0.5, 1.0]
+    cells = summary["C2"]["cells"]
+    for k, fam in enumerate(("CL", "DbS_avg", "MLBA_avg")):
+        off = (k - 1) * 0.07
+        ys, lo, hi = [], [], []
+        for beta in betas:
+            c = cells[f"{fam}|beta={beta:+.1f}|all"]
+            pc = c["minus_beta0"]["percent"] if "minus_beta0" in c else {"point": 0.0, "percentile": [0.0, 0.0]}
+            ys.append(pc["point"])
+            lo.append(pc["point"] - pc["percentile"][0])
+            hi.append(pc["percentile"][1] - pc["point"])
+        xs = np.array(betas) + off
+        ax.errorbar(xs, ys, yerr=[lo, hi], fmt="none", ecolor=SERIES[fam], elinewidth=1.0, capsize=0, zorder=2)
+        ax.plot(xs, ys, color=SERIES[fam], linewidth=1.4, zorder=2)
+        ax.scatter(
+            xs,
+            ys,
+            s=28,
+            marker=MARKERS[fam],
+            color=SERIES[fam],
+            edgecolor=SURFACE,
+            linewidth=1.0,
+            zorder=3,
+            label=LABELS[fam],
+        )
+    ax.set_xticks(betas, labels=["−1", "−0.5", "0", "+0.5", "+1"])
+    ax.set_xlim(-1.25, 1.25)
+    ax.set_xlabel("Set size scaling, beta", color=INK_2)
+    ax.set_ylabel("Held-out likelihood against beta 0, %", color=INK_2)
+    ax.set_title("Noise predicts worst", color=INK, fontsize=9, loc="left", fontweight="bold")
+    ax.legend(frameon=False, fontsize=7, loc="lower right", labelcolor=INK_2)
+
+    for ax, letter in zip(axes, "abc", strict=True):
+        ax.text(-0.02, 1.06, letter, transform=ax.transAxes, color=INK, fontsize=10, fontweight="bold", ha="right")
+    fig.tight_layout(w_pad=1.6)
+    paths = [out.with_suffix(".png"), out.with_suffix(".pdf")]
+    out.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(paths[0], dpi=300, facecolor=SURFACE)
+    fig.savefig(paths[1], facecolor=SURFACE)
+    plt.close(fig)
+    return paths
