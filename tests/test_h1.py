@@ -6,8 +6,8 @@ from overload.experiments.h1_narrowing import _centered, _slope
 
 
 def test_concentration_seeds_are_distinct_and_fixed():
-    seeds = {concentration_seed(t, j, b, r) for t in (0, 1) for j in range(6) for b in (-1, 0, 999) for r in (1, 2)}
-    assert len(seeds) == 2 * 6 * 3 * 2
+    seeds = {concentration_seed(t, j, b, r) for t in (0, 1) for j in range(6) for b in range(-1, 1000) for r in (1, 2)}
+    assert len(seeds) == 2 * 6 * 1001 * 2
     assert concentration_seed(1, 5, 999, 2) == concentration_seed(1, 5, 999, 2)
 
 
