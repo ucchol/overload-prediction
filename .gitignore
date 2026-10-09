@@ -9,3 +9,6 @@ __pycache__/
 .ruff_cache/
 .ipynb_checkpoints/
 results/**/replicates.jsonl
+
+# per replicate arrays of the independent implementation
+*.npz

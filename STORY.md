@@ -69,12 +69,24 @@ Story update. Narrowing is real, but it is not a sharper version of the valuatio
 
 Caution. Development data. The behavioral level of the gap was known before the plan, its slope and every algorithmic cell were not.
 
+### 9 Oct 2026. R0 and H1 verified twice
+
+A second run reproduced every saved value, and an independent reimplementation written from the plan without the package agreed on every compared value, with a largest difference of 2e-12 (`verification/`). The computations behind R0 and H1 are correct.
+
+The reimplementation raised issues with the inputs (`verification/README.md`).
+- The laptop screenshots of the earlier CHI draft (trials 1 and 2) differ from the analyzed laptop definitions, while the file screenshots match. The designers' scores follow the analyzed definitions. In laptop trial 1, F drew as many choices as D (29.5 percent each), which fits the screenshot version better, since under the analyzed definitions D beats F on memory and drive type for $20 more. Which displays respondents saw is open until the survey export is checked.
+- The designers' laptop scores contradict the attributes in the two 32 option trials (identical laptops scored 75 and 40, or 33, 58 and 52), while they track the attributes closely elsewhere.
+- The file A1b result depends on the median convention for an even number of options, so it stays fragile and is not read as support.
+
+Status. File results stand. Laptop results are provisional until the displays and the laptop rubric are confirmed.
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.
 
 ## Open decisions
 
+- Laptop displays and rubric. Check the survey export (Qualtrics file or PDF) for the six laptop displays and the designers' laptop scoring sheet. If the displays differ from the analyzed definitions, recode the laptop task and rerun every laptop result. If only the rubric of trials 5 and 6 is wrong, rerun with corrected scores, or estimate the rubric shares from trials 1 to 4 and drop QR and regret for trials 5 and 6.
 - H2 confirmatory dataset. Confirm that Hensher (2006) is openly downloadable, otherwise choose another open dataset that varies the attributes shown for the same options. Fix by amendment before inspecting outcomes.
 - H3 independent cue. Choose the external source of the filename cue before running A3b.
 - H4. Specify cue validity, the regret contrast and the screening model before running.
