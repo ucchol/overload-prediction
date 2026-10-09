@@ -60,7 +60,7 @@ def effective_number(p: np.ndarray) -> float:
     return float(np.exp(-(nz * np.log(nz)).sum()))
 
 
-def sampled_effective_number(q: np.ndarray, n_choices: int, draws: int = 2000, seed: int = 0) -> float:
+def sampled_effective_number(q: np.ndarray, n_choices: int, draws: int = 2000, seed: int | Sequence[int] = 0) -> float:
     """Mean effective number of the shares of ``n_choices`` choices drawn from ``q``.
 
     The comparison value for observed shares, since a finite sample of choices looks more concentrated

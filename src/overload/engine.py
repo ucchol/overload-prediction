@@ -37,13 +37,13 @@ PLAN = Path(__file__).resolve().parents[2] / "ANALYSIS_PLAN.md"
 CONCENTRATION_DRAWS = 2000
 
 
-def concentration_seed(task_index: int, trial_index: int, b: int, role: int) -> int:
-    """Seed of a sampled effective number (plan, Amendment 2).
+def concentration_seed(task_index: int, trial_index: int, b: int, role: int) -> tuple[int, int, int, int]:
+    """Seed of a sampled effective number (plan, Amendment 2), unique for every argument combination.
 
     ``role`` is 1 for a model's prediction and 2 for the observed shares of the original sample, which
     stand in for the true probabilities of the bootstrap world. Replicate b = -1 is the original sample.
     """
-    return 1_000_000 * role + 1_000 * (b + 1) + 10 * trial_index + task_index
+    return (role, task_index, trial_index, b + 1)
 
 
 def precompute_bases(tasks: Mapping[str, Task], models: Sequence[Model]) -> dict[str, dict[str, list[np.ndarray]]]:
