@@ -117,4 +117,7 @@ The package `overload` implements every model and measure, with unit tests for e
 
 ## Amendments
 
-None yet.
+### Amendment 1, 9 October 2026, after the descriptive baseline R0 and before any hypothesis test
+
+1. Completeness in bootstrap replicates. The attainable log score of each trial is held at its full sample value in every replicate, so completeness in a replicate is a fixed rescaling of its log score. Reason. Re-estimating the Miller corrected benchmark inside a replicate inflates it, because the benchmark of the resampled world is the plug-in score of the observed shares. In R0 the mean replicate benchmark was 11.5 percent above the full sample value in both tasks, which pulled replicate completeness down and left the point estimate near the top of its interval (CL file completeness 29.5 with a percentile interval of 19.6 to 33.0, replicate median 26.6). With the benchmark fixed, the replicate median equals the point estimate (29.4 against 29.5) and the intervals equal those of the earlier pipeline. Differences between models share the benchmark, so their tests are rescaled log score tests either way.
+2. Overlap. Overlap levels are reported as point estimates without intervals. Differences between models keep intervals and the clear rule of Section 4, which requires the basic interval as well as the percentile interval to exclude zero. Reason. Overlap with resampled shares is biased downward by sampling noise (CL file overlap 58.2 against a replicate median of 55.7), so a percentile interval misplaces the level. In differences the bias mostly cancels, with replicate medians within 0.5 points of the point estimates in R0, and the clear rule guards against the remainder.

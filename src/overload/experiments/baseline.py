@@ -72,42 +72,64 @@ def run(csv: Path, out: Path, replicates: int = 1000, jobs: int = 1, models: lis
 
 
 def summarize_results(tasks: dict[str, Task], names: list[str], point: dict, reps: list[dict]) -> dict:
-    """Completeness, overlap and differences from CL, with intervals, for every task and subset."""
+    """Completeness, overlap and differences from CL, with intervals, for every task and subset.
+
+    Every replicate's completeness uses the full sample benchmark, and overlap levels carry no interval
+    (plan, Amendment 1). Differences from CL carry intervals, p values and the clear rule.
+    """
     out: dict = {}
     for task_name in TASKS:
         task = tasks[task_name]
+        bench = point[task_name]["Lstar"]
         out[task_name] = {}
         for which in SUBSETS:
             S = _subset(task, which)
+
+            def K(rec: dict, m: str, kind: str = "ho", S=S, bench=bench) -> float:
+                return subset_completeness(rec, m, kind, S, bench)
+
+            def ov(rec: dict, m: str, S=S) -> float:
+                return subset_overlap(rec, m, "O_ho", S)
+
             block: dict = {}
             for m in names:
-                p_ho = subset_completeness(point[task_name], m, "ho", S)
-                p_fit = subset_completeness(point[task_name], m, "fit", S)
-                p_ov = subset_overlap(point[task_name], m, "O_ho", S)
-                b_ho = [subset_completeness(r[task_name], m, "ho", S) for r in reps]
-                b_ov = [subset_overlap(r[task_name], m, "O_ho", S) for r in reps]
+                p_ho = K(point[task_name], m)
                 entry = {
-                    "completeness_held_out": summarize(p_ho, b_ho) if reps else {"point": p_ho},
-                    "completeness_fitted": {"point": p_fit},
-                    "overlap_held_out": summarize(p_ov, b_ov) if reps else {"point": p_ov},
+                    "completeness_held_out": summarize(p_ho, [K(r[task_name], m) for r in reps])
+                    if reps
+                    else {"point": p_ho},
+                    "completeness_fitted": {"point": K(point[task_name], m, "fit")},
+                    "overlap_held_out": {"point": ov(point[task_name], m)},
                 }
                 if m != REFERENCE:
-                    d_ho = p_ho - subset_completeness(point[task_name], REFERENCE, "ho", S)
-                    d_ov = p_ov - subset_overlap(point[task_name], REFERENCE, "O_ho", S)
-                    b_dho = [
-                        subset_completeness(r[task_name], m, "ho", S)
-                        - subset_completeness(r[task_name], REFERENCE, "ho", S)
-                        for r in reps
-                    ]
-                    b_dov = [
-                        subset_overlap(r[task_name], m, "O_ho", S) - subset_overlap(r[task_name], REFERENCE, "O_ho", S)
-                        for r in reps
-                    ]
+                    d_ho = p_ho - K(point[task_name], REFERENCE)
+                    d_ov = ov(point[task_name], m) - ov(point[task_name], REFERENCE)
+                    b_dho = [K(r[task_name], m) - K(r[task_name], REFERENCE) for r in reps]
+                    b_dov = [ov(r[task_name], m) - ov(r[task_name], REFERENCE) for r in reps]
                     entry["completeness_minus_CL"] = summarize(d_ho, b_dho) if reps else {"point": d_ho}
                     entry["overlap_minus_CL"] = summarize(d_ov, b_dov) if reps else {"point": d_ov}
                 block[m] = entry
             out[task_name][which] = block
     return out
+
+
+def summarize_saved(out: Path, csv: Path) -> dict:
+    """Recompute the summary and tables from saved point and replicate files."""
+    tasks = load_study(csv)
+    point = json.loads((out / "point.json").read_text())
+    with (out / "replicates.jsonl").open() as fh:
+        reps = sorted((json.loads(line) for line in fh if line.strip()), key=lambda r: r["b"])
+    names = [m.name for m in baseline_models()]
+    summary = summarize_results(tasks, names, point, reps)
+    old = (
+        json.loads((out / "summary.json").read_text()).get("provenance", {}) if (out / "summary.json").exists() else {}
+    )
+    summary["provenance"] = provenance(
+        {"replicates": len(reps), "seconds": old.get("seconds"), "bootstrap_run_utc": old.get("created_utc")}
+    )
+    write_json(out / "summary.json", summary)
+    write_tables(summary, out)
+    return summary
 
 
 def _fmt(entry: dict, scale: float = 1.0, digits: int = 1) -> str:
@@ -140,15 +162,16 @@ def write_tables(summary: dict, out: Path) -> None:
                 _fmt(low),
                 _fmt(high),
                 _fmt(e["completeness_fitted"]),
-                _fmt(e["overlap_held_out"], 100.0),
+                _fmt(e["overlap_held_out"], 100.0),  # point only, plan Amendment 1
                 _fmt(dc) if dc else "",
                 _fmt(do, 100.0) if do else "",
             ]
             lines.append("| " + " | ".join(cells) + " |")
             rows.append(cells)
     note = (
-        "\nBrackets give 95% percentile intervals from the participant bootstrap. "
-        "A star marks a difference whose percentile and basic intervals both exclude zero.\n"
+        "\nBrackets give 95% percentile intervals from the participant bootstrap, with each trial's attainable "
+        "log score held at its full sample value. A star marks a value or difference whose percentile and "
+        "basic intervals both exclude zero. Overlap levels are point estimates (plan, Amendment 1).\n"
     )
     (out / "table_baseline.md").write_text("\n".join(lines) + "\n" + note)
     csv_lines = [",".join(h.strip() for h in header.strip("|").split("|"))]
@@ -162,8 +185,12 @@ def main() -> None:
     ap.add_argument("--out", type=Path, default=Path("results/baseline"))
     ap.add_argument("--replicates", type=int, default=1000)
     ap.add_argument("--jobs", type=int, default=1)
+    ap.add_argument("--summarize-only", action="store_true", help="recompute tables from saved replicates")
     args = ap.parse_args()
-    summary = run(args.data, args.out, args.replicates, args.jobs)
+    if args.summarize_only:
+        summary = summarize_saved(args.out, args.data)
+    else:
+        summary = run(args.data, args.out, args.replicates, args.jobs)
     secs = summary["provenance"]["seconds"]
     print(f"baseline written to {args.out} in {secs} s")
     print((args.out / "table_baseline.md").read_text())
