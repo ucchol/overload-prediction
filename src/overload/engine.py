@@ -69,10 +69,20 @@ def run_replicate(
     return record
 
 
-def subset_completeness(rec: Mapping, model: str, which: str, trials: Sequence[int]) -> float:
-    """Completeness of ``which`` ("ho", "fit" or "alone") over the given trial indices."""
-    scores = [rec[model][which][t] for t in trials]
-    return completeness(scores, [rec["Lstar"][t] for t in trials])
+def subset_completeness(
+    rec: Mapping,
+    model: str,
+    which: str,
+    trials: Sequence[int],
+    benchmark: Sequence[float] | None = None,
+) -> float:
+    """Completeness of ``which`` ("ho", "fit" or "alone") over the given trial indices.
+
+    ``benchmark`` gives the attainable log score of every trial. Bootstrap replicates pass the full
+    sample values (plan, Amendment 1), otherwise the record's own values are used.
+    """
+    bench = rec["Lstar"] if benchmark is None else benchmark
+    return completeness([rec[model][which][t] for t in trials], [bench[t] for t in trials])
 
 
 def subset_overlap(rec: Mapping, model: str, which: str, trials: Sequence[int]) -> float:
