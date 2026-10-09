@@ -1,0 +1,11 @@
+# Participant data never enter the repository
+data/*
+!data/README.md
+*.csv
+!tests/fixtures/*.csv
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+results/**/replicates.jsonl

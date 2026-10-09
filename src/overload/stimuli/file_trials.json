@@ -1,0 +1,610 @@
+{
+ "T1_L8": {
+  "column": "ci_co_fl_1",
+  "information": "low",
+  "intended_options": 8,
+  "rubric_key": "Trial 1",
+  "options": {
+   "aug_patch_notes.docx": {
+    "Extension": "docx"
+   },
+   "aug_patch_notes.pdf": {
+    "Extension": "pdf"
+   },
+   "aug_update_data.zip": {
+    "Extension": "zip"
+   },
+   "patcher": {
+    "Extension": ""
+   },
+   "README.txt": {
+    "Extension": "txt"
+   },
+   "t1.enc": {
+    "Extension": "enc"
+   },
+   "t2.enc": {
+    "Extension": "enc"
+   },
+   "temp_parser.py": {
+    "Extension": "py"
+   }
+  }
+ },
+ "T2_H8": {
+  "column": "ci_co_fl_2",
+  "information": "high",
+  "intended_options": 8,
+  "rubric_key": "Trial 2",
+  "options": {
+   "cplan_overview.pptx": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "alice",
+    "Size": "622K",
+    "Modified": "Jul 12 22:11",
+    "Extension": "pptx"
+   },
+   "cplan_package.enc": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "alice",
+    "Size": "1.1G",
+    "Modified": "Jul 13 09:41",
+    "Extension": "enc"
+   },
+   "cplan.pdf": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "alice",
+    "Size": "54K",
+    "Modified": "Jul 12 13:12",
+    "Extension": "pdf"
+   },
+   "cplan_working_doc.docx": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "alice",
+    "Size": "17K",
+    "Modified": "Aug 7 12:38",
+    "Extension": "docx"
+   },
+   "data_t1.zip": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "bob",
+    "Size": "13M",
+    "Modified": "Jul 15 14:23",
+    "Extension": "zip"
+   },
+   "jul12notes.txt": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "bob",
+    "Size": "1.5K",
+    "Modified": "Jul 12 08:54",
+    "Extension": "txt"
+   },
+   "parse_data.sh": {
+    "Perm": "-rwxrwxr-x",
+    "Owner": "bob",
+    "Size": "764",
+    "Modified": "Jul 16 11:23",
+    "Extension": "sh"
+   },
+   "parsed_doc.txt": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "bob",
+    "Size": "4.7K",
+    "Modified": "Jul 16 11:42",
+    "Extension": "txt"
+   }
+  }
+ },
+ "T3_L16": {
+  "column": "ci_co_fl_3",
+  "information": "low",
+  "intended_options": 16,
+  "rubric_key": "Trial 3",
+  "options": {
+   "data_record.xls": {
+    "Extension": "xls"
+   },
+   "monthly_increment_tracker.txt": {
+    "Extension": "txt"
+   },
+   "test.py": {
+    "Extension": "py"
+   },
+   "test2.py": {
+    "Extension": "py"
+   },
+   "transfer.txt": {
+    "Extension": "txt"
+   },
+   "zephyr_codes.enc": {
+    "Extension": "enc"
+   },
+   "zephyr_data01.zip": {
+    "Extension": "zip"
+   },
+   "zephyr_data02.zip": {
+    "Extension": "zip"
+   },
+   "zephyr_data03.zip": {
+    "Extension": "zip"
+   },
+   "zephyr_data04.zip": {
+    "Extension": "zip"
+   },
+   "zephyr_data05.zip": {
+    "Extension": "zip"
+   },
+   "zephyr_instructions.txt": {
+    "Extension": "txt"
+   },
+   "zephyr_manual.pdf": {
+    "Extension": "pdf"
+   },
+   "zephyr_run": {
+    "Extension": ""
+   },
+   "zephyr_training.pptx": {
+    "Extension": "pptx"
+   },
+   "zephyr_working_doc.docx": {
+    "Extension": "docx"
+   }
+  }
+ },
+ "T4_H16": {
+  "column": "ci_co_fl_4",
+  "information": "high",
+  "intended_options": 16,
+  "rubric_key": "Trial 4",
+  "options": {
+   "COMET_augUpdate.pptx": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "bob",
+    "Size": "532K",
+    "Modified": "Jul 22 11:45",
+    "Extension": "pptx"
+   },
+   "COMET_augUpdateWorkingDoc.docx": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "bob",
+    "Size": "26K",
+    "Modified": "Jul 20 13:21",
+    "Extension": "docx"
+   },
+   "COMET_bugResolution.pptx": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "james",
+    "Size": "417K",
+    "Modified": "Jul 22 15:11",
+    "Extension": "pptx"
+   },
+   "COMET_bugResolutionWorkingDoc.docx": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "james",
+    "Size": "27K",
+    "Modified": "Jul 21 17:55",
+    "Extension": "docx"
+   },
+   "COMET_monthlyReport.docx": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "alice",
+    "Size": "157K",
+    "Modified": "Jul 29 17:24",
+    "Extension": "docx"
+   },
+   "COMET_userBreakdown.pptx": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "jan",
+    "Size": "233K",
+    "Modified": "Jul 22 09:31",
+    "Extension": "pptx"
+   },
+   "COMET_userBreakdownWorkingDoc.docx": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "jan",
+    "Size": "36K",
+    "Modified": "Jul 19 13:13",
+    "Extension": "docx"
+   },
+   "processedUserData.xls": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "jan",
+    "Size": "255M",
+    "Modified": "Jul 3 11:24",
+    "Extension": "xls"
+   },
+   "process_userData.py": {
+    "Perm": "-rwxrwxr-x",
+    "Owner": "jan",
+    "Size": "1.3K",
+    "Modified": "Jul 3 09:17",
+    "Extension": "py"
+   },
+   "README.txt": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "jan",
+    "Size": "328",
+    "Modified": "Jul 7 10:43",
+    "Extension": "txt"
+   },
+   "userData1.enc": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "jan",
+    "Size": "153M",
+    "Modified": "Jul 2 14:14",
+    "Extension": "enc"
+   },
+   "userData2.enc": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "jan",
+    "Size": "162M",
+    "Modified": "Jul 2 14:14",
+    "Extension": "enc"
+   },
+   "userData3.enc": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "jan",
+    "Size": "92M",
+    "Modified": "Jul 2 14:14",
+    "Extension": "enc"
+   },
+   "userDataInstructionNotes.txt": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "jan",
+    "Size": "324",
+    "Modified": "Jul 3 17:23",
+    "Extension": "txt"
+   },
+   "userGraph.png": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "jan",
+    "Size": "43K",
+    "Modified": "Jul 3 16:44",
+    "Extension": "png"
+   },
+   "userReport.pdf": {
+    "Perm": "-rw-rw-r--",
+    "Owner": "jan",
+    "Size": "33K",
+    "Modified": "Jul 3 15:37",
+    "Extension": "pdf"
+   }
+  }
+ },
+ "T5_L32": {
+  "column": "ci_co_fl_5",
+  "information": "low",
+  "intended_options": 32,
+  "rubric_key": "Trial 5",
+  "options": {
+   "aug_monthly_update_working_doc.docx": {
+    "Extension": "docx"
+   },
+   "data_overview.docx": {
+    "Extension": "docx"
+   },
+   "JAPPA": {
+    "Extension": ""
+   },
+   "jappa_data1.zip": {
+    "Extension": "zip"
+   },
+   "jappa_data2.zip": {
+    "Extension": "zip"
+   },
+   "jappa_data3.zip": {
+    "Extension": "zip"
+   },
+   "jappa_data4.zip": {
+    "Extension": "zip"
+   },
+   "jappa_data5.zip": {
+    "Extension": "zip"
+   },
+   "jappa_data_graphic.png": {
+    "Extension": "png"
+   },
+   "jappa_Export.py": {
+    "Extension": "py"
+   },
+   "jappa_format_example.json": {
+    "Extension": "json"
+   },
+   "jappa_maintenance_manual.pdf": {
+    "Extension": "pdf"
+   },
+   "jappa_mapper.py": {
+    "Extension": "py"
+   },
+   "jappa_overview.pptx": {
+    "Extension": "pptx"
+   },
+   "jappa_parsed_1.xls": {
+    "Extension": "xls"
+   },
+   "jappa_parsed_2.xls": {
+    "Extension": "xls"
+   },
+   "jappa_system_analysis_v0.pptx": {
+    "Extension": "pptx"
+   },
+   "jappa_system_analysis_v1.1.pptx": {
+    "Extension": "pptx"
+   },
+   "jappa_system_analysis_v1.pptx": {
+    "Extension": "pptx"
+   },
+   "jappa_system_analysis_v2.pptx": {
+    "Extension": "pptx"
+   },
+   "jappa_template1.txt": {
+    "Extension": "txt"
+   },
+   "jappa_template2.txt": {
+    "Extension": "txt"
+   },
+   "jappa_template3.txt": {
+    "Extension": "txt"
+   },
+   "jappa_user_manual.pdf": {
+    "Extension": "pdf"
+   },
+   "notes.txt": {
+    "Extension": "txt"
+   },
+   "system1_benchmark.json": {
+    "Extension": "json"
+   },
+   "system2_benchmark.json": {
+    "Extension": "json"
+   },
+   "system3_benchmark.json": {
+    "Extension": "json"
+   },
+   "system_pack1.zip": {
+    "Extension": "zip"
+   },
+   "system_pack2.zip": {
+    "Extension": "zip"
+   },
+   "system_pack3.zip": {
+    "Extension": "zip"
+   },
+   "systems_graphic.png": {
+    "Extension": "png"
+   }
+  }
+ },
+ "T6_H32": {
+  "column": "ci_co_fl_6",
+  "information": "high",
+  "intended_options": 32,
+  "rubric_key": "Trial 6",
+  "options": {
+   "core_data1.enc": {
+    "Perm": "-rw-r--r--",
+    "Owner": "james",
+    "Size": "452M",
+    "Modified": "May 3 13:25",
+    "Extension": "enc"
+   },
+   "core_data2.enc": {
+    "Perm": "-rw-r--r--",
+    "Owner": "james",
+    "Size": "331M",
+    "Modified": "May 3 13:25",
+    "Extension": "enc"
+   },
+   "cvv_report.pdf": {
+    "Perm": "-rw-r--r--",
+    "Owner": "james",
+    "Size": "15K",
+    "Modified": "May 15 16:31",
+    "Extension": "pdf"
+   },
+   "datadump01.zip": {
+    "Perm": "-rw-r--r--",
+    "Owner": "james",
+    "Size": "1.3G",
+    "Modified": "May 8 13:35",
+    "Extension": "zip"
+   },
+   "datadump02.zip": {
+    "Perm": "-rw-r--r--",
+    "Owner": "james",
+    "Size": "1.6G",
+    "Modified": "Jun 1 09:47",
+    "Extension": "zip"
+   },
+   "datadump03.zip": {
+    "Perm": "-rw-r--r--",
+    "Owner": "james",
+    "Size": "743M",
+    "Modified": "Jul 2 13:33",
+    "Extension": "zip"
+   },
+   "datadump_graph1.png": {
+    "Perm": "-rw-r--r--",
+    "Owner": "bob",
+    "Size": "153K",
+    "Modified": "May 15 11:10",
+    "Extension": "png"
+   },
+   "datadump_graph2.png": {
+    "Perm": "-rw-r--r--",
+    "Owner": "bob",
+    "Size": "154K",
+    "Modified": "Jun 4 23:23",
+    "Extension": "png"
+   },
+   "datadump_graph3.png": {
+    "Perm": "-rw-r--r--",
+    "Owner": "bob",
+    "Size": "149K",
+    "Modified": "Jul 4 09:10",
+    "Extension": "png"
+   },
+   "datadump_tracker.txt": {
+    "Perm": "-rw-r--r--",
+    "Owner": "bob",
+    "Size": "2.5K",
+    "Modified": "Jul 4 14:14",
+    "Extension": "txt"
+   },
+   "data_parse.py": {
+    "Perm": "-rw-r--r--",
+    "Owner": "bob",
+    "Size": "1.0K",
+    "Modified": "May 11 16:22",
+    "Extension": "py"
+   },
+   "data_sort.py": {
+    "Perm": "-rw-r--r--",
+    "Owner": "bob",
+    "Size": "873",
+    "Modified": "May 12 18:32",
+    "Extension": "py"
+   },
+   "dump01_parsed.xls": {
+    "Perm": "-rw-r--r--",
+    "Owner": "bob",
+    "Size": "16K",
+    "Modified": "May 14 16:15",
+    "Extension": "xls"
+   },
+   "dump02_parsed.xls": {
+    "Perm": "-rw-r--r--",
+    "Owner": "bob",
+    "Size": "20K",
+    "Modified": "Jun 4 08:15",
+    "Extension": "xls"
+   },
+   "dump03_parsed.xls": {
+    "Perm": "-rw-r--r--",
+    "Owner": "bob",
+    "Size": "9.0K",
+    "Modified": "Jul 3 10:55",
+    "Extension": "xls"
+   },
+   "generate_graph.py": {
+    "Perm": "-rw-r--r--",
+    "Owner": "bob",
+    "Size": "1.3K",
+    "Modified": "May 13 10:55",
+    "Extension": "py"
+   },
+   "generate_png.py": {
+    "Perm": "-rw-r--r--",
+    "Owner": "bob",
+    "Size": "498",
+    "Modified": "May 13 2025",
+    "Extension": "py"
+   },
+   "generate_report.py": {
+    "Perm": "-rw-r--r--",
+    "Owner": "alice",
+    "Size": "4.0K",
+    "Modified": "Jul 28 13:10",
+    "Extension": "py"
+   },
+   "jul_monthly_overview.pdf": {
+    "Perm": "-rw-r--r--",
+    "Owner": "alice",
+    "Size": "17K",
+    "Modified": "Jul 28 13:10",
+    "Extension": "pdf"
+   },
+   "jul_report.pptx": {
+    "Perm": "-rw-r--r--",
+    "Owner": "alice",
+    "Size": "423K",
+    "Modified": "Jul 28 10:00",
+    "Extension": "pptx"
+   },
+   "jul_working_doc.docx": {
+    "Perm": "-rw-rw-rw-",
+    "Owner": "alice",
+    "Size": "31K",
+    "Modified": "Jul 27 15:29",
+    "Extension": "docx"
+   },
+   "jun_monthly_overview.pdf": {
+    "Perm": "-rw-r--r--",
+    "Owner": "alice",
+    "Size": "15K",
+    "Modified": "Jun 29 14:12",
+    "Extension": "pdf"
+   },
+   "jun_report.pptx": {
+    "Perm": "-rw-r--r--",
+    "Owner": "alice",
+    "Size": "332K",
+    "Modified": "Jun 29 12:24",
+    "Extension": "pptx"
+   },
+   "jun_working_doc.docx": {
+    "Perm": "-rw-r--r--",
+    "Owner": "alice",
+    "Size": "27K",
+    "Modified": "Jun 24 14:25",
+    "Extension": "docx"
+   },
+   "may_monthly_overview.pdf": {
+    "Perm": "-rw-r--r--",
+    "Owner": "alice",
+    "Size": "16K",
+    "Modified": "May 31 12:03",
+    "Extension": "pdf"
+   },
+   "may_report.pptx": {
+    "Perm": "-rw-r--r--",
+    "Owner": "alice",
+    "Size": "356K",
+    "Modified": "May 31 16:23",
+    "Extension": "pptx"
+   },
+   "may_working_doc.docx": {
+    "Perm": "-rw-r--r--",
+    "Owner": "alice",
+    "Size": "35K",
+    "Modified": "May 31 16:23",
+    "Extension": "docx"
+   },
+   "proceed_notes.txt": {
+    "Perm": "-rw-r--r--",
+    "Owner": "alice",
+    "Size": "3.0K",
+    "Modified": "Jul 28 15:23",
+    "Extension": "txt"
+   },
+   "process_1": {
+    "Perm": "-rwxrwxrwx",
+    "Owner": "james",
+    "Size": "34K",
+    "Modified": "May 5 14:43",
+    "Extension": ""
+   },
+   "process_2": {
+    "Perm": "-rwxrwxrwx",
+    "Owner": "james",
+    "Size": "24K",
+    "Modified": "May 5 14:44",
+    "Extension": ""
+   },
+   "README.txt": {
+    "Perm": "-rw-r--r--",
+    "Owner": "bob",
+    "Size": "534",
+    "Modified": "Jul 29 19:23",
+    "Extension": "txt"
+   },
+   "vnr_report.pdf": {
+    "Perm": "-rw-r--r--",
+    "Owner": "james",
+    "Size": "23K",
+    "Modified": "May 14 17:44",
+    "Extension": "pdf"
+   }
+  }
+ }
+}
