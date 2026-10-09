@@ -10,7 +10,7 @@ When displays grow in the number of options and in the attributes shown for each
 
 | | Behavior | Algorithm |
 |---|---|---|
-| H1 Narrowing with set size | B1 done. Large gap in both tasks, growing with set size for laptops only | A1a done, noise rejected for laptops, uniform sharpening not supported. A1b done, rubric screening predicts poorly |
+| H1 Narrowing with set size | B1 done. Large gap in both tasks, growing with set size for laptops only. Confirmatory C1 (choices across screen positions) frozen in Amendment 3 | A1a done, noise rejected for laptops, uniform sharpening not supported. A1b done, rubric screening predicts poorly. Confirmatory C2 (set size scaling) and C3 (narrowing against noise with gaze) frozen in Amendment 3 |
 | H2 Comparison under sparse information | B2 revealed weights, known for laptops | A2 known on development data, confirmatory dataset to fix |
 | H3 Inputs over rules | B3 known | A3a ladder known, A3b independent cue to fix and run |
 | H4 Cost depends on cue validity | to specify | to specify |
@@ -22,6 +22,7 @@ When displays grow in the number of options and in the attributes shown for each
 | 1.0 | 9 Oct 2026 | 6bc0e96185501c9ae5bf2fcd14a6a2fb617466ee3c740d505e4eb773e5c75cd8 |
 | 1.0 with Amendment 1 | 9 Oct 2026 | 2953b6ecaf8420cacc3e7112d8effd153e986e4cae1c34887a2d1130729e6ed0 |
 | 1.0 with Amendments 1 and 2 | 9 Oct 2026 | f3b624d8c2500f4e711520e60939cf18d83826f49654df232152d3da9bcbaad2 |
+| 1.0 with Amendments 1 to 3 | 9 Oct 2026 | bd138487b4209818aacb5e68ffbd5cd8693e4e44461cfc819ed60e9c3ab8d519 |
 
 ## Results log
 
