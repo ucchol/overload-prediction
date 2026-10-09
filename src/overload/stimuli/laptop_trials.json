@@ -1,0 +1,926 @@
+{
+ "LT1_L8": {
+  "column": "em_co_lp_1",
+  "information": "low",
+  "intended_options": 8,
+  "rubric_key": "Trial 1",
+  "options": {
+   "A": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Integrated",
+    "Price": 1310
+   },
+   "B": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 2GB",
+    "Price": 1450
+   },
+   "C": {
+    "RAM": "4GB",
+    "HD": "128GB SSD",
+    "GPU": "Integrated",
+    "Price": 1400
+   },
+   "D": {
+    "RAM": "32GB",
+    "HD": "1TB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1500
+   },
+   "E": {
+    "RAM": "8GB",
+    "HD": "256GB HDD",
+    "GPU": "Integrated",
+    "Price": 1420
+   },
+   "F": {
+    "RAM": "16GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1480
+   },
+   "G": {
+    "RAM": "4GB",
+    "HD": "500GB HDD",
+    "GPU": "Integrated 8GB",
+    "Price": 1450
+   },
+   "H": {
+    "RAM": "4GB",
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 8GB",
+    "Price": 1410
+   }
+  }
+ },
+ "LT2_H8": {
+  "column": "em_co_lp_2",
+  "information": "high",
+  "intended_options": 8,
+  "rubric_key": "Trial 2",
+  "options": {
+   "A": {
+    "RAM": "16GB",
+    "HD": "128GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "8",
+    "Screen": "14",
+    "Price": 1400,
+    "Processor": "Intel i7",
+    "Brand": "Lusail"
+   },
+   "B": {
+    "RAM": "4GB",
+    "HD": "1TB SSD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "10",
+    "Screen": "15.6",
+    "Price": 1450,
+    "Processor": "Intel i9",
+    "Brand": "Asphalt"
+   },
+   "C": {
+    "RAM": "16GB",
+    "HD": "1TB HDD",
+    "GPU": "Integrated",
+    "Battery": "7",
+    "Screen": "14.1",
+    "Price": 1475,
+    "Processor": "AMD Ryzen 5",
+    "Brand": "Silverstone"
+   },
+   "D": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Integrated",
+    "Battery": "6",
+    "Screen": "13",
+    "Price": 1400,
+    "Processor": "Intel i5",
+    "Brand": "Zinx"
+   },
+   "E": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "8",
+    "Screen": "14",
+    "Price": 1450,
+    "Processor": "Intel i3",
+    "Brand": "Monza"
+   },
+   "F": {
+    "RAM": "32GB",
+    "HD": "2TB SSD",
+    "GPU": "Integrated",
+    "Battery": "12",
+    "Screen": "17",
+    "Price": 1500,
+    "Processor": "AMD Ryzen 7",
+    "Brand": "Aurora"
+   },
+   "G": {
+    "RAM": "4GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 2GB",
+    "Battery": "6",
+    "Screen": "15",
+    "Price": 1425,
+    "Processor": "Intel i5",
+    "Brand": "Suboptimal"
+   },
+   "H": {
+    "RAM": "8GB",
+    "HD": "128GB HDD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "9",
+    "Screen": "14",
+    "Price": 1480,
+    "Processor": "Intel i3",
+    "Brand": "Asphalt"
+   }
+  }
+ },
+ "LT3_L16": {
+  "column": "em_co_lp_3",
+  "information": "low",
+  "intended_options": 16,
+  "rubric_key": "Trial 3",
+  "options": {
+   "A": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Integrated",
+    "Price": 1300
+   },
+   "B": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 2GB",
+    "Price": 1400
+   },
+   "C": {
+    "RAM": "8GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1350
+   },
+   "D": {
+    "RAM": "16GB",
+    "HD": "256GB SSD",
+    "GPU": "Integrated",
+    "Price": 1400
+   },
+   "E": {
+    "RAM": "32GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1500
+   },
+   "F": {
+    "RAM": "16GB",
+    "HD": "1TB SSD",
+    "GPU": "Integrated",
+    "Price": 1450
+   },
+   "G": {
+    "RAM": "8GB",
+    "HD": "512GB HDD",
+    "GPU": "Dedicated 2GB",
+    "Price": 1350
+   },
+   "H": {
+    "RAM": "32GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 8GB",
+    "Price": 1500
+   },
+   "I": {
+    "RAM": "16GB",
+    "HD": "256GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1450
+   },
+   "J": {
+    "RAM": "32GB",
+    "HD": "512GB SSD",
+    "GPU": "Integrated",
+    "Price": 1500
+   },
+   "K": {
+    "RAM": "8GB",
+    "HD": "1TB SSD",
+    "GPU": "Dedicated 2GB",
+    "Price": 1400
+   },
+   "L": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 8GB",
+    "Price": 1500
+   },
+   "M": {
+    "RAM": "32GB",
+    "HD": "1TB HDD",
+    "GPU": "Integrated",
+    "Price": 1450
+   },
+   "N": {
+    "RAM": "16GB",
+    "HD": "1TB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1500
+   },
+   "O": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Dedicated 8GB",
+    "Price": 1350
+   },
+   "P": {
+    "RAM": "32GB",
+    "HD": "512GB HDD",
+    "GPU": "Dedicated 2GB",
+    "Price": 1450
+   }
+  }
+ },
+ "LT4_H16": {
+  "column": "em_co_lp_4",
+  "information": "high",
+  "intended_options": 16,
+  "rubric_key": "Trial 4",
+  "options": {
+   "A": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "8",
+    "Screen": "14",
+    "Processor": "Intel i7",
+    "Brand": "Lusail",
+    "Price": 1600
+   },
+   "B": {
+    "RAM": "32GB",
+    "HD": "1TB SSD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "10",
+    "Screen": "15.6",
+    "Processor": "Intel i9",
+    "Brand": "Monza",
+    "Price": 1610
+   },
+   "C": {
+    "RAM": "16GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "7",
+    "Screen": "14.1",
+    "Processor": "AMD Ryzen 5",
+    "Brand": "Aurora",
+    "Price": 1620
+   },
+   "D": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Integrated",
+    "Battery": "6",
+    "Screen": "13",
+    "Processor": "Intel i5",
+    "Brand": "Asphalt",
+    "Price": 1630
+   },
+   "E": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "8",
+    "Screen": "14",
+    "Processor": "Intel i7",
+    "Brand": "Silverstone",
+    "Price": 1640
+   },
+   "F": {
+    "RAM": "32GB",
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "12",
+    "Screen": "17",
+    "Processor": "AMD Ryzen 7",
+    "Brand": "Yellow",
+    "Price": 1650
+   },
+   "G": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Integrated",
+    "Battery": "6",
+    "Screen": "15",
+    "Processor": "Intel i5",
+    "Brand": "Zinx",
+    "Price": 1660
+   },
+   "H": {
+    "RAM": "8GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "9",
+    "Screen": "14",
+    "Processor": "Intel i3",
+    "Brand": "Suboptimal",
+    "Price": 1670
+   },
+   "I": {
+    "RAM": "32GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "11",
+    "Screen": "15.6",
+    "Processor": "Intel i9",
+    "Brand": "Silverstone",
+    "Price": 1680
+   },
+   "J": {
+    "RAM": "16GB",
+    "HD": "1TB SSD",
+    "GPU": "Integrated",
+    "Battery": "7",
+    "Screen": "14.1",
+    "Processor": "AMD Ryzen 5",
+    "Brand": "Aurora",
+    "Price": 1690
+   },
+   "K": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "8",
+    "Screen": "13",
+    "Processor": "Intel i5",
+    "Brand": "Monza",
+    "Price": 1605
+   },
+   "L": {
+    "RAM": "32GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "10",
+    "Screen": "17",
+    "Processor": "Intel i7",
+    "Brand": "Suboptimal",
+    "Price": 1615
+   },
+   "M": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Integrated",
+    "Battery": "6",
+    "Screen": "14",
+    "Processor": "AMD Ryzen 7",
+    "Brand": "Suboptimal",
+    "Price": 1625
+   },
+   "N": {
+    "RAM": "32GB",
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "12",
+    "Screen": "15",
+    "Processor": "Intel i3",
+    "Brand": "Yellow",
+    "Price": 1635
+   },
+   "O": {
+    "RAM": "16GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "9",
+    "Screen": "14",
+    "Processor": "Intel i9",
+    "Brand": "Aurora",
+    "Price": 1645
+   },
+   "P": {
+    "RAM": "8GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "7",
+    "Screen": "15",
+    "Processor": "Intel i7",
+    "Brand": "Yellow",
+    "Price": 1655
+   }
+  }
+ },
+ "LT5_L32": {
+  "column": "em_co_lp_5",
+  "information": "low",
+  "intended_options": 32,
+  "rubric_key": "Trial 5",
+  "options": {
+   "A": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1810
+   },
+   "B": {
+    "RAM": "32GB",
+    "HD": "1TB SSD",
+    "GPU": "Dedicated 8GB",
+    "Price": 1812
+   },
+   "C": {
+    "RAM": "16GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1815
+   },
+   "D": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Integrated",
+    "Price": 1818
+   },
+   "E": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1819
+   },
+   "F": {
+    "RAM": "32GB",
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 8GB",
+    "Price": 1825
+   },
+   "G": {
+    "RAM": "16GB",
+    "HD": "512GB HDD",
+    "GPU": "Integrated",
+    "Price": 1820
+   },
+   "H": {
+    "RAM": "32GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 8GB",
+    "Price": 1828
+   },
+   "I": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1830
+   },
+   "J": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Integrated",
+    "Price": 1833
+   },
+   "K": {
+    "RAM": "16GB",
+    "HD": "512GB HDD",
+    "GPU": "Dedicated 2GB",
+    "Price": 1835
+   },
+   "L": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 8GB",
+    "Price": 1838
+   },
+   "M": {
+    "RAM": "32GB",
+    "HD": "1TB HDD",
+    "GPU": "Integrated",
+    "Price": 1840
+   },
+   "N": {
+    "RAM": "16GB",
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1843
+   },
+   "O": {
+    "RAM": "32GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 2GB",
+    "Price": 1845
+   },
+   "P": {
+    "RAM": "16GB",
+    "HD": "1TB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1848
+   },
+   "Q": {
+    "RAM": "32GB",
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1850
+   },
+   "R": {
+    "RAM": "32GB",
+    "HD": "1TB SSD",
+    "GPU": "Integrated",
+    "Price": 1852
+   },
+   "S": {
+    "RAM": "16GB",
+    "HD": "512GB HDD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1855
+   },
+   "T": {
+    "RAM": "8GB",
+    "HD": "256GB HDD",
+    "GPU": "Dedicated 8GB",
+    "Price": 1858
+   },
+   "U": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1860
+   },
+   "V": {
+    "RAM": "16GB",
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 8GB",
+    "Price": 1863
+   },
+   "W": {
+    "RAM": "16GB",
+    "HD": "512GB HDD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1865
+   },
+   "X": {
+    "RAM": "32GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1868
+   },
+   "Y": {
+    "RAM": "16GB",
+    "HD": "256GB SSD",
+    "GPU": "Dedicated 2GB",
+    "Price": 1870
+   },
+   "Z": {
+    "RAM": "32GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1873
+   },
+   "AA": {
+    "RAM": "16GB",
+    "HD": "1TB SSD",
+    "GPU": "Integrated 8GB",
+    "Price": 1875
+   },
+   "BB": {
+    "RAM": "32GB",
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 8GB",
+    "Price": 1878
+   },
+   "CC": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1880
+   },
+   "DD": {
+    "RAM": "32GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 2GB",
+    "Price": 1811
+   },
+   "EE": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Integrated",
+    "Price": 1816
+   },
+   "FF": {
+    "RAM": "32GB",
+    "HD": "1TB SSD",
+    "GPU": "Dedicated 8GB",
+    "Price": 1819
+   }
+  }
+ },
+ "LT6_H32": {
+  "column": "em_co_lp_6",
+  "information": "high",
+  "intended_options": 32,
+  "rubric_key": "Trial 6",
+  "options": {
+   "A": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "8",
+    "Screen": "14",
+    "Processor": "Intel i7",
+    "Brand": "Monza",
+    "Price": 1810
+   },
+   "B": {
+    "RAM": "32GB",
+    "HD": "1TB SSD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "10",
+    "Screen": "15.6",
+    "Processor": "Intel i9",
+    "Brand": "Aurora",
+    "Price": 1815
+   },
+   "C": {
+    "RAM": "16GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "7",
+    "Screen": "14.1",
+    "Processor": "AMD Ryzen 5",
+    "Brand": "Silverstone",
+    "Price": 1820
+   },
+   "D": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Integrated",
+    "Battery": "6",
+    "Screen": "13",
+    "Processor": "Intel i5",
+    "Brand": "Yellow",
+    "Price": 1825
+   },
+   "E": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "8",
+    "Screen": "14",
+    "Processor": "Intel i7",
+    "Brand": "Asphalt",
+    "Price": 1830
+   },
+   "F": {
+    "RAM": "32GB",
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "12",
+    "Screen": "17",
+    "Processor": "AMD Ryzen 7",
+    "Brand": "Zinx",
+    "Price": 1835
+   },
+   "G": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Integrated",
+    "Battery": "6",
+    "Screen": "15",
+    "Processor": "Intel i5",
+    "Brand": "Suboptimal",
+    "Price": 1840
+   },
+   "H": {
+    "RAM": "8GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "9",
+    "Screen": "14",
+    "Processor": "Intel i3",
+    "Brand": "Aurora",
+    "Price": 1845
+   },
+   "I": {
+    "RAM": "32GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "11",
+    "Screen": "15.6",
+    "Processor": "Intel i9",
+    "Brand": "Lusail",
+    "Price": 1850
+   },
+   "J": {
+    "RAM": "16GB",
+    "HD": "1TB SSD",
+    "GPU": "Integrated",
+    "Battery": "7",
+    "Screen": "14.1",
+    "Processor": "AMD Ryzen 5",
+    "Brand": "Lusail",
+    "Price": 1855
+   },
+   "K": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "8",
+    "Screen": "13",
+    "Processor": "Intel i5",
+    "Brand": "Asphalt",
+    "Price": 1860
+   },
+   "L": {
+    "RAM": "32GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "10",
+    "Screen": "17",
+    "Processor": "Intel i7",
+    "Brand": "Yellow",
+    "Price": 1865
+   },
+   "M": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Integrated",
+    "Battery": "6",
+    "Screen": "14",
+    "Processor": "AMD Ryzen 7",
+    "Brand": "Monza",
+    "Price": 1870
+   },
+   "N": {
+    "RAM": "32GB",
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "12",
+    "Screen": "15",
+    "Processor": "Intel i3",
+    "Brand": "Lusail",
+    "Price": 1875
+   },
+   "O": {
+    "RAM": "16GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "9",
+    "Screen": "14",
+    "Processor": "Intel i9",
+    "Brand": "Silverstone",
+    "Price": 1880
+   },
+   "P": {
+    "RAM": "8GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "7",
+    "Screen": "15",
+    "Processor": "Intel i7",
+    "Brand": "Silverstone",
+    "Price": 1882
+   },
+   "Q": {
+    "RAM": "32GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "8",
+    "Screen": "14",
+    "Processor": "Intel i5",
+    "Brand": "Aurora",
+    "Price": 1822
+   },
+   "R": {
+    "RAM": "16GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "10",
+    "Screen": "15.6",
+    "Processor": "AMD Ryzen 5",
+    "Brand": "Yellow",
+    "Price": 1827
+   },
+   "S": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Integrated",
+    "Battery": "6",
+    "Screen": "13",
+    "Processor": "Intel i5",
+    "Brand": "Yellow",
+    "Price": 1832
+   },
+   "T": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "8",
+    "Screen": "14",
+    "Processor": "Intel i7",
+    "Brand": "Asphalt",
+    "Price": 1837
+   },
+   "U": {
+    "RAM": "32GB",
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "12",
+    "Screen": "17",
+    "Processor": "AMD Ryzen 7",
+    "Brand": "Zinx",
+    "Price": 1842
+   },
+   "V": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Integrated",
+    "Battery": "6",
+    "Screen": "15",
+    "Processor": "Intel i5",
+    "Brand": "Zinx",
+    "Price": 1847
+   },
+   "W": {
+    "RAM": "32GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "10",
+    "Screen": "15.6",
+    "Processor": "Intel i5",
+    "Brand": "Monza",
+    "Price": 1852
+   },
+   "X": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "11",
+    "Screen": "15.6",
+    "Processor": "Intel i7",
+    "Brand": "Monza",
+    "Price": 1857
+   },
+   "Y": {
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Integrated",
+    "Battery": "6",
+    "Screen": "13",
+    "Processor": "Intel i5",
+    "Brand": "Silverstone",
+    "Price": 1862
+   },
+   "Z": {
+    "RAM": "32GB",
+    "HD": "1TB SSD",
+    "GPU": "Integrated",
+    "Battery": "6",
+    "Screen": "14",
+    "Processor": "AMD Ryzen 5",
+    "Brand": "Monza",
+    "Price": 1867
+   },
+   "AA": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "8",
+    "Screen": "13",
+    "Processor": "Intel i5",
+    "Brand": "Silverstone",
+    "Price": 1872
+   },
+   "BB": {
+    "RAM": "32GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 8GB",
+    "Battery": "10",
+    "Screen": "17",
+    "Processor": "Intel i7",
+    "Brand": "Yellow",
+    "Price": 1877
+   },
+   "CC": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Integrated",
+    "Battery": "6",
+    "Screen": "14",
+    "Processor": "Intel i5",
+    "Brand": "Zinx",
+    "Price": 1881
+   },
+   "DD": {
+    "RAM": "16GB",
+    "HD": "1TB HDD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "9",
+    "Screen": "14",
+    "Processor": "Intel i9",
+    "Brand": "Lusail",
+    "Price": 1816
+   }
+  }
+ }
+}
