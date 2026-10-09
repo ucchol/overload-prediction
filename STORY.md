@@ -61,7 +61,7 @@ Story so far. Comparing options with each other, averaged over rivals, predicts 
 
 Reading.
 - People narrowed. Their choices were far more concentrated than CL's held out predictions in every trial but one, by 25.7 points of the set for files and 16.7 for laptops, and for laptops the gap widened with every doubling of the options (from +2.0 and -6.2 points at 8 options to -31.9 and -18.4 at 32).
-- The noise account failed. Lowering the sensitivity as sets grow cut laptop completeness by 13.6 points and left files unchanged, in all three model families.
+- The noise account failed. Lowering the sensitivity as sets grow cut laptop completeness in all three model families (by 13.6 points for CL) and left files unchanged.
 - Uniform sharpening failed too. Raising the sensitivity with set size hurt files by 3.0 points in all three families and did not clearly help laptops. Summing comparisons over rivals (beta +1) was worse still, as in R0.
 - Screening on the rubric's attributes in the rubric's order predicted badly, 32 to 34 points below CL in both tasks (and below a uniform guess for files). Its deficit shrank from 8 to 32 file options, which passes the pre-specified A1b rule for files, but it never overtook CL, so we do not read it as evidence for this screening mechanism.
 
