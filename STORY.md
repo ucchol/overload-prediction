@@ -80,6 +80,17 @@ The reimplementation raised issues with the inputs (`verification/README.md`).
 
 Status. File results stand. Laptop results are provisional until the displays and the laptop rubric are confirmed.
 
+### 9 Oct 2026. Exploratory. Laptop rubric shares from laptop trials 1 to 4
+
+Verified twice (second run identical, independent agreement on every value). `results/exploratory/laptop_rubric_1to4`.
+
+- Shares without trials 5 and 6: memory 0.31, graphics 0.30, storage 0.27, processor 0.12, battery and brand 0 (before 0.28, 0.28, 0.28, 0.14, 0.03 and 0).
+- Every model built on the shares predicted unseen laptop trials better, by 1.4 to 2.6 points at every set size. CL 52.9 [41.0, 65.1] against 50.3, DbS_avg 57.8 against 55.3, MLBA_avg 59.2 against 57.2. QR, which reads the rubric directly, stayed at 47.2 and now trails CL clearly (-5.7 [-9.7, -1.9]).
+- The comparison models' advantage over CL held (DbS_avg +4.9 [2.8, 7.3], MLBA_avg +6.3 [2.9, 10.4], both clear).
+- No H1 decision changed. B1 gap -15.5 [-18.8, -12.1] and slope -11.7 [-15.5, -7.6] per doubling, both clear. CL at beta -0.5 minus beta 0 was -14.0 [-19.2, -9.2], clear, and beta +0.5 minus beta 0 was +1.8 [-1.9, 5.5]. EBA's 32 minus 8 contrast was -0.42 bits, clear and opposite to the prediction.
+
+Reading. The two 32 option laptop rubrics add noise rather than signal, which fits a scoring or labeling error there. The laptop conclusions do not depend on them.
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.

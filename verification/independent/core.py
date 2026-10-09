@@ -176,14 +176,16 @@ def eba_probs(X: np.ndarray, r: np.ndarray, rule: str) -> np.ndarray:
 
 
 # ============================================================================ task container
-def build_task(task: str) -> dict:
+def build_task(task: str, rubric_trials: list[int] | None = None) -> dict:
+    """All six trials are always modelled; ``rubric_trials`` only restricts the NNLS for r."""
     trials = load_trials(task)
     C = len(trials)
     I = max(t["n"] for t in trials)
     valid = np.zeros((C, I), bool)
     for c, t in enumerate(trials):
         valid[c, : t["n"]] = True
-    r = rubric_shares(trials, N_RUBRIC_ATTRS[task])
+    stack = trials if rubric_trials is None else [trials[i] for i in rubric_trials]
+    r = rubric_shares(stack, N_RUBRIC_ATTRS[task])
     V = np.zeros((len(SOFTMAX_MODELS), C, I))
     for c, t in enumerate(trials):
         sc = trial_scores(t, r)
