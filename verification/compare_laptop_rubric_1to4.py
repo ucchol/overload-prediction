@@ -2,7 +2,7 @@
 
 Usage
     python verification/compare_laptop_rubric_1to4.py --data PATH_TO_CSV --independent PATH/sens_laptop_1to4.json \
-        --results results/exploratory/laptop_rubric_1to4 [--rerun DIR]
+        --results results/superseded/laptop_rubric_1to4 [--rerun DIR]
 """
 
 from __future__ import annotations
@@ -23,7 +23,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--data", type=Path, required=True)
     ap.add_argument("--independent", type=Path, required=True)
-    ap.add_argument("--results", type=Path, default=Path("results/exploratory/laptop_rubric_1to4"))
+    ap.add_argument("--results", type=Path, default=Path("results/superseded/laptop_rubric_1to4"))
     ap.add_argument("--rerun", type=Path)
     args = ap.parse_args()
 

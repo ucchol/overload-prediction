@@ -24,7 +24,9 @@ OLD = {"QR": "qra", "CL": "cl", "DbS_sum": "dbs", "MLBA_sum": "mlba"}
 
 @pytest.fixture(scope="module")
 def study():
-    tasks = load_study(DATA)
+    # The earlier pipeline used the laptop definitions that Amendment 4 corrected, so the reproduction
+    # test runs on those definitions.
+    tasks = load_study(DATA, laptop="aamas")
     models = baseline_models()
     return tasks, models, precompute_bases(tasks, models)
 

@@ -96,11 +96,14 @@ def _match(value: object, index: dict[str, int]) -> int | None:
     return None
 
 
-def load_task(df: pd.DataFrame, name: str) -> Task:
-    """Build one task from the data frame of the original study."""
+def load_task(df: pd.DataFrame, name: str, stimuli: str | None = None) -> Task:
+    """Build one task from the data frame of the original study.
+
+    ``stimuli`` names the option definitions in ``overload.stimuli``, by default ``{name}_trials.json``.
+    """
     if name not in TASKS:
         raise ValueError(f"unknown task {name!r}")
-    spec = _stimuli(f"{name}_trials.json")
+    spec = _stimuli(stimuli or f"{name}_trials.json")
     rubric = _stimuli("rubric.json")[name]
     coder = code_file_trial if name == "file" else code_laptop_trial
     attributes = FILE_ATTRIBUTES if name == "file" else LAPTOP_ATTRIBUTES
@@ -143,7 +146,24 @@ def load_task(df: pd.DataFrame, name: str) -> Task:
     )
 
 
-def load_study(csv_path: str | Path) -> dict[str, Task]:
-    """Load both tasks of the original study from its data file."""
+LAPTOP_STIMULI = {
+    # The study's storyboard, which the designers' rubric scores follow (plan, Amendment 4).
+    "storyboard": "laptop_trials.json",
+    # The definitions of the earlier (AAMAS) pipeline, which differ in laptop trials 5 and 6. Kept only to
+    # test that the rebuilt pipeline reproduces the earlier one.
+    "aamas": "laptop_trials_aamas.json",
+}
+
+
+def load_study(csv_path: str | Path, laptop: str = "storyboard") -> dict[str, Task]:
+    """Load both tasks of the original study from its data file.
+
+    ``laptop`` selects the laptop option definitions, "storyboard" (the study's displays) or "aamas".
+    """
+    if laptop not in LAPTOP_STIMULI:
+        raise ValueError(f"unknown laptop definitions {laptop!r}")
     df = pd.read_csv(csv_path)
-    return {name: load_task(df, name) for name in TASKS}
+    return {
+        "file": load_task(df, "file"),
+        "laptop": load_task(df, "laptop", LAPTOP_STIMULI[laptop]),
+    }

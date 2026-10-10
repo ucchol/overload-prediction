@@ -449,19 +449,19 @@
     "RAM": "16GB",
     "HD": "512GB SSD",
     "GPU": "Dedicated 4GB",
-    "Price": 1819
+    "Price": 1820
    },
    "F": {
     "RAM": "32GB",
     "HD": "2TB SSD",
     "GPU": "Dedicated 8GB",
-    "Price": 1825
+    "Price": 1823
    },
    "G": {
     "RAM": "16GB",
     "HD": "512GB HDD",
     "GPU": "Integrated",
-    "Price": 1820
+    "Price": 1825
    },
    "H": {
     "RAM": "32GB",
@@ -471,19 +471,19 @@
    },
    "I": {
     "RAM": "16GB",
-    "HD": "512GB SSD",
+    "HD": "256GB SSD",
     "GPU": "Dedicated 4GB",
     "Price": 1830
    },
    "J": {
-    "RAM": "8GB",
-    "HD": "256GB SSD",
+    "RAM": "32GB",
+    "HD": "512GB SSD",
     "GPU": "Integrated",
     "Price": 1833
    },
    "K": {
-    "RAM": "16GB",
-    "HD": "512GB HDD",
+    "RAM": "8GB",
+    "HD": "1TB SSD",
     "GPU": "Dedicated 2GB",
     "Price": 1835
    },
@@ -506,28 +506,28 @@
     "Price": 1843
    },
    "O": {
-    "RAM": "32GB",
-    "HD": "512GB SSD",
-    "GPU": "Dedicated 2GB",
+    "RAM": "8GB",
+    "HD": "256GB SSD",
+    "GPU": "Dedicated 8GB",
     "Price": 1845
    },
    "P": {
-    "RAM": "16GB",
-    "HD": "1TB SSD",
-    "GPU": "Dedicated 4GB",
+    "RAM": "32GB",
+    "HD": "512GB HDD",
+    "GPU": "Dedicated 2GB",
     "Price": 1848
    },
    "Q": {
-    "RAM": "32GB",
-    "HD": "2TB SSD",
-    "GPU": "Dedicated 4GB",
+    "RAM": "16GB",
+    "HD": "1TB SSD",
+    "GPU": "Integrated",
     "Price": 1850
    },
    "R": {
     "RAM": "32GB",
-    "HD": "1TB SSD",
-    "GPU": "Integrated",
-    "Price": 1852
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 4GB",
+    "Price": 1853
    },
    "S": {
     "RAM": "16GB",
@@ -537,31 +537,31 @@
    },
    "T": {
     "RAM": "8GB",
-    "HD": "256GB HDD",
+    "HD": "1TB HDD",
     "GPU": "Dedicated 8GB",
     "Price": 1858
    },
    "U": {
-    "RAM": "8GB",
+    "RAM": "32GB",
     "HD": "256GB SSD",
-    "GPU": "Dedicated 4GB",
+    "GPU": "Integrated",
     "Price": 1860
    },
    "V": {
     "RAM": "16GB",
-    "HD": "2TB SSD",
+    "HD": "1TB SSD",
     "GPU": "Dedicated 8GB",
     "Price": 1863
    },
    "W": {
-    "RAM": "16GB",
+    "RAM": "8GB",
     "HD": "512GB HDD",
-    "GPU": "Dedicated 4GB",
+    "GPU": "Integrated",
     "Price": 1865
    },
    "X": {
     "RAM": "32GB",
-    "HD": "1TB HDD",
+    "HD": "2TB HDD",
     "GPU": "Dedicated 4GB",
     "Price": 1868
    },
@@ -578,33 +578,33 @@
     "Price": 1873
    },
    "AA": {
-    "RAM": "16GB",
-    "HD": "1TB SSD",
-    "GPU": "Integrated 8GB",
+    "RAM": "8GB",
+    "HD": "1TB HDD",
+    "GPU": "Integrated",
     "Price": 1875
    },
    "BB": {
-    "RAM": "32GB",
+    "RAM": "16GB",
     "HD": "2TB SSD",
     "GPU": "Dedicated 8GB",
     "Price": 1878
    },
    "CC": {
-    "RAM": "16GB",
-    "HD": "512GB SSD",
-    "GPU": "Dedicated 4GB",
-    "Price": 1880
-   },
-   "DD": {
     "RAM": "32GB",
     "HD": "1TB HDD",
     "GPU": "Dedicated 2GB",
     "Price": 1811
    },
+   "DD": {
+    "RAM": "16GB",
+    "HD": "512GB SSD",
+    "GPU": "Integrated",
+    "Price": 1813
+   },
    "EE": {
     "RAM": "8GB",
     "HD": "256GB SSD",
-    "GPU": "Integrated",
+    "GPU": "Dedicated 4GB",
     "Price": 1816
    },
    "FF": {
@@ -769,25 +769,25 @@
     "Screen": "14",
     "Processor": "Intel i9",
     "Brand": "Silverstone",
-    "Price": 1880
+    "Price": 1812
    },
    "P": {
     "RAM": "8GB",
-    "HD": "1TB HDD",
+    "HD": "512GB SSD",
     "GPU": "Dedicated 8GB",
     "Battery": "7",
     "Screen": "15",
     "Processor": "Intel i7",
-    "Brand": "Silverstone",
-    "Price": 1882
+    "Brand": "Suboptimal",
+    "Price": 1817
    },
    "Q": {
     "RAM": "32GB",
     "HD": "512GB SSD",
-    "GPU": "Dedicated 4GB",
+    "GPU": "Dedicated 8GB",
     "Battery": "8",
     "Screen": "14",
-    "Processor": "Intel i5",
+    "Processor": "Intel i9",
     "Brand": "Aurora",
     "Price": 1822
    },
@@ -842,56 +842,46 @@
     "Price": 1847
    },
    "W": {
-    "RAM": "32GB",
+    "RAM": "8GB",
     "HD": "1TB HDD",
     "GPU": "Dedicated 4GB",
-    "Battery": "10",
-    "Screen": "15.6",
-    "Processor": "Intel i5",
+    "Battery": "9",
+    "Screen": "14",
+    "Processor": "Intel i3",
     "Brand": "Monza",
     "Price": 1852
    },
    "X": {
-    "RAM": "16GB",
+    "RAM": "32GB",
     "HD": "512GB SSD",
     "GPU": "Dedicated 8GB",
     "Battery": "11",
     "Screen": "15.6",
-    "Processor": "Intel i7",
+    "Processor": "Intel i9",
     "Brand": "Monza",
     "Price": 1857
    },
    "Y": {
-    "RAM": "8GB",
-    "HD": "256GB SSD",
+    "RAM": "16GB",
+    "HD": "1TB SSD",
     "GPU": "Integrated",
-    "Battery": "6",
-    "Screen": "13",
-    "Processor": "Intel i5",
+    "Battery": "7",
+    "Screen": "14.1",
+    "Processor": "AMD Ryzen 5",
     "Brand": "Silverstone",
     "Price": 1862
    },
    "Z": {
-    "RAM": "32GB",
-    "HD": "1TB SSD",
-    "GPU": "Integrated",
-    "Battery": "6",
-    "Screen": "14",
-    "Processor": "AMD Ryzen 5",
-    "Brand": "Monza",
-    "Price": 1867
-   },
-   "AA": {
-    "RAM": "16GB",
-    "HD": "512GB SSD",
+    "RAM": "8GB",
+    "HD": "256GB SSD",
     "GPU": "Dedicated 4GB",
     "Battery": "8",
     "Screen": "13",
     "Processor": "Intel i5",
     "Brand": "Silverstone",
-    "Price": 1872
+    "Price": 1867
    },
-   "BB": {
+   "AA": {
     "RAM": "32GB",
     "HD": "1TB HDD",
     "GPU": "Dedicated 8GB",
@@ -899,17 +889,27 @@
     "Screen": "17",
     "Processor": "Intel i7",
     "Brand": "Yellow",
-    "Price": 1877
+    "Price": 1872
    },
-   "CC": {
+   "BB": {
     "RAM": "16GB",
     "HD": "512GB SSD",
     "GPU": "Integrated",
     "Battery": "6",
     "Screen": "14",
-    "Processor": "Intel i5",
+    "Processor": "AMD Ryzen 7",
     "Brand": "Zinx",
-    "Price": 1881
+    "Price": 1877
+   },
+   "CC": {
+    "RAM": "32GB",
+    "HD": "2TB SSD",
+    "GPU": "Dedicated 4GB",
+    "Battery": "12",
+    "Screen": "15",
+    "Processor": "Intel i3",
+    "Brand": "Aurora",
+    "Price": 1811
    },
    "DD": {
     "RAM": "16GB",
