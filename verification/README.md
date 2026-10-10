@@ -3,9 +3,16 @@
 Every reported result passes two checks before it is shown.
 
 1. Second run. The experiment is rerun from a fresh process, and its summary, per trial values and every bootstrap replicate must be identical to the saved ones.
-2. Independent reimplementation. A separate implementation, written from `ANALYSIS_PLAN.md` and `VERIFY_BRIEF.md` without access to the package, recomputes the results from the raw data. `compare_independent.py` compares the two and lists every value outside its tolerance.
+2. Independent reimplementation. A separate implementation recomputes the result from the raw data. It is written from the plan and a brief alone (`VERIFY_BRIEF.md` for the development data, `VERIFY_BRIEF_SNACK.md` for the snack data), with the raw data, the stimulus files and the attribute coding, and without access to this package or to any of its results. Only after it has produced its numbers are the two compared, value by value, by `compare_independent.py`, `compare_laptop_rubric_1to4.py` and `compare_h1_confirmatory.py`.
 
-The independent implementations are archived as they were written, with their results, in `independent/` (development data) and `independent_snack/` (confirmatory snack data). To rerun them and the comparisons, `sh verification/run_independent.sh PATH_TO_CSV` (about two minutes) and `sh verification/run_independent_snack.sh` (about ten minutes). Data files are copied only into temporary folders that are removed afterwards.
+A disagreement beyond rounding blocks the result until its cause is found. The briefs record the details the plan left open and how they were fixed, so a third implementation can start from the same text.
+
+| Folder | Implements | Rerun |
+|---|---|---|
+| `independent/` | R0, H1 and the laptop rubric check on the development data | `sh verification/run_independent.sh PATH_TO_CSV`, about two minutes |
+| `independent_snack/` | the confirmatory H1 test of Amendment 3 on the snack data | `sh verification/run_independent_snack.sh`, about ten minutes |
+
+Both implementations are archived exactly as they were written, with their results. The runners copy data only into temporary folders that are removed afterwards.
 
 ## R0 and H1, 9 October 2026
 
