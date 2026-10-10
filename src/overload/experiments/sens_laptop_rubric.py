@@ -1,4 +1,7 @@
-"""Exploratory sensitivity, not part of ANALYSIS_PLAN.md. Laptop rubric shares from laptop trials 1 to 4.
+"""Withdrawn exploratory sensitivity (plan, Amendment 4). Laptop rubric shares from laptop trials 1 to 4.
+
+It was run with the earlier laptop definitions, whose errors in trials 5 and 6 caused the inconsistency it probed.
+Kept for the record. Its results are in results/superseded.
 
 In laptop trials 5 and 6 the designers' rubric scores contradict the coded attributes (verification/README.md).
 The rubric shares of every laptop model come from a regression of the rubric scores on the coded attributes over
@@ -6,7 +9,7 @@ all six trials, so those two trials can move every laptop result. This experimen
 from trials 1 to 4 only, keeps everything else as in the plan, and reruns R0 and H1.
 
 Usage
-    python -m overload.experiments.sens_laptop_rubric --data PATH_TO_CSV --out results/exploratory/laptop_rubric_1to4
+    python -m overload.experiments.sens_laptop_rubric --data PATH_TO_CSV --out results/superseded/laptop_rubric_1to4
 """
 
 from __future__ import annotations
@@ -29,7 +32,7 @@ _STATE: dict = {}
 
 
 def load_tasks(csv: Path) -> dict:
-    tasks = load_study(csv)
+    tasks = load_study(csv, laptop="aamas")
     laptop = tasks["laptop"]
     shares, r2 = rubric_shares([laptop.trials[j] for j in TRIALS_USED], _SHARE_ATTRIBUTES["laptop"])
     laptop.shares, laptop.share_r2 = shares, r2
@@ -79,7 +82,7 @@ def run(csv: Path, out: Path, replicates: int = 1000, jobs: int = 1) -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--data", type=Path, required=True)
-    ap.add_argument("--out", type=Path, default=Path("results/exploratory/laptop_rubric_1to4"))
+    ap.add_argument("--out", type=Path, default=Path("results/superseded/laptop_rubric_1to4"))
     ap.add_argument("--replicates", type=int, default=1000)
     ap.add_argument("--jobs", type=int, default=1)
     args = ap.parse_args()
