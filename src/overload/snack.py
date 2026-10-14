@@ -46,6 +46,7 @@ class Block:
     choice: np.ndarray  # chosen item index per trial
     seen: np.ndarray  # trials by items, True when the item was looked at in the trial
     participant: np.ndarray  # index into SnackData.participants per trial
+    rt: np.ndarray | None = None  # response time per trial in milliseconds (Amendment 5), unused by the H1 tests
 
     @property
     def trials(self) -> int:
@@ -96,6 +97,7 @@ def load_snack(folder: str | Path) -> SnackData:
                 choice=choice[ok].astype(int),
                 seen=np.nan_to_num(gaze[ok], nan=0.0) > 0.0,
                 participant=np.array([index[int(s)] for s in df["subject"].to_numpy()[ok]], dtype=int),
+                rt=pd.to_numeric(df["rt"], errors="coerce").to_numpy(float)[ok] if "rt" in df else None,
             )
         )
     return SnackData(blocks=tuple(blocks), participants=tuple(ids))

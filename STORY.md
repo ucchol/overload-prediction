@@ -28,6 +28,7 @@ When displays grow in the number of options and in the attributes shown for each
 | 1.0 with Amendments 1 to 3 | 9 Oct 2026 | bd138487b4209818aacb5e68ffbd5cd8693e4e44461cfc819ed60e9c3ab8d519 |
 | 1.0 with Amendments 1 to 4 | 10 Oct 2026 | d93b162c719978c91da8405c81abc94dbb2818a2a4dcefafaef13053a46c41e4 |
 | 1.0 with Amendments 1 to 4, wording correction to Amendment 4 item 2 | 14 Oct 2026 | d3bfe629fe81207458fb58305f8f0529dfc883233e324008747e155de9b71c96 |
+| 1.0 with Amendments 1 to 5 | 14 Oct 2026 | 5a073cf3759d2bdf03bd4363e304cf293e1cb426bd308d603cf9c5080aba10fa |
 
 ## Results log
 
