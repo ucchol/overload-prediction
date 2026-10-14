@@ -1,0 +1,30 @@
+{
+ "replicate_SR_folds_with_several_grid_maxima": 0,
+ "replicate_SR_folds_not_refined": 0,
+ "replicate_SR_folds_with_lambda_zero": 0,
+ "original_SR_diag": [
+  0,
+  0,
+  0
+ ],
+ "replicate_lambda_ranges": {
+  "CL": [
+   1.5227881028185966,
+   2.411294187952636
+  ],
+  "DbS_avg": [
+   3.739258111552313,
+   7.334308734101824
+  ],
+  "MLBA_avg": [
+   14.20331568487709,
+   27.546037150186812
+  ],
+  "SR": [
+   0.8829235075557652,
+   1.4090219743968277
+  ]
+ },
+ "seconds": 1195.6,
+ "B": 1000
+}

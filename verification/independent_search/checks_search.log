@@ -1,0 +1,24 @@
+PASS two items: P(1) = q1^2 (1 + 2 q2) and E[looks] = 2 + 2 q1 q2, level form and exact (max error 4.6e-14)
+PASS equal ratings: E[looks] equals the birthday sum for n = 9, 16, 25, 36 (max relative error 2.8e-14); 365 days give 24.6166
+PASS level form equals the exact elementary symmetric computation on displays of 9 to 36 items (max relative error 3.7e-14); probabilities sum to one (max error 4.4e-16)
+PASS simulated SR process: item choice frequencies within 2.0 s.e., mean looks 3.9427 against 3.9438 (0.5 s.e.), distinct items looked at equal looks - 1 in every draw
+PASS analytic d log P(chosen) / d lambda equals finite differences (max abs difference 1.0e-09)
+PASS recovery at lambda 0.6: fitted 0.5943 (s.e. 0.0082, 0.7 s.e. away), score at the fit -1.3e-11, grid maxima 1
+PASS recovery at lambda 1.5: fitted 1.4622 (s.e. 0.0227, 1.7 s.e. away), score at the fit 3.0e-14, grid maxima 1
+PASS loader keeps exactly the trials of the snack inclusion rule (same choices, counts, participants)
+PASS edge cases: missing rating, out of range and non-integer choices excluded; missing, zero and negative rt not timed; missing gaze counts as zero
+PASS display features (highest rating, rating sd with ddof 0, count at the highest rating) and the top-choice flag
+PASS static level probabilities sum to one over items
+PASS entropy in bits from levels equals the item-level entropy
+PASS implied sensitivity: soft targets from CL at 0.85 give back 0.850000000000
+PASS time law recovers an exact law (t0 1.500000, tau 0.200000, objective 5.7e-14)
+PASS time law with a falling relation takes tau = 0 (tau 0.0)
+PASS time law with a proportional relation puts t0 at its bound (t0 2.2e-09, tau 0.300000)
+PASS time law objective at or below a 241 x 241 brute-force grid on random problems (largest excess 9.2e-13)
+PASS group Spearman equals scipy with ties (max difference 1.1e-16); constant groups skipped; groups under three timed trials left out; participant weighting
+PASS S4 score by hand, with clipping at 1e-15
+PASS SR: no lambda on a dense grid (0 and 1e-5 to 1e3, 80 per decade) beats any of the 12 fold fits (largest excess -4.0e-05); relative score at the fits 1.5e-15
+PASS static models: every fold fit is a stationary point of a concave likelihood (largest relative Newton step left 7.6e-17)
+PASS time laws of the synthetic folds at or below the brute-force grid (largest excess -5.8e-02)
+
+ALL CHECKS PASSED
