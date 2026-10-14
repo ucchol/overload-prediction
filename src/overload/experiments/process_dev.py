@@ -9,16 +9,17 @@ Three questions, answered with the same fits.
    MLBA_avg), then ask whether the search model is as accurate as the best established model. The rejected
    alternative, accept in reading order, is reported beside them.
 
-2. Time. How long would each model take to decide? A model's effort is the number of elementary steps its
-   algorithm needs on a trial (``overload.effort``). Two readings follow.
-   - The speed each model needs. People's typical time on a trial divided by the model's effort gives the
-     seconds the model may spend on one step if it is to finish when people did. A step involves reading at
-     least one value, and a single eye fixation lasts about a quarter of a second, so a model that needs much
-     less than that per step cannot be how people decided.
-   - Held out time. Two constants shared by every model, a start up time and a time per step, are fitted on
-     five trials of a task (nonnegative least squares on typical seconds), and the sixth trial's time is
-     predicted. The typical error is the geometric mean of predicted over observed time, as a percent. A
-     model whose effort does not track people's time does no better than a constant.
+2. Time. Does the work each model's algorithm needs explain how long people took? A model's effort is the
+   number of elementary steps its algorithm needs on a trial (``overload.effort``). Its time law, a start up
+   time plus a time per step, both nonnegative, is fitted to people's typical times by least squares.
+   - In sample, on all six trials of a task, the fit shows how much of people's time the model's work can
+     carry and what time per step that implies.
+   - Held out, the constants are fitted on five trials and the sixth trial's time is predicted. The typical
+     error is the geometric mean of predicted over observed time, as a percent. A model whose effort does not
+     track people's time does no better than a constant.
+   People's time divided by a model's effort (``per_step`` in the summary) is recorded but not used. It is not
+   a fit, since it assumes that every second goes to the model's steps, while the fitted laws put most of
+   people's time into the start up constant.
 
 3. Premonition. Before anyone chooses, can a model tell which trials will overload people, and on which they
    will choose poorly? Each forecast is computed from the trial's options and a fit to the other trials only,
@@ -165,6 +166,18 @@ def _nnls_time(effort_values: np.ndarray, seconds: np.ndarray) -> tuple[float, f
     A = np.column_stack([np.ones_like(effort_values), effort_values])
     coef, _ = nnls(A, seconds)
     return float(coef[0]), float(coef[1])
+
+
+def fitted_time(effort_values: Sequence[float], seconds: Sequence[float]) -> dict[str, float]:
+    """Start up time and time per step fitted to every trial, and the share of the variation in seconds explained."""
+    e, s = np.asarray(effort_values, float), np.asarray(seconds, float)
+    t0, tau = _nnls_time(e, s)
+    resid = s - t0 - tau * e
+    return {
+        "start_seconds": t0,
+        "step_ms": 1000.0 * tau,
+        "r2": 1.0 - float(resid @ resid) / float(((s - s.mean()) ** 2).sum()),
+    }
 
 
 def held_out_time(effort_values: Sequence[float], seconds: Sequence[float]) -> tuple[list[float], list[float]]:
@@ -414,12 +427,16 @@ def tables(summary: dict) -> str:
     T = summary["time"]
     for task in TASKS:
         keys = summary["trials"][task]
-        L += ["", f"## 2. Time, {task}", "", "Seconds each model may spend per step to finish when people did.", ""]
-        L += ["| Model | " + " | ".join(keys) + " |", "|---" * (len(keys) + 1) + "|"]
-        L.append("| People, seconds | " + " | ".join(f"{s:.0f}" for s in T[task]["seconds"]) + " |")
+        L += ["", f"## 2. Time, {task}", "", "Time law fitted to the typical seconds of all six trials.", ""]
+        L += [
+            "| Model | Effort, steps per trial | Start up time, s | Time per step, ms | Variation explained |",
+            "|---|---|---|---|---|",
+        ]
+        L.append("| People, seconds | " + ", ".join(f"{s:.0f}" for s in T[task]["seconds"]) + " | | | |")
         for m, e in T[task]["per_step"].items():
-            cells = [f"{v:.3g} ({int(round(n))})" for v, n in zip(e["seconds_per_step"], e["effort"], strict=True)]
-            L.append(f"| {m} | " + " | ".join(cells) + " |")
+            fit = fitted_time(e["effort"], T[task]["seconds"])
+            effort = ", ".join(f"{n:.0f}" for n in e["effort"])
+            L.append(f"| {m} | {effort} | {fit['start_seconds']:.1f} | {fit['step_ms']:.3g} | {fit['r2']:.2f} |")
         L += ["", "Held out predicted seconds, constants fitted on the other five trials.", ""]
         L += [
             "| Model | " + " | ".join(keys) + " | Typical error, % | Minus constant (log) |",
@@ -462,8 +479,7 @@ def tables(summary: dict) -> str:
     L += [
         "",
         "Brackets give 95% percentile intervals from 1000 participant resamples. A star marks a value whose "
-        "percentile and basic intervals both exclude zero. Effort in elementary steps is in parentheses. "
-        "Development data, exploratory.",
+        "percentile and basic intervals both exclude zero. Development data, exploratory.",
         "",
     ]
     return "\n".join(L)

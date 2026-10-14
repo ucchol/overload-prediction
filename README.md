@@ -14,13 +14,13 @@ Does a larger set make choices noisier, or do people narrow their search and cho
 | H2 Comparison under sparse information | Known for laptops, not for files | Open dataset being chosen |
 | H3 Inputs over rules | To run | |
 | H4 Cost depends on cue validity | To specify | |
-| Overload, time and search (research program) | Overload rose with set size for files and never appeared for laptops. Comparison models would need milliseconds per comparison to match people's speed. The search model, sample until return, matched the best models on choices | Search grew like the square root of the set size, as the search model predicted, though people looked at 3.6 times as many items. Its choices were as accurate as CL's and its expected looks foresaw slow decisions, but it did not time single decisions better (Amendment 5) |
+| Overload, time and search (research program) | Overload rose with set size for files and never appeared for laptops. No model's work explained how long people took. The search model, sample until return, matched the best models on choices | Search grew like the square root of the set size, as the search model predicted, though people looked at 3.6 times as many items. Its choices were as accurate as CL's and its expected looks foresaw slow decisions, but it did not time single decisions better (Amendment 5) |
 
 Laptop trials 5 and 6 were corrected from the study's storyboard on 10 October 2026 (plan, Amendment 4), and every laptop result was rerun and verified again. The full record is in [`STORY.md`](STORY.md), and the program of the next analyses (overload, decision time and a search model) in [`RESEARCH_PROGRAM.md`](RESEARCH_PROGRAM.md).
 
 ![Confirmatory test of the search model](results/search_confirmatory/fig_search_confirmatory.png)
 
-Confirmatory test of the search model, sample until return, on the snack data (plan, Amendment 5). (a) The number of snacks people looked at grew like the square root of the number shown, as the model predicted, though at a higher level. (b) Response time divided by the model's work stayed near 1.1 seconds per look at every set size, while CL and DbS would need ever faster steps. (c) Within a person, slow decisions were foreseen by the model's expected looks, and far better by a low rating of the best snack. (d) Unseen choices were predicted as well as by CL. Bars are 95 percent intervals from 1000 participant resamples.
+Confirmatory test of the search model, sample until return, on the snack data (plan, Amendment 5). (a) The number of snacks people looked at grew like the square root of the number shown, as the model predicted, though at a higher level. (b) Unseen choices were predicted as well as by CL. (c) Within a person, slow decisions were foreseen by the model's expected looks, and far better by a low rating of the best snack. Bars are 95 percent intervals from 1000 participant resamples.
 
 ![Confirmatory test of H1](results/h1_confirmatory/fig_h1_confirmatory.png)
 
