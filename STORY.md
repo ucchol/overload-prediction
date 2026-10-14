@@ -10,7 +10,7 @@ When displays grow in the number of options and in the attributes shown for each
 
 | | Behavior | Algorithm |
 |---|---|---|
-| H1 Narrowing with set size | B1 done. Large gap in both tasks, growing with set size for laptops only. Confirmatory C1 done, no concentration on screen positions. Attention narrowed from 82 to 41 percent of the display | A1a done, noise rejected for laptops, sharpening at beta +0.5 not supported. A1b done, rubric screening predicts poorly. Confirmatory C2 done, noise rejected (-10.3%), beta +0.5 not clear, so not supported by its rule. C3 done, sensitivity rises with set size (elasticity +0.18), also among looked-at items |
+| H1 Narrowing with set size | B1 done. Large gap in both tasks, growing with set size for laptops only. Confirmatory C1 done, no concentration on screen positions. Attention narrowed from 82 to 41 percent of the display | A1a done. Laptops support H1 after Amendment 4 (noise rejected, sharpening at beta +0.5 clear), files do not (sharpening hurts). A1b done, rubric screening predicts poorly. Confirmatory C2 done, noise rejected (-10.3%), beta +0.5 not clear, so not supported by its rule. C3 done, sensitivity rises with set size (elasticity +0.18), also among looked-at items |
 | H2 Comparison under sparse information | B2 revealed weights, known for laptops | A2 known on development data, confirmatory dataset to fix |
 | H3 Inputs over rules | B3 known | A3a ladder known, A3b independent cue to fix and run |
 | H4 Cost depends on cue validity | to specify | to specify |
@@ -24,6 +24,7 @@ When displays grow in the number of options and in the attributes shown for each
 | 1.0 with Amendments 1 and 2 | 9 Oct 2026 | f3b624d8c2500f4e711520e60939cf18d83826f49654df232152d3da9bcbaad2 |
 | 1.0 with Amendments 1 to 3 | 9 Oct 2026 | bd138487b4209818aacb5e68ffbd5cd8693e4e44461cfc819ed60e9c3ab8d519 |
 | 1.0 with Amendments 1 to 4 | 10 Oct 2026 | d93b162c719978c91da8405c81abc94dbb2818a2a4dcefafaef13053a46c41e4 |
+| 1.0 with Amendments 1 to 4, wording correction to Amendment 4 item 2 | 14 Oct 2026 | d3bfe629fe81207458fb58305f8f0529dfc883233e324008747e155de9b71c96 |
 
 ## Results log
 
@@ -31,7 +32,7 @@ When displays grow in the number of options and in the attributes shown for each
 
 The package reproduces the earlier pipeline from the raw data. Rubric shares match exactly, and per trial held out and fitted log scores and overlaps of QR, CL, DbS and MLBA match within 1e-6 bits (largest difference 2.5e-8, from the earlier optimizer's tolerance), for the original sample and for bootstrap replicates 0, 1, 499 and 999. Published completeness values round to the same first decimal.
 
-### 9 Oct 2026. R0, the baseline (descriptive, development data)
+### 9 Oct 2026. R0, the baseline (descriptive, development data). Laptop values superseded by Amendment 4, see 14 Oct
 
 Held out completeness, 95 percent intervals, 1000 participant resamples (`results/baseline`).
 
@@ -46,7 +47,7 @@ Held out completeness, 95 percent intervals, 1000 participant resamples (`result
 
 Story so far. Comparing options with each other, averaged over rivals, predicts at least as well as valuing each option on its own. The open question for H1 is what happens to that comparison as sets grow.
 
-### 9 Oct 2026. H1, narrowing with set size (development data, pre-specified tests)
+### 9 Oct 2026. H1, narrowing with set size (development data, pre-specified tests). Laptop values superseded by Amendment 4, see 14 Oct
 
 1000 participant resamples, plan with Amendments 1 and 2 (`results/h1`). Decisions follow Section 7 of the plan.
 
@@ -82,9 +83,9 @@ The reimplementation raised issues with the inputs (`verification/README.md`).
 
 Status. File results stand. Laptop results are provisional until the displays and the laptop rubric are confirmed.
 
-### 9 Oct 2026. Exploratory. Laptop rubric shares from laptop trials 1 to 4
+### 9 Oct 2026. Exploratory. Laptop rubric shares from laptop trials 1 to 4. Withdrawn by Amendment 4
 
-Verified twice (second run identical, independent agreement on every value). `results/exploratory/laptop_rubric_1to4`.
+Verified twice (second run identical, independent agreement on every value). `results/superseded/laptop_rubric_1to4`. It probed a symptom of the wrong laptop definitions and is kept only for the record.
 
 - Shares without trials 5 and 6: memory 0.31, graphics 0.30, storage 0.27, processor 0.12, battery and brand 0 (before 0.28, 0.28, 0.28, 0.14, 0.03 and 0).
 - Every model built on the shares predicted unseen laptop trials better, by 1.4 to 2.6 points at every set size. CL 52.9 [41.0, 65.1] against 50.3, DbS_avg 57.8 against 55.3, MLBA_avg 59.2 against 57.2. QR, which reads the rubric directly, stayed at 47.2 and now trails CL clearly (-5.7 [-9.7, -1.9]).
@@ -119,13 +120,49 @@ Limits stated with the result. The looked-at version uses gaze recorded during t
 
 Story update. H1 becomes "larger sets make choices sharper, not noisier". The noise half holds in laptops and snacks. The sharpening half holds as a measured elasticity in snacks and as growing concentration in laptops, but not as the coarse pre-registered contrast.
 
+### 14 Oct 2026. Laptop results after Amendment 4, verified twice
+
+The laptop task was rerun with the storyboard definitions of trials 5 and 6 (Amendment 4), with the same analyses and seeds (`results/baseline`, `results/h1`). A second run reproduced every saved value. The independent implementation, rerun blind on the corrected definitions, agreed on every compared value, with a largest difference of 2e-12. File results are identical to those of 9 October. The laptop values of the 9 October entries are superseded.
+
+R0, laptops, held out completeness.
+
+| QR | CL | DbS_avg | MLBA_avg | DbS_sum | MLBA_sum |
+|---|---|---|---|---|---|
+| 47.2 | 55.4 [43.1, 67.9] | 59.3 | 59.7 | 57.9 | 56.9 |
+
+- Comparing options with each other, averaged over rivals, still predicted unseen laptop trials better than CL. DbS_avg gained 3.9 points [1.6, 6.5], clear. MLBA_avg gained 4.3 [0.3, 8.7], not clear, since its basic interval touches zero. Overlap rose with both, by 2.3 and 3.8 points, both clear.
+- QR trailed CL by 8.2 points [4.6, 12.1].
+
+H1, laptops.
+
+| Test | Result | Decision |
+|---|---|---|
+| B1 mean concentration gap | -14.1 points [-17.3, -10.9], clear | |
+| B1 slope of the gap per doubling of options | -12.8 [-16.6, -8.7], clear | supported |
+| A1a CL beta +0.5 minus beta 0 (sharpening) | +3.8 [0.4, 7.5], clear, Holm p 0.032, overlap the same way | |
+| A1a CL beta -0.5 minus beta 0 (noise) | -14.4 [-19.4, -9.6], clear, p < 0.002 | |
+| A1a decision | | supported |
+| A1b EBA, 32 minus 8 options | -0.63 bits [-0.92, -0.36], clear, opposite to the prediction | not supported |
+
+Reading.
+- With the displays people actually saw, the laptop task tells the same story as the snack data. Letting sensitivity fall with set size cost 14.4 points of completeness, and letting it rise gained 3.8. The A1a decision moves from not supported to supported. The sharpening margin is modest (Holm p 0.032, with a Monte Carlo error near 0.008 at 1000 resamples).
+- The comparison models gained less from sharpening, DbS_avg 2.7 [-0.4, 6.0] and MLBA_avg 0.9 [-1.8, 3.8], neither clear.
+- Concentration beyond CL grew with set size, from gaps of +5.6 and -5.2 points at 8 options to -29.6 and -19.3 at 32.
+- Files are unchanged. Sharpening hurt file predictions by 3.0 points and noise was not detected, so the two tasks still disagree on A1a.
+
+Story update. In laptops, H1 now holds on both levels. Choices concentrated beyond CL's predictions more as sets grew, and sensitivity rose rather than fell with set size, as in the snack data. Files show the concentration but not the sharpening.
+
+Correction recorded. The evidence figures in item 2 of Amendment 4 were in sample fits. Held out, the storyboard definitions still predict better, 1.02 against 0.94 bits in trial 5 and 0.96 against 0.89 in trial 6 (correction note in the plan, recomputed by the package and the verifier).
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.
 
 ## Open decisions
 
-- Laptop displays and rubric. Check the survey export (Qualtrics file or PDF) for the six laptop displays and the designers' laptop scoring sheet. If the displays differ from the analyzed definitions, recode the laptop task and rerun every laptop result. If only the rubric of trials 5 and 6 is wrong, rerun with corrected scores, or estimate the rubric shares from trials 1 to 4 and drop QR and regret for trials 5 and 6.
+- Laptop displays and rubric. Resolved by Amendment 4 from the storyboard (10 Oct), results rerun and verified (14 Oct).
+- Trial order. The data file does not record whether the six trials of each task were shown in a fixed order. If they were, set size is confounded with practice in decision time and overload ratings. Asked of the study team on 14 Oct.
+- Post-trial question 6 asks "How uncertain are you" with anchors running from very uncertain (1) to very certain (5). Its direction is settled from its correlations with the other five questions before the overload index is built.
 - H2 confirmatory dataset. Confirm that Hensher (2006) is openly downloadable, otherwise choose another open dataset that varies the attributes shown for the same options. Fix by amendment before inspecting outcomes.
 - H3 independent cue. Choose the external source of the filename cue before running A3b.
 - H4. Specify cue validity, the regret contrast and the screening model before running.

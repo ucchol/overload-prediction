@@ -23,6 +23,8 @@ Both implementations are archived exactly as they were written, with their resul
 
 Inputs.
 
+Issues 1 and 2 were resolved on 10 October by Amendment 4. The study's storyboard shows every laptop display, and the earlier definitions of trials 5 and 6 were wrong. See the entry of 14 October below.
+
 1. Laptop displays. The screenshots of laptop trials 1 and 2 in the earlier CHI draft do not match the laptop definitions analyzed here, which come from the original analysis notebook. In trial 1 every price differs and option D shows 12GB of memory and a 6GB dedicated graphics card instead of 32GB and 4GB, with no drive type. In trial 2 option F shows 16GB and a 2TB HDD at $1,440 instead of 32GB and a 2TB SSD at $1,500, and the brands of D and G differ. The file screenshots match the file definitions exactly. The designers' laptop scores follow the analyzed definitions, not the screenshots. Open until the survey export settles which displays respondents saw.
 2. Laptop rubric in the two 32 option trials. Laptops with identical attributes received very different rubric scores (in trial 6, L and BB differ only by $12 in price and score 75 and 40, and in trial 5, D, J and EE are identical and score 33, 58 and 52). The rubric correlates with the rubric weighted attribute score at 0.73 and 0.82 in these trials, against 0.97 or more in the other four. The rubric enters QR, the rubric shares of every model and the planned regret measure.
 3. Coding notes. Screen size is shown in the high information laptop trials but is not coded, since the designers' laptop rubric does not score it. Every HDD takes the lowest storage level whatever its capacity, as in the designers' rubric. Price is coded but constant within every trial and has share zero.
@@ -34,7 +36,18 @@ Specification.
 6. The negative mean gap of B1 was known before the plan, so B1 tests only the slope. In the development data set size is confounded with stimulus content (one trial per set size and information level), which the confirmatory dataset addresses.
 7. The two primary A1a contrasts are strongly dependent, so Holm's correction is conservative there. A bootstrap p value of zero is reported as p < 0.002.
 
-## Exploratory laptop rubric sensitivity, 9 October 2026
+## Laptop results after Amendment 4, 14 October 2026
+
+R0 and H1 were rerun with the storyboard laptop definitions (`src/overload/stimuli/laptop_trials.json`).
+
+- Second run. Identical for the baseline and for H1 (`summary.json` apart from its run time stamp, `point.json` and `replicates.jsonl`).
+- Independent reimplementation. The verifier first checked that the file task and laptop trials 1 to 4 were unchanged, and that its code reproduced its own earlier laptop results bit for bit on the earlier definitions. It then reran blind on the corrected definitions (`independent/results_storyboard.json`, checks in `independent/storyboard_checks.py`). Agreement on every compared value, largest difference 2e-12. The runner `run_independent.sh` now reproduces this comparison from the repository.
+- Rubric against the documented scoring rule, Pearson correlation per laptop trial. Storyboard definitions 0.974, 0.985, 0.979, 0.987, 0.991 and 0.964. Earlier definitions 0.974, 0.985, 0.979, 0.987, 0.728 and 0.763. The groups of identically coded laptops with very different rubric scores disappear.
+- The verifier found that the bit figures quoted in item 2 of Amendment 4 are in sample fits. Held out they are 1.019 against 0.939 in trial 5 and 0.958 against 0.895 in trial 6, still in favor of the storyboard. The plan carries a correction note.
+
+`independent/results.json` stays as the record of the 9 October verification on the earlier definitions.
+
+## Exploratory laptop rubric sensitivity, 9 October 2026 (withdrawn by Amendment 4)
 
 Second run identical. Independent implementation (`independent/sens_laptop_1to4.py`) agrees on every compared value, largest difference 2e-12 (`compare_laptop_rubric_1to4.py`).
 

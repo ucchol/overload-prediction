@@ -10,12 +10,12 @@ Does a larger set make choices noisier, or do people narrow their search and cho
 
 | Hypothesis | Development data (file selection, laptop purchase) | Confirmatory data (open snack choices) |
 |---|---|---|
-| H1 Narrowing with set size | Choices were more concentrated than the models predicted, increasingly so with set size for laptops. Noise rejected for laptops | Noise rejected. Sensitivity to liking rose with set size while attention narrowed |
+| H1 Narrowing with set size | Choices were more concentrated than the models predicted in both tasks. For laptops the gap grew with set size, noise was rejected and sensitivity rose with set size. Files show the concentration only | Noise rejected. Sensitivity to liking rose with set size while attention narrowed |
 | H2 Comparison under sparse information | Known for laptops, not for files | Open dataset being chosen |
 | H3 Inputs over rules | To run | |
 | H4 Cost depends on cue validity | To specify | |
 
-Laptop results are provisional while the laptop displays are checked against the survey export. The full record is in [`STORY.md`](STORY.md).
+Laptop trials 5 and 6 were corrected from the study's storyboard on 10 October 2026 (plan, Amendment 4), and every laptop result was rerun and verified again. The full record is in [`STORY.md`](STORY.md), and the program of the next analyses (overload, decision time and a search model) in [`RESEARCH_PROGRAM.md`](RESEARCH_PROGRAM.md).
 
 ![Confirmatory test of H1](results/h1_confirmatory/fig_h1_confirmatory.png)
 
@@ -25,6 +25,7 @@ Confirmatory test of H1 on the data of Thomas, Molter and Krajbich (2021). (a) P
 
 - [`ANALYSIS_PLAN.md`](ANALYSIS_PLAN.md) fixes the question, hypotheses, models, measures, folds, resampling and decision rules. Amendments are appended with a date and a reason, earlier text is never edited, and the SHA-256 digest of every version is logged.
 - [`STORY.md`](STORY.md) records the story, the status of every hypothesis and every result with the plan version it was produced under.
+- [`RESEARCH_PROGRAM.md`](RESEARCH_PROGRAM.md) maps the analyses still to come, each with its question, method and the message it is meant to deliver.
 - [`verification/`](verification) holds the independent implementations, written from the plan and a brief without access to this package, their results and the scripts that compare them with the package.
 - [`results/`](results) holds one folder per result with its summary, tables and figures.
 - [`notebooks/01_baseline_and_h1.ipynb`](notebooks/01_baseline_and_h1.ipynb) walks through every result in writing, code and findings cells and runs in Google Colab.
@@ -83,12 +84,11 @@ Python 3.10 or later. Tests that need the development data skip without it. The 
 export OVERLOAD_DATA=/path/to/Updated_Choice_Overload.csv
 python -m overload.experiments.baseline --data $OVERLOAD_DATA --out results/baseline --jobs 2
 python -m overload.experiments.h1_narrowing --data $OVERLOAD_DATA --out results/h1 --jobs 2
-python -m overload.experiments.sens_laptop_rubric --data $OVERLOAD_DATA --out results/exploratory/laptop_rubric_1to4 --jobs 2
 sh scripts/fetch_snack_data.sh data/snack
 python -m overload.experiments.h1_confirmatory --snack data/snack --out results/h1_confirmatory --jobs 2
 ```
 
-Every experiment draws 1000 participant resamples with fixed seeds, so a rerun reproduces the saved files exactly. With two processes the baseline takes about 2 minutes, H1 about 5, the laptop check about 7 and the confirmatory test about 13.
+Every experiment draws 1000 participant resamples with fixed seeds, so a rerun reproduces the saved files exactly. With two processes the baseline takes about 1 minute, H1 about 3 and the confirmatory test about 13.
 
 The independent checks rerun with
 

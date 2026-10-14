@@ -52,8 +52,10 @@ R0_ALIAS = {
 
 
 # ============================================================================ data
-def load_trials(task: str) -> list[dict]:
-    with open(os.path.join(VERIFY, "stimuli", f"{task}_trials.json")) as fh:
+def load_trials(task: str, stimuli_file: str | None = None) -> list[dict]:
+    """``stimuli_file`` names a definition file in verify/stimuli (default {task}_trials.json)."""
+    fname = stimuli_file or f"{task}_trials.json"
+    with open(os.path.join(VERIFY, "stimuli", fname)) as fh:
         trials = json.load(fh)  # insertion order = trial index 0..5
     with open(os.path.join(VERIFY, "stimuli", "rubric.json")) as fh:
         rubric = json.load(fh)[task]
@@ -176,9 +178,9 @@ def eba_probs(X: np.ndarray, r: np.ndarray, rule: str) -> np.ndarray:
 
 
 # ============================================================================ task container
-def build_task(task: str, rubric_trials: list[int] | None = None) -> dict:
+def build_task(task: str, rubric_trials: list[int] | None = None, stimuli_file: str | None = None) -> dict:
     """All six trials are always modelled; ``rubric_trials`` only restricts the NNLS for r."""
-    trials = load_trials(task)
+    trials = load_trials(task, stimuli_file)
     C = len(trials)
     I = max(t["n"] for t in trials)
     valid = np.zeros((C, I), bool)

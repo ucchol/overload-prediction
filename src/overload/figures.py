@@ -119,7 +119,15 @@ def figure_h1(summary: dict, out: Path) -> list[Path]:
         Line2D([], [], marker="s", linestyle="", color=INK, markersize=6, label="Participants, full display"),
         Line2D([], [], marker="o", linestyle="", color=SERIES["CL"], markersize=6, label="Conditional logit, held out"),
     ]
-    axes[0, 1].legend(handles=handles, frameon=False, fontsize=7.5, loc="upper right", labelcolor=INK_2)
+    fig.legend(
+        handles=handles,
+        frameon=False,
+        fontsize=7.5,
+        loc="upper center",
+        ncol=3,
+        labelcolor=INK_2,
+        bbox_to_anchor=(0.5, 1.0),
+    )
     fam_handles = [
         Line2D([], [], marker=MARKERS[f], color=SERIES[f], linewidth=1.4, markersize=6, label=LABELS[f])
         for f in ("CL", "DbS_avg", "MLBA_avg")
@@ -127,7 +135,7 @@ def figure_h1(summary: dict, out: Path) -> list[Path]:
     axes[1, 1].legend(handles=fam_handles, frameon=False, fontsize=7.5, loc="lower right", labelcolor=INK_2)
     for ax, letter in zip(axes.ravel(), "abcd", strict=True):
         ax.text(-0.02, 1.04, letter, transform=ax.transAxes, color=INK, fontsize=10, fontweight="bold", ha="right")
-    fig.tight_layout(h_pad=2.2)
+    fig.tight_layout(h_pad=2.2, rect=(0, 0, 1, 0.96))
     paths = [out.with_suffix(".png"), out.with_suffix(".pdf")]
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(paths[0], dpi=300, facecolor=SURFACE)

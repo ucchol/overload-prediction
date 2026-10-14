@@ -217,12 +217,15 @@ def main():
     ap.add_argument("--B", type=int, default=1000)
     ap.add_argument("--out", default=os.path.join(HERE, "results.json"))
     ap.add_argument("--reuse", action="store_true")
+    ap.add_argument("--laptop-stimuli", default="laptop_trials.json", help="laptop definition file in verify/stimuli")
+    ap.add_argument("--tag", default="", help="suffix of the bootstrap archive, boot_B{B}{tag}.npz")
     args = ap.parse_args()
     t0 = time.time()
-    tasks = {name: core.build_task(name) for name in core.TASKS}
+    stim = {"file": None, "laptop": args.laptop_stimuli}
+    tasks = {name: core.build_task(name, stimuli_file=stim[name]) for name in core.TASKS}
     points = {name: point_sample(tasks[name]) for name in core.TASKS}
-    print(f"point estimates done in {time.time() - t0:.1f}s", flush=True)
-    npz = os.path.join(HERE, f"boot_B{args.B}.npz")
+    print(f"point estimates done in {time.time() - t0:.1f}s (laptop definitions {args.laptop_stimuli})", flush=True)
+    npz = os.path.join(HERE, f"boot_B{args.B}{args.tag}.npz")
     if args.reuse and os.path.exists(npz):
         raw = np.load(npz)
         store = {n: {k: raw[f"{n}__{k}"] for k in ("L", "O", "lam", "eps", "e_obs", "e_mod")} for n in core.TASKS}
@@ -233,6 +236,7 @@ def main():
     results["_meta"] = {
         "B": args.B,
         "seconds": round(time.time() - t0, 1),
+        "laptop_stimuli": args.laptop_stimuli,
         "notes": "Independent reimplementation; completeness in percent, overlap and shares as fractions, log scores in bits.",
     }
     with open(args.out, "w") as fh:
