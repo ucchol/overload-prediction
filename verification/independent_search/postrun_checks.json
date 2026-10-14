@@ -1,0 +1,51 @@
+{
+ "amendment_procedure": {
+  "9": {
+   "main_run": 1.1886228883434649,
+   "amendment_tight": 1.1886228883993528,
+   "amendment_default_tolerance": 1.1886228566269617,
+   "relative_difference_tight": 4.701908525731351e-11,
+   "relative_difference_default": 2.668340271131153e-08
+  },
+  "16": {
+   "main_run": 1.1509535233913268,
+   "amendment_tight": 1.150953539982949,
+   "amendment_default_tolerance": 1.150953769259599,
+   "relative_difference_tight": 1.4415544797453053e-08,
+   "relative_difference_default": 2.1362137322603657e-07
+  },
+  "25": {
+   "main_run": 1.1212264466089377,
+   "amendment_tight": 1.121226479379843,
+   "amendment_default_tolerance": 1.1212267726967673,
+   "relative_difference_tight": 2.922773131318302e-08,
+   "relative_difference_default": 2.908313754225336e-07
+  },
+  "36": {
+   "main_run": 1.1088134755465417,
+   "amendment_tight": 1.10881349173413,
+   "amendment_default_tolerance": 1.108813781734302,
+   "relative_difference_tight": 1.4599018244093135e-08,
+   "relative_difference_default": 2.7614000642113166e-07
+  }
+ },
+ "dense_check": {
+  "9": {
+   "dense_excess_over_fit": -3.568027932487894e-05,
+   "relative_score_at_fit": 6.726695143181519e-16
+  },
+  "16": {
+   "dense_excess_over_fit": -0.03629479972732952,
+   "relative_score_at_fit": 5.443008396044845e-16
+  },
+  "25": {
+   "dense_excess_over_fit": -0.0015968280440574745,
+   "relative_score_at_fit": 6.677403942780867e-16
+  },
+  "36": {
+   "dense_excess_over_fit": -0.45402474283946503,
+   "relative_score_at_fit": 6.416607488268702e-16
+  }
+ },
+ "static_largest_relative_newton_step": 1.0454633687308483e-16
+}

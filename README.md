@@ -14,9 +14,13 @@ Does a larger set make choices noisier, or do people narrow their search and cho
 | H2 Comparison under sparse information | Known for laptops, not for files | Open dataset being chosen |
 | H3 Inputs over rules | To run | |
 | H4 Cost depends on cue validity | To specify | |
-| Overload, time and search (research program) | Overload rose with set size for files and never appeared for laptops. Comparison models would need milliseconds per comparison to match people's speed. The search model, sample until return, matched the best models on choices | Search, time and premonition tests drafted (Amendment 5) |
+| Overload, time and search (research program) | Overload rose with set size for files and never appeared for laptops. Comparison models would need milliseconds per comparison to match people's speed. The search model, sample until return, matched the best models on choices | Search grew like the square root of the set size, as the search model predicted, though people looked at 3.6 times as many items. Its choices were as accurate as CL's and its expected looks foresaw slow decisions, but it did not time single decisions better (Amendment 5) |
 
 Laptop trials 5 and 6 were corrected from the study's storyboard on 10 October 2026 (plan, Amendment 4), and every laptop result was rerun and verified again. The full record is in [`STORY.md`](STORY.md), and the program of the next analyses (overload, decision time and a search model) in [`RESEARCH_PROGRAM.md`](RESEARCH_PROGRAM.md).
+
+![Confirmatory test of the search model](results/search_confirmatory/fig_search_confirmatory.png)
+
+Confirmatory test of the search model, sample until return, on the snack data (plan, Amendment 5). (a) The number of snacks people looked at grew like the square root of the number shown, as the model predicted, though at a higher level. (b) Response time divided by the model's work stayed near 1.1 seconds per look at every set size, while CL and DbS would need ever faster steps. (c) Within a person, slow decisions were foreseen by the model's expected looks, and far better by a low rating of the best snack. (d) Unseen choices were predicted as well as by CL. Bars are 95 percent intervals from 1000 participant resamples.
 
 ![Confirmatory test of H1](results/h1_confirmatory/fig_h1_confirmatory.png)
 
@@ -38,6 +42,7 @@ src/overload/
   snack.py          the open snack choice data, models and fits for displays seen once
   models.py         QR, CL, DbS, MLBA, set size scaling, elimination by aspects, search models
   search.py         sample until return and accept in reading order, choice probabilities and search length
+  snack_search.py   sample until return on the snack data, by rating level
   effort.py         elementary steps each model needs on a display
   responses.py      post-trial answers, regret and decision time, with the overload index
   fit.py            one parameter maximum likelihood, fitted, held out and alone predictions
@@ -48,7 +53,7 @@ src/overload/
   experiments/      one module per result of the plan
   stimuli/          option definitions and rubric scores of the development study
 tests/              unit tests, reproduction tests and end to end runs on synthetic data
-scripts/            download of the open confirmatory data at a pinned commit
+scripts/            download of the open confirmatory data at a pinned commit, design check of test S5
 ```
 
 ## Models
@@ -62,6 +67,7 @@ Each model scores the options of a display and turns the scores into choice prob
 | DbS, decision by sampling | rubric weighted count of the rivals it beats on each attribute, summed or averaged over rivals |
 | MLBA, multiattribute linear ballistic accumulator | rubric weighted, distance weighted comparisons with every rival, summed or averaged over rivals |
 | EBA, elimination by aspects | probability of surviving elimination on the rubric's attributes |
+| SR, sample until return (proposed) | attention lands on options with probability softmax(lambda v), and the first option looked at twice is chosen, so the values of CL (or of DbS and MLBA) give choices, expected looks and time |
 
 Set size scaling multiplies the scores by ((n - 1) / 7)^beta. Negative beta makes choices noisier as sets grow and positive beta makes them sharper.
 
@@ -92,9 +98,10 @@ python -m overload.experiments.overload_index --data $OVERLOAD_DATA --out result
 python -m overload.experiments.process_dev --data $OVERLOAD_DATA --out results/process_dev --jobs 2
 sh scripts/fetch_snack_data.sh data/snack
 python -m overload.experiments.h1_confirmatory --snack data/snack --out results/h1_confirmatory --jobs 2
+python -m overload.experiments.search_confirmatory --snack data/snack --out results/search_confirmatory --jobs 2
 ```
 
-Every experiment draws 1000 participant resamples with fixed seeds, so a rerun reproduces the saved files exactly. With two processes the baseline takes about 1 minute, H1 about 3, the overload index a few seconds, the process analyses about 15 minutes and the confirmatory test about 13.
+Every experiment draws 1000 participant resamples with fixed seeds, so a rerun reproduces the saved files exactly. With two processes the baseline takes about 1 minute, H1 about 3, the overload index a few seconds, the process analyses about 15 minutes, the confirmatory H1 test about 13 and the confirmatory search tests about 12.
 
 The independent checks rerun with
 
@@ -102,6 +109,7 @@ The independent checks rerun with
 sh verification/run_independent.sh $OVERLOAD_DATA
 sh verification/run_independent_process.sh $OVERLOAD_DATA
 sh verification/run_independent_snack.sh
+sh verification/run_independent_search.sh
 ```
 
 ## Data

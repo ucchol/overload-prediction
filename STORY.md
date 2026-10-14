@@ -14,9 +14,9 @@ When displays grow in the number of options and in the attributes shown for each
 | H2 Comparison under sparse information | B2 revealed weights, known for laptops | A2 known on development data, confirmatory dataset to fix |
 | H3 Inputs over rules | B3 known | A3a ladder known, A3b independent cue to fix and run |
 | H4 Cost depends on cue validity | to specify | to specify |
-| O Where overload occurs (research program) | Development done. One factor (alpha 0.87). File displays overloaded people more as they grew, laptop displays never did. Overload went with longer decisions | Premonition within files works for every forecast, set size included. No forecast foresees the gap between tasks or display level regret. Confirmatory, Amendment 5 drafted |
-| T How long each model takes (research program) | People took 29 to 40 s on laptops at every size | DbS and MLBA would need 7 to 12 ms per comparison on 32 laptops, CL about one fixation per value, sample until return about 1 to 2.5 s per value. Held out time law cannot separate models on six displays per task |
-| S The search model, sample until return (research program) | | Matches CL on CL values and DbS on DbS values in held out choices, the only well predicting model fast enough to be human. Confirmatory tests of search, time and premonition drafted (Amendment 5) |
+| O Where overload occurs (research program) | Development done. One factor (alpha 0.87). File displays overloaded people more as they grew, laptop displays never did. Overload went with longer decisions | Premonition within files works for every forecast, set size included. No forecast foresees the gap between tasks or display level regret. Snack data (Amendment 5). The model's expected looks foresee slow decisions (+0.08, supported), but the rating of the best item foresees them far better (-0.32) |
+| T How long each model takes (research program) | People took 29 to 40 s on laptops at every size | DbS and MLBA would need 7 to 12 ms per comparison on 32 laptops, CL about one fixation per value, sample until return about 1 to 2.5 s per value. Held out time law cannot separate models on six displays per task. Snack data, a steady 1.1 s per look of the search model at every set size, but held out times of single trials no better than counting options (S2 not supported) |
+| S The search model, sample until return (research program) | | Matches CL on CL values and DbS on DbS values in held out choices, the only well predicting model fast enough to be human. Snack data (Amendment 5). Search grows like the square root of the set size as predicted (S1 supported), but people look at 3.6 times as many items. Choices as well as CL (S5 supported), clearly better than DbS and MLBA |
 
 ## Plan versions
 
@@ -187,6 +187,34 @@ Reading.
 - Premonition works within a task. Twelve displays cannot show more, which moves the test to the snack data, with thousands of displays.
 
 Caution. Development data, exploratory. The trial order is unknown, so set size may be confounded with practice in time and overload. Two file displays include timeouts at the 30 minute limit (1.1 percent of answers on each), recorded with the largest regret. Leaving them out changes no result.
+
+### 14 Oct 2026. The search model on the snack data (Amendment 5, confirmatory), run once and verified twice
+
+Run once under the frozen amendment (plan digest 5a073cf3), `results/search_confirmatory`. A second run reproduced every saved value. The independent implementation, written blind from `verification/VERIFY_BRIEF_SEARCH.md` and tested on simulated data before the real data were opened, agreed on every value and decision, with a largest difference of 3e-7 outside the rank correlations and 4e-4 for them. 1000 participant resamples. Every prediction comes from fits to the other three set sizes.
+
+| Test | Result | Decision |
+|---|---|---|
+| S1, growth of search with set size (elasticity) | people 0.51 [0.46, 0.55], model 0.48 [0.46, 0.51], difference -0.02 [-0.07, 0.03] | supported |
+| S2, held out log response time, mean absolute error | model 0.552, CL 0.543, DbS and MLBA 0.550. Model minus CL +0.009 [-0.003, 0.021] | not supported |
+| S3, foreseeing slow decisions, within person rank correlation | model's looks +0.084 [0.039, 0.129], CL's spread of choices +0.043 [-0.004, 0.092], difference +0.041 [0.030, 0.053] | supported |
+| S4, foreseeing a miss of the best item, bits per trial above a constant | model +0.042 [0.017, 0.066], CL +0.041, DbS -0.064, MLBA -0.441. Model minus CL +0.001 [-0.002, 0.004] | no direction predicted |
+| S5, choices, model minus CL | -0.3 percent [-0.7, 0.0], within the 2 percent margin, neither better nor worse | supported |
+
+Descriptive.
+- Distinct snacks looked at, 7.4, 10.4, 13.0 and 14.9 at 9, 16, 25 and 36 items. The model predicts 2.1, 2.8, 3.5 and 4.2, about 3.6 times fewer at every set size.
+- Median response time over the model's expected looks, 1.09, 1.13, 1.12 and 1.08 s per look. CL's time per value would fall from 0.38 to 0.16 s and DbS's time per comparison from 47 to 4.4 ms.
+- Other forecasts of slow decisions. Rating of the best item -0.32 [-0.36, -0.28], spread of the ratings -0.17, MLBA's spread of choices -0.11.
+- Choices, times chance. Model 3.83, CL 3.84, DbS 3.55, MLBA 2.62. Model minus DbS +8.0 percent [5.1, 11.0], minus MLBA +46.1 [30.6, 64.2].
+- The elasticity of CL's sensitivity that the model implies is -0.01 [-0.03, 0.01], against the +0.18 observed in Amendment 3.
+
+Reading.
+- People search, and their search grows like the square root of the number of options, the signature of the birthday problem that the model was built on. This was predicted before the model met these data. Looking at every item would grow in proportion.
+- The form of the stopping rule is right and its level is not. People look at 3.6 times as many items before they choose, so they return to options several times before committing.
+- The model's work keeps a steady pace with human time across set sizes, but its trial by trial look counts did not time single decisions better than counting options.
+- What speeds a single decision is an option that is good in absolute terms. The model reads only differences in value, so it cannot produce this, and neither can CL's spread of choices.
+- Choices again cannot separate the processes. The model predicted unseen choices as well as CL and better than DbS and MLBA, as the design check expected.
+
+Story update. People choose by a search whose length grows like the square root of what is on offer, and a one parameter model of that search is as accurate as the best static model and alone paced like people. It still lacks an absolute standard. A search that stops on an option that is good enough would lengthen searches, speed decisions with a clearly good option and say when overload should arise, when nothing on display is good enough. That idea came from these data, so its test needs new data.
 
 ## Setup facts checked against the data
 

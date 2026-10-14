@@ -1,0 +1,11 @@
+PASS SR recovers lambda 1.0: held-out lambdas [1.0028, 0.9959, 1.0073, 1.0043], at most 0.6 bootstrap s.d. away
+PASS S1: predicted elasticity 0.4616 against observed 0.4599 (difference +0.0017, percentile [-0.0139, 0.0177]), within margin True, supported True
+PASS S1: observed over predicted distinct items per set size [1.0134, 0.9907, 1.019, 1.002] (close to one when search is SR)
+PASS S2: time errors CL 0.3259, DbS_avg 0.3308, MLBA_avg 0.3308, SR 0.3151; SR - CL -0.0108 [-0.0134, -0.0088], SR - DbS_avg -0.0157; supported True
+PASS S3: SR's mean within-participant correlation +0.2345 [0.2142, 0.2558], supported True
+info S5: SR minus CL +0.10 percent, percentile [0.02, 0.19], basic [0.02, 0.19], non-inferior True, better True, worse False
+info S4: SR minus CL +0.0007, SR minus constant +0.1181
+info implied elasticity +0.0412, implied CL sensitivities [1.6675, 1.6936, 1.7416, 1.7605]
+info times chance {'CL': 2.907, 'DbS_avg': 2.557, 'MLBA_avg': 1.957, 'SR': 2.91}
+
+END-TO-END CHECKS PASSED

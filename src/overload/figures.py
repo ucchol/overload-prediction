@@ -509,3 +509,140 @@ def figure_premonition(summary: dict, out: Path) -> list[Path]:
     _letters(axes)
     fig.tight_layout(w_pad=1.4)
     return _save(fig, out)
+
+
+# ----------------------------------------------------------------------------- confirmatory search tests (Amendment 5)
+FORECAST_LABELS = {
+    "looks_SR": ("Looks, sample until return", SR_COLOR, "s"),
+    "entropy_CL": ("Spread of choices, CL", SERIES["CL"], "o"),
+    "entropy_DbS_avg": ("Spread of choices, DbS", SERIES["DbS_avg"], "D"),
+    "entropy_MLBA_avg": ("Spread of choices, MLBA", SERIES["MLBA_avg"], "^"),
+    "top_rating": ("Rating of the best snack", INK, "o"),
+    "rating_sd": ("Spread of the ratings", INK, "o"),
+    "top_count": ("Ties at the best rating", INK, "o"),
+}
+
+
+def _snack_axis(ax: plt.Axes) -> None:
+    ax.set_xscale("log")
+    ax.set_xticks([9, 16, 25, 36], labels=["9", "16", "25", "36"])
+    ax.minorticks_off()
+    ax.set_xlim(7.5, 43)
+    ax.set_xlabel("Snacks on display", color=INK_2)
+
+
+def figure_search_confirmatory(summary: dict, out: Path) -> list[Path]:
+    """Confirmatory tests of the search model on the snack data. Search, time per step, slow decisions, choices."""
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8})
+    fig, axes = plt.subplots(2, 2, figsize=(7.2, 6.4))
+    fig.patch.set_facecolor(SURFACE)
+    sizes = np.array([9.0, 16.0, 25.0, 36.0])
+    s1 = summary["S1"]
+
+    # a, search grows like the square root of the set size
+    ax = axes[0, 0]
+    _style(ax)
+    ax.set_yscale("log")
+    ax.plot(sizes, sizes, color=MUTED, linewidth=1.0, linestyle="--", zorder=1)
+    for key, color, marker, x in (("observed", INK, "o", sizes * 0.985), ("predicted", SR_COLOR, "s", sizes * 1.015)):
+        y = np.array(s1[f"{key}_by_size"])
+        lo, hi = np.array(s1[f"{key}_by_size_interval"])
+        ax.plot(x, y, color=color, linewidth=1.2, zorder=2)
+        ax.errorbar(x, y, yerr=[y - lo, hi - y], fmt="none", ecolor=color, elinewidth=1.0, capsize=0, zorder=2)
+        ax.scatter(x, y, s=30, marker=marker, color=color, edgecolor=SURFACE, linewidth=1.0, zorder=3)
+    e_obs, e_pred = s1["observed_elasticity"], s1["predicted_elasticity"]
+    ax.text(
+        0.97,
+        0.04,
+        f"Growth with set size (elasticity)\npeople {e_obs['point']:.2f} [{e_obs['percentile'][0]:.2f}, "
+        f"{e_obs['percentile'][1]:.2f}]\nsample until return {e_pred['point']:.2f} "
+        f"[{e_pred['percentile'][0]:.2f}, {e_pred['percentile'][1]:.2f}]\nlooking at every snack 1",
+        transform=ax.transAxes,
+        fontsize=7,
+        color=INK_2,
+        va="bottom",
+        ha="right",
+    )
+    _snack_axis(ax)
+    ax.set_yticks([2, 4, 8, 16, 32], labels=["2", "4", "8", "16", "32"])
+    ax.set_ylim(0.9, 45)
+    ax.set_ylabel("Distinct snacks looked at", color=INK_2)
+    ax.set_title("Search grows like the square root", color=INK, fontsize=9, loc="left", fontweight="bold")
+    ax.legend(
+        handles=[
+            Line2D([], [], marker="o", color=INK, label="People"),
+            Line2D([], [], marker="s", color=SR_COLOR, label="Sample until return"),
+            Line2D([], [], color=MUTED, linestyle="--", label="Looking at every snack"),
+        ],
+        frameon=False,
+        fontsize=7,
+        loc="upper left",
+        labelcolor=INK_2,
+    )
+
+    # b, the time each step would take if people did the model's work
+    ax = axes[0, 1]
+    _style(ax)
+    ax.set_yscale("log")
+    steps = summary["per_step_seconds"]
+    handles = []
+    for name, label in (
+        ("SR", "Sample until return, per look"),
+        ("CL", "CL, per value"),
+        ("DbS_avg", "DbS, per comparison"),
+    ):
+        color, marker, _ = MODEL_STYLE[name]
+        y = np.array(steps[name])
+        ax.plot(sizes, y, color=color, linewidth=1.2, zorder=2)
+        ax.scatter(sizes, y, s=30, marker=marker, color=color, edgecolor=SURFACE, linewidth=1.0, zorder=3)
+        handles.append(Line2D([], [], marker=marker, color=color, label=label))
+    _snack_axis(ax)
+    ax.set_ylim(0.002, 40)
+    ax.set_yticks([0.01, 0.1, 1, 10], labels=["0.01", "0.1", "1", "10"])
+    ax.set_ylabel("Seconds per step of the model", color=INK_2)
+    ax.legend(handles=handles, frameon=False, fontsize=7, loc="upper right", labelcolor=INK_2)
+    ax.set_title("Search keeps a steady pace", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    # c, what foresees a slow decision
+    ax = axes[1, 0]
+    _style(ax)
+    ax.grid(axis="y", visible=False)
+    ax.grid(axis="x", color=GRID, linewidth=0.6)
+    ax.axvline(0, color=AXIS, linewidth=1.0)
+    S3 = summary["S3"]["correlation"]
+    names = list(FORECAST_LABELS)
+    for i, name in enumerate(names):
+        label, color, marker = FORECAST_LABELS[name]
+        e = S3[name]
+        ax.plot(e["percentile"], [i, i], color=color, linewidth=1.2, zorder=2)
+        ax.scatter(e["point"], i, s=30, marker=marker, color=color, edgecolor=SURFACE, linewidth=1.0, zorder=3)
+    ax.set_yticks(range(len(names)), labels=[FORECAST_LABELS[n][0] for n in names])
+    ax.invert_yaxis()
+    ax.set_xlim(-0.4, 0.2)
+    ax.set_xlabel("Rank correlation with response time", color=INK_2)
+    ax.set_title("What foresees a slow decision", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    # d, choices of unseen set sizes
+    ax = axes[1, 1]
+    _style(ax)
+    ax.grid(axis="y", visible=False)
+    ax.grid(axis="x", color=GRID, linewidth=0.6)
+    tc = summary["choices"]["times_chance"]
+    order = ("SR", "CL", "DbS_avg", "MLBA_avg")
+    labels = {"SR": "Sample until return", "CL": "CL", "DbS_avg": "DbS", "MLBA_avg": "MLBA"}
+    for i, m in enumerate(order):
+        color, marker, _ = MODEL_STYLE[m]
+        e = tc[m]
+        ax.plot(e["percentile"], [i, i], color=color, linewidth=1.2, zorder=2)
+        ax.scatter(e["point"], i, s=30, marker=marker, color=color, edgecolor=SURFACE, linewidth=1.0, zorder=3)
+        ax.text(e["percentile"][1] + 0.08, i, f"{e['point']:.2f}", va="center", fontsize=7, color=INK_2)
+    ax.axvline(1.0, color=AXIS, linewidth=1.0)
+    ax.set_yticks(range(len(order)), labels=[labels[m] for m in order])
+    ax.invert_yaxis()
+    ax.set_xlim(0.8, 5.2)
+    ax.set_xlabel("Likelihood of the choice, times chance", color=INK_2)
+    ax.set_title("Choices as well as the best", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    _letters(axes.ravel())
+    fig.tight_layout(h_pad=2.2, w_pad=2.0)
+    return _save(fig, out)
