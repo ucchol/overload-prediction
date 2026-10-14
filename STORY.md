@@ -209,7 +209,7 @@ Descriptive.
 
 Reading.
 - People search, and their search grows like the square root of the number of options, the signature of the birthday problem that the model was built on. This was predicted before the model met these data. Looking at every item would grow in proportion.
-- The form of the stopping rule is right and its level is not. People look at 3.6 times as many items before they choose, so they return to options several times before committing.
+- The form of the stopping rule is right and its level is not. People look at 3.6 times as many items before they choose. Either they do not stop at the first return to an option, or their attention is less drawn to value than their choices are.
 - The model's work keeps a steady pace with human time across set sizes, but its trial by trial look counts did not time single decisions better than counting options.
 - What speeds a single decision is an option that is good in absolute terms. The model reads only differences in value, so it cannot produce this, and neither can CL's spread of choices.
 - Choices again cannot separate the processes. The model predicted unseen choices as well as CL and better than DbS and MLBA, as the design check expected.
