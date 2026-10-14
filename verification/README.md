@@ -11,6 +11,7 @@ A disagreement beyond rounding blocks the result until its cause is found. The b
 |---|---|---|
 | `independent/` | R0, H1 and the laptop rubric check on the development data | `sh verification/run_independent.sh PATH_TO_CSV`, about two minutes |
 | `independent_snack/` | the confirmatory H1 test of Amendment 3 on the snack data | `sh verification/run_independent_snack.sh`, about ten minutes |
+| `independent_process/` | the overload index, decision time, search models and premonition on the development data | `sh verification/run_independent_process.sh PATH_TO_CSV`, about ten minutes |
 
 Both implementations are archived exactly as they were written, with their results. The runners copy data only into temporary folders that are removed afterwards.
 
@@ -46,6 +47,21 @@ R0 and H1 were rerun with the storyboard laptop definitions (`src/overload/stimu
 - The verifier found that the bit figures quoted in item 2 of Amendment 4 are in sample fits. Held out they are 1.019 against 0.939 in trial 5 and 0.958 against 0.895 in trial 6, still in favor of the storyboard. The plan carries a correction note.
 
 `independent/results.json` stays as the record of the 9 October verification on the earlier definitions.
+
+## Overload, decision time, search models and premonition, 14 October 2026
+
+Exploratory analyses of the development data (`results/overload`, `results/process_dev`).
+
+- Second run. Identical (`summary.json` apart from its run time stamp, `point.json` and `replicates.jsonl`).
+- Independent reimplementation, written blind from `VERIFY_BRIEF_PROCESS.md`, reusing the verifier's own R0 code. Before the run it checked the race probabilities against closed forms for two options, the birthday problem for equal options (365 options give 24.6166 expected looks), an exact elementary symmetric polynomial computation, simulations of both search models, the elimination by aspects effort by hand and every fitted sensitivity against a dense grid (each search likelihood had a single maximum in all 48,000 resampled fold fits). `compare_process.py` then compared about 3,900 values. Every point value agrees within 1e-6 (largest difference 8e-7, from the search models' sensitivities, which the two optimizers locate to about 3e-7). Interval bounds of completeness agree within 2e-6. Rank correlations agree exactly in the original sample, but in some resamples two forecasts or outcomes equal up to 1e-7 are ordered differently, which moves an interval bound by one rank step (at most 0.007) and a p value by up to 0.014. A difference of two time errors can be exactly zero in a resample, where rounding decides its sign (p values differ by 0.002). No clear flag differs among the 364 compared.
+
+Points the verifier raised.
+
+1. Every participant has a matched choice in both tasks, but two file displays (trials 1 and 6) each include timeouts, 1.1 percent of answers, with no matched option, the 1800 second timer cap and regret 100. They are kept as recorded. Leaving them out moves the regret errors of the premonition by at most 0.12 points and changes no decision.
+2. Combining both tasks in the premonition mixes the gap between tasks into every forecast. The number of attributes shown separates the tasks only because file displays show fewer attributes. Within each task it has no value as a forecast.
+3. Percentile intervals sit badly for rank correlations over six displays and for mean absolute errors against resampled outcomes (a point at the edge of its own interval). The clear rule gives partial protection, and rank correlations over six displays are read as descriptions.
+4. With the number of options as displayed, laptop trial 6 has 30 options. With the intended 32, the rank correlation of options with overload is 0.48 instead of 0.53 for laptops.
+5. QR and CL share one effort count, and so do DbS and MLBA, so their time results are identical pairs.
 
 ## Exploratory laptop rubric sensitivity, 9 October 2026 (withdrawn by Amendment 4)
 

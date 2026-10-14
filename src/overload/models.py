@@ -127,6 +127,8 @@ class Model:
 
     For kind "softmax", ``base`` returns option scores and the fitted parameter is a sensitivity.
     For kind "lapse", ``base`` returns a probability distribution and the fitted parameter is a lapse.
+    For the search kinds "race" and "accept", ``base`` returns option values and the fitted parameter is
+    the sensitivity of the search rule (``overload.search``).
     """
 
     name: str
@@ -164,6 +166,17 @@ def set_size_models() -> list[Model]:
         for beta in BETAS:
             out.append(Model(f"{label}|beta={beta:+.1f}", "softmax", scaled(scorer, beta)))
     return out
+
+
+def search_models() -> list[Model]:
+    """The proposed search model, sample until return, on CL values and on averaged comparison values, and
+    the rejected alternative that accepts options in reading order (``overload.search``)."""
+    return [
+        Model("SR", "race", score_cl),
+        Model("SR_DbS", "race", score_dbs_avg),
+        Model("SR_MLBA", "race", score_mlba_avg),
+        Model("Accept_read", "accept", score_cl),
+    ]
 
 
 def screening_models() -> list[Model]:
