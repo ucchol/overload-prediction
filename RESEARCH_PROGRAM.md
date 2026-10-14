@@ -42,6 +42,8 @@ Test. Held out error in decision time per trial, and whether each model reproduc
 
 Message we expect. People's time grows far more slowly with set size than integration models require, and a search that stops matches it.
 
+Outcome, 14 October 2026. Not supported. Fitted to people's times, no model's work, ours included, predicted decision time better than a constant on the development data, or better than the number of options on the snack data. Dividing people's time by a model's steps is not a fit and is not used.
+
 ### 3. A model that decides like people
 
 Question. Can one mechanism, with one free parameter like the other models, beat them on choices and on time?

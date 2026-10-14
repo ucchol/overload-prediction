@@ -19,7 +19,8 @@ S5  Choices. The search model predicts the chosen item of unseen set sizes at le
     on these data, to within a margin of 2 percent of the held out likelihood (non inferiority).
 
 Secondary. Choices against DbS_avg and MLBA_avg, the elasticity of CL's sensitivity that the search model implies, the
-level of search, the time each step may take, and rank correlations of other forecasts with time.
+level of search, and rank correlations of other forecasts with time. The amendment also lists the time each step may
+take (median response time over mean effort). It is recorded in the summary but not reported, since it is not a fit.
 
 Usage
     python -m overload.experiments.search_confirmatory --snack data/snack --out results/search_confirmatory --jobs 2
@@ -556,9 +557,6 @@ def table(s: dict) -> str:
         "",
         f"- Elasticity of CL's sensitivity implied by sample until return {_f(s['implied_elasticity'], 3, True)} "
         "(observed in Amendment 3, +0.18).",
-        "- Time each step may take, median response time over mean effort, seconds, at 9, 16, 25 and 36 items. "
-        + "; ".join(f"{m} " + ", ".join(f"{x:.3g}" for x in v) for m, v in s["per_step_seconds"].items())
-        + ".",
         "",
         "Brackets give 95% percentile intervals from 1000 participant resamples. A star marks a value whose "
         "percentile and basic intervals both exclude zero.",

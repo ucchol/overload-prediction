@@ -348,47 +348,47 @@ def figure_overload(summary: dict, out: Path) -> list[Path]:
 
 
 def figure_time(summary: dict, out: Path) -> list[Path]:
-    """How fast each model would have to work to decide when people did, and how well it predicts time."""
+    """People's typical decision time on each trial against each model's held out time law, and the typical error."""
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8})
     fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.9), gridspec_kw={"width_ratios": [1, 1, 0.9]})
     fig.patch.set_facecolor(SURFACE)
     T = summary["time"]
+    shown = ("constant", "CL", "DbS_avg", "SR")
+    style = {name: MODEL_STYLE[name] for name in ("CL", "DbS_avg", "SR")}
+    style["constant"] = (MUTED, "v", "No model (constant)")
     for col, task in enumerate(("file", "laptop")):
         ax = axes[col]
         _style(ax)
-        ax.axhspan(1e-1, 250, color=GRID, alpha=0.6, linewidth=0, zorder=0)
-        ax.text(6.7, 4.0, "faster than one\neye fixation", color=INK_2, fontsize=6.5, va="bottom")
-        keys = summary["trials"][task]
-        opts = np.array([8, 8, 16, 16, 32, 32], float) * np.array([0.93, 1.07] * 3)
-        for name in ("DbS_avg", "CL", "EBA", "SR"):
-            color, marker, label = MODEL_STYLE[name]
-            e = T[task]["per_step"][name]
-            y = 1000 * np.array(e["seconds_per_step"])
-            for info, idx in (("low", [0, 2, 4]), ("high", [1, 3, 5])):
-                ax.plot(
-                    opts[idx], y[idx], color=color, linewidth=1.2, linestyle="-" if info == "low" else "--", zorder=2
-                )
+        x = np.arange(6)
+        ax.scatter(x, T[task]["seconds"], s=40, marker="o", color=INK, edgecolor=SURFACE, linewidth=1.0, zorder=4)
+        for k, name in enumerate(shown):
+            color, marker, _ = style[name]
             ax.scatter(
-                opts, y, s=24, marker=marker, color=color, edgecolor=SURFACE, linewidth=0.8, zorder=3, label=label
+                x + (k - 1.5) * 0.12,
+                T[task]["held_out"][name],
+                s=22,
+                marker=marker,
+                color=color,
+                edgecolor=SURFACE,
+                linewidth=0.8,
+                zorder=3,
             )
-        _options_axis(ax)
-        ax.set_yscale("log")
-        ax.set_ylim(3, 30000)
+        labels = [f"{n}\n{'brief' if j % 2 == 0 else 'full'}" for j, n in enumerate((8, 8, 16, 16, 32, 32))]
+        ax.set_xticks(x, labels=labels, fontsize=6.5)
+        ax.set_ylim(0, 160 if task == "file" else 60)
+        ax.set_xlabel("Options and information on the trial", color=INK_2)
         ax.set_title(TASK_TITLES[task], color=INK, fontsize=9, loc="left", fontweight="bold")
         if col == 0:
-            ax.set_ylabel("Time each step may take, ms", color=INK_2)
-        del keys
-    model_handles, _ = axes[1].get_legend_handles_labels()
-    style_handles = [
-        Line2D([], [], color=INK_2, linewidth=1.2, linestyle="-", label="Brief information"),
-        Line2D([], [], color=INK_2, linewidth=1.2, linestyle="--", label="Full information"),
+            ax.set_ylabel("Typical decision time, s", color=INK_2)
+    handles = [Line2D([], [], marker="o", linestyle="", color=INK, label="People")] + [
+        Line2D([], [], marker=style[n][1], linestyle="", color=style[n][0], label=style[n][2]) for n in shown
     ]
     fig.legend(
-        handles=model_handles + style_handles,
+        handles=handles,
         frameon=False,
         fontsize=6.5,
         loc="upper center",
-        ncol=6,
+        ncol=5,
         labelcolor=INK_2,
         bbox_to_anchor=(0.5, 1.0),
     )
@@ -410,17 +410,7 @@ def figure_time(summary: dict, out: Path) -> list[Path]:
     ax.invert_yaxis()
     ax.grid(axis="y", visible=False)
     ax.grid(axis="x", color=GRID, linewidth=0.6)
-    ax.set_xlabel("Typical error of held out time, %", color=INK_2)
-    ax.legend(
-        handles=[
-            Line2D([], [], marker="o", linestyle="", color=INK_2, label="Files"),
-            Line2D([], [], marker="s", linestyle="", color=INK_2, label="Laptops"),
-        ],
-        frameon=False,
-        fontsize=6.5,
-        loc="lower right",
-        labelcolor=INK_2,
-    )
+    ax.set_xlabel("Typical error of held out time, %\ncircles files, squares laptops", color=INK_2)
     _letters(axes)
     fig.tight_layout(w_pad=1.2, rect=(0, 0, 0.99, 0.93))
     return _save(fig, out)
@@ -532,15 +522,17 @@ def _snack_axis(ax: plt.Axes) -> None:
 
 
 def figure_search_confirmatory(summary: dict, out: Path) -> list[Path]:
-    """Confirmatory tests of the search model on the snack data. Search, time per step, slow decisions, choices."""
+    """Confirmatory tests of the search model on the snack data. Growth of search, slow decisions and choices."""
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8})
-    fig, axes = plt.subplots(2, 2, figsize=(7.2, 6.4))
+    fig = plt.figure(figsize=(7.2, 6.2))
     fig.patch.set_facecolor(SURFACE)
+    grid = fig.add_gridspec(2, 2, height_ratios=[1.0, 0.85])
+    axes = [fig.add_subplot(grid[0, 0]), fig.add_subplot(grid[1, :]), fig.add_subplot(grid[0, 1])]
     sizes = np.array([9.0, 16.0, 25.0, 36.0])
     s1 = summary["S1"]
 
     # a, search grows like the square root of the set size
-    ax = axes[0, 0]
+    ax = axes[0]
     _style(ax)
     ax.set_yscale("log")
     ax.plot(sizes, sizes, color=MUTED, linewidth=1.0, linestyle="--", zorder=1)
@@ -580,31 +572,8 @@ def figure_search_confirmatory(summary: dict, out: Path) -> list[Path]:
         labelcolor=INK_2,
     )
 
-    # b, the time each step would take if people did the model's work
-    ax = axes[0, 1]
-    _style(ax)
-    ax.set_yscale("log")
-    steps = summary["per_step_seconds"]
-    handles = []
-    for name, label in (
-        ("SR", "Sample until return, per look"),
-        ("CL", "CL, per value"),
-        ("DbS_avg", "DbS, per comparison"),
-    ):
-        color, marker, _ = MODEL_STYLE[name]
-        y = np.array(steps[name])
-        ax.plot(sizes, y, color=color, linewidth=1.2, zorder=2)
-        ax.scatter(sizes, y, s=30, marker=marker, color=color, edgecolor=SURFACE, linewidth=1.0, zorder=3)
-        handles.append(Line2D([], [], marker=marker, color=color, label=label))
-    _snack_axis(ax)
-    ax.set_ylim(0.002, 40)
-    ax.set_yticks([0.01, 0.1, 1, 10], labels=["0.01", "0.1", "1", "10"])
-    ax.set_ylabel("Seconds per step of the model", color=INK_2)
-    ax.legend(handles=handles, frameon=False, fontsize=7, loc="upper right", labelcolor=INK_2)
-    ax.set_title("Search keeps a steady pace", color=INK, fontsize=9, loc="left", fontweight="bold")
-
-    # c, what foresees a slow decision
-    ax = axes[1, 0]
+    # c, what foresees a slow decision (wide bottom panel)
+    ax = axes[1]
     _style(ax)
     ax.grid(axis="y", visible=False)
     ax.grid(axis="x", color=GRID, linewidth=0.6)
@@ -622,8 +591,8 @@ def figure_search_confirmatory(summary: dict, out: Path) -> list[Path]:
     ax.set_xlabel("Rank correlation with response time", color=INK_2)
     ax.set_title("What foresees a slow decision", color=INK, fontsize=9, loc="left", fontweight="bold")
 
-    # d, choices of unseen set sizes
-    ax = axes[1, 1]
+    # b, choices of unseen set sizes
+    ax = axes[2]
     _style(ax)
     ax.grid(axis="y", visible=False)
     ax.grid(axis="x", color=GRID, linewidth=0.6)
@@ -643,6 +612,6 @@ def figure_search_confirmatory(summary: dict, out: Path) -> list[Path]:
     ax.set_xlabel("Likelihood of the choice, times chance", color=INK_2)
     ax.set_title("Choices as well as the best", color=INK, fontsize=9, loc="left", fontweight="bold")
 
-    _letters(axes.ravel())
-    fig.tight_layout(h_pad=2.2, w_pad=2.0)
+    _letters([axes[0], axes[2], axes[1]])
+    fig.tight_layout(h_pad=2.4, w_pad=2.0)
     return _save(fig, out)

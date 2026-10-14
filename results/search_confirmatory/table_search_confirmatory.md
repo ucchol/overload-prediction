@@ -65,6 +65,5 @@ Choices of every model, held out likelihood of the chosen item relative to chanc
 | SR | 3.83 [3.29, 4.44] | 2.85 | 3.63 | 4.35 | 4.80 |  |
 
 - Elasticity of CL's sensitivity implied by sample until return -0.010 [-0.032, 0.014] (observed in Amendment 3, +0.18).
-- Time each step may take, median response time over mean effort, seconds, at 9, 16, 25 and 36 items. CL 0.378, 0.27, 0.202, 0.155; DbS_avg 0.0473, 0.018, 0.00841, 0.00443; SR 1.09, 1.13, 1.12, 1.08.
 
 Brackets give 95% percentile intervals from 1000 participant resamples. A star marks a value whose percentile and basic intervals both exclude zero.

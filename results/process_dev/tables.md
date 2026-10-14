@@ -38,19 +38,19 @@ The search model against the established models (points).
 
 ## 2. Time, file
 
-Seconds each model may spend per step to finish when people did.
+Time law fitted to the typical seconds of all six trials.
 
-| Model | T1_L8 | T2_H8 | T3_L16 | T4_H16 | T5_L32 | T6_H32 |
-|---|---|---|---|---|---|---|
-| People, seconds | 42 | 50 | 52 | 71 | 68 | 70 |
-| QR | 5.2 (8) | 1.56 (32) | 3.24 (16) | 1.11 (64) | 2.12 (32) | 0.548 (128) |
-| CL | 5.2 (8) | 1.56 (32) | 3.24 (16) | 1.11 (64) | 2.12 (32) | 0.548 (128) |
-| DbS_avg | 0.743 (56) | 0.223 (224) | 0.216 (240) | 0.0737 (960) | 0.0684 (992) | 0.0177 (3968) |
-| MLBA_avg | 0.743 (56) | 0.223 (224) | 0.216 (240) | 0.0737 (960) | 0.0684 (992) | 0.0177 (3968) |
-| EBA | 3.2 (13) | 0.412 (121) | 2.07 (25) | 1.11 (64) | 2.12 (32) | 0.14 (501) |
-| SR | 10.2 (4) | 3.05 (16) | 9.61 (5) | 3.35 (21) | 9.38 (7) | 2.38 (29) |
-| SR_DbS | 10.3 (4) | 3.09 (16) | 9.59 (5) | 3.32 (21) | 9.2 (7) | 2.41 (29) |
-| Accept_read | 8.99 (5) | 2.69 (19) | 9.65 (5) | 1.92 (37) | 15.2 (4) | 6.86 (10) |
+| Model | Effort, steps per trial | Start up time, s | Time per step, ms | Variation explained |
+|---|---|---|---|---|
+| People, seconds | 42, 50, 52, 71, 68, 70 | | | |
+| QR | 8, 32, 16, 64, 32, 128 | 49.1 | 205 | 0.53 |
+| CL | 8, 32, 16, 64, 32, 128 | 49.1 | 205 | 0.53 |
+| DbS_avg | 56, 224, 240, 960, 992, 3968 | 52.6 | 5.69 | 0.45 |
+| MLBA_avg | 56, 224, 240, 960, 992, 3968 | 52.6 | 5.69 | 0.45 |
+| EBA | 13, 121, 25, 64, 32, 501 | 54.9 | 30.4 | 0.21 |
+| SR | 4, 16, 5, 21, 7, 29 | 47.6 | 797 | 0.42 |
+| SR_DbS | 4, 16, 5, 21, 7, 29 | 47.3 | 817 | 0.43 |
+| Accept_read | 5, 19, 5, 37, 4, 10 | 53.3 | 401 | 0.17 |
 
 Held out predicted seconds, constants fitted on the other five trials.
 
@@ -68,19 +68,19 @@ Held out predicted seconds, constants fitted on the other five trials.
 
 ## 2. Time, laptop
 
-Seconds each model may spend per step to finish when people did.
+Time law fitted to the typical seconds of all six trials.
 
-| Model | LT1_L8 | LT2_H8 | LT3_L16 | LT4_H16 | LT5_L32 | LT6_H32 |
-|---|---|---|---|---|---|---|
-| People, seconds | 29 | 35 | 33 | 40 | 37 | 36 |
-| QR | 1.19 (24) | 0.726 (48) | 0.68 (48) | 0.414 (96) | 0.382 (96) | 0.201 (180) |
-| CL | 1.19 (24) | 0.726 (48) | 0.68 (48) | 0.414 (96) | 0.382 (96) | 0.201 (180) |
-| DbS_avg | 0.17 (168) | 0.104 (336) | 0.0454 (720) | 0.0276 (1440) | 0.0123 (2976) | 0.00694 (5220) |
-| MLBA_avg | 0.17 (168) | 0.104 (336) | 0.0454 (720) | 0.0276 (1440) | 0.0123 (2976) | 0.00694 (5220) |
-| EBA | 0.933 (31) | 1.87 (19) | 0.469 (70) | 0.334 (119) | 0.247 (148) | 0.15 (241) |
-| SR | 2.55 (11) | 1.48 (24) | 2 (16) | 1.34 (30) | 1.74 (21) | 0.904 (40) |
-| SR_DbS | 2.51 (11) | 1.48 (23) | 2.03 (16) | 1.42 (28) | 1.71 (21) | 0.926 (39) |
-| Accept_read | 1.28 (22) | 1.08 (32) | 2.01 (16) | 0.786 (51) | 1.72 (21) | 0.895 (40) |
+| Model | Effort, steps per trial | Start up time, s | Time per step, ms | Variation explained |
+|---|---|---|---|---|
+| People, seconds | 29, 35, 33, 40, 37, 36 | | | |
+| QR | 24, 48, 48, 96, 96, 180 | 31.3 | 42.4 | 0.39 |
+| CL | 24, 48, 48, 96, 96, 180 | 31.3 | 42.4 | 0.39 |
+| DbS_avg | 168, 336, 720, 1440, 2976, 5220 | 33.1 | 0.917 | 0.22 |
+| MLBA_avg | 168, 336, 720, 1440, 2976, 5220 | 33.1 | 0.917 | 0.22 |
+| EBA | 31, 19, 70, 119, 148, 241 | 32.1 | 25.2 | 0.30 |
+| SR | 11, 24, 16, 30, 21, 40 | 28.4 | 272 | 0.52 |
+| SR_DbS | 11, 23, 16, 28, 21, 39 | 28.3 | 280 | 0.50 |
+| Accept_read | 22, 32, 16, 51, 21, 40 | 28.5 | 207 | 0.50 |
 
 Held out predicted seconds, constants fitted on the other five trials.
 
@@ -195,4 +195,4 @@ Regret by trial: 29.4, 15.7, 18.8, 28.3, 31.2, 26.5, 22.5, 28.5, 28.3, 21.1, 15.
 | SR | 20.7, 28.6, 16.8, 18.2, 25.4, 31.2, 15.5, 25.8, 22.4, 21.4, 21.7, 21.8 | +0.11 [-0.17, 0.48] | 6.15 [5.16, 7.70] * | +0.32 [-0.93, 1.81] |
 | SR_DbS | 19.2, 27.7, 17.2, 19.7, 29.0, 28.5, 17.0, 26.6, 21.2, 18.3, 23.2, 20.3 | +0.22 [-0.08, 0.49] | 5.65 [4.86, 7.18] * | -0.19 [-1.35, 1.42] |
 
-Brackets give 95% percentile intervals from 1000 participant resamples. A star marks a value whose percentile and basic intervals both exclude zero. Effort in elementary steps is in parentheses. Development data, exploratory.
+Brackets give 95% percentile intervals from 1000 participant resamples. A star marks a value whose percentile and basic intervals both exclude zero. Development data, exploratory.
