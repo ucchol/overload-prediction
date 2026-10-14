@@ -7,6 +7,7 @@ ink, models in color. Text uses ink tones only.
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from pathlib import Path
 
 import matplotlib
@@ -267,3 +268,244 @@ def figure_h1_confirmatory(summary: dict, out: Path) -> list[Path]:
     fig.savefig(paths[1], facecolor=SURFACE)
     plt.close(fig)
     return paths
+
+
+# ----------------------------------------------------------------------------- overload, time and search
+SR_COLOR = "#4a3aa7"  # the proposed search model, validated with the three model colors above (all pairs)
+MODEL_STYLE = {
+    "CL": (SERIES["CL"], "o", "CL"),
+    "DbS_avg": (SERIES["DbS_avg"], "D", "DbS and MLBA"),
+    "MLBA_avg": (SERIES["MLBA_avg"], "^", "MLBA"),
+    "EBA": (MUTED, "v", "Elimination by aspects"),
+    "SR": (SR_COLOR, "s", "Sample until return"),
+}
+
+
+def _save(fig: plt.Figure, out: Path) -> list[Path]:
+    paths = [out.with_suffix(".png"), out.with_suffix(".pdf")]
+    out.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(paths[0], dpi=300, facecolor=SURFACE)
+    fig.savefig(paths[1], facecolor=SURFACE)
+    plt.close(fig)
+    return paths
+
+
+def _letters(axes: Sequence[plt.Axes]) -> None:
+    for ax, letter in zip(axes, "abcdefgh", strict=False):
+        ax.text(-0.02, 1.05, letter, transform=ax.transAxes, color=INK, fontsize=10, fontweight="bold", ha="right")
+
+
+def _options_axis(ax: plt.Axes, label: bool = True) -> None:
+    ax.set_xscale("log", base=2)
+    ax.set_xticks([8, 16, 32], labels=["8", "16", "32"])
+    ax.minorticks_off()
+    ax.set_xlim(6.3, 40)
+    if label:
+        ax.set_xlabel("Options in the trial", color=INK_2)
+
+
+def figure_overload(summary: dict, out: Path) -> list[Path]:
+    """Where people felt overloaded. Overload against each person's own average, regret and time, by trial."""
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8})
+    fig, axes = plt.subplots(3, 2, figsize=(7.2, 7.0), sharey="row")
+    fig.patch.set_facecolor(SURFACE)
+    M = summary["measures"]
+    rows = (
+        ("overload_vs_average", "Overload against own average,\nscale points (1 to 5 scale)", 1.0),
+        ("regret", "Regret, points\n(0 means a best option)", 1.0),
+        ("geo_seconds", "Time on the choice, s\n(geometric mean)", 1.0),
+    )
+    for col, task in enumerate(("file", "laptop")):
+        trials = [t for t in summary["trials"] if t["task"] == task]
+        for row, (name, ylabel, scale) in enumerate(rows):
+            ax = axes[row, col]
+            _style(ax)
+            if name == "overload_vs_average":
+                ax.axhline(0, color=AXIS, linewidth=1.0, zorder=1)
+            for t in trials:
+                e = M[f"trial|{t['key']}|{name}"]
+                low = t["information"] == "low"
+                x = (32 if t["options"] == 30 else t["options"]) * (0.93 if low else 1.07)
+                y = scale * e["point"]
+                lo, hi = (scale * v for v in e["percentile"])
+                ax.plot([x, x], [lo, hi], color=INK, linewidth=1.0, zorder=2)
+                ax.scatter(
+                    x, y, s=34, marker="o" if low else "s", color=INK, edgecolor=SURFACE, linewidth=1.2, zorder=3
+                )
+            _options_axis(ax, label=row == 2)
+            if col == 0:
+                ax.set_ylabel(ylabel, color=INK_2)
+            if row == 0:
+                ax.set_title(TASK_TITLES[task], color=INK, fontsize=9, loc="left", fontweight="bold")
+    handles = [
+        Line2D([], [], marker="o", linestyle="", color=INK, markersize=6, label="Brief information"),
+        Line2D([], [], marker="s", linestyle="", color=INK, markersize=6, label="Full information"),
+    ]
+    fig.legend(handles=handles, frameon=False, fontsize=7.5, loc="upper center", ncol=2, labelcolor=INK_2)
+    _letters(axes.ravel())
+    fig.tight_layout(h_pad=1.6, rect=(0, 0, 1, 0.97))
+    return _save(fig, out)
+
+
+def figure_time(summary: dict, out: Path) -> list[Path]:
+    """How fast each model would have to work to decide when people did, and how well it predicts time."""
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8})
+    fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.9), gridspec_kw={"width_ratios": [1, 1, 0.9]})
+    fig.patch.set_facecolor(SURFACE)
+    T = summary["time"]
+    for col, task in enumerate(("file", "laptop")):
+        ax = axes[col]
+        _style(ax)
+        ax.axhspan(1e-1, 250, color=GRID, alpha=0.6, linewidth=0, zorder=0)
+        ax.text(6.7, 4.0, "faster than one\neye fixation", color=INK_2, fontsize=6.5, va="bottom")
+        keys = summary["trials"][task]
+        opts = np.array([8, 8, 16, 16, 32, 32], float) * np.array([0.93, 1.07] * 3)
+        for name in ("DbS_avg", "CL", "EBA", "SR"):
+            color, marker, label = MODEL_STYLE[name]
+            e = T[task]["per_step"][name]
+            y = 1000 * np.array(e["seconds_per_step"])
+            for info, idx in (("low", [0, 2, 4]), ("high", [1, 3, 5])):
+                ax.plot(
+                    opts[idx], y[idx], color=color, linewidth=1.2, linestyle="-" if info == "low" else "--", zorder=2
+                )
+            ax.scatter(
+                opts, y, s=24, marker=marker, color=color, edgecolor=SURFACE, linewidth=0.8, zorder=3, label=label
+            )
+        _options_axis(ax)
+        ax.set_yscale("log")
+        ax.set_ylim(3, 30000)
+        ax.set_title(TASK_TITLES[task], color=INK, fontsize=9, loc="left", fontweight="bold")
+        if col == 0:
+            ax.set_ylabel("Time each step may take, ms", color=INK_2)
+        del keys
+    model_handles, _ = axes[1].get_legend_handles_labels()
+    style_handles = [
+        Line2D([], [], color=INK_2, linewidth=1.2, linestyle="-", label="Brief information"),
+        Line2D([], [], color=INK_2, linewidth=1.2, linestyle="--", label="Full information"),
+    ]
+    fig.legend(
+        handles=model_handles + style_handles,
+        frameon=False,
+        fontsize=6.5,
+        loc="upper center",
+        ncol=6,
+        labelcolor=INK_2,
+        bbox_to_anchor=(0.5, 1.0),
+    )
+    # c, held out time error
+    ax = axes[2]
+    _style(ax)
+    names = ("constant", "CL", "DbS_avg", "EBA", "SR")
+    labels = ("No model", "CL", "DbS, MLBA", "EBA", "Sample\nuntil return")
+    for k, task in enumerate(("file", "laptop")):
+        for i, name in enumerate(names):
+            e = T[task]["error"][name]
+            color = INK if name == "constant" else MODEL_STYLE[name][0]
+            y = i + (k - 0.5) * 0.32
+            ax.plot(e["percentile"], [y, y], color=color, linewidth=1.0, zorder=2)
+            ax.scatter(
+                e["point"], y, s=26, marker="o" if task == "file" else "s", color=color, edgecolor=SURFACE, zorder=3
+            )
+    ax.set_yticks(range(len(names)), labels=labels)
+    ax.invert_yaxis()
+    ax.grid(axis="y", visible=False)
+    ax.grid(axis="x", color=GRID, linewidth=0.6)
+    ax.set_xlabel("Typical error of held out time, %", color=INK_2)
+    ax.legend(
+        handles=[
+            Line2D([], [], marker="o", linestyle="", color=INK_2, label="Files"),
+            Line2D([], [], marker="s", linestyle="", color=INK_2, label="Laptops"),
+        ],
+        frameon=False,
+        fontsize=6.5,
+        loc="lower right",
+        labelcolor=INK_2,
+    )
+    _letters(axes)
+    fig.tight_layout(w_pad=1.2, rect=(0, 0, 0.99, 0.93))
+    return _save(fig, out)
+
+
+def figure_process_choices(summary: dict, out: Path) -> list[Path]:
+    """Held out completeness of every model. The search process changes little when the values stay the same."""
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8})
+    order = ("QR", "CL", "SR", "DbS_avg", "SR_DbS", "MLBA_avg", "SR_MLBA", "EBA", "Accept_read")
+    labels = {
+        "QR": "QR",
+        "CL": "CL",
+        "SR": "Sample until return, CL values",
+        "DbS_avg": "DbS",
+        "SR_DbS": "Sample until return, DbS values",
+        "MLBA_avg": "MLBA",
+        "SR_MLBA": "Sample until return, MLBA values",
+        "EBA": "Elimination by aspects",
+        "Accept_read": "Accept in reading order",
+    }
+    colors = {"CL": SERIES["CL"], "DbS_avg": SERIES["DbS_avg"], "MLBA_avg": SERIES["MLBA_avg"]}
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.0), sharey=True)
+    fig.patch.set_facecolor(SURFACE)
+    C = summary["choices"]
+    for col, task in enumerate(("file", "laptop")):
+        ax = axes[col]
+        _style(ax)
+        ax.grid(axis="y", visible=False)
+        ax.grid(axis="x", color=GRID, linewidth=0.6)
+        ax.axvline(0, color=AXIS, linewidth=1.0)
+        for i, m in enumerate(order):
+            e = C[task]["held_out"][m]
+            color = SR_COLOR if m.startswith("SR") else colors.get(m, MUTED)
+            ax.plot(e["percentile"], [i, i], color=color, linewidth=1.2, zorder=2)
+            ax.scatter(
+                e["point"], i, s=30, marker="s" if m.startswith("SR") else "o", color=color, edgecolor=SURFACE, zorder=3
+            )
+            ax.text(e["percentile"][1] + 1.5, i, f"{e['point']:.0f}", va="center", fontsize=6.5, color=INK_2)
+        ax.set_yticks(range(len(order)), labels=[labels[m] for m in order])
+        ax.invert_yaxis()
+        ax.set_xlabel("Held out completeness, %", color=INK_2)
+        ax.set_title(TASK_TITLES[task], color=INK, fontsize=9, loc="left", fontweight="bold")
+    axes[0].set_xlim(-65, 50)
+    axes[1].set_xlim(-5, 85)
+    _letters(axes)
+    fig.tight_layout(w_pad=1.0)
+    return _save(fig, out)
+
+
+def figure_premonition(summary: dict, out: Path) -> list[Path]:
+    """Overload index of each trial against forecasts made before anyone chose."""
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8})
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.9), sharey=True)
+    fig.patch.set_facecolor(SURFACE)
+    P = summary["premonition"]
+    for col, task in enumerate(("file", "laptop")):
+        ax = axes[col]
+        _style(ax)
+        y = np.array(P[task]["overload"])
+        x = np.array(P[task]["forecasts"]["looks_SR"])
+        for j in range(y.size):
+            ax.scatter(x[j], y[j], s=34, marker="o" if j % 2 == 0 else "s", color=SR_COLOR, edgecolor=SURFACE, zorder=3)
+        b, a = np.polyfit(x, y, 1)
+        xs = np.linspace(x.min() - 0.2, x.max() + 0.2, 10)
+        ax.plot(xs, a + b * xs, color=SR_COLOR, linewidth=1.0, alpha=0.7, zorder=2)
+        rho = P[task]["by_forecast"]["looks_SR"]["spearman"]
+        rho_n = P[task]["by_forecast"]["options"]["spearman"]
+        ax.text(
+            0.03,
+            0.95,
+            f"Rank agreement with looks {rho['point']:+.2f}\nwith number of options {rho_n['point']:+.2f}",
+            transform=ax.transAxes,
+            fontsize=7,
+            color=INK_2,
+            va="top",
+        )
+        ax.set_xlabel("Expected looks before a choice, sample until return", color=INK_2)
+        if col == 0:
+            ax.set_ylabel("Overload index (1 to 5)", color=INK_2)
+        ax.set_title(TASK_TITLES[task], color=INK, fontsize=9, loc="left", fontweight="bold")
+    handles = [
+        Line2D([], [], marker="o", linestyle="", color=SR_COLOR, label="Brief information"),
+        Line2D([], [], marker="s", linestyle="", color=SR_COLOR, label="Full information"),
+    ]
+    axes[1].legend(handles=handles, frameon=False, fontsize=7, loc="center right", labelcolor=INK_2)
+    _letters(axes)
+    fig.tight_layout(w_pad=1.4)
+    return _save(fig, out)

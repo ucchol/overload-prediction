@@ -33,7 +33,7 @@ addopts = "-q"
 line-length = 120
 target-version = "py310"
 # the verifier code is archived as written, notebooks follow Colab conventions
-extend-exclude = ["verification/independent", "verification/independent_snack", "notebooks"]
+extend-exclude = ["verification/independent", "verification/independent_snack", "verification/independent_process", "notebooks"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "NPY", "SIM"]

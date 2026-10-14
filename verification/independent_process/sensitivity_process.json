@@ -1,0 +1,66 @@
+{
+ "both_regret_matched_only": {
+  "QR": {
+   "error": 8.517989735837945,
+   "error_as_specified": 8.515451475292968,
+   "error_minus_constant": 2.8229474880521357,
+   "error_minus_constant_as_specified": 2.6810017145274196,
+   "spearman": -0.3216783216783217,
+   "spearman_as_specified": -0.3216783216783217
+  },
+  "CL": {
+   "error": 6.350302894435191,
+   "error_as_specified": 6.34776463389021,
+   "error_minus_constant": 0.6552606466493813,
+   "error_minus_constant_as_specified": 0.5133148731246617,
+   "spearman": 0.06993006993006995,
+   "spearman_as_specified": 0.06993006993006995
+  },
+  "DbS_avg": {
+   "error": 5.864639100352446,
+   "error_as_specified": 5.862100839807467,
+   "error_minus_constant": 0.16959685256663626,
+   "error_minus_constant_as_specified": 0.027651079041918436,
+   "spearman": 0.22377622377622378,
+   "spearman_as_specified": 0.22377622377622378
+  },
+  "MLBA_avg": {
+   "error": 5.351665135057567,
+   "error_as_specified": 5.349126874512589,
+   "error_minus_constant": -0.343377112728243,
+   "error_minus_constant_as_specified": -0.48532288625295994,
+   "spearman": 0.35664335664335667,
+   "spearman_as_specified": 0.35664335664335667
+  },
+  "EBA": {
+   "error": 14.584900299182697,
+   "error_as_specified": 14.457110078951267,
+   "error_minus_constant": 8.889858051396889,
+   "error_minus_constant_as_specified": 8.62266031818572,
+   "spearman": 0.09090909090909093,
+   "spearman_as_specified": 0.09090909090909093
+  },
+  "SR": {
+   "error": 6.15726583238397,
+   "error_as_specified": 6.154727571838991,
+   "error_minus_constant": 0.4622235845981608,
+   "error_minus_constant_as_specified": 0.3202778110734421,
+   "spearman": 0.11188811188811189,
+   "spearman_as_specified": 0.11188811188811189
+  },
+  "SR_DbS": {
+   "error": 5.649399092783089,
+   "error_as_specified": 5.646860832238109,
+   "error_minus_constant": -0.04564315500272098,
+   "error_minus_constant_as_specified": -0.1875889285274397,
+   "spearman": 0.22377622377622378,
+   "spearman_as_specified": 0.22377622377622378
+  }
+ },
+ "options_spearman": {
+  "laptop_displayed": 0.5296408977028497,
+  "laptop_intended": 0.4780914437337575,
+  "both_displayed": 0.4128048406188702,
+  "both_intended": 0.35478743759344955
+ }
+}

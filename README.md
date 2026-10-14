@@ -14,6 +14,7 @@ Does a larger set make choices noisier, or do people narrow their search and cho
 | H2 Comparison under sparse information | Known for laptops, not for files | Open dataset being chosen |
 | H3 Inputs over rules | To run | |
 | H4 Cost depends on cue validity | To specify | |
+| Overload, time and search (research program) | Overload rose with set size for files and never appeared for laptops. Comparison models would need milliseconds per comparison to match people's speed. The search model, sample until return, matched the best models on choices | Search, time and premonition tests drafted (Amendment 5) |
 
 Laptop trials 5 and 6 were corrected from the study's storyboard on 10 October 2026 (plan, Amendment 4), and every laptop result was rerun and verified again. The full record is in [`STORY.md`](STORY.md), and the program of the next analyses (overload, decision time and a search model) in [`RESEARCH_PROGRAM.md`](RESEARCH_PROGRAM.md).
 
@@ -28,14 +29,17 @@ Confirmatory test of H1 on the data of Thomas, Molter and Krajbich (2021). (a) P
 - [`RESEARCH_PROGRAM.md`](RESEARCH_PROGRAM.md) maps the analyses still to come, each with its question, method and the message it is meant to deliver.
 - [`verification/`](verification) holds the independent implementations, written from the plan and a brief without access to this package, their results and the scripts that compare them with the package.
 - [`results/`](results) holds one folder per result with its summary, tables and figures.
-- [`notebooks/01_baseline_and_h1.ipynb`](notebooks/01_baseline_and_h1.ipynb) walks through every result in writing, code and findings cells and runs in Google Colab.
+- [`notebooks/01_baseline_and_h1.ipynb`](notebooks/01_baseline_and_h1.ipynb) and [`notebooks/02_overload_time_search.ipynb`](notebooks/02_overload_time_search.ipynb) walk through every result in writing, code and findings cells and run in Google Colab.
 
 ```
 src/overload/
   coding.py         attribute coding of the development study's options
   data.py           tasks, trials, rubric shares and the choice panel
   snack.py          the open snack choice data, models and fits for displays seen once
-  models.py         QR, CL, DbS, MLBA, set size scaling, elimination by aspects
+  models.py         QR, CL, DbS, MLBA, set size scaling, elimination by aspects, search models
+  search.py         sample until return and accept in reading order, choice probabilities and search length
+  effort.py         elementary steps each model needs on a display
+  responses.py      post-trial answers, regret and decision time, with the overload index
   fit.py            one parameter maximum likelihood, fitted, held out and alone predictions
   metrics.py        log score, attainable score, completeness, overlap, effective number
   bootstrap.py      participant resampling, intervals, Holm correction
@@ -84,16 +88,19 @@ Python 3.10 or later. Tests that need the development data skip without it. The 
 export OVERLOAD_DATA=/path/to/Updated_Choice_Overload.csv
 python -m overload.experiments.baseline --data $OVERLOAD_DATA --out results/baseline --jobs 2
 python -m overload.experiments.h1_narrowing --data $OVERLOAD_DATA --out results/h1 --jobs 2
+python -m overload.experiments.overload_index --data $OVERLOAD_DATA --out results/overload
+python -m overload.experiments.process_dev --data $OVERLOAD_DATA --out results/process_dev --jobs 2
 sh scripts/fetch_snack_data.sh data/snack
 python -m overload.experiments.h1_confirmatory --snack data/snack --out results/h1_confirmatory --jobs 2
 ```
 
-Every experiment draws 1000 participant resamples with fixed seeds, so a rerun reproduces the saved files exactly. With two processes the baseline takes about 1 minute, H1 about 3 and the confirmatory test about 13.
+Every experiment draws 1000 participant resamples with fixed seeds, so a rerun reproduces the saved files exactly. With two processes the baseline takes about 1 minute, H1 about 3, the overload index a few seconds, the process analyses about 15 minutes and the confirmatory test about 13.
 
 The independent checks rerun with
 
 ```bash
 sh verification/run_independent.sh $OVERLOAD_DATA
+sh verification/run_independent_process.sh $OVERLOAD_DATA
 sh verification/run_independent_snack.sh
 ```
 

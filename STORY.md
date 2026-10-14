@@ -14,6 +14,9 @@ When displays grow in the number of options and in the attributes shown for each
 | H2 Comparison under sparse information | B2 revealed weights, known for laptops | A2 known on development data, confirmatory dataset to fix |
 | H3 Inputs over rules | B3 known | A3a ladder known, A3b independent cue to fix and run |
 | H4 Cost depends on cue validity | to specify | to specify |
+| O Where overload occurs (research program) | Development done. One factor (alpha 0.87). File displays overloaded people more as they grew, laptop displays never did. Overload went with longer decisions | Premonition within files works for every forecast, set size included. No forecast foresees the gap between tasks or display level regret. Confirmatory, Amendment 5 drafted |
+| T How long each model takes (research program) | People took 29 to 40 s on laptops at every size | DbS and MLBA would need 7 to 12 ms per comparison on 32 laptops, CL about one fixation per value, sample until return about 1 to 2.5 s per value. Held out time law cannot separate models on six displays per task |
+| S The search model, sample until return (research program) | | Matches CL on CL values and DbS on DbS values in held out choices, the only well predicting model fast enough to be human. Confirmatory tests of search, time and premonition drafted (Amendment 5) |
 
 ## Plan versions
 
@@ -153,6 +156,36 @@ Reading.
 Story update. In laptops, H1 now holds on both levels. Choices concentrated beyond CL's predictions more as sets grew, and sensitivity rose rather than fell with set size, as in the snack data. Files show the concentration but not the sharpening.
 
 Correction recorded. The evidence figures in item 2 of Amendment 4 were in sample fits. Held out, the storyboard definitions still predict better, 1.02 against 0.94 bits in trial 5 and 0.96 against 0.89 in trial 6 (correction note in the plan, recomputed by the package and the verifier).
+
+### 14 Oct 2026. Overload, decision time and the search model (development data, exploratory), verified twice
+
+`results/overload` and `results/process_dev`, notebook `02_overload_time_search.ipynb`. Every model has one parameter and the fixed rubric weights, and every prediction is held out (leave one trial out within task). 1000 participant resamples. A second run reproduced every saved value, and an independent implementation written blind from `verification/VERIFY_BRIEF_PROCESS.md` agreed on every value (points within 1e-6, documented tolerances for rank statistics in `verification/compare_process.py`).
+
+Overload index (mean of six aligned post-trial answers, scale points 1 to 5).
+- One factor. Alpha within participants 0.87 [0.84, 0.90], first component 62 percent. Question 6 was answered as uncertainty (its printed anchors run the other way).
+- Files. Against people's own average, +0.05 and +0.13 at 8 files, +0.29 and +0.14 at 16, +0.50 and +0.32 at 32. From 8 to 32 files, +0.33 [0.21, 0.45], regret +6.3 [0.8, 11.5] points, time +52 percent [32, 74].
+- Laptops. Every display below people's own average (-0.33 to -0.12). From 8 to 32 laptops, overload +0.09 [-0.03, 0.21], regret -10.6 [-14.7, -7.0], time +15 percent [5, 28].
+- More information per option added no overload (-0.09 and -0.02) and slowed choices by 19 and 14 percent.
+- Within person and display, overload went with time (+0.20 files, +0.15 laptops, clear) and weakly with regret (+0.05, +0.13).
+
+Time each step may take for a model to finish when people did, 32 option displays (files T5, T6, laptops LT5, LT6).
+- DbS and MLBA, 68, 18, 12 and 7 ms per comparison. CL, 2.1, 0.55, 0.38 and 0.20 s per value. Sample until return, 9.4, 2.4, 1.7 and 0.9 s per value read.
+- Held out time law (start up time plus time per step, fitted on five displays). Typical error, files and laptops, constant 25.6 and 10.2 percent, CL 22.7 and 13.5, DbS and MLBA 32.0 and 12.5, EBA 22.3 and 12.5, sample until return 18.8 and 10.8. No difference from the constant is clear.
+
+Choices, held out completeness (files, laptops). QR 21.9, 47.2. CL 29.5, 55.4. DbS_avg 32.1, 59.3. MLBA_avg 31.4, 59.7. EBA -2.7, 14.0. Sample until return on CL values 29.4, 56.2 (minus CL -0.1 [-0.3, 0.2] and +0.8 [0.3, 1.4], clear for laptops). On DbS values 31.9, 59.7 (minus DbS -0.2 and +0.4, not clear). On MLBA values 31.2, 59.7. Accept in reading order -39.5, 27.2.
+
+Premonition (forecasts from the display and fits to other displays only).
+- Rank correlation with overload within files. Options 0.96, entropy of CL 0.89, of DbS and MLBA 0.94, expected looks of sample until return 0.89. Only MLBA's entropy beat the constant in held out error (-0.064 [-0.119, -0.003]).
+- Within laptops, 0.53 to 0.66, none better than the constant. Over both tasks, no model forecast better than the constant. The number of attributes shown separates the tasks only because file displays show fewer attributes.
+- Expected regret against people's regret, no model better than the constant (5.8 regret points over both tasks). For laptops sample until return came closest (4.9 against 5.7, not clear).
+
+Reading.
+- Overload is display specific. The same people were overloaded by large file displays and not by large laptop displays, so set size alone cannot be the cause.
+- The clock rules out exhaustive comparison. Models that compare every option with every other would have to work faster than the eye can fixate.
+- Choices cannot tell processes apart. With the values fixed, the search model predicts the same choices as the static model, so process models have to be judged on time, search and overload.
+- Premonition works within a task. Twelve displays cannot show more, which moves the test to the snack data, with thousands of displays.
+
+Caution. Development data, exploratory. The trial order is unknown, so set size may be confounded with practice in time and overload. Two file displays include timeouts at the 30 minute limit (1.1 percent of answers on each), recorded with the largest regret. Leaving them out changes no result.
 
 ## Setup facts checked against the data
 

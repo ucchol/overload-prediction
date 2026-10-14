@@ -15,11 +15,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-from scipy.optimize import brentq
+from scipy.optimize import brentq, minimize_scalar
 from scipy.special import logsumexp, softmax
 
 from .data import Task
 from .models import Model
+from .search import accept_in_reading_order, sample_until_return
 
 _XTOL = 1e-14
 _RTOL = 4 * np.finfo(float).eps
@@ -94,6 +95,48 @@ def predict_lapse(eps: float, base: np.ndarray) -> np.ndarray:
     return (1.0 - eps) * base + eps / base.size
 
 
+# ----------------------------------------------------------------------------- search models
+SEARCH_RULES = {"race": sample_until_return, "accept": accept_in_reading_order}
+_GRID = np.concatenate([[0.0], np.geomspace(1e-3, 1e3, 121)])
+
+
+def search_nll(kind: str, lam: float, scores: list[np.ndarray], counts: list[np.ndarray]) -> float:
+    rule = SEARCH_RULES[kind]
+    total = 0.0
+    for v, c in zip(scores, counts, strict=True):
+        p = rule(lam, v)
+        chosen = c > 0
+        total -= float(c[chosen] @ np.log(np.maximum(p[chosen], 1e-300)))
+    return total
+
+
+def fit_search(kind: str, scores: list[np.ndarray], counts: list[np.ndarray]) -> float:
+    """Maximum likelihood sensitivity of a search model, lambda >= 0.
+
+    The likelihood of a search model is not guaranteed to be concave in lambda, so the estimate is located
+    on a grid of 122 values spanning six orders of magnitude (scaled by the widest score range) and refined
+    by a bounded scalar search between the neighbors of the best grid value.
+    """
+    active = [(v, c) for v, c in zip(scores, counts, strict=True) if c.sum() > 0 and np.ptp(v) > 0]
+    if not active:
+        return 0.0
+    vs, cs = [a[0] for a in active], [a[1] for a in active]
+    scale = max(float(np.ptp(v)) for v in vs)
+    grid = _GRID / scale
+    vals = np.array([search_nll(kind, g, vs, cs) for g in grid])
+    k = int(np.argmin(vals))
+    if k == grid.size - 1:
+        raise SeparationError("the search model likelihood keeps rising at the largest sensitivity")
+    lo, hi = grid[max(k - 1, 0)], grid[k + 1]
+    res = minimize_scalar(
+        lambda lam: search_nll(kind, lam, vs, cs),
+        bounds=(lo, hi),
+        method="bounded",
+        options={"xatol": 1e-10, "maxiter": 500},
+    )
+    return float(res.x) if res.fun <= vals[k] else float(grid[k])
+
+
 # ----------------------------------------------------------------------------- evaluation
 @dataclass
 class Evaluation:
@@ -115,11 +158,17 @@ def _fit(model: Model, bases: list[np.ndarray], counts: list[np.ndarray]) -> flo
         return fit_softmax(bases, counts)
     if model.kind == "lapse":
         return fit_lapse(bases, counts)
+    if model.kind in SEARCH_RULES:
+        return fit_search(model.kind, bases, counts)
     raise ValueError(f"unknown model kind {model.kind!r}")
 
 
 def _predict(model: Model, theta: float, base: np.ndarray) -> np.ndarray:
-    return predict_softmax(theta, base) if model.kind == "softmax" else predict_lapse(theta, base)
+    if model.kind == "softmax":
+        return predict_softmax(theta, base)
+    if model.kind == "lapse":
+        return predict_lapse(theta, base)
+    return SEARCH_RULES[model.kind](theta, base)
 
 
 def evaluate(
