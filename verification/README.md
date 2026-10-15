@@ -13,6 +13,7 @@ A disagreement beyond rounding blocks the result until its cause is found. The b
 | `independent_snack/` | the confirmatory H1 test of Amendment 3 on the snack data | `sh verification/run_independent_snack.sh`, about ten minutes |
 | `independent_process/` | the overload index, decision time, search models and premonition on the development data | `sh verification/run_independent_process.sh PATH_TO_CSV`, about ten minutes |
 | `independent_search/` | the confirmatory search model tests of Amendment 5 on the snack data | `sh verification/run_independent_search.sh`, about twenty minutes |
+| `independent_two_look/` | the exploratory two look satisficing analysis on the snack data | `sh verification/run_independent_two_look.sh`, about twenty minutes |
 
 Both implementations are archived exactly as they were written, with their results. The runners copy data only into temporary folders that are removed afterwards.
 
@@ -72,6 +73,14 @@ The independent code was written from `VERIFY_BRIEF_SEARCH.md` and tested on sim
 - Second run. Identical (`summary.json` apart from its run time stamp, `point.json` and `replicates.jsonl`).
 - Independent reimplementation. Agreement on every value and every decision (`compare_search_confirmatory.py`). Outside rank correlations the largest difference is 3e-7, on the percent scale of S5, from locating the model's sensitivity to about 1e-8. Rank correlations differ by up to 4e-4 and their p values by one resample, where two forecasts equal to within rounding are ranked in different orders. Rerunning the amendment's exact fitting procedure gives the same sensitivities to within 3e-8 (`independent_search/postrun_checks.json`).
 - Points the verifier raised after the run. The model implies no sharpening at all (-0.01, against +0.18 observed). S2 and S3 point in different directions, and the rating of the best item forecasts slow decisions much better than the model's looks.
+
+## Two look satisficing on the snack data (exploratory), 14 October 2026
+
+Written blind from `VERIFY_BRIEF_TWO_LOOK.md`, checked on simulated data (exact sums, simulation of the process, reduction to sample until return, recovery on synthetic data from the model), then run once on the real data.
+
+- Second run. Identical (`summary.json` apart from its run time stamp, `point.json` and `replicates.jsonl`).
+- Independent reimplementation. Agreement on every value (`compare_two_look.py`), with a largest difference of 3e-7 outside rank statistics and 5e-5 for them. Every quantity shared with Amendment 5 reproduces it exactly in both implementations.
+- The verifier noted that the model's advantage in foreseeing slow decisions comes largely from the top of the rating scale. Displays without a snack rated at the top register looks slowly, so the expected looks partly restate the best snack's rating.
 
 ## Exploratory laptop rubric sensitivity, 9 October 2026 (withdrawn by Amendment 4)
 

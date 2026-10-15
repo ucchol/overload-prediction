@@ -105,6 +105,39 @@ def expected_looks(lam: float, trials: LevelTrials) -> np.ndarray:
     return level_probabilities(lam, trials)[1]
 
 
+def two_look_levels(lam: float, trials: LevelTrials, v_top: float = float(LEVELS[-1])) -> tuple[np.ndarray, np.ndarray]:
+    """Expected looks and expected distinct items looked at under two look satisficing, per trial.
+
+    Attention per item on level l is q_l = exp(lam v_l / 2) / Z and a look registers with probability
+    h_l = exp(lam (v_l - v_top) / 2), so items register at rate rho_l = q_l h_l and P = sum_l c_l rho_l. With
+    a_l = q_l + P - rho_l, and t = x / P or t = x / a_l,
+
+        E[looks]    = (1 / P) int e^(-x) prod_m (1 + rho_m x / P)^(c_m) dx,
+        E[distinct] = sum_l c_l q_l / a_l int e^(-x) prod_m (1 + rho_m x / a_l)^(c_m - [m = l]) dx,
+
+    both exact under Gauss Laguerre quadrature. Choices are those of sample until return at lam
+    (``item_probabilities``).
+    """
+    x, wq = _laguerre(trials.n)
+    c = trials.counts
+    present = c > 0
+    top = np.where(present, LEVELS, -np.inf).max(axis=1, keepdims=True)
+    za = 0.5 * lam * (LEVELS[None, :] - top)
+    q = np.exp(za) / (c * np.exp(za)).sum(axis=1, keepdims=True)  # per item on each level
+    rho = q * np.exp(0.5 * lam * (LEVELS[None, :] - v_top))
+    P = (c * rho).sum(axis=1)  # trials
+    lg = np.log1p(rho[:, :, None] * (x[None, None, :] / P[:, None, None]))  # trials by levels by nodes
+    looks = np.exp((c[:, :, None] * lg).sum(axis=1)) @ wq / P
+    a = q + P[:, None] - rho  # trials by levels
+    scaled = rho[:, None, :, None] * (x[None, None, None, :] / a[:, :, None, None])  # trials, l, m, nodes
+    lg2 = np.log1p(scaled)
+    total = (c[:, None, :, None] * lg2).sum(axis=2)  # trials, l, nodes
+    own = np.take_along_axis(lg2, np.arange(LEVELS.size)[None, :, None, None], axis=2)[:, :, 0, :]
+    integral = np.exp(total - own) @ wq  # trials, l
+    distinct = np.where(present, c * q / a * integral, 0.0).sum(axis=1)
+    return looks, distinct
+
+
 def _nll(lam: float, parts: Sequence[tuple[LevelTrials, np.ndarray]]) -> float:
     return -float(sum(w @ chosen_log_probability(lam, t) for t, w in parts))
 

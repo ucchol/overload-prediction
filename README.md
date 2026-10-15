@@ -14,7 +14,7 @@ Does a larger set make choices noisier, or do people narrow their search and cho
 | H2 Comparison under sparse information | Known for laptops, not for files | Open dataset being chosen |
 | H3 Inputs over rules | To run | |
 | H4 Cost depends on cue validity | To specify | |
-| Overload, time and search (research program) | Overload rose with set size for files and never appeared for laptops. No model's work explained how long people took. The search model, sample until return, matched the best models on choices | Search grew like the square root of the set size, as the search model predicted, though people looked at 3.6 times as many items. Its choices were as accurate as CL's and its expected looks foresaw slow decisions, but it did not time single decisions better (Amendment 5) |
+| Overload, time and search (research program) | Overload rose with set size for files and never appeared for laptops. No model's work explained how long people took. The search model, sample until return, matched the best models on choices | Search grew like the square root of the set size, as the search model predicted, though people looked at 3.6 times as many items. Its choices were as accurate as CL's and its expected looks foresaw slow decisions, but it did not time single decisions better (Amendment 5). Exploratory, an absolute standard (two look satisficing) foresaw slow decisions much better, at no cost to choices |
 
 Laptop trials 5 and 6 were corrected from the study's storyboard on 10 October 2026 (plan, Amendment 4), and every laptop result was rerun and verified again. The full record is in [`STORY.md`](STORY.md), and the program of the next analyses (overload, decision time and a search model) in [`RESEARCH_PROGRAM.md`](RESEARCH_PROGRAM.md).
 
@@ -68,6 +68,7 @@ Each model scores the options of a display and turns the scores into choice prob
 | MLBA, multiattribute linear ballistic accumulator | rubric weighted, distance weighted comparisons with every rival, summed or averaged over rivals |
 | EBA, elimination by aspects | probability of surviving elimination on the rubric's attributes |
 | SR, sample until return (proposed) | attention lands on options with probability softmax(lambda v), and the first option looked at twice is chosen, so the values of CL (or of DbS and MLBA) give choices, expected looks and time |
+| TLS, two look satisficing (proposed, exploratory) | as SR, but a look registers with a probability that rises with the option's value against the top of the scale, and the first option registered twice is chosen. Same choices as SR, with time that depends on absolute value |
 
 Set size scaling multiplies the scores by ((n - 1) / 7)^beta. Negative beta makes choices noisier as sets grow and positive beta makes them sharper.
 
@@ -99,6 +100,7 @@ python -m overload.experiments.process_dev --data $OVERLOAD_DATA --out results/p
 sh scripts/fetch_snack_data.sh data/snack
 python -m overload.experiments.h1_confirmatory --snack data/snack --out results/h1_confirmatory --jobs 2
 python -m overload.experiments.search_confirmatory --snack data/snack --out results/search_confirmatory --jobs 2
+python -m overload.experiments.two_look_snack --snack data/snack --out results/two_look_snack --jobs 2
 ```
 
 Every experiment draws 1000 participant resamples with fixed seeds, so a rerun reproduces the saved files exactly. With two processes the baseline takes about 1 minute, H1 about 3, the overload index a few seconds, the process analyses about 15 minutes, the confirmatory H1 test about 13 and the confirmatory search tests about 12.
@@ -110,6 +112,7 @@ sh verification/run_independent.sh $OVERLOAD_DATA
 sh verification/run_independent_process.sh $OVERLOAD_DATA
 sh verification/run_independent_snack.sh
 sh verification/run_independent_search.sh
+sh verification/run_independent_two_look.sh
 ```
 
 ## Data
