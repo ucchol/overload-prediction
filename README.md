@@ -24,7 +24,7 @@ Confirmatory test of the search model, sample until return, on the snack data (p
 
 ![Two look satisficing on three gaze datasets](results/two_look_gaze/fig_two_look_gaze.png)
 
-Confirmatory test of two look satisficing on three open gaze datasets of choices between two or three foods (plan, Amendment 6). (a) It did not time single decisions of people held out better than sample until return or than one constant time. (b) Within each person, its expected looks foresaw slow decisions no better than sample until return's, and about as well as the value of the best item. (c) Choices of people held out, as accurate as CL and better than DbS and MLBA. (d) In Folke's snacks, more expected looks went with lower confidence for both search models. Bars are 95 percent intervals from 1000 participant resamples.
+Confirmatory test of two look satisficing on three open gaze datasets of choices between two or three foods (plan, Amendment 6). (a) It did not time single decisions of people held out better than sample until return or than one constant time. (b) Within each person, its expected looks foresaw slow decisions no better than sample until return's, and about as well as the value of the best item. (c) Choices of people held out, as accurate as CL and, over the three datasets taken together, better than DbS and MLBA. (d) In Folke's snacks, more expected looks went with lower confidence for both search models. Bars are 95 percent intervals from 1000 participant resamples.
 
 ![Confirmatory test of H1](results/h1_confirmatory/fig_h1_confirmatory.png)
 
