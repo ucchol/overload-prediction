@@ -1,0 +1,24 @@
+PASS SR choice probabilities and expected looks equal the closed forms for two and three items (max error 3.7e-15) and the earlier general code (max relative difference 7.1e-15); probabilities sum to one (3.6e-15)
+PASS TLS expected looks with v_top = 10 equal the earlier two look code, and TLS chooses as SR (max relative difference 3.8e-15)
+PASS simulation, values [7, 4] at lambda 0.6: SR choices within 1.1 s.e., SR looks 2.2430 against 2.2435 (0.6 s.e.); TLS choices within 0.4 s.e. of SR's probabilities, TLS looks 6.657 against 6.661 (0.4 s.e.)
+PASS simulation, values [9, 9, 5] at lambda 0.5: SR choices within 0.8 s.e., SR looks 2.6412 against 2.6408 (0.4 s.e.); TLS choices within 1.8 s.e. of SR's probabilities, TLS looks 3.762 against 3.760 (0.6 s.e.)
+PASS simulation, values [3, 1, 2] at lambda 0.8: SR choices within 1.1 s.e., SR looks 2.6668 against 2.6651 (1.4 s.e.); TLS choices within 1.3 s.e. of SR's probabilities, TLS looks 56.227 against 56.260 (0.5 s.e.)
+PASS DbS_avg and MLBA_avg scores by hand (MLBA on values times 0.6) and equal to the snack implementation at scale 1 (max difference 0.0e+00)
+PASS forecasts rounded by float(format(x, '.10g')) element by element; forecasts equal in exact arithmetic tie after rounding (share of pairs that differ before rounding: SR looks, shifted 0.67, SR looks, reordered 0.16, CL entropy, shifted 0.79, TLS looks, reordered 0.13, mean value, reordered 0.21), TLS looks of shifted displays stay distinct, and a one-ulp difference no longer splits a tie in the grouped Spearman (0.8944 with rounding, scipy on the tied values 0.8944, 0.6669 without)
+PASS recovery, 2 items, lambda 0.3: CL 0.2873 (1.5 s.e.), SR 0.3127 (1.7 s.e.), SR dense-grid excess -1.0e-01
+PASS recovery, 2 items, lambda 0.9: CL 0.9107 (0.4 s.e.), SR 0.8656 (1.3 s.e.), SR dense-grid excess -7.6e-05
+PASS recovery, 3 items, lambda 0.3: CL 0.3009 (0.1 s.e.), SR 0.2993 (0.1 s.e.), SR dense-grid excess -7.8e-03
+PASS recovery, 3 items, lambda 0.9: CL 0.8894 (0.6 s.e.), SR 0.8709 (1.4 s.e.), SR dense-grid excess -2.8e-02
+PASS recovery of DbS at lambda 1.2: 1.1530 (2.2 s.e.)
+PASS recovery of MLBA at lambda 3.0: 2.9278 (0.9 s.e.)
+PASS the loader refuses the real gaze folder unless explicitly allowed (nothing is read)
+PASS folds: a participant's fold is its position in default_rng(20261014).permutation of the sorted participants, modulo 10
+PASS inclusion: missing value, invalid or non-integer choice, missing, zero or negative rt excluded
+PASS Folke's confidence attached by row (missing ratings kept as missing)
+PASS the loader stops with an error when a response time differs or the row counts differ
+PASS the analysis stops when an included value lies above 10, and not for a value above 10 in an excluded row
+PASS CL, DbS and MLBA: every fit (ten folds and the full sample) is a stationary point of a concave likelihood (largest relative Newton step left 4.1e-15)
+PASS SR: the amendment's grid and bounded Brent search (xatol 1e-10) reach the global maximum in every fit (largest dense-grid excess -1.4e-05)
+PASS time laws (SR and TLS effort; two folds and the full sample per dataset, original and resampled weights) at or below brute force, a grid polished from each of its local minima (largest relative excess 2.9e-16)
+
+ALL CHECKS PASSED

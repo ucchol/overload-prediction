@@ -701,3 +701,135 @@ def figure_two_look(summary: dict, out: Path) -> list[Path]:
     _letters(axes)
     fig.tight_layout(w_pad=1.0)
     return _save(fig, out)
+
+
+# ----------------------------------------------------------------------------- two look satisficing (confirmatory)
+TLS_MARKER = "*"
+GAZE_ROWS = (
+    ("krajbich2010", "Two foods\nKrajbich 2010"),
+    ("krajbich2011", "Three foods\nKrajbich 2011"),
+    ("folke2016", "Three snacks\nFolke 2016"),
+    ("pooled", "Mean of\nthe three"),
+)
+
+
+def _rows_axis(ax: plt.Axes, xlabel: str) -> None:
+    _style(ax)
+    ax.grid(axis="y", visible=False)
+    ax.grid(axis="x", color=GRID, linewidth=0.6)
+    ax.set_yticks(range(len(GAZE_ROWS)), labels=[label for _, label in GAZE_ROWS])
+    ax.set_ylim(len(GAZE_ROWS) - 0.5, -0.5)
+    ax.axhline(2.5, color=GRID, linewidth=0.8)
+    ax.set_xlabel(xlabel, color=INK_2)
+
+
+def _dot(ax: plt.Axes, e: dict, y: float, color: str, marker: str, size: float = 30) -> None:
+    if "percentile" in e:
+        ax.plot(e["percentile"], [y, y], color=color, linewidth=1.2, zorder=2)
+    ax.scatter(e["point"], y, s=size, marker=marker, color=color, edgecolor=SURFACE, linewidth=0.8, zorder=3)
+
+
+def figure_two_look_gaze(summary: dict, out: Path) -> list[Path]:
+    """Two look satisficing on three gaze datasets (Amendment 6). Time, slow decisions, choices and confidence."""
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8})
+    fig, axs = plt.subplots(2, 2, figsize=(7.4, 7.6))
+    fig.patch.set_facecolor(SURFACE)
+    a, b, c, d = axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]
+    star = 70
+
+    # a, held out time of single decisions, paired differences
+    _rows_axis(a, "Two look satisficing minus the other model,\nerror of held out log time")
+    a.axvline(0, color=AXIS, linewidth=1.0)
+    for i, (key, _) in enumerate(GAZE_ROWS):
+        t = summary[key]["time"]
+        _dot(a, t["TLS_minus_SR"], i - 0.14, SR_COLOR, "s")
+        _dot(a, t["TLS_minus_static"], i + 0.14, MUTED, "o")
+    a.text(0.02, 0.985, "← two look satisficing better", transform=a.transAxes, fontsize=6.5, color=INK_2, va="top")
+    a.legend(
+        handles=[
+            Line2D([], [], marker="s", color=SR_COLOR, label="Against sample until return"),
+            Line2D([], [], marker="o", color=MUTED, label="Against the static models (one time)"),
+        ],
+        frameon=False,
+        fontsize=6.5,
+        loc="upper center",
+        bbox_to_anchor=(0.45, -0.24),
+        ncol=1,
+        labelcolor=INK_2,
+    )
+    a.set_title("Timing single decisions", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    # b, slow decisions within each person
+    _rows_axis(b, "Rank correlation with response time,\nwithin each person")
+    b.axvline(0, color=AXIS, linewidth=1.0)
+    forecasts = (
+        ("looks_TLS", TLS_COLOR, TLS_MARKER, "Looks, two look satisficing", star),
+        ("looks_SR", SR_COLOR, "s", "Looks, sample until return", 30),
+        ("top_value", INK, "o", "Value of the best item", 30),
+        ("top_gap", MUTED, "v", "Gap between the two best", 30),
+    )
+    for i, (key, _) in enumerate(GAZE_ROWS):
+        s = summary[key]["slow"]
+        for j, (name, color, marker, _, size) in enumerate(forecasts):
+            _dot(b, s[name], i - 0.27 + 0.18 * j, color, marker, size)
+    b.legend(
+        handles=[Line2D([], [], marker=m, color=col, label=lab, linestyle="") for _, col, m, lab, _ in forecasts],
+        frameon=False,
+        fontsize=6.5,
+        columnspacing=1.0,
+        loc="upper center",
+        bbox_to_anchor=(0.38, -0.24),
+        ncol=2,
+        labelcolor=INK_2,
+    )
+    lim = max(
+        abs(x) for key, _ in GAZE_ROWS for name, *_ in forecasts for x in summary[key]["slow"][name]["percentile"]
+    )
+    b.set_xlim(-1.12 * lim, 1.12 * lim)
+    b.set_title("Foreseeing slow decisions", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    # c, choices of people held out
+    _rows_axis(c, "Likelihood of the choice of a person held out,\ntimes chance")
+    c.axvline(1.0, color=AXIS, linewidth=1.0)
+    models = (
+        ("SR", TLS_COLOR, TLS_MARKER, "Two look satisficing\nand sample until return", star),
+        ("CL", SERIES["CL"], "o", "CL", 30),
+        ("DbS", SERIES["DbS_avg"], "D", "DbS", 26),
+        ("MLBA", SERIES["MLBA_avg"], "^", "MLBA", 30),
+    )
+    for i, (key, _) in enumerate(GAZE_ROWS):
+        tc = summary[key]["choices"]["times_chance"]
+        for j, (m, color, marker, _, size) in enumerate(models):
+            _dot(c, {"point": tc[m]}, i - 0.27 + 0.18 * j, color, marker, size)
+    c.legend(
+        handles=[Line2D([], [], marker=mk, color=col, label=lab, linestyle="") for _, col, mk, lab, _ in models],
+        frameon=False,
+        fontsize=6.5,
+        loc="upper center",
+        bbox_to_anchor=(0.45, -0.24),
+        ncol=2,
+        labelcolor=INK_2,
+    )
+    c.set_title("Choices", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    # d, confidence after the choice (Folke)
+    _style(d)
+    d.grid(axis="y", visible=False)
+    d.grid(axis="x", color=GRID, linewidth=0.6)
+    d.axvline(0, color=AXIS, linewidth=1.0)
+    conf = summary["folke2016"]["confidence"]
+    rows = (
+        ("looks_TLS", TLS_COLOR, TLS_MARKER, "Looks, two look\nsatisficing", star),
+        ("looks_SR", SR_COLOR, "s", "Looks, sample\nuntil return", 30),
+        ("entropy_CL", SERIES["CL"], "o", "Spread of CL's\nchoice probabilities", 30),
+    )
+    for i, (name, color, marker, _, size) in enumerate(rows):
+        _dot(d, conf[name], i, color, marker, size)
+    d.set_yticks(range(len(rows)), labels=[r[3] for r in rows])
+    d.set_ylim(len(rows) - 0.5, -0.5)
+    d.set_xlabel("Rank correlation with confidence,\nwithin each person (three snacks)", color=INK_2)
+    d.set_title("Foreseeing confidence", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    _letters([a, b, c, d])
+    fig.tight_layout(h_pad=2.2, w_pad=1.6)
+    return _save(fig, out)

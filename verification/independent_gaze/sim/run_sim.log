@@ -1,0 +1,7 @@
+precomputation done in 1.8s
+point estimates done in 3.4s
+replicate 25/100, 33.8s
+replicate 50/100, 63.4s
+replicate 75/100, 92.8s
+replicate 100/100, 122.8s
+wrote sim/results_sim.json in 122.8s
