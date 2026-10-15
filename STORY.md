@@ -276,7 +276,7 @@ Exploratory, after the tests, from the same resamples (notebook 02 section 10). 
 
 Reading.
 - The absolute standard did not generalize. It helped on the snack data, where large displays often lacked a top rated snack, and not on displays of two or three foods.
-- The plain search model held up on new data. Sample until return chose as well as CL and better than DbS and MLBA, and its looks ranked slow decisions above fast ones within each person in every dataset.
+- The plain search model held up on new data. Sample until return chose as well as CL and, over the three datasets taken together, better than DbS and MLBA, and its looks ranked slow decisions above fast ones within each person in every dataset.
 - No model times single decisions much better than a constant once a person's overall speed is unknown.
 
 Story update. The paper proposes sample until return. Two look satisficing is reported as an extension that was built on one dataset, frozen and rejected on three others.
