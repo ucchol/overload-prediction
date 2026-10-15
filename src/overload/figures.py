@@ -615,3 +615,89 @@ def figure_search_confirmatory(summary: dict, out: Path) -> list[Path]:
     _letters([axes[0], axes[2], axes[1]])
     fig.tight_layout(h_pad=2.4, w_pad=2.0)
     return _save(fig, out)
+
+
+# ----------------------------------------------------------------------------- two look satisficing (exploratory)
+TLS_COLOR = "#c2185b"  # two look satisficing, checked against the model colors above
+
+
+def figure_two_look(summary: dict, out: Path) -> list[Path]:
+    """Two look satisficing on the snack data. Held out time, slow decisions and search, against the other models."""
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8})
+    fig, axes = plt.subplots(1, 3, figsize=(7.4, 2.9), gridspec_kw={"width_ratios": [0.9, 1.0, 1.0]})
+    fig.patch.set_facecolor(SURFACE)
+    sizes = np.array([9.0, 16.0, 25.0, 36.0])
+    style = {
+        "CL": (SERIES["CL"], "o", "CL"),
+        "SR": (SR_COLOR, "s", "Sample until return"),
+        "TLS": (TLS_COLOR, "D", "Two look satisficing"),
+    }
+
+    # a, held out time of single decisions, paired differences
+    ax = axes[0]
+    _style(ax)
+    ax.grid(axis="y", visible=False)
+    ax.grid(axis="x", color=GRID, linewidth=0.6)
+    ax.axvline(0, color=AXIS, linewidth=1.0)
+    for i, m in enumerate(("CL", "SR")):
+        e = summary["E1"]["TLS_minus"][m]
+        ax.plot(e["percentile"], [i, i], color=TLS_COLOR, linewidth=1.2, zorder=2)
+        ax.scatter(e["point"], i, s=30, marker="D", color=TLS_COLOR, edgecolor=SURFACE, linewidth=1.0, zorder=3)
+    ax.set_yticks(range(2), labels=["Minus CL,\nnumber of snacks", "Minus sample\nuntil return"])
+    ax.invert_yaxis()
+    ax.set_ylim(1.6, -0.6)
+    ax.set_xlim(-0.06, 0.02)
+    ax.set_xlabel("Change in error of held out log time", color=INK_2)
+    ax.set_title("Timing single decisions", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    # b, slow decisions
+    ax = axes[1]
+    _style(ax)
+    ax.grid(axis="y", visible=False)
+    ax.grid(axis="x", color=GRID, linewidth=0.6)
+    ax.axvline(0, color=AXIS, linewidth=1.0)
+    rows = (("looks_TLS", "Looks, two look\nsatisficing", "TLS"), ("looks_SR", "Looks, sample\nuntil return", "SR"))
+    for i, (name, _label, m) in enumerate(rows):
+        color, marker, _ = style[m]
+        e = summary["E2"]["correlation"][name]
+        ax.plot(e["percentile"], [i, i], color=color, linewidth=1.2, zorder=2)
+        ax.scatter(e["point"], i, s=30, marker=marker, color=color, edgecolor=SURFACE, linewidth=1.0, zorder=3)
+    e = summary["E2"]["correlation"]["top_rating"]
+    ax.plot(e["percentile"], [2, 2], color=INK, linewidth=1.2, zorder=2)
+    ax.scatter(e["point"], 2, s=30, marker="o", color=INK, edgecolor=SURFACE, linewidth=1.0, zorder=3)
+    ax.set_yticks(range(3), labels=[r[1] for r in rows] + ["Rating of the\nbest snack"])
+    ax.invert_yaxis()
+    ax.set_xlim(-0.4, 0.4)
+    ax.set_xlabel("Rank correlation with response time", color=INK_2)
+    ax.set_title("Foreseeing slow decisions", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    # c, how many snacks people look at
+    ax = axes[2]
+    _style(ax)
+    ax.set_yscale("log")
+    E3 = summary["E3"]
+    lo, hi = np.array(E3["observed_interval"])
+    y = np.array(E3["observed"])
+    ax.errorbar(sizes, y, yerr=[y - lo, hi - y], fmt="none", ecolor=INK, elinewidth=1.0, capsize=0, zorder=2)
+    ax.plot(sizes, y, color=INK, linewidth=1.2, zorder=2)
+    ax.scatter(sizes, y, s=30, marker="o", color=INK, edgecolor=SURFACE, linewidth=1.0, zorder=3, label="People")
+    for key, m in (("predicted", "TLS"), ("predicted_SR", "SR")):
+        color, marker, label = style[m]
+        ax.plot(sizes, E3[key], color=color, linewidth=1.2, zorder=2)
+        ax.scatter(
+            sizes, E3[key], s=26, marker=marker, color=color, edgecolor=SURFACE, linewidth=1.0, zorder=3, label=label
+        )
+    ax.set_xscale("log")
+    ax.set_xticks([9, 16, 25, 36], labels=["9", "16", "25", "36"])
+    ax.minorticks_off()
+    ax.set_xlim(7.5, 43)
+    ax.set_yticks([2, 4, 8, 16, 32], labels=["2", "4", "8", "16", "32"])
+    ax.set_ylim(1.6, 48)
+    ax.set_xlabel("Snacks on display", color=INK_2)
+    ax.set_ylabel("Distinct snacks looked at", color=INK_2)
+    ax.legend(frameon=False, fontsize=6.5, loc="upper left", labelcolor=INK_2)
+    ax.set_title("Search", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    _letters(axes)
+    fig.tight_layout(w_pad=1.0)
+    return _save(fig, out)

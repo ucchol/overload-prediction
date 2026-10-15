@@ -229,6 +229,28 @@ Fitted to people's typical times on all six displays of a task (start up time pl
 
 Held out, no law predicted a display's time better than a constant (see the 14 Oct development entry), and on the snack data none timed single decisions better than counting options (S2). The work of these models does not explain how long people took, so decision time does not rank them. The per step statements are removed from the notebook, the figures and the README. The ratios stay in the summaries as recorded values only.
 
+### 14 Oct 2026. Exploratory. A search model with an absolute standard, two look satisficing (snack data), verified twice
+
+`results/two_look_snack`, notebook 02 section 9. The snack data suggested the model, so this is exploratory, and its test is to be frozen on new data. A second run reproduced every saved value, and an independent implementation written blind from `verification/VERIFY_BRIEF_TWO_LOOK.md` agreed on every value (largest difference 3e-7 outside rank statistics, 5e-5 for them). Resampling as in Amendment 5, so every replicate pairs with the confirmatory one.
+
+The model. Attention is drawn to attractive options as in sample until return. A look registers, the option looks good enough at that moment, with probability exp(lambda (v - v_top) / 2), v_top the top of the rating scale, and the first option with two registered looks is chosen. Attention and registration take half the sensitivity each, so choices equal sample until return at the same sensitivity and no parameter is added. The number of looks now depends on how good the options are in absolute terms.
+
+| Measure | Two look satisficing | Sample until return | Other |
+|---|---|---|---|
+| Held out log time error | 0.528 [0.484, 0.568] | 0.552, difference -0.025 [-0.044, -0.006], clear | CL (number of snacks) 0.543, difference -0.015 [-0.034, 0.002], not clear |
+| Rank correlation with time, within person | +0.278 [0.241, 0.315] | +0.084, difference +0.194 [0.156, 0.233], clear | rating of the best snack -0.322, model plus it -0.044 [-0.072, -0.020] |
+| Distinct snacks looked at, 9 to 36 | 3.7 to 7.4 | 2.1 to 4.2 | people 7.4 to 14.9 |
+| Growth of search (elasticity) | 0.50 [0.47, 0.51] | 0.48 | people 0.51 [0.46, 0.55] |
+
+Sensitivity. With attention that ignores value and registration alone carrying it, the correlation with time was +0.303 and the level of search matched people at 9 and 16 snacks, but search grew too fast (elasticity 0.69) and the held out time error was 0.543, no better than CL.
+
+Reading.
+- An absolute standard, added without a new parameter, lets the search model foresee slow decisions (+0.28 against +0.08) and time single decisions better than sample until return. It still does not clearly beat counting the snacks on held out time.
+- It carries most, though not all, of the link between the best snack's rating and time. The verifier noted that with v_top at the top of the scale, the expected looks largely restate whether any snack on display is rated at the top.
+- Searches are still about half as long as people's, at every set size, while their growth stays right.
+
+Story update. The missing absolute standard is real and can be built into the search without a new parameter. Whether it holds beyond the data that suggested it is the next confirmatory test.
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.

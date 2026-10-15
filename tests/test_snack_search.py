@@ -72,3 +72,18 @@ def test_weights_act_as_repeated_trials():
     a = ss.fit_search([(trials, w)])
     b = ss.fit_search([(trials.subset(rows), np.ones(rows.size))])
     assert a == pytest.approx(b, rel=1e-6)
+
+
+@pytest.mark.parametrize("n", [9, 16, 25, 36])
+def test_two_look_levels_match_the_item_level_model(n):
+    from overload.search import two_look_satisficing
+
+    rng = np.random.default_rng(100 + n)
+    values, choice = _displays(rng, 25, n)
+    trials = ss.LevelTrials.from_values(values, choice)
+    for lam in (0.0, 0.6, 1.2, 2.5):
+        looks, distinct = ss.two_look_levels(lam, trials)
+        for t in range(values.shape[0]):
+            _, lk, ds = two_look_satisficing(lam, values[t], v_top=3.0)
+            assert looks[t] == pytest.approx(lk, rel=1e-10)
+            assert distinct[t] == pytest.approx(ds, rel=1e-10)

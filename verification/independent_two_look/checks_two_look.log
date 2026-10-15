@@ -1,0 +1,9 @@
+PASS E[looks] and E[distinct], level-form quadrature against the item-level elementary symmetric route, TLS and uniform attention (max relative difference 2.8e-14)
+PASS with every h = 1 the process is sample until return: E[looks] equals SR's and E[distinct] = E[looks] - 1 (max relative difference 2.2e-14)
+PASS TLS choice probabilities (exact race of registered looks) equal SR's at the same lambda (max relative difference 9.0e-15); so do uniform attention's (9.0e-15); TLS E[looks] = SR's E[looks] / P (2.0e-15)
+PASS simulation, TLS, top rating 3: looks 4.8511 against 4.8455 (1.2 s.e.), distinct 3.5267 against 3.5234 (0.9 s.e.), choices within 0.9 s.e. of SR's probabilities
+PASS simulation, TLS, top rating 1: looks 11.9049 against 11.9236 (1.3 s.e.), distinct 5.6373 against 5.6404 (0.7 s.e.), choices within 1.6 s.e. of SR's probabilities
+PASS simulation, uniform attention: looks 9.8405 against 9.8624 (1.9 s.e.), distinct 6.3125 against 6.3226 (1.8 s.e.), choices within 1.8 s.e. of SR's probabilities
+PASS every sensitivity fit (original sample and a replicate, four folds each) is the global maximum on a dense grid (largest excess -1.3e-04) and a stationary point (relative score 9.4e-16)
+
+ALL CHECKS PASSED

@@ -1,0 +1,16 @@
+{
+ "replicate_SR_folds_with_several_grid_maxima": 0,
+ "replicate_SR_folds_not_refined": 0,
+ "replicate_SR_folds_with_lambda_zero": 0,
+ "original_SR_diag": [
+  0,
+  0,
+  0
+ ],
+ "replicate_lambda_range": [
+  0.8829235075557652,
+  1.4090219743968277
+ ],
+ "seconds": 1169.4,
+ "B": 1000
+}

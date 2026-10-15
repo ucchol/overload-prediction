@@ -1,0 +1,43 @@
+precomputation done in 11.9s
+point estimates done in 15.1s
+replicate 25/1000, 60.8s
+replicate 50/1000, 105.0s
+replicate 75/1000, 152.6s
+replicate 100/1000, 199.9s
+replicate 125/1000, 246.6s
+replicate 150/1000, 280.5s
+replicate 175/1000, 307.7s
+replicate 200/1000, 333.1s
+replicate 225/1000, 361.2s
+replicate 250/1000, 389.1s
+replicate 275/1000, 415.3s
+replicate 300/1000, 443.4s
+replicate 325/1000, 469.5s
+replicate 350/1000, 495.4s
+replicate 375/1000, 521.8s
+replicate 400/1000, 548.0s
+replicate 425/1000, 573.7s
+replicate 450/1000, 599.0s
+replicate 475/1000, 623.9s
+replicate 500/1000, 648.6s
+replicate 525/1000, 674.2s
+replicate 550/1000, 699.5s
+replicate 575/1000, 725.5s
+replicate 600/1000, 751.6s
+replicate 625/1000, 777.9s
+replicate 650/1000, 803.5s
+replicate 675/1000, 829.9s
+replicate 700/1000, 856.7s
+replicate 725/1000, 883.0s
+replicate 750/1000, 909.1s
+replicate 775/1000, 933.9s
+replicate 800/1000, 959.8s
+replicate 825/1000, 986.2s
+replicate 850/1000, 1012.2s
+replicate 875/1000, 1039.3s
+replicate 900/1000, 1065.9s
+replicate 925/1000, 1092.1s
+replicate 950/1000, 1118.1s
+replicate 975/1000, 1143.2s
+replicate 1000/1000, 1169.4s
+wrote results.json in 1169.4s

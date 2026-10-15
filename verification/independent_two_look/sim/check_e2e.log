@@ -1,0 +1,7 @@
+PASS lambda 1.2 recovered: held-out [1.2039, 1.1887, 1.1852, 1.2133], at most 0.9 bootstrap s.d. away
+PASS E1: time errors CL 0.6064, SR 0.5552, TLS 0.4083; TLS - CL -0.1982 [-0.2055, -0.1906], clear True
+PASS E3: observed over TLS predicted distinct items [0.997, 0.9888, 1.0191, 0.9925]; elasticities observed 0.5996, TLS 0.5954
+PASS E2: TLS looks +0.6753 [0.6629, 0.6837], SR looks +0.4524, top rating -0.6753
+info uniform attention: {'error': 0.4358078761339493, 'correlation': 0.638648643623932, 'distinct': [7.741610374782489, 12.567132774667424, 18.175522669540754, 24.380721497505164], 'elasticity': 0.828256458916646}
+
+END-TO-END CHECKS PASSED

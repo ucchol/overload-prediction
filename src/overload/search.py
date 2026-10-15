@@ -27,6 +27,14 @@ or three looks. When many options are about equally attractive, looks spread ove
 long, which is where the model expects slow decisions and overload. Choice probabilities are sharper than
 CL's for poor options (close to q_i squared) and similar for the best ones.
 
+Two look satisficing (the proposed model with an absolute standard). Sample until return chooses among options by
+their values relative to each other, so it cannot say why a display with an excellent option is decided quickly. Here
+a look at option i registers, the option looks good enough at that moment, with probability h_i that rises with its
+absolute value, and the first option whose looks register twice is chosen. Attention and acceptance share the one
+sensitivity, half each, q = softmax(lambda v / 2) and h = exp(lambda (v - v_top) / 2), with v_top the best value the
+scale allows. Choices are then those of sample until return at sensitivity lambda, but the number of looks grows when
+nothing on display is good, which is where the model expects slow decisions. With h = 1 it is sample until return.
+
 Accept in reading order (a rejected alternative, kept for the record). Options are inspected in the order
 listed, each accepted with probability 1 / (1 + exp(-lambda (v_i - v_max))), and passes repeat until one is
 accepted. It implies strong primacy, and it predicted unseen trials far worse than CL (STORY.md).
@@ -141,3 +149,62 @@ def accept_in_reading_order(lam: float, v: np.ndarray) -> np.ndarray:
     reach = np.concatenate([[1.0], np.cumprod(1.0 - a)[:-1]])
     p = a * reach
     return p / p.sum()
+
+
+# ----------------------------------------------------------------------------- two look satisficing
+def race_with_registration(q: np.ndarray, h: np.ndarray) -> tuple[np.ndarray, float, float]:
+    """Sample until return in which a look at option i registers with probability h_i.
+
+    Looks fall on option i with probability q_i, a look registers with probability h_i, and the first option with
+    two registered looks is chosen. Embedding the looks in a Poisson process of unit rate, option i is looked at at
+    rate q_i and registers at rate rho_i = q_i h_i, so with P = sum rho
+
+        P(i chosen)            = race_probabilities(rho / P)_i,
+        E[looks]               = race_length(rho / P) / P,
+        E[options looked at]   = sum_i q_i int_0^inf e^(-(q_i + P - rho_i) t) prod_(j != i) (1 + rho_j t) dt.
+
+    The last integrand is e^(-a t) times a polynomial, evaluated exactly by Gauss Laguerre quadrature after t = x / a.
+    Returns the choice probabilities, the expected looks and the expected number of distinct options looked at.
+    """
+    q = np.asarray(q, dtype=float) / np.sum(q)
+    h = np.asarray(h, dtype=float)
+    rho = q * h
+    P = float(rho.sum())
+    probs, hits = _race(rho / P)
+    x, w = _laguerre(max(24, q.size // 2 + 8))
+    a = q + P - rho
+    logs = np.log1p(rho[None, None, :] * (x[:, None, None] / a[None, :, None]))  # nodes by i by j
+    inner = logs.sum(axis=2) - logs[:, np.arange(q.size), np.arange(q.size)]  # leave option i out of its own product
+    distinct = float(np.sum(q / a * (w @ np.exp(inner))))
+    return probs, hits / P, distinct
+
+
+def race_with_registration_exact(q: np.ndarray, h: np.ndarray) -> tuple[np.ndarray, float, float]:
+    """The same three quantities by exact sums, the reference for ``race_with_registration``.
+
+    E[options looked at] = sum_i q_i sum_k k! e_k(rho without i) / a_i^(k + 1), with a_i = q_i + P - rho_i.
+    """
+    q = np.asarray(q, dtype=float) / np.sum(q)
+    rho = q * np.asarray(h, dtype=float)
+    P = float(rho.sum())
+    probs = race_probabilities_exact(rho / P)
+    looks = race_length_exact(rho / P) / P
+    distinct = 0.0
+    for i in range(q.size):
+        r = np.delete(rho, i)
+        a = q[i] + P - rho[i]
+        e = np.zeros(r.size + 1)  # elementary symmetric polynomials of r
+        e[0] = 1.0
+        for x in r:
+            e[1:] = e[1:] + x * e[:-1]
+        k = np.arange(r.size + 1)
+        distinct += q[i] * float(np.sum(e * np.exp(np.cumsum(np.log(np.maximum(k, 1)))) / a ** (k + 1)))
+    return probs, looks, distinct
+
+
+def two_look_satisficing(lam: float, v: np.ndarray, v_top: float) -> tuple[np.ndarray, float, float]:
+    """Choice probabilities, expected looks and expected options looked at of the model with an absolute standard."""
+    v = np.asarray(v, dtype=float)
+    if np.any(v > v_top):
+        raise ValueError("no value may exceed the top of its scale")
+    return race_with_registration(softmax(0.5 * lam * v), np.exp(0.5 * lam * (v - v_top)))
