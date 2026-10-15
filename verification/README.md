@@ -14,6 +14,7 @@ A disagreement beyond rounding blocks the result until its cause is found. The b
 | `independent_process/` | the overload index, decision time, search models and premonition on the development data | `sh verification/run_independent_process.sh PATH_TO_CSV`, about ten minutes |
 | `independent_search/` | the confirmatory search model tests of Amendment 5 on the snack data | `sh verification/run_independent_search.sh`, about twenty minutes |
 | `independent_two_look/` | the exploratory two look satisficing analysis on the snack data | `sh verification/run_independent_two_look.sh`, about twenty minutes |
+| `independent_gaze/` | the confirmatory test of two look satisficing on three gaze datasets of Amendment 6 | `sh verification/run_independent_gaze.sh`, about twenty five minutes |
 
 Both implementations are archived exactly as they were written, with their results. The runners copy data only into temporary folders that are removed afterwards.
 
@@ -81,6 +82,15 @@ Written blind from `VERIFY_BRIEF_TWO_LOOK.md`, checked on simulated data (exact 
 - Second run. Identical (`summary.json` apart from its run time stamp, `point.json` and `replicates.jsonl`).
 - Independent reimplementation. Agreement on every value (`compare_two_look.py`), with a largest difference of 3e-7 outside rank statistics and 5e-5 for them. Every quantity shared with Amendment 5 reproduces it exactly in both implementations.
 - The verifier noted that the model's advantage in foreseeing slow decisions comes largely from the top of the rating scale. Displays without a snack rated at the top register looks slowly, so the expected looks partly restate the best snack's rating.
+
+## Two look satisficing on three gaze datasets (Amendment 6), 14 October 2026
+
+The independent code was written from `VERIFY_BRIEF_GAZE.md` and tested on simulated data only, then Amendment 6 was frozen, and only then were the real data analyzed, once by each side. The comparison script and its tolerances were committed with the amendment.
+
+- Before the run. The small set race formulas against closed forms, the earlier general code and a simulation of both search processes, recovery of every sensitivity, a synthetic set in the input format on which every test came out as built, the stop rules of the loader, every fit checked as a maximum and every time law as a global minimum. The verifier's points before the freeze were settled in the amendment (a fold seed apart from the resampling seeds, a stop for values above the top of the scale, the display features compared with the model, the tolerance of the search fit, and a rounding rule so that forecasts equal in exact arithmetic tie in the rank correlations).
+- Second run. Identical (`summary.json` apart from its run time stamp, `point.json` and `replicates.jsonl`).
+- Independent reimplementation. Agreement on every test and on every value that enters one (`compare_two_look_gaze.py`). The largest differences are 2e-8 for sensitivities, 1e-9 for time errors, 4e-8 for choices and 6e-17 for rank correlations, which the rounding rule made identical. Eight descriptive entries fall outside the fixed tolerances, all in time laws whose best fit lies on a bound (no time per look, or no start up time). The package returns the bound exactly and the independent code a value within 1e-11 of it, so the p values that count replicates at zero differ for the laws of Krajbich 2011 and Folke (with one clear flag) and for two per dataset time differences in Folke's data, and the basic interval of the start up time of Folke's sample until return law differs by 2e-6 seconds. Replicate by replicate the two sets of laws agree within 1e-5, and the time errors within 6e-9.
+- Points the verifier raised after the run. Two look satisficing's time law is nearly flat in every dataset, so its forecasts of time collapse to a constant even though its looks still rank slow decisions. Sample until return's law sits on the bound of no start up time in both Krajbich datasets and is unstable in Folke's. Folke's data favor sample until return clearly on slow decisions. With two items, sample until return's looks and the gap between the two values rank trials identically.
 
 ## Exploratory laptop rubric sensitivity, 9 October 2026 (withdrawn by Amendment 4)
 

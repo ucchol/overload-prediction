@@ -1,0 +1,30 @@
+PASS output layout as in the brief: pooled block with G1 to G3; per dataset the block, lambda by fold for CL, DbS, MLBA and SR, law (t0, tau) for SR and TLS, looks, typical_seconds; Folke's confidence
+PASS bootstrap arrays hold only fitted values and measures, with the expected shapes
+PASS pooled values are the means over the datasets (time errors, correlations, log2 of times chance); sums, differences and percents agree with their parts
+PASS G1 to G3 decisions follow the stated rules from the reported summaries
+PASS summaries rebuilt from the bootstrap arrays match the reported ones (8 of 8)
+PASS original sample recomputed from the files: lambdas refitted by fold, time errors, within-participant correlations (scipy spearmanr on forecasts rounded by float(format(x, '.10g')), times and confidence unrounded), L, held out looks, typical seconds, the laws on every trial, Folke's confidence (largest differences lambda 0.0e+00, time 1.1e-16, slow 1.1e-16, L 3.3e-16, looks 1.8e-15, typical 4.4e-16, law 0.0e+00, conf 1.1e-16)
+info: without the rounding, the original-sample correlations would move by up to 7.9e-04
+PASS krajbich2010: SR (= TLS) lambda by fold [0.464, 0.478, 0.471, 0.486, 0.465, 0.473, 0.475, 0.482, 0.48, 0.461] and on every trial 0.473 recover 0.5 (at most 1.9 bootstrap s.d. away)
+PASS krajbich2011: SR (= TLS) lambda by fold [0.491, 0.506, 0.498, 0.486, 0.51, 0.502, 0.496, 0.49, 0.504, 0.501] and on every trial 0.498 recover 0.5 (at most 0.6 bootstrap s.d. away)
+PASS folke2016: SR (= TLS) lambda by fold [0.483, 0.472, 0.481, 0.472, 0.486, 0.479, 0.481, 0.479, 0.479, 0.477] and on every trial 0.479 recover 0.5 (at most 2.0 bootstrap s.d. away)
+PASS pooled time errors static 0.4675, SR 0.4537, TLS 0.3910; TLS - SR -0.0627 [-0.0683, -0.0562], TLS - static -0.0766 [-0.0824, -0.0695]; G1 True
+PASS pooled slow decisions: TLS +0.5840 [0.569, 0.6002], SR +0.3234, TLS - SR +0.2605; G2 True
+PASS confidence falls with TLS looks: -0.5581 [-0.5832, -0.5317] (SR -0.2908, CL entropy -0.2573, TLS - SR -0.2672)
+PASS TLS takes more looks than SR on average in every dataset; the laws and the SR sensitivity on every trial vary across replicates (refitted); TLS's law has a positive start-up and a positive time per look
+
+info, time per look (point and percentile interval):
+  krajbich2010: SR t0 0.000 [0.000, 0.000] s, tau 0.980 [0.885, 1.058] s/look; TLS t0 0.954 [0.775, 1.100] s, tau 0.216 [0.171, 0.275] s/look; looks SR 2.284 [2.267, 2.303], TLS 6.735 [6.205, 7.365]; typical 2.232 [2.019, 2.407] s
+     lambda by fold, CL [0.727, 0.749, 0.738, 0.762, 0.729, 0.741, 0.745, 0.756, 0.753, 0.723], DbS [0.976, 0.988, 0.992, 1.01, 0.974, 0.981, 0.981, 0.991, 1.004, 0.973], MLBA [2.769, 2.81, 2.84, 2.904, 2.747, 2.777, 2.788, 2.821, 2.878, 2.756]
+     times chance {'CL': 1.4473907292994437, 'DbS': 1.3420180149945655, 'MLBA': 1.1791200301871667, 'SR': 1.4485731397345187}; TLS - DbS +7.94 percent, TLS - MLBA +22.85 percent; diagnostics: values from 0 to 10, largest dense-grid excess -5.3e-07
+  krajbich2011: SR t0 0.000 [0.000, 0.000] s, tau 0.937 [0.821, 1.023] s/look; TLS t0 1.039 [0.889, 1.195] s, tau 0.218 [0.180, 0.258] s/look; looks SR 2.454 [2.420, 2.488], TLS 6.451 [6.093, 6.963]; typical 2.289 [2.009, 2.499] s
+     lambda by fold, CL [0.788, 0.814, 0.802, 0.779, 0.817, 0.807, 0.797, 0.787, 0.809, 0.805], DbS [1.78, 1.841, 1.816, 1.754, 1.796, 1.802, 1.798, 1.771, 1.793, 1.8], MLBA [5.744, 5.979, 5.9, 5.644, 5.765, 5.84, 5.839, 5.726, 5.749, 5.81]
+     times chance {'CL': 1.875155854515209, 'DbS': 1.7407219982239728, 'MLBA': 1.403700578105823, 'SR': 1.8739993279959328}; TLS - DbS +7.66 percent, TLS - MLBA +33.50 percent; diagnostics: values from 0 to 10, largest dense-grid excess -2.0e-06
+  folke2016: SR t0 0.000 [0.000, 0.000] s, tau 0.937 [0.822, 1.048] s/look; TLS t0 1.082 [0.927, 1.234] s, tau 0.217 [0.182, 0.251] s/look; looks SR 2.487 [2.470, 2.508], TLS 6.285 [6.021, 6.621]; typical 2.321 [2.037, 2.593] s
+     lambda by fold, CL [0.771, 0.754, 0.768, 0.753, 0.776, 0.765, 0.769, 0.764, 0.766, 0.763], DbS [1.658, 1.627, 1.653, 1.633, 1.66, 1.654, 1.67, 1.646, 1.649, 1.653], MLBA [5.205, 5.113, 5.188, 5.107, 5.164, 5.199, 5.275, 5.161, 5.162, 5.205]
+     times chance {'CL': 1.7920793012599694, 'DbS': 1.6483769678030429, 'MLBA': 1.35082734418864, 'SR': 1.7930525788562024}; TLS - DbS +8.78 percent, TLS - MLBA +32.74 percent; diagnostics: values from 0 to 10, largest dense-grid excess -3.1e-08
+info G3: TLS - CL +0.025 percent, percentile [-0.055, 0.073], basic [-0.024, 0.104], non-inferior True, better False, worse False; times chance {'CL': 1.6943122863722158, 'DbS': 1.5674057430363044, 'MLBA': 1.3076076308400308, 'SR': 1.6947317320084399}
+info slow, TLS plus feature: top_value +0.0042, mean_value +0.1510, top_gap +0.3400
+info run: 122.8 s for B = 100
+
+END-TO-END CHECKS PASSED

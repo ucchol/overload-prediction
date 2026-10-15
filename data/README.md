@@ -15,3 +15,9 @@ sh scripts/fetch_snack_data.sh data/snack
 ```
 
 This downloads the four aggregate files of Thomas, Molter and Krajbich (2021) from [athms/many-item-choice](https://github.com/athms/many-item-choice) at the commit fixed in Amendment 3 of the plan, together with their MIT license and the commit hash.
+
+```bash
+sh scripts/fetch_gaze_data.sh data/gaze
+```
+
+This downloads three prepared datasets of choices between two or three foods from [athms/gaze-bias-differences](https://github.com/athms/gaze-bias-differences) (Thomas, Molter, Krajbich, Heekeren and Mohr, 2019, MIT license) at the commit fixed in Amendment 6, with the original file of Folke and colleagues (2016) for its confidence ratings, the license and the commit hash.

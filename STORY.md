@@ -15,8 +15,8 @@ When displays grow in the number of options and in the attributes shown for each
 | H3 Inputs over rules | B3 known | A3a ladder known, A3b independent cue to fix and run |
 | H4 Cost depends on cue validity | to specify | to specify |
 | O Where overload occurs (research program) | Development done. One factor (alpha 0.87). File displays overloaded people more as they grew, laptop displays never did. Overload went with longer decisions | Premonition within files works for every forecast, set size included. No forecast foresees the gap between tasks or display level regret. Snack data (Amendment 5). The model's expected looks foresee slow decisions (+0.08, supported), but the rating of the best item foresees them far better (-0.32) |
-| T Does each model's work explain decision time (research program) | People took 29 to 40 s on laptops and 42 to 71 s on files | Not fitted. Every fitted time law puts most of the time into its start up constant, and no held out law beats a constant on the development data. On the snack data no model times single decisions better than counting options (S2 not supported). The per step argument was withdrawn on 14 Oct |
-| S The search model, sample until return (research program) | | Matches CL on CL values and DbS on DbS values in held out choices. Snack data (Amendment 5). Search grows like the square root of the set size as predicted (S1 supported), but people look at 3.6 times as many items. Choices as well as CL (S5 supported), clearly better than DbS and MLBA |
+| T Does each model's work explain decision time (research program) | People took 29 to 40 s on laptops and 42 to 71 s on files | Not fitted. Every fitted time law puts most of the time into its start up constant, and no held out law beats a constant on the development data. On the snack data no model times single decisions better than counting options (S2 not supported). The per step argument was withdrawn on 14 Oct. Gaze data (Amendment 6). Two look satisficing timed decisions no better than one constant time (G1 not supported), and sample until return beat one constant time by about 1 percent of the error (exploratory) |
+| S The search model, sample until return (research program) | | Matches CL on CL values and DbS on DbS values in held out choices. Snack data (Amendment 5). Search grows like the square root of the set size as predicted (S1 supported), but people look at 3.6 times as many items. Choices as well as CL (S5 supported), clearly better than DbS and MLBA. Gaze data (Amendment 6). Choices as well as CL (G3 supported), better than DbS and MLBA. Its looks foresaw slow decisions in all three datasets (+0.21). Two look satisficing, the absolute standard built on the snack data, did no better (G1 and G2 not supported) |
 
 ## Plan versions
 
@@ -251,6 +251,35 @@ Reading.
 - Searches are still about half as long as people's, at every set size, while their growth stays right.
 
 Story update. The missing absolute standard is real and can be built into the search without a new parameter. Whether it holds beyond the data that suggested it is the next confirmatory test.
+
+### 14 Oct 2026. Two look satisficing on three gaze datasets (Amendment 6, confirmatory), run once and verified twice
+
+`results/two_look_gaze`, notebook 02 sections 10 and 11. Run once under the frozen amendment (plan digest 634cdbb8). A second run reproduced every saved value. The independent implementation, written blind from `verification/VERIFY_BRIEF_GAZE.md` and tested on simulated data only before the freeze, agreed on every test and on every value that enters one (largest differences 2e-8 for sensitivities, 1e-9 for time errors, 4e-8 for choices, 6e-17 for rank correlations). The comparison flagged eight descriptive entries, all in time laws whose best fit lies on a bound. There the package returns the bound exactly and the independent code a value within 1e-11 of it, so p values that count replicates at zero differ (laws of Krajbich 2011 and Folke, and two per dataset time differences in Folke's data), and the basic interval of Folke's sample until return start up time differs by 2e-6 seconds. Replicate by replicate the laws agreed within 1e-5. 1000 participant resamples, ten folds of participants.
+
+Data. Krajbich, Armel and Rangel (2010), two foods, Krajbich and Rangel (2011), three foods, and Folke, Jacobsen, Fleming and De Martino (2016), three snacks with confidence ratings, as prepared by Thomas, Molter, Krajbich, Heekeren and Mohr (2019, MIT license).
+
+| Test, mean of the three datasets | Result | Decision |
+|---|---|---|
+| G1, held out log time error, two look satisficing minus sample until return | +0.0045 [0.0001, 0.0106], not clear | not supported |
+| G1, two look satisficing minus one constant time | -0.0002 [-0.0054, 0.0056] | |
+| G2, rank correlation of expected looks with time, within person | two look satisficing +0.194 [0.162, 0.229], sample until return +0.210 [0.174, 0.243], difference -0.016 [-0.040, 0.011] | not supported |
+| G3, choices, two look satisficing (equal to sample until return) minus CL | -0.04 percent [-0.15, 0.03] | supported, non inferior |
+
+Secondary and descriptive.
+- Choices. Two look satisficing beat DbS by +3.0 percent [1.2, 4.5] and MLBA by +6.9 percent [5.0, 8.9].
+- Display features. The value of the best item correlated -0.204 with time, the gap between the two best -0.185 and the mean value -0.137. Two look satisficing plus the best item's value -0.009, clear, so the best item's value alone did slightly better.
+- By dataset. Sample until return's looks foresaw slow decisions clearly better in Folke's snacks (difference -0.060), and two look satisficing leaned the other way in Krajbich's three foods (+0.034, not clear).
+- Confidence (Folke). Expected looks of either model and the spread of CL's choice probabilities each correlated about -0.28 to -0.29 with confidence, with no difference between the models.
+- Time laws. Two look satisficing's law put nearly all time into its start up constant (0.001 to 0.07 seconds per look), so G1 failed by its form as much as by its ranking.
+
+Exploratory, after the tests, from the same resamples (notebook 02 section 10). Sample until return timed held out decisions better than one constant time by about 1 percent of the error, -0.0047 [-0.0080, -0.0021], clear in both Krajbich datasets and not in Folke's. Its looks foresaw slow decisions as well as the best item's value (sum +0.007, not clear) and better than the gap between the two best (+0.025, clear). Its law put all time into looks, 0.76 and 0.77 seconds per look in the Krajbich datasets, on the bound of no start up time, and was unstable in Folke's slower task. The independent implementation's resamples reproduce the time difference.
+
+Reading.
+- The absolute standard did not generalize. It helped on the snack data, where large displays often lacked a top rated snack, and not on displays of two or three foods.
+- The plain search model held up on new data. Sample until return chose as well as CL and better than DbS and MLBA, and its looks ranked slow decisions above fast ones within each person in every dataset.
+- No model times single decisions much better than a constant once a person's overall speed is unknown.
+
+Story update. The paper proposes sample until return. Two look satisficing is reported as an extension that was built on one dataset, frozen and rejected on three others.
 
 ## Setup facts checked against the data
 
