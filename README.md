@@ -107,6 +107,8 @@ python -m overload.experiments.search_confirmatory --snack data/snack --out resu
 python -m overload.experiments.two_look_snack --snack data/snack --out results/two_look_snack --jobs 2
 sh scripts/fetch_gaze_data.sh data/gaze
 python -m overload.experiments.two_look_gaze --gaze data/gaze --out results/two_look_gaze --jobs 2
+sh scripts/prepare_cdm_data.sh PATH_TO/116100-V1.zip data/cdm   # a manual download, see data/README.md
+python -m overload.experiments.stopping_cdm --cdm data/cdm --out results/stopping_cdm --jobs 2
 ```
 
 Every experiment draws 1000 participant resamples with fixed seeds, so a rerun reproduces the saved files exactly. With two processes the baseline takes about 1 minute, H1 about 3, the overload index a few seconds, the process analyses about 15 minutes, the confirmatory H1 test about 13, the confirmatory search tests about 12 and the gaze test about 15.
@@ -120,11 +122,12 @@ sh verification/run_independent_snack.sh
 sh verification/run_independent_search.sh
 sh verification/run_independent_two_look.sh
 sh verification/run_independent_gaze.sh
+sh verification/run_independent_cdm.sh
 ```
 
 ## Data
 
-Participant data are never committed. The development data, from a study of file selection and laptop purchase choices, are read from a path you give. The confirmatory snack and gaze data are open under the MIT license and are fetched at pinned commits. See [`data/README.md`](data/README.md).
+Participant data are never committed. The development data, from a study of file selection and laptop purchase choices, are read from a path you give. The confirmatory snack and gaze data are open under the MIT license and are fetched at pinned commits. The search and satisficing data are open under CC BY 4.0 and need a free openICPSR sign in, so they are downloaded by hand and checked against a pinned hash. See [`data/README.md`](data/README.md).
 
 No output of this repository reports participant counts. Shares are given as percentages.
 
@@ -133,5 +136,7 @@ No output of this repository reports participant counts. Shares are given as per
 The confirmatory data come from Thomas, A. W., Molter, F., and Krajbich, I. (2021). Uncovering the computational mechanisms underlying many-alternative choice. eLife, 10, e57012. Data and code at [athms/many-item-choice](https://github.com/athms/many-item-choice).
 
 The gaze data come from Thomas, A. W., Molter, F., Krajbich, I., Heekeren, H. R., and Mohr, P. N. C. (2019). Gaze bias differences capture individual choice behaviour. Nature Human Behaviour, 3, 625 to 635, data and code at [athms/gaze-bias-differences](https://github.com/athms/gaze-bias-differences), who prepared the data of Krajbich, Armel and Rangel (2010, Nature Neuroscience), Krajbich and Rangel (2011, PNAS) and Folke, Jacobsen, Fleming and De Martino (2016, Nature Human Behaviour).
+
+The search and satisficing data come from Caplin, A., Dean, M., and Martin, D. (2011). Search and satisficing. American Economic Review, 101(7), 2899 to 2922, replication package at [openICPSR project 116100](https://www.openicpsr.org/openicpsr/project/116100/version/V1/view) (CC BY 4.0).
 
 Code under the MIT license (`LICENSE`). Maintained by Asif Rahman, University of Texas at El Paso ([ucchol.github.io](https://ucchol.github.io)).
