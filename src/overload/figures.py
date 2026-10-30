@@ -833,3 +833,121 @@ def figure_two_look_gaze(summary: dict, out: Path) -> list[Path]:
     _letters([a, b, c, d])
     fig.tight_layout(h_pad=2.2, w_pad=1.6)
     return _save(fig, out)
+
+
+# ----------------------------------------------------------------------------- stopping rule (Caplin, Dean and Martin)
+CDM_ROWS = (("standard", "Standard choice\n(Experiment 1)"), ("process", "Choice process\n(Experiment 2)"))
+
+
+def figure_stopping_cdm(summary: dict, out: Path) -> list[Path]:
+    """Amendment 7. What ends a search, where it starts, how well choices are predicted and how search time grows."""
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8})
+    fig, axs = plt.subplots(2, 2, figsize=(7.4, 6.6))
+    fig.patch.set_facecolor(SURFACE)
+    a, b, c, d = axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]
+    rows = (*CDM_ROWS, ("pooled", "Mean of\nthe two"))
+
+    def rows_axis(ax: plt.Axes, xlabel: str, labels=rows) -> None:
+        _style(ax)
+        ax.grid(axis="y", visible=False)
+        ax.grid(axis="x", color=GRID, linewidth=0.6)
+        ax.set_yticks(range(len(labels)), labels=[lab for _, lab in labels])
+        ax.set_ylim(len(labels) - 0.5, -0.5)
+        ax.set_xlabel(xlabel, color=INK_2)
+
+    # a, what ends a search
+    rows_axis(a, "Value rule minus share rule,\nheld out log2 probability per selection")
+    a.axhline(1.5, color=GRID, linewidth=0.8)
+    a.axvline(0, color=AXIS, linewidth=1.0)
+    for i, (key, _) in enumerate(rows):
+        _dot(a, summary[key]["stop"]["value_minus_share"], i, INK, "o")
+    lim = max(abs(x) for key, _ in rows for x in summary[key]["stop"]["value_minus_share"]["percentile"])
+    a.set_xlim(-1.25 * lim, 1.25 * lim)
+    a.text(0.98, 0.985, "worth decides →", transform=a.transAxes, ha="right", va="top", fontsize=6.5, color=INK_2)
+    a.text(0.02, 0.985, "← better options left decide", transform=a.transAxes, va="top", fontsize=6.5, color=INK_2)
+    a.set_title("What ends a search", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    # b, where a search starts
+    rows_axis(b, "Place of the first selection in the list\n(0 top, 1 bottom)", CDM_ROWS)
+    b.axvline(0.5, color=AXIS, linewidth=1.0)
+    for i, (key, _) in enumerate(CDM_ROWS):
+        f = summary[key]["first"]
+        _dot(b, f["observed"], i - 0.12, INK, "o")
+        _dot(b, f["predicted"], i + 0.12, SR_COLOR, "s")
+    b.set_xlim(-0.04, 1.0)
+    b.legend(
+        handles=[
+            Line2D([], [], marker="o", color=INK, label="People"),
+            Line2D([], [], marker="s", color=SR_COLOR, label="Sample until return"),
+            Line2D([], [], color=AXIS, label="Reading in any order blind to the screen"),
+        ],
+        frameon=False,
+        fontsize=6.5,
+        loc="upper center",
+        bbox_to_anchor=(0.45, -0.26),
+        labelcolor=INK_2,
+    )
+    b.set_title("Where a search starts", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    # c, choices of people held out
+    rows_axis(c, "Likelihood of the choice of a person held out,\ntimes chance")
+    c.axhline(1.5, color=GRID, linewidth=0.8)
+    c.axvline(1.0, color=AXIS, linewidth=1.0)
+    models = (
+        ("SR", SR_COLOR, "s", "Sample until return", 30),
+        ("CL", SERIES["CL"], "o", "CL", 30),
+        ("DbS", SERIES["DbS_avg"], "D", "DbS", 26),
+        ("MLBA", SERIES["MLBA_avg"], "^", "MLBA", 30),
+    )
+    for i, (key, _) in enumerate(rows):
+        tc = summary[key]["choices"]["times_chance"]
+        for j, (m, color, marker, _, size) in enumerate(models):
+            _dot(c, {"point": tc[m]}, i - 0.27 + 0.18 * j, color, marker, size)
+    c.legend(
+        handles=[Line2D([], [], marker=mk, color=col, label=lab, linestyle="") for _, col, mk, lab, _ in models],
+        frameon=False,
+        fontsize=6.5,
+        ncol=2,
+        loc="upper center",
+        bbox_to_anchor=(0.45, -0.31),
+        labelcolor=INK_2,
+    )
+    c.set_title("Choices", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    # d, growth of search time and of the model's looks, relative to sets of 10
+    _style(d)
+    sizes = np.array([10.0, 20.0, 40.0])
+    for key, color, marker, ls in (("standard", INK, "o", "-"), ("process", INK, "s", "--")):
+        g = summary[key]["growth"]
+        obs = np.array(g["observed_by_size"])
+        lk = np.array(g["looks_by_size"])
+        d.plot(sizes, obs / obs[0], color=color, linewidth=1.2, linestyle=ls, marker=marker, markersize=5)
+        d.plot(sizes, lk / lk[0], color=SR_COLOR, linewidth=1.2, linestyle=ls, marker=marker, markersize=5)
+    d.plot(sizes, sizes / 10.0, color=MUTED, linewidth=1.0, linestyle=":")
+    d.set_xscale("log")
+    d.set_yscale("log")
+    d.set_xticks([10, 20, 40], labels=["10", "20", "40"])
+    d.set_yticks([1, 2, 4], labels=["1", "2", "4"])
+    d.minorticks_off()
+    d.set_xlim(8.5, 47)
+    d.set_ylim(0.8, 4.8)
+    d.set_xlabel("Options in the set", color=INK_2)
+    d.set_ylabel("Relative to sets of 10", color=INK_2)
+    d.legend(
+        handles=[
+            Line2D([], [], color=INK, label="Time of the final selection"),
+            Line2D([], [], color=SR_COLOR, label="Expected looks, sample until return"),
+            Line2D([], [], color=INK_2, marker="o", label="Standard choice"),
+            Line2D([], [], color=INK_2, marker="s", linestyle="--", label="Choice process"),
+            Line2D([], [], color=MUTED, linestyle=":", label="Proportional to the set"),
+        ],
+        frameon=False,
+        fontsize=6.5,
+        loc="upper left",
+        labelcolor=INK_2,
+    )
+    d.set_title("How search time grows (descriptive)", color=INK, fontsize=9, loc="left", fontweight="bold")
+
+    _letters([a, b, c, d])
+    fig.tight_layout(h_pad=2.4, w_pad=1.6)
+    return _save(fig, out)

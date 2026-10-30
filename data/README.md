@@ -21,3 +21,14 @@ sh scripts/fetch_gaze_data.sh data/gaze
 ```
 
 This downloads three prepared datasets of choices between two or three foods from [athms/gaze-bias-differences](https://github.com/athms/gaze-bias-differences) (Thomas, Molter, Krajbich, Heekeren and Mohr, 2019, MIT license) at the commit fixed in Amendment 6, with the original file of Folke and colleagues (2016) for its confidence ratings, the license and the commit hash.
+
+### Search and satisficing data (manual download)
+
+The replication package of Caplin, Dean and Martin (2011), openICPSR project 116100, version 1 (CC BY 4.0), needs a free openICPSR sign in, so it is not fetched by a script. Download the project as a zip from [openicpsr.org/openicpsr/project/116100/version/V1/view](https://www.openicpsr.org/openicpsr/project/116100/version/V1/view), then run
+
+```bash
+sh scripts/prepare_cdm_data.sh PATH_TO/116100-V1.zip data/cdm
+```
+
+which checks the click file against the hash fixed in Amendment 7 and copies it with the license to `data/cdm`.
+
