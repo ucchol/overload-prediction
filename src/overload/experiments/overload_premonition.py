@@ -101,6 +101,8 @@ def run_replicate(b: int) -> dict:
         err = {m: float(np.mean([abs(r["growth"][m] - r["growth"]["observed"]) for r in R])) for m in M}
         auc = {k: float(np.mean([r["auc"][k] for r in R])) for k in (*M, *FEATURES)}
         rec["datasets"][ds] = {"growth": g, "error": err, "auc": auc}
+        if all("loglik" in r for r in R):  # exploratory choice accuracy, bits per choice
+            rec["datasets"][ds]["loglik"] = {m: float(np.mean([r["loglik"][m]["all"] for r in R])) for m in M}
     return rec
 
 
@@ -125,6 +127,11 @@ def summarize_all(point: dict, reps: list[dict]) -> dict:
             "error": {m: S(lambda x, m=m: x["error"][m]) for m in D["error"]},
             "auc": {k: S(lambda x, k=k: x["auc"][k]) for k in D["auc"]},
         }
+        if "loglik" in D:
+            B["loglik"] = {m: S(lambda x, m=m: x["loglik"][m]) for m in D["loglik"]}
+            B["sr_minus_loglik"] = {
+                m: S(lambda x, m=m: x["loglik"]["SR"] - x["loglik"][m]) for m in D["loglik"] if m != "SR"
+            }
         B["comp_minus_cl_error"] = S(lambda x: x["error"]["CL_comp"] - x["error"]["CL"])
         B["observed_minus_comp"] = S(lambda x: x["growth"]["observed"] - x["growth"]["CL_comp"])
         B["observed_minus_cl"] = S(lambda x: x["growth"]["observed"] - x["growth"]["CL"])
@@ -217,6 +224,10 @@ def table(s: dict) -> str:
         L.append(f"| O2, SR minus the near best count | {_f(B['sr_auc_minus_near_best'])} |")
         L.append(f"| SR minus one half (descriptive) | {_f(B['sr_auc_minus_half'])} |")
         L.append(f"| O2 supported | {B['O2']['supported']} |")
+        for m, e in B.get("loglik", {}).items():
+            L.append(f"| Choice accuracy, bits per choice, {m} (exploratory) | {_f(e)} |")
+        for m, e in B.get("sr_minus_loglik", {}).items():
+            L.append(f"| SR minus {m}, bits per choice (exploratory) | {_f(e)} |")
         L.append("")
     L += ["## Miss rates by set size (original sample)", ""]
     for name, P in s["panels"].items():
@@ -246,7 +257,9 @@ def main() -> None:
     ap.add_argument("--replicates", type=int, default=1000)
     ap.add_argument("--jobs", type=int, default=1)
     ap.add_argument("--fitted", action="store_true", help="exploratory, one fit to every set size (after the freeze)")
-    ap.add_argument("--with-dbs-mlba", action="store_true", help="exploratory, adds DbS and MLBA (after the freeze)")
+    ap.add_argument(
+        "--with-dbs-mlba", action="store_true", help="exploratory, adds DbS, MLBA and mixed logit (after the freeze)"
+    )
     a = ap.parse_args()
     status = "exploratory" if (a.snack or a.with_dbs_mlba or a.fitted) else "confirmatory, Amendment 8"
     sources = {"cdm": a.cdm, "reutskaja": a.reutskaja, "snack": a.snack}

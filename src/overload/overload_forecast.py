@@ -23,11 +23,12 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from . import mixed_logit
 from .cdm import Displays, fit_softmax, fit_sr_displays, levels, softmax_masked, sr_levels, static_scores
 
 COMPENSATION = 0.18  # elasticity of sensitivity with set size, H1 confirmatory (snack data)
 MODELS = ("CL", "CL_comp", "SR")
-EXPLORATORY_MODELS = (*MODELS, "DbS", "MLBA")  # added after the freeze, exploratory only
+EXPLORATORY_MODELS = (*MODELS, "DbS", "MLBA", "MXL")  # added after the freeze, exploratory only
 REUTSKAJA_FILE = "fixations_data.dta"
 REUTSKAJA_SHA256 = "5c7db9563370cff617b170858d517a9c3d18311728ed046e69f87b970a67f33a"  # the package zip
 
@@ -122,10 +123,14 @@ def cdm_panels(data) -> dict[str, tuple[list[Panel], int]]:
 
 # ----------------------------------------------------------------------------- forecasts
 def miss_forecasts(
-    panel: Panel, w: np.ndarray, models: tuple[str, ...] = MODELS, fitted: bool = False
+    panel: Panel, w: np.ndarray, models: tuple[str, ...] = MODELS, fitted: bool = False, loglik: dict | None = None
 ) -> tuple[dict[str, np.ndarray], dict[str, list[float]]]:
     """Probability of missing the best option on every trial, per model. Held out leaves one set size out. Fitted
-    (exploratory, added after Amendment 8) fits one sensitivity to every set size and predicts them all."""
+    (exploratory, added after Amendment 8) fits one sensitivity to every set size and predicts them all.
+
+    MXL (exploratory) is CL with a log normal sensitivity across people, two parameters, predicted by its population
+    average. When loglik is a dict it receives every model's log2 probability of the chosen option on every trial,
+    from the same fits (exploratory choice accuracy)."""
     v, n, ch = panel.values, panel.n, panel.choice
     top = np.nanmax(v, axis=1, keepdims=True)
     best = np.isfinite(v) & (v == top)
@@ -140,18 +145,33 @@ def miss_forecasts(
     out = {m: np.zeros(n.size) for m in models}
     lam: dict[str, list[float]] = {m: [] for m in models}
     folds = [(np.ones(n.size, bool), np.ones(n.size, bool))] if fitted else [(n == s, n != s) for s in panel.sizes]
+    if loglik is not None:
+        loglik.update({m: np.zeros(n.size) for m in models})
+    log2 = np.log(2.0)
     for test, train in folds:
-        for m in [x for x in models if x != "SR"]:
+        for m in [x for x in models if x not in ("SR", "MXL")]:
             lm = fit_softmax(scores[m][train], ch[train], w[train])
             lam[m].append(lm)
             q = softmax_masked(lm * scores[m][test])
             out[m][test] = 1.0 - np.where(best[test], q, 0.0).sum(axis=1)
+            if loglik is not None:
+                loglik[m][test] = np.log(np.maximum(q[np.arange(q.shape[0]), ch[test]], 1e-300)) / log2
+        if "MXL" in models:
+            start = fit_softmax(v[train], ch[train], w[train])
+            mu, sigma = mixed_logit.fit_mxl(v[train], ch[train], panel.participant[train], w[train], start=start)
+            lam["MXL"].append([mu, sigma])
+            q = mixed_logit.predict_mxl(mu, sigma, v[test])
+            out["MXL"][test] = 1.0 - np.where(best[test], q, 0.0).sum(axis=1)
+            if loglik is not None:
+                loglik["MXL"][test] = np.log(np.maximum(q[np.arange(q.shape[0]), ch[test]], 1e-300)) / log2
         ls = fit_sr_displays(disp, np.where(train, w, 0.0))
         lam["SR"].append(ls)
         logp_u, _ = sr_levels(ls, disp.unique)
         logp = logp_u[disp.index]
         rows = np.flatnonzero(test)
         out["SR"][test] = 1.0 - n_top[rows] * np.exp(logp[rows, top_level[rows]])
+        if loglik is not None:
+            loglik["SR"][test] = np.maximum(logp[rows, disp.chosen[rows]], np.log(1e-300)) / log2
     return out, lam
 
 
@@ -190,7 +210,8 @@ def slope_on_log2(sizes: tuple[int, ...], rates: list[float]) -> float:
 def panel_measures(panel: Panel, w: np.ndarray, models: tuple[str, ...] = MODELS, fitted: bool = False) -> dict:
     """Observed and forecast miss rates by set size, their growth, and trial by trial discrimination within sizes."""
     y = panel.miss()
-    fc, lam = miss_forecasts(panel, w, models, fitted)
+    ll: dict | None = {} if "MXL" in models else None
+    fc, lam = miss_forecasts(panel, w, models, fitted, ll)
     feats = features(panel)
     sizes = panel.sizes
     rate = {"observed": [float(w[panel.n == s] @ y[panel.n == s] / w[panel.n == s].sum()) for s in sizes]}
@@ -210,6 +231,14 @@ def panel_measures(panel: Panel, w: np.ndarray, models: tuple[str, ...] = MODELS
                 ws.append(w[r].sum())
         auc[name] = float(np.average(vals, weights=ws))
     rec = {"sizes": list(sizes), "rate": rate, "growth": growth, "auc": auc, "lambda": lam}
+    if ll is not None:  # exploratory, mean log2 probability of the chosen option per trial, by set size and overall
+        rec["loglik"] = {
+            m: {
+                "by_size": [float(w[panel.n == s] @ ll[m][panel.n == s] / w[panel.n == s].sum()) for s in sizes],
+                "all": float(w @ ll[m] / w.sum()),
+            }
+            for m in models
+        }
     if panel.best_seen is not None:
         unseen = []
         for s in sizes:
