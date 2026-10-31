@@ -90,7 +90,9 @@ def run_replicate(b: int) -> dict:
     for _, (panels, P) in G.items():
         mult = np.ones(P) if rng is None else np.bincount(rng.integers(0, P, size=P), minlength=P).astype(float)
         for p in panels:
-            rec["panels"][p.name] = panel_measures(p, mult[p.participant], _STATE.get("models", MODELS))
+            rec["panels"][p.name] = panel_measures(
+                p, mult[p.participant], _STATE.get("models", MODELS), _STATE.get("fitted", False)
+            )
     rec["datasets"] = {}
     M = _STATE.get("models", MODELS)
     for ds, names in _STATE["datasets"].items():
@@ -154,9 +156,17 @@ def summarize_all(point: dict, reps: list[dict]) -> dict:
     return out
 
 
-def run(sources: dict, out: Path, replicates: int = 1000, jobs: int = 1, status: str = "", extra: bool = False) -> dict:
+def run(
+    sources: dict,
+    out: Path,
+    replicates: int = 1000,
+    jobs: int = 1,
+    status: str = "",
+    extra: bool = False,
+    fitted: bool = False,
+) -> dict:
     G = groups(sources)
-    _STATE.update(groups=G, datasets=datasets_of(G), models=EXPLORATORY_MODELS if extra else MODELS)
+    _STATE.update(groups=G, datasets=datasets_of(G), models=EXPLORATORY_MODELS if extra else MODELS, fitted=fitted)
     t0 = time.time()
     point = run_replicate(-1)
     order = list(range(replicates))
@@ -235,11 +245,12 @@ def main() -> None:
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--replicates", type=int, default=1000)
     ap.add_argument("--jobs", type=int, default=1)
+    ap.add_argument("--fitted", action="store_true", help="exploratory, one fit to every set size (after the freeze)")
     ap.add_argument("--with-dbs-mlba", action="store_true", help="exploratory, adds DbS and MLBA (after the freeze)")
     a = ap.parse_args()
-    status = "exploratory" if (a.snack or a.with_dbs_mlba) else "confirmatory, Amendment 8"
+    status = "exploratory" if (a.snack or a.with_dbs_mlba or a.fitted) else "confirmatory, Amendment 8"
     sources = {"cdm": a.cdm, "reutskaja": a.reutskaja, "snack": a.snack}
-    summary = run(sources, a.out, a.replicates, a.jobs, status, a.with_dbs_mlba)
+    summary = run(sources, a.out, a.replicates, a.jobs, status, a.with_dbs_mlba, a.fitted)
     print((a.out / "table_overload.md").read_text())
     print(f"written in {summary['provenance']['seconds']} s")
 
