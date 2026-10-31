@@ -122,9 +122,10 @@ def cdm_panels(data) -> dict[str, tuple[list[Panel], int]]:
 
 # ----------------------------------------------------------------------------- forecasts
 def miss_forecasts(
-    panel: Panel, w: np.ndarray, models: tuple[str, ...] = MODELS
+    panel: Panel, w: np.ndarray, models: tuple[str, ...] = MODELS, fitted: bool = False
 ) -> tuple[dict[str, np.ndarray], dict[str, list[float]]]:
-    """Held out probability of missing the best option on every trial, leaving one set size out, per model."""
+    """Probability of missing the best option on every trial, per model. Held out leaves one set size out. Fitted
+    (exploratory, added after Amendment 8) fits one sensitivity to every set size and predicts them all."""
     v, n, ch = panel.values, panel.n, panel.choice
     top = np.nanmax(v, axis=1, keepdims=True)
     best = np.isfinite(v) & (v == top)
@@ -138,9 +139,8 @@ def miss_forecasts(
         scores["MLBA"] = static_scores(v, "MLBA_avg", mlba_scale=panel.mlba_scale)
     out = {m: np.zeros(n.size) for m in models}
     lam: dict[str, list[float]] = {m: [] for m in models}
-    for size in panel.sizes:
-        test = n == size
-        train = ~test
+    folds = [(np.ones(n.size, bool), np.ones(n.size, bool))] if fitted else [(n == s, n != s) for s in panel.sizes]
+    for test, train in folds:
         for m in [x for x in models if x != "SR"]:
             lm = fit_softmax(scores[m][train], ch[train], w[train])
             lam[m].append(lm)
@@ -187,10 +187,10 @@ def slope_on_log2(sizes: tuple[int, ...], rates: list[float]) -> float:
     return float(np.polyfit(np.log2(np.asarray(sizes, float)), np.asarray(rates, float), 1)[0])
 
 
-def panel_measures(panel: Panel, w: np.ndarray, models: tuple[str, ...] = MODELS) -> dict:
+def panel_measures(panel: Panel, w: np.ndarray, models: tuple[str, ...] = MODELS, fitted: bool = False) -> dict:
     """Observed and forecast miss rates by set size, their growth, and trial by trial discrimination within sizes."""
     y = panel.miss()
-    fc, lam = miss_forecasts(panel, w, models)
+    fc, lam = miss_forecasts(panel, w, models, fitted)
     feats = features(panel)
     sizes = panel.sizes
     rate = {"observed": [float(w[panel.n == s] @ y[panel.n == s] / w[panel.n == s].sum()) for s in sizes]}
