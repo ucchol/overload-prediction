@@ -17,6 +17,7 @@ A disagreement beyond rounding blocks the result until its cause is found. The b
 | `independent_gaze/` | the confirmatory test of two look satisficing on three gaze datasets of Amendment 6 | `sh verification/run_independent_gaze.sh`, about twenty five minutes |
 | `independent_cdm/` | the confirmatory stopping rule test of Amendment 7 | `sh verification/run_independent_cdm.sh`, about twenty minutes |
 | `independent_overload/` | the confirmatory overload forecasts of Amendment 8 | `sh verification/run_independent_overload.sh`, about five minutes |
+| `independent_mxl/` | mixed logit and the fitted overload forecasts of every model (exploratory) | `sh verification/run_independent_mxl.sh PATH_TO_CSV`, about fifteen minutes |
 
 Both implementations are archived exactly as they were written, with their results. The runners copy data only into temporary folders that are removed afterwards.
 
@@ -102,6 +103,14 @@ Both independent implementations were written from `VERIFY_BRIEF_CDM.md` and `VE
 - Amendment 7. Agreement on every decision and value (`compare_stopping_cdm.py`), largest difference 3e-7 outside one interval end of a descriptive percent that differed by 1.2e-6 on a value of 31 (relative 4e-8).
 - Amendment 8. Agreement on every value and decision (`compare_overload.py`), largest difference 2e-8, areas under the curve identical.
 - Points the verifier raised after the run. In Caplin, Dean and Martin every model foresees fewer misses at 40 options than at 20, while people miss more, so overload there departs even from fixed sensitivity. The models barely tell which of those trials end in a miss, unlike in Reutskaja. Unsubmitted rounds reach 15 to 20 percent in the complex cells of Experiment 2.
+
+## Mixed logit and fitted forecasts of overload (exploratory), 31 October 2026
+
+Written from `VERIFY_BRIEF_MXL.md` without access to the new code. The verifier tabulated each person's likelihood on its own grid of log lambda (spacing 0.005, trapezoid sums) and searched a coarse grid of (mu, sigma) before polishing the five best minima, a different route from the package's grid of spacing 0.02 with three starts. Its simulated checks recover (mu, sigma) for people with 180 trials each, match adaptive quadrature, and send sigma to its bound when every person shares one sensitivity. On the real data every fit had one local minimum and none sat at a bound.
+
+- Original sample, every model (CL, CL with compensation, SR, DbS, MLBA, MXL), held out and fitted, on the four Caplin, Dean and Martin panels, Reutskaja and snack, and MXL on both development tasks. Agreement on every miss rate, growth, bits per choice and MXL parameter (`compare_mxl.py`), largest difference 4e-6 (a held out MXL sigma on the development data), every other value within 7e-7.
+- Rerun with `sh verification/run_independent_mxl.sh PATH_TO_CSV`, about fifteen minutes.
+- The resampled runs (1000 participant resamples) are checked by a second run with identical outputs.
 
 ## Exploratory laptop rubric sensitivity, 9 October 2026 (withdrawn by Amendment 4)
 

@@ -1,0 +1,9 @@
+PASS recovery mu 0.7, sigma 0.35: 0.694, 0.371 (about 0.1 and 0.7 s.e.); coarse-grid local minima 1
+PASS integral: one person's log integral on the grid vs adaptive quadrature differs by 0.0e+00; the objective at the optimum on a grid of half the spacing differs by 0.0e+00
+PASS population-average predictions with 80 vs 160 Gauss-Hermite nodes differ by at most 4.4e-16
+PASS recovery mu -1.2, sigma 0.8: -1.347, 0.893 (about 1.4 and 1.3 s.e.); coarse-grid local minima 1
+PASS integral: one person's log integral on the grid vs adaptive quadrature differs by 0.0e+00; the objective at the optimum on a grid of half the spacing differs by 0.0e+00
+PASS population-average predictions with 80 vs 160 Gauss-Hermite nodes differ by at most 3.3e-09
+PASS common lambda: sigma goes to the lower bound (0.050, at bound True), mu 0.281
+
+ALL CHECKS PASSED
