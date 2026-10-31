@@ -15,6 +15,8 @@ A disagreement beyond rounding blocks the result until its cause is found. The b
 | `independent_search/` | the confirmatory search model tests of Amendment 5 on the snack data | `sh verification/run_independent_search.sh`, about twenty minutes |
 | `independent_two_look/` | the exploratory two look satisficing analysis on the snack data | `sh verification/run_independent_two_look.sh`, about twenty minutes |
 | `independent_gaze/` | the confirmatory test of two look satisficing on three gaze datasets of Amendment 6 | `sh verification/run_independent_gaze.sh`, about twenty five minutes |
+| `independent_cdm/` | the confirmatory stopping rule test of Amendment 7 | `sh verification/run_independent_cdm.sh`, about twenty minutes |
+| `independent_overload/` | the confirmatory overload forecasts of Amendment 8 | `sh verification/run_independent_overload.sh`, about five minutes |
 
 Both implementations are archived exactly as they were written, with their results. The runners copy data only into temporary folders that are removed afterwards.
 
@@ -91,6 +93,15 @@ The independent code was written from `VERIFY_BRIEF_GAZE.md` and tested on simul
 - Second run. Identical (`summary.json` apart from its run time stamp, `point.json` and `replicates.jsonl`).
 - Independent reimplementation. Agreement on every test and on every value that enters one (`compare_two_look_gaze.py`). The largest differences are 2e-8 for sensitivities, 1e-9 for time errors, 4e-8 for choices and 6e-17 for rank correlations, which the rounding rule made identical. Eight descriptive entries fall outside the fixed tolerances, all in time laws whose best fit lies on a bound (no time per look, or no start up time). The package returns the bound exactly and the independent code a value within 1e-11 of it, so the p values that count replicates at zero differ for the laws of Krajbich 2011 and Folke (with one clear flag) and for two per dataset time differences in Folke's data, and the basic interval of the start up time of Folke's sample until return law differs by 2e-6 seconds. Replicate by replicate the two sets of laws agree within 1e-5, and the time errors within 6e-9.
 - Points the verifier raised after the run. Two look satisficing's time law is nearly flat in every dataset, so its forecasts of time collapse to a constant even though its looks still rank slow decisions. Sample until return's law sits on the bound of no start up time in both Krajbich datasets and is unstable in Folke's. Folke's data favor sample until return clearly on slow decisions. With two items, sample until return's looks and the gap between the two values rank trials identically.
+
+## The stopping rule and forecasting overload (Amendments 7 and 8), 31 October 2026
+
+Both independent implementations were written from `VERIFY_BRIEF_CDM.md` and `VERIFY_BRIEF_OVERLOAD.md` and tested on simulated data only. The verifier's points were settled in the amendments before the freeze (a rule for cells without training selections, the share of unsubmitted rounds, a stated reason for pooling C1, and two tests of Amendment 8 rewritten after its simulations showed that the first versions leaned against overload or could not single out the model). Each side then ran once on the real data.
+
+- Second run. Identical for both amendments (`summary.json` apart from its run time stamp, `point.json`, `replicates.jsonl`).
+- Amendment 7. Agreement on every decision and value (`compare_stopping_cdm.py`), largest difference 3e-7 outside one interval end of a descriptive percent that differed by 1.2e-6 on a value of 31 (relative 4e-8).
+- Amendment 8. Agreement on every value and decision (`compare_overload.py`), largest difference 2e-8, areas under the curve identical.
+- Points the verifier raised after the run. In Caplin, Dean and Martin every model foresees fewer misses at 40 options than at 20, while people miss more, so overload there departs even from fixed sensitivity. The models barely tell which of those trials end in a miss, unlike in Reutskaja. Unsubmitted rounds reach 15 to 20 percent in the complex cells of Experiment 2.
 
 ## Exploratory laptop rubric sensitivity, 9 October 2026 (withdrawn by Amendment 4)
 
