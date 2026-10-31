@@ -979,8 +979,12 @@ def figure_overload_forecast(confirmatory: dict, snack: dict | None, out: Path) 
     if snack is not None:
         shown.append(("Snacks at a glance\n(exploratory)", snack["panels"]["snack"]))
     shown.append(("Snacks in three seconds\n(Reutskaja)", P["reutskaja"]))
-    shown.append(("Sums of three steps\n(Caplin, Dean, Martin)", _mean_panels([P["cdm_standard_3"], P["cdm_process_3"]])))
-    shown.append(("Sums of seven steps\n(Caplin, Dean, Martin)", _mean_panels([P["cdm_standard_7"], P["cdm_process_7"]])))
+    shown.append(
+        ("Sums of three steps\n(Caplin, Dean, Martin)", _mean_panels([P["cdm_standard_3"], P["cdm_process_3"]]))
+    )
+    shown.append(
+        ("Sums of seven steps\n(Caplin, Dean, Martin)", _mean_panels([P["cdm_standard_7"], P["cdm_process_7"]]))
+    )
     fig, axes = plt.subplots(1, len(shown), figsize=(2.0 * len(shown) + 0.4, 3.1), sharey=True)
     styles = (
         ("CL", SERIES["CL"], "o", "CL"),
