@@ -32,3 +32,13 @@ sh scripts/prepare_cdm_data.sh PATH_TO/116100-V1.zip data/cdm
 
 which checks the click file against the hash fixed in Amendment 7 and copies it with the license to `data/cdm`.
 
+### Eye tracking under time pressure (manual download)
+
+The replication package of Reutskaja, Nagel, Camerer and Rangel (2011), openICPSR project 112415, version 1 (CC BY 4.0), also needs a free sign in. Download it as a zip from [openicpsr.org/openicpsr/project/112415](https://www.openicpsr.org/openicpsr/project/112415), then run
+
+```bash
+sh scripts/prepare_reutskaja_data.sh PATH_TO/112415-V1.zip data/reutskaja
+```
+
+which checks the trial file against the hash fixed in Amendment 8.
+
