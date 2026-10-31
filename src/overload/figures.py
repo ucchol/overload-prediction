@@ -951,3 +951,70 @@ def figure_stopping_cdm(summary: dict, out: Path) -> list[Path]:
     _letters([a, b, c, d])
     fig.tight_layout(h_pad=2.4, w_pad=1.6)
     return _save(fig, out)
+
+
+# ----------------------------------------------------------------------------- forecasting choice overload
+COMP_COLOR = "#7a7a00"  # CL with compensation, an olive set apart from the model colors above
+
+
+def _mean_panels(panels: list[dict]) -> dict:
+    keys = panels[0]["rate"].keys()
+    out = {
+        "sizes": panels[0]["sizes"],
+        "rate": {k: np.mean([p["rate"][k] for p in panels], axis=0).tolist() for k in keys},
+    }
+    out["rate_interval"] = {
+        k: np.mean([p["rate_interval"][k] for p in panels], axis=0).tolist()
+        for k in keys
+        if "rate_interval" in panels[0]
+    }
+    return out
+
+
+def figure_overload_forecast(confirmatory: dict, snack: dict | None, out: Path) -> list[Path]:
+    """How often people missed the best option as sets grew, against each model's forecast for unseen set sizes."""
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8})
+    P = confirmatory["panels"]
+    shown = []
+    if snack is not None:
+        shown.append(("Snacks at a glance\n(exploratory)", snack["panels"]["snack"]))
+    shown.append(("Snacks in three seconds\n(Reutskaja)", P["reutskaja"]))
+    shown.append(("Sums of three steps\n(Caplin, Dean, Martin)", _mean_panels([P["cdm_standard_3"], P["cdm_process_3"]])))
+    shown.append(("Sums of seven steps\n(Caplin, Dean, Martin)", _mean_panels([P["cdm_standard_7"], P["cdm_process_7"]])))
+    fig, axes = plt.subplots(1, len(shown), figsize=(2.0 * len(shown) + 0.4, 3.1), sharey=True)
+    styles = (
+        ("CL", SERIES["CL"], "o", "CL"),
+        ("CL_comp", COMP_COLOR, "D", "CL with compensation"),
+        ("SR", SR_COLOR, "s", "Sample until return"),
+    )
+    for ax, (title, p) in zip(axes, shown, strict=True):
+        _style(ax)
+        x = np.array(p["sizes"], float)
+        y = np.array(p["rate"]["observed"])
+        if "observed" in p.get("rate_interval", {}):
+            lo, hi = np.array(p["rate_interval"]["observed"])
+            ax.fill_between(x, lo, hi, color=GRID, linewidth=0, zorder=1)
+        ax.plot(x, y, color=INK, linewidth=1.8, marker="o", markersize=5, zorder=4)
+        for key, color, marker, _ in styles:
+            ax.plot(x, p["rate"][key], color=color, linewidth=1.1, marker=marker, markersize=3.5, zorder=3)
+        ax.set_xscale("log")
+        ax.set_xticks(x, labels=[str(int(v)) for v in x])
+        ax.minorticks_off()
+        ax.set_xlabel("Options in the set", color=INK_2)
+        ax.set_title(title, color=INK, fontsize=7.5, loc="left", fontweight="bold")
+    axes[0].set_ylabel("Missed the best option", color=INK_2)
+    axes[0].set_ylim(0, 0.9)
+    axes[0].yaxis.set_major_formatter(plt.FuncFormatter(lambda v, _: f"{v:.0%}"))
+    fig.legend(
+        handles=[Line2D([], [], color=INK, marker="o", linewidth=1.8, label="People")]
+        + [Line2D([], [], color=c, marker=m, label=lab) for _, c, m, lab in styles],
+        frameon=False,
+        fontsize=7,
+        ncol=4,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 1.02),
+        labelcolor=INK_2,
+    )
+    _letters(axes)
+    fig.tight_layout(rect=(0, 0, 1, 0.92), w_pad=0.8)
+    return _save(fig, out)

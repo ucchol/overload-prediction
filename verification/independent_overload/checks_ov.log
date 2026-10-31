@@ -1,0 +1,17 @@
+PASS miss probabilities of CL, CL_comp and SR equal a direct computation on small sets with ties at the top (SR by enumerating every sequence of looks; max difference 5.8e-15)
+PASS SR's miss probability against a simulation of the race (9 options, two tied at the top): 0.3506 against 0.3508 (0.2 s.e.)
+PASS recovery of CL at lambda 0.3 on set sizes (10, 20, 40): 0.3020 (0.3 s.e.)
+PASS recovery of CL_comp at lambda 0.3 on set sizes (10, 20, 40): 0.2999 (0.0 s.e.)
+PASS recovery of SR at lambda 0.25 on set sizes (10, 20, 40): 0.2519 (0.3 s.e.), dense-grid excess -7.1e-03
+PASS recovery of CL_comp at lambda 0.8 on set sizes (4, 9, 16): 0.8107 (0.5 s.e.)
+PASS recovery of SR at lambda 0.7 on set sizes (4, 9, 16): 0.7178 (0.9 s.e.), dense-grid excess -1.3e-01
+PASS weighted area under the curve equals a brute force pairwise count with ties and minus infinity (max difference 0.0e+00; undefined without a miss or a hit)
+PASS near best count, minus gap (minus infinity when every option ties at the top) and misses by hand
+PASS Stata loader: ratings shifted by 6 in screen order, chosen index, fixated positions and best never fixated agree with a direct reading
+PASS both loaders refuse the real files unless explicitly allowed (nothing is read)
+
+ALL CHECKS PASSED
+
+real	0m11.496s
+user	0m11.046s
+sys	0m0.126s
