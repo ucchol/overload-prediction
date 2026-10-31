@@ -1,0 +1,44 @@
+precomputation done in 3.0s
+draw pre-check passed: every replicate keeps a drawn participant's timed round in every cell
+point estimates done in 4.7s
+replicate 25/1000, 30.3s
+replicate 50/1000, 56.9s
+replicate 75/1000, 81.8s
+replicate 100/1000, 108.7s
+replicate 125/1000, 136.1s
+replicate 150/1000, 162.8s
+replicate 175/1000, 187.3s
+replicate 200/1000, 216.5s
+replicate 225/1000, 246.2s
+replicate 250/1000, 272.5s
+replicate 275/1000, 298.6s
+replicate 300/1000, 324.8s
+replicate 325/1000, 350.3s
+replicate 350/1000, 375.1s
+replicate 375/1000, 401.0s
+replicate 400/1000, 428.4s
+replicate 425/1000, 454.9s
+replicate 450/1000, 484.0s
+replicate 475/1000, 512.6s
+replicate 500/1000, 541.0s
+replicate 525/1000, 568.8s
+replicate 550/1000, 595.1s
+replicate 575/1000, 619.9s
+replicate 600/1000, 648.0s
+replicate 625/1000, 674.3s
+replicate 650/1000, 700.1s
+replicate 675/1000, 724.4s
+replicate 700/1000, 751.3s
+replicate 725/1000, 777.5s
+replicate 750/1000, 802.1s
+replicate 775/1000, 827.3s
+replicate 800/1000, 850.6s
+replicate 825/1000, 873.2s
+replicate 850/1000, 896.1s
+replicate 875/1000, 918.8s
+replicate 900/1000, 941.2s
+replicate 925/1000, 964.7s
+replicate 950/1000, 989.1s
+replicate 975/1000, 1012.4s
+replicate 1000/1000, 1036.2s
+wrote results.json in 1036.2s

@@ -282,6 +282,29 @@ Reading.
 
 Story update. The paper proposes sample until return. Two look satisficing is reported as an extension that was built on one dataset, frozen and rejected on three others.
 
+### 31 Oct 2026. The search model's stopping rule on the data of Caplin, Dean and Martin (Amendment 7, confirmatory), run once and verified twice
+
+`results/stopping_cdm`. Run once under the frozen amendment (plan digest 876dbadf). A second run reproduced every saved value. The independent implementation, written blind from `verification/VERIFY_BRIEF_CDM.md` and tested on simulated data only before the freeze, agreed on every decision and value (largest differences 3e-7 on percent scales, 5e-9 for sensitivities). One interval end of a descriptive percent differed by 1.2e-6 on a value of 31, a relative difference of 4e-8. 1000 participant resamples, ten folds of participants within each experiment.
+
+Data. Sums of money written out as 3 or 7 additions and subtractions, in sets of 10, 20 and 40, every selection on the way to a choice recorded. Experiment 1 paid the final choice, Experiment 2 the selection held at a random moment.
+
+| Test | Result | Decision |
+|---|---|---|
+| C1, what ends a search, value rule minus share rule (mean of the two experiments) | +0.016 bits per selection [-0.008, 0.044] | undecided |
+| C2, place of the first selection in Experiment 2 (0 top, 1 bottom) | 0.361 [0.309, 0.412], minus one half -0.139, minus the model's 0.508 -0.146, both clear | list order matters |
+| C3, choices, sample until return minus CL | +0.41 percent [-0.06, 0.84] | supported, non inferior |
+
+Secondary and descriptive.
+- Each experiment. Value minus share +0.009 (standard) and +0.022 (choice process), neither clear. First selection's place 0.38 and 0.36. Sample until return minus CL +0.16 and +0.66 percent, the second clearly better.
+- Choices. Sample until return beat MLBA by 58 percent, and DbS by 6 percent (not clear).
+- Search time. The time of the final selection grew with the number of options with elasticity 0.29 and 0.24, and the model's expected looks with 0.23 and 0.24. No time law beat the number of options held out.
+- Unsubmitted rounds. None in Experiment 1. In Experiment 2, 1 to 20 percent by cell, most in large and complex sets, so leaving them out shortens the longest searches.
+
+Reading.
+- The test of the stopping rule came out undecided. People did not stop clearly by the worth of what they held, unlike the satisficing the original paper suggested, and the test cannot favor the model's first return (stated before the run).
+- Where values must be worked out, people partly read from the top of the list, which the model's attention, drawn by value, does not capture.
+- Choices again matched CL, now on a fifth dataset, where values are money worked out from arithmetic.
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.

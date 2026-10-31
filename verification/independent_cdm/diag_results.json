@@ -1,0 +1,62 @@
+{
+ "standard": {
+  "share_rounds_without_selection": 0.0,
+  "share_scored_selections_without_valid_time": 0.0,
+  "share_rounds_without_valid_final_time": 0.0,
+  "smallest_option_value": 1.0,
+  "largest_option_value": 32.0,
+  "largest_dense_excess_over_SR_fit": -8.481038094032556e-11,
+  "share_of_logistic_fits_at_the_all_equal_limit": 0.125,
+  "share_of_rule_cells_without_training_selections_original": 0.0,
+  "share_of_rule_cells_without_training_selections_largest_replicate": 0.0,
+  "replicate_lambda_ranges": {
+   "CL": [
+    0.20748295428328423,
+    0.4484259725946372
+   ],
+   "DbS": [
+    2.523977603366582,
+    9.923091556427824
+   ],
+   "MLBA": [
+    6.310585427517053,
+    12.470370252440821
+   ],
+   "SR": [
+    0.12043634636498492,
+    0.2570305330886997
+   ]
+  }
+ },
+ "process": {
+  "share_rounds_without_selection": 0.0,
+  "share_scored_selections_without_valid_time": 0.0,
+  "share_rounds_without_valid_final_time": 0.0,
+  "smallest_option_value": 1.0,
+  "largest_option_value": 32.0,
+  "largest_dense_excess_over_SR_fit": -7.858261596993543e-09,
+  "share_of_logistic_fits_at_the_all_equal_limit": 0.018518518518518517,
+  "share_of_rule_cells_without_training_selections_original": 0.0,
+  "share_of_rule_cells_without_training_selections_largest_replicate": 0.0,
+  "replicate_lambda_ranges": {
+   "CL": [
+    0.22987159713585673,
+    0.39078353267377686
+   ],
+   "DbS": [
+    2.959004033531088,
+    7.008684178305928
+   ],
+   "MLBA": [
+    7.171413442990352,
+    12.684528405196719
+   ],
+   "SR": [
+    0.13394824436237135,
+    0.22703282204499273
+   ]
+  }
+ },
+ "seconds": 1036.2,
+ "B": 1000
+}
