@@ -23,10 +23,11 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from .cdm import Displays, fit_softmax, fit_sr_displays, levels, softmax_masked, sr_levels
+from .cdm import Displays, fit_softmax, fit_sr_displays, levels, softmax_masked, sr_levels, static_scores
 
 COMPENSATION = 0.18  # elasticity of sensitivity with set size, H1 confirmatory (snack data)
 MODELS = ("CL", "CL_comp", "SR")
+EXPLORATORY_MODELS = (*MODELS, "DbS", "MLBA")  # added after the freeze, exploratory only
 REUTSKAJA_FILE = "fixations_data.dta"
 REUTSKAJA_SHA256 = "5c7db9563370cff617b170858d517a9c3d18311728ed046e69f87b970a67f33a"  # the package zip
 
@@ -46,6 +47,7 @@ class Panel:
     participant: np.ndarray  # index into the participants of the panel's group
     shift: float  # added to values for sample until return, so every value is a whole level from 1 to 35
     best_seen: np.ndarray | None = None  # Reutskaja only, the best option was fixated
+    mlba_scale: float = 1.0  # puts the value scale on the six units on which MLBA's kappa = 1 was set
 
     @property
     def sizes(self) -> tuple[int, ...]:
@@ -87,6 +89,7 @@ def load_reutskaja(folder: str | Path) -> tuple[Panel, tuple[int, ...]]:
         choice=choice,
         participant=np.array([index[int(s)] for s in t["subject"]]),
         shift=6.0,
+        mlba_scale=0.6,
         best_seen=best_seen,
     )
     return panel, tuple(ids)
@@ -110,6 +113,7 @@ def cdm_panels(data) -> dict[str, tuple[list[Panel], int]]:
                     choice=data.choice[r],
                     participant=local[data.participant[r]],
                     shift=0.0,
+                    mlba_scale=6.0 / 35.0,
                 )
             )
         out[f"cdm_{name}"] = (panels, int(people.size))
@@ -117,7 +121,9 @@ def cdm_panels(data) -> dict[str, tuple[list[Panel], int]]:
 
 
 # ----------------------------------------------------------------------------- forecasts
-def miss_forecasts(panel: Panel, w: np.ndarray) -> tuple[dict[str, np.ndarray], dict[str, list[float]]]:
+def miss_forecasts(
+    panel: Panel, w: np.ndarray, models: tuple[str, ...] = MODELS
+) -> tuple[dict[str, np.ndarray], dict[str, list[float]]]:
     """Held out probability of missing the best option on every trial, leaving one set size out, per model."""
     v, n, ch = panel.values, panel.n, panel.choice
     top = np.nanmax(v, axis=1, keepdims=True)
@@ -127,12 +133,15 @@ def miss_forecasts(panel: Panel, w: np.ndarray) -> tuple[dict[str, np.ndarray], 
     top_level = (np.rint(top[:, 0] + panel.shift) - 1).astype(int)
     n_top = best.sum(axis=1)
     scores = {"CL": v, "CL_comp": v * compensation(n)[:, None]}
-    out = {m: np.zeros(n.size) for m in MODELS}
-    lam: dict[str, list[float]] = {m: [] for m in MODELS}
+    if "DbS" in models:
+        scores["DbS"] = static_scores(v, "DbS_avg")
+        scores["MLBA"] = static_scores(v, "MLBA_avg", mlba_scale=panel.mlba_scale)
+    out = {m: np.zeros(n.size) for m in models}
+    lam: dict[str, list[float]] = {m: [] for m in models}
     for size in panel.sizes:
         test = n == size
         train = ~test
-        for m in ("CL", "CL_comp"):
+        for m in [x for x in models if x != "SR"]:
             lm = fit_softmax(scores[m][train], ch[train], w[train])
             lam[m].append(lm)
             q = softmax_masked(lm * scores[m][test])
@@ -178,19 +187,19 @@ def slope_on_log2(sizes: tuple[int, ...], rates: list[float]) -> float:
     return float(np.polyfit(np.log2(np.asarray(sizes, float)), np.asarray(rates, float), 1)[0])
 
 
-def panel_measures(panel: Panel, w: np.ndarray) -> dict:
+def panel_measures(panel: Panel, w: np.ndarray, models: tuple[str, ...] = MODELS) -> dict:
     """Observed and forecast miss rates by set size, their growth, and trial by trial discrimination within sizes."""
     y = panel.miss()
-    fc, lam = miss_forecasts(panel, w)
+    fc, lam = miss_forecasts(panel, w, models)
     feats = features(panel)
     sizes = panel.sizes
     rate = {"observed": [float(w[panel.n == s] @ y[panel.n == s] / w[panel.n == s].sum()) for s in sizes]}
-    for m in MODELS:
+    for m in models:
         rate[m] = [float(w[panel.n == s] @ fc[m][panel.n == s] / w[panel.n == s].sum()) for s in sizes]
     growth = {k: slope_on_log2(sizes, r) for k, r in rate.items()}
     auc = {}
     # model forecasts are rounded to ten significant digits before ranking, so displays equal in exact arithmetic tie
-    rounded = {m: np.array([float(format(x, ".10g")) for x in fc[m]]) for m in MODELS}
+    rounded = {m: np.array([float(format(x, ".10g")) for x in fc[m]]) for m in models}
     for name, sc in {**rounded, **feats}.items():
         vals, ws = [], []
         for s in sizes:

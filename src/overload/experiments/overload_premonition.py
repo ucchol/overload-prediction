@@ -34,7 +34,7 @@ import numpy as np
 
 from ..bootstrap import summarize
 from ..cdm import load_cdm
-from ..overload_forecast import MODELS, Panel, cdm_panels, load_reutskaja, panel_measures
+from ..overload_forecast import EXPLORATORY_MODELS, MODELS, Panel, cdm_panels, load_reutskaja, panel_measures
 
 SEED_OFFSET = 80000
 FEATURES = ("near_best", "minus_gap")
@@ -54,7 +54,9 @@ def snack_panel(folder: Path) -> tuple[Panel, int]:
         n.append(np.full(b.trials, b.n))
         ch.append(b.choice)
         part.append(b.participant)
-    panel = Panel("snack", np.vstack(vals), np.concatenate(n), np.concatenate(ch), np.concatenate(part), shift=4.0)
+    panel = Panel(
+        "snack", np.vstack(vals), np.concatenate(n), np.concatenate(ch), np.concatenate(part), shift=4.0, mlba_scale=1.0
+    )
     return panel, len(d.participants)
 
 
@@ -88,13 +90,14 @@ def run_replicate(b: int) -> dict:
     for _, (panels, P) in G.items():
         mult = np.ones(P) if rng is None else np.bincount(rng.integers(0, P, size=P), minlength=P).astype(float)
         for p in panels:
-            rec["panels"][p.name] = panel_measures(p, mult[p.participant])
+            rec["panels"][p.name] = panel_measures(p, mult[p.participant], _STATE.get("models", MODELS))
     rec["datasets"] = {}
+    M = _STATE.get("models", MODELS)
     for ds, names in _STATE["datasets"].items():
         R = [rec["panels"][x] for x in names]
-        g = {k: float(np.mean([r["growth"][k] for r in R])) for k in ("observed", *MODELS)}
-        err = {m: float(np.mean([abs(r["growth"][m] - r["growth"]["observed"]) for r in R])) for m in MODELS}
-        auc = {k: float(np.mean([r["auc"][k] for r in R])) for k in (*MODELS, *FEATURES)}
+        g = {k: float(np.mean([r["growth"][k] for r in R])) for k in ("observed", *M)}
+        err = {m: float(np.mean([abs(r["growth"][m] - r["growth"]["observed"]) for r in R])) for m in M}
+        auc = {k: float(np.mean([r["auc"][k] for r in R])) for k in (*M, *FEATURES)}
         rec["datasets"][ds] = {"growth": g, "error": err, "auc": auc}
     return rec
 
@@ -117,7 +120,7 @@ def summarize_all(point: dict, reps: list[dict]) -> dict:
         D = point["datasets"][ds]
         B: dict = {
             "growth": {k: S(lambda x, k=k: x["growth"][k]) for k in D["growth"]},
-            "error": {m: S(lambda x, m=m: x["error"][m]) for m in MODELS},
+            "error": {m: S(lambda x, m=m: x["error"][m]) for m in D["error"]},
             "auc": {k: S(lambda x, k=k: x["auc"][k]) for k in D["auc"]},
         }
         B["comp_minus_cl_error"] = S(lambda x: x["error"]["CL_comp"] - x["error"]["CL"])
@@ -151,9 +154,9 @@ def summarize_all(point: dict, reps: list[dict]) -> dict:
     return out
 
 
-def run(sources: dict, out: Path, replicates: int = 1000, jobs: int = 1, status: str = "") -> dict:
+def run(sources: dict, out: Path, replicates: int = 1000, jobs: int = 1, status: str = "", extra: bool = False) -> dict:
     G = groups(sources)
-    _STATE.update(groups=G, datasets=datasets_of(G))
+    _STATE.update(groups=G, datasets=datasets_of(G), models=EXPLORATORY_MODELS if extra else MODELS)
     t0 = time.time()
     point = run_replicate(-1)
     order = list(range(replicates))
@@ -193,7 +196,7 @@ def table(s: dict) -> str:
         L += [f"## {ds}", "", "| Measure | Value |", "|---|---|"]
         for k, e in B["growth"].items():
             L.append(f"| Growth of misses per doubling of the set, {k} | {_f(e)} |")
-        for m in MODELS:
+        for m in B["error"]:
             L.append(f"| Error of the forecast growth, {m} | {_f(B['error'][m], sign=False)} |")
         L.append(f"| O1, people's growth minus compensation's | {_f(B['observed_minus_comp'])} |")
         L.append(f"| O1, people's growth minus CL's | {_f(B['observed_minus_cl'])} |")
@@ -232,9 +235,11 @@ def main() -> None:
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--replicates", type=int, default=1000)
     ap.add_argument("--jobs", type=int, default=1)
+    ap.add_argument("--with-dbs-mlba", action="store_true", help="exploratory, adds DbS and MLBA (after the freeze)")
     a = ap.parse_args()
-    status = "exploratory" if a.snack else "confirmatory, Amendment 8"
-    summary = run({"cdm": a.cdm, "reutskaja": a.reutskaja, "snack": a.snack}, a.out, a.replicates, a.jobs, status)
+    status = "exploratory" if (a.snack or a.with_dbs_mlba) else "confirmatory, Amendment 8"
+    sources = {"cdm": a.cdm, "reutskaja": a.reutskaja, "snack": a.snack}
+    summary = run(sources, a.out, a.replicates, a.jobs, status, a.with_dbs_mlba)
     print((a.out / "table_overload.md").read_text())
     print(f"written in {summary['provenance']['seconds']} s")
 
