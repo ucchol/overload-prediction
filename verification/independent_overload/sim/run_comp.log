@@ -1,0 +1,23 @@
+precomputation done in 4.6s
+draw pre-check passed: every replicate keeps trials at every set size of every panel
+replicate 50/1000, 16.2s
+replicate 100/1000, 27.4s
+replicate 150/1000, 38.7s
+replicate 200/1000, 50.2s
+replicate 250/1000, 61.7s
+replicate 300/1000, 73.1s
+replicate 350/1000, 84.7s
+replicate 400/1000, 96.7s
+replicate 450/1000, 107.9s
+replicate 500/1000, 119.1s
+replicate 550/1000, 131.4s
+replicate 600/1000, 143.3s
+replicate 650/1000, 156.2s
+replicate 700/1000, 167.7s
+replicate 750/1000, 180.2s
+replicate 800/1000, 193.0s
+replicate 850/1000, 206.2s
+replicate 900/1000, 218.2s
+replicate 950/1000, 230.1s
+replicate 1000/1000, 242.4s
+wrote sim/results_comp.json in 242.5s

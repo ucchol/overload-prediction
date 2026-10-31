@@ -1,0 +1,23 @@
+precomputation done in 4.1s
+draw pre-check passed: every replicate keeps trials at every set size of every panel
+replicate 50/1000, 14.7s
+replicate 100/1000, 24.8s
+replicate 150/1000, 35.2s
+replicate 200/1000, 45.4s
+replicate 250/1000, 55.4s
+replicate 300/1000, 65.6s
+replicate 350/1000, 75.1s
+replicate 400/1000, 84.8s
+replicate 450/1000, 95.1s
+replicate 500/1000, 105.5s
+replicate 550/1000, 115.5s
+replicate 600/1000, 125.3s
+replicate 650/1000, 134.8s
+replicate 700/1000, 144.9s
+replicate 750/1000, 155.0s
+replicate 800/1000, 165.1s
+replicate 850/1000, 174.4s
+replicate 900/1000, 183.7s
+replicate 950/1000, 193.2s
+replicate 1000/1000, 202.6s
+wrote results.json in 202.6s
