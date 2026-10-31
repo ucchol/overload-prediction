@@ -35,17 +35,14 @@ def compare(ledger: Ledger, mine: dict, theirs: dict) -> None:
         for m in MODELS:
             _summary(ledger, "growth", f"{ds} error {m}", A["error"][m], B["error"][m])
         _summary(ledger, "growth", f"{ds} comp minus CL error", A["comp_minus_cl_error"], B["comp_minus_cl_error"])
+        for k in ("observed_minus_comp", "observed_minus_cl"):
+            _summary(ledger, "growth", f"{ds} {k}", A[k], B[k])
         for k in AUC:
             _summary(ledger, "auc", f"{ds} auc {k}", A["auc"][k], B["auc"][k], TOL_RANK, TOL_P_RANK)
         for k in ("sr_auc_minus_half", "sr_auc_minus_near_best"):
             _summary(ledger, "auc", f"{ds} {k}", A[k], B[k], TOL_RANK, TOL_P_RANK)
-        ledger.flag("decision", f"{ds} O1 overload", A["O1"]["verdict"] == "overload", B["O1"]["verdict"] == "overload")
-        ledger.flag(
-            "decision",
-            f"{ds} O1 compensation",
-            A["O1"]["verdict"] == "compensation",
-            B["O1"]["verdict"] == "compensation",
-        )
+        for v in ("overload", "compensation", "partial compensation", "undecided"):
+            ledger.flag("decision", f"{ds} O1 {v}", A["O1"]["verdict"] == v, B["O1"]["verdict"] == v)
         ledger.flag("decision", f"{ds} O2", A["O2"]["supported"], B["O2"]["supported"])
     for name, P in mine["panels"].items():
         Q = theirs["panels"][name]

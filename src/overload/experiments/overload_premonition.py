@@ -10,11 +10,11 @@ misses stayed flat, and CL with sensitivity rising with set size at the rate of 
 frozen claim is that compensation needs cheap evaluation. Where every value has to be worked out (Caplin, Dean and
 Martin) or decided within three seconds (Reutskaja and colleagues), misses should grow as the fixed models foresee.
 
-O1  Growth. The absolute error of each model's forecast growth of misses (slope on log2 of the set size) against
-    people's. Compensation minus CL, clearly positive means overload as fixed sensitivity foresees it, clearly
-    negative means compensation.
-O2  Premonition. Within each set size, whether sample until return's held out probability of a miss ranks the trials
-    with a miss above those without (area under the curve above one half).
+O1  Growth. People's growth of misses (slope on log2 of the set size) against each model's forecast. Overload when
+    people's misses grow clearly more than compensation foresees, compensation when they grow clearly less than CL
+    foresees, partial compensation when both hold.
+O2  Premonition. Within each set size, whether sample until return's held out probability of a miss picks out the
+    trials with a miss better than the count of options near the best (area under the curve).
 
 Usage
     python -m overload.experiments.overload_premonition --cdm data/cdm --reutskaja data/reutskaja \
@@ -121,13 +121,24 @@ def summarize_all(point: dict, reps: list[dict]) -> dict:
             "auc": {k: S(lambda x, k=k: x["auc"][k]) for k in D["auc"]},
         }
         B["comp_minus_cl_error"] = S(lambda x: x["error"]["CL_comp"] - x["error"]["CL"])
+        B["observed_minus_comp"] = S(lambda x: x["growth"]["observed"] - x["growth"]["CL_comp"])
+        B["observed_minus_cl"] = S(lambda x: x["growth"]["observed"] - x["growth"]["CL"])
         B["sr_auc_minus_half"] = S(lambda x: x["auc"]["SR"] - 0.5)
         B["sr_auc_minus_near_best"] = S(lambda x: x["auc"]["SR"] - x["auc"]["near_best"])
-        d = B["comp_minus_cl_error"]
-        B["O1"] = {
-            "verdict": "overload" if d["clear"] and d["point"] > 0 else "compensation" if d["clear"] else "undecided"
-        }
-        B["O2"] = {"supported": bool(B["sr_auc_minus_half"]["clear"] and B["sr_auc_minus_half"]["point"] > 0)}
+        above = B["observed_minus_comp"]["clear"] and B["observed_minus_comp"]["point"] > 0
+        below = B["observed_minus_cl"]["clear"] and B["observed_minus_cl"]["point"] < 0
+        verdict = (
+            "partial compensation"
+            if above and below
+            else "overload"
+            if above
+            else "compensation"
+            if below
+            else "undecided"
+        )
+        B["O1"] = {"verdict": verdict}
+        d = B["sr_auc_minus_near_best"]
+        B["O2"] = {"supported": bool(d["clear"] and d["point"] > 0)}
         out["datasets"][ds] = B
     for name, P in point["panels"].items():
         out["panels"][name] = {"sizes": P["sizes"], "rate": P["rate"], "lambda": P["lambda"]}
@@ -184,12 +195,14 @@ def table(s: dict) -> str:
             L.append(f"| Growth of misses per doubling of the set, {k} | {_f(e)} |")
         for m in MODELS:
             L.append(f"| Error of the forecast growth, {m} | {_f(B['error'][m], sign=False)} |")
-        L.append(f"| O1, compensation minus CL error | {_f(B['comp_minus_cl_error'])} | ")
+        L.append(f"| O1, people's growth minus compensation's | {_f(B['observed_minus_comp'])} |")
+        L.append(f"| O1, people's growth minus CL's | {_f(B['observed_minus_cl'])} |")
+        L.append(f"| Compensation's error minus CL's (descriptive) | {_f(B['comp_minus_cl_error'])} |")
         L.append(f"| O1 verdict | {B['O1']['verdict']} |")
         for k, e in B["auc"].items():
             L.append(f"| Within set size, area under the curve, {k} | {_f(e, sign=False)} |")
-        L.append(f"| O2, SR minus one half | {_f(B['sr_auc_minus_half'])} |")
-        L.append(f"| SR minus the near best count | {_f(B['sr_auc_minus_near_best'])} |")
+        L.append(f"| O2, SR minus the near best count | {_f(B['sr_auc_minus_near_best'])} |")
+        L.append(f"| SR minus one half (descriptive) | {_f(B['sr_auc_minus_half'])} |")
         L.append(f"| O2 supported | {B['O2']['supported']} |")
         L.append("")
     L += ["## Miss rates by set size (original sample)", ""]
