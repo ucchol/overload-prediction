@@ -1,0 +1,44 @@
+precomputation done in 1.6s
+draw pre-check passed: every replicate keeps a drawn participant's timed round in every cell
+point estimates done in 2.7s
+replicate 25/1000, 23.1s
+replicate 50/1000, 43.7s
+replicate 75/1000, 63.7s
+replicate 100/1000, 84.2s
+replicate 125/1000, 104.3s
+replicate 150/1000, 124.2s
+replicate 175/1000, 144.0s
+replicate 200/1000, 163.8s
+replicate 225/1000, 183.9s
+replicate 250/1000, 204.0s
+replicate 275/1000, 224.5s
+replicate 300/1000, 244.8s
+replicate 325/1000, 264.2s
+replicate 350/1000, 283.6s
+replicate 375/1000, 304.1s
+replicate 400/1000, 324.2s
+replicate 425/1000, 344.7s
+replicate 450/1000, 364.6s
+replicate 475/1000, 384.6s
+replicate 500/1000, 405.2s
+replicate 525/1000, 425.0s
+replicate 550/1000, 446.5s
+replicate 575/1000, 467.9s
+replicate 600/1000, 489.9s
+replicate 625/1000, 511.0s
+replicate 650/1000, 532.5s
+replicate 675/1000, 553.8s
+replicate 700/1000, 575.9s
+replicate 725/1000, 597.5s
+replicate 750/1000, 618.7s
+replicate 775/1000, 639.2s
+replicate 800/1000, 660.4s
+replicate 825/1000, 680.7s
+replicate 850/1000, 701.1s
+replicate 875/1000, 721.3s
+replicate 900/1000, 742.4s
+replicate 925/1000, 763.0s
+replicate 950/1000, 784.8s
+replicate 975/1000, 806.9s
+replicate 1000/1000, 828.5s
+wrote sim/results_random.json in 828.5s

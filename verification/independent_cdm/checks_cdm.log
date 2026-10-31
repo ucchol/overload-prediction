@@ -1,0 +1,40 @@
+PASS SR race probabilities and expected looks on dollar sets of 10, 20 and 40 options equal the earlier general code (max relative difference 3.4e-15) and the earlier vectorized code (7.1e-15); probabilities sum to one (2.1e-15); the triangular k! e_k recursion equals the full one (0.0e+00)
+PASS simulation of sample until return, 10 dollar options at lambda 0.25: choices within 1.8 s.e. of the race probabilities, looks 2.9434 against 2.9425 (0.4 s.e.); attention place 0.3102 = 0.3102
+PASS simulation of sample until return, 20 dollar options at lambda 0.15: choices within 1.8 s.e. of the race probabilities, looks 4.6406 against 4.6315 (2.2 s.e.); attention place 0.4115 = 0.4115
+PASS simulation of sample until return, 40 dollar options at lambda 0.1: choices within 2.7 s.e. of the race probabilities, looks 6.9571 against 6.9441 (1.9 s.e.); attention place 0.4861 = 0.4861
+PASS DbS_avg and MLBA_avg scores for sets of 10, 20 and 40 equal the snack implementation at scale 1 (max difference 5.6e-17); MLBA on dollar values times 6/35 by hand
+PASS recovery of CL at lambda 0.25 on mixed set sizes: 0.2525 (0.8 s.e.)
+PASS recovery of DbS at lambda 2.0 on mixed set sizes: 2.0081 (0.2 s.e.)
+PASS recovery of MLBA at lambda 3.0 on mixed set sizes: 2.8570 (1.4 s.e.)
+PASS recovery of SR at lambda 0.1 from simulated searches on mixed set sizes: 0.1021 (1.4 s.e.), dense-grid excess -1.4e-01
+PASS recovery of SR at lambda 0.3 from simulated searches on mixed set sizes: 0.2980 (0.5 s.e.), dense-grid excess -7.0e-03
+PASS logistic rules: the Newton fit is the minimum of the penalized objective (at most 1.1e-13 above BFGS, largest gradient entry 4.4e-14, Hessian positive definite); weighted mean and population s.d. by hand
+PASS complete separation: the penalized fit stays finite (slope 6.106) and the held out score is finite (-0.324 bits); with one outcome only the fit takes its limit and the score is floored at 1e-300 ([-0.0, -996.5784284662087, -0.0]); a constant predictor gives the intercept logit(mean) and a zero slope
+PASS one-outcome cell: the fit takes its limit with every slope at zero, and the value, share, value_time and share_time rules give identical held out predictions (log2 probability 0 for that outcome, the 1e-300 floor for the other)
+PASS the loader refuses the real click file unless explicitly allowed (nothing is read)
+PASS list file: the analysed rounds are those intended (practice, unsubmitted, round codes, Experiments 3 and 4 and rounds without a selection left out)
+PASS list file: folds are positions in default_rng(20261015).permutation of the sorted participants modulo 10, a fresh generator per experiment
+PASS list file: selections, outcomes (last selection), shares of better options (strictly), scored selections (not worth as much as the best), first places and choices agree with a direct reading of the rows
+PASS random file: the analysed rounds are those intended (practice, unsubmitted, round codes, Experiments 3 and 4 and rounds without a selection left out)
+PASS random file: folds are positions in default_rng(20261015).permutation of the sorted participants modulo 10, a fresh generator per experiment
+PASS random file: selections, outcomes (last selection), shares of better options (strictly), scored selections (not worth as much as the best), first places and choices agree with a direct reading of the rows
+PASS upper-case and lower-case column names load to identical arrays
+draw pre-check passed: every replicate keeps a drawn participant's timed round in every cell
+PASS the draw pre-check stops before fitting when a cell can lose every drawn participant, and passes on the intact file
+      position outside the list: process: a selection's position lies outside 2 .. n + 1
+      value differing from the list: process: a selection's value differs from the value listed at its position
+      missing selection row: process: a round's selection rows do not match its number of selections
+      round-level column varying: process: column numslct varies within a round
+      listed value of 36 dollars: process: an option value is not a whole number of dollars from 1 to 35
+      listed value of half a dollar: process: an option value is not a whole number of dollars from 1 to 35
+      missing cell (40 options, complexity 7, Experiment 2): process: a cell of set size and complexity has no included round
+PASS the loader stops with an error on a position outside the list, a value differing from the list, a missing selection row, a round-level column varying, a listed value of 36 dollars, a listed value of half a dollar, a missing cell (40 options, complexity 7, Experiment 2) (structure the amendment states as fact)
+PASS CL, DbS and MLBA: every fit (all folds, original and resampled weights, both files) is a stationary point of a concave likelihood (largest relative Newton step left 3.1e-16)
+PASS SR: the grid and bounded Brent search (xatol 1e-10) reach the global maximum in every fit (largest dense-grid excess -1.7e-05)
+PASS time laws (effort n and SR's expected looks; two folds per experiment, both weightings, both files) at or below brute force, a grid polished from each of its local minima (largest relative excess 2.7e-15)
+
+ALL CHECKS PASSED
+
+real	0m24.393s
+user	0m23.546s
+sys	0m0.465s

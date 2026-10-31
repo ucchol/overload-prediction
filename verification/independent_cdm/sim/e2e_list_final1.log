@@ -1,0 +1,27 @@
+PASS output layout as in the brief (pooled block with C1 to C3; per experiment the block, first, lambda by fold, observed_by_size and looks_by_size inside growth)
+PASS bootstrap arrays hold only fitted values and measures, with the expected shapes
+PASS pooled values are the means over the two experiments (stopping scores, growth, time errors, log2 times chance); differences, one minus, and percents agree with their parts
+PASS C1 to C3 decisions follow the stated rules from the reported summaries
+PASS summaries rebuilt from the bootstrap arrays match the reported ones (7 of 7)
+PASS original sample recomputed from the rows by independent code: stopping scores (BFGS), first places, L of the four models (general race code), growth, sizes, time errors (largest differences stop 1.8e-10, first 1.1e-16, L 2.2e-16, growth 4.4e-16, by_size 1.1e-14, time 5.7e-10)
+info: pooled value minus share +0.0499 [+0.0383, +0.0640], with time +0.0515 [+0.0394, +0.0647]; process first place +0.0000 [+0.0000, +0.0000], minus half -0.5000 [-0.5000, -0.5000], minus predicted -0.4909 [-0.4972, -0.4847]
+PASS satisficing in list order: C1 absolute ({'absolute': True, 'relative': False}) and C2 finds the list order ({'order_matters': True})
+info: Experiment 1 rule scores all exactly zero (no cell without training selections) True; every replicate's Experiment 1 rules at the one-outcome limit True; share of Experiment 1 rule cells without training selections, original 0.000, largest replicate 0.000
+PASS Experiment 1 clicks only final choices: its value minus share (with and without time) is exactly zero in the original sample and in every replicate (True), and the pooled value minus share is half of Experiment 2's in point, both intervals and p, with the same clear flag (True)
+info standard: stop value +0.0000, share +0.0000, value_time +0.0000, share_time +0.0000, value_minus_share +0.0000, value_minus_share_with_time +0.0000; first observed 0.271, predicted 0.499
+     growth observed +0.5276 [+0.3796, +0.6755], predicted +0.3367 [+0.3139, +0.3563], by size [8.82, 11.84, 18.27] s, looks [3.68, 4.6, 5.86]
+     times chance {'CL': 3.1425, 'DbS': 3.3325, 'MLBA': 2.8739, 'SR': 3.1896}; time errors static 0.7327, SR 0.7342
+     lambda SR [0.171, 0.171, 0.168, 0.166, 0.165, 0.165, 0.164, 0.166, 0.168, 0.167], CL [0.289, 0.291, 0.286, 0.281, 0.28, 0.28, 0.278, 0.282, 0.286, 0.284]
+     diagnostics {'share_rounds_without_selection': 0.040000000000000036, 'share_scored_selections_without_valid_time': 0.05054151624548742, 'share_rounds_without_valid_final_time': 0.050000000000000044, 'smallest_option_value': 1.0, 'largest_option_value': 35.0, 'largest_dense_excess_over_SR_fit': -7.341895980061963e-10, 'share_of_logistic_fits_at_the_all_equal_limit': 1.0, 'share_of_rule_cells_without_training_selections_original': 0.0, 'share_of_rule_cells_without_training_selections_largest_replicate': 0.0, 'replicate_lambda_ranges': {'CL': [0.24056242625390473, 0.35962120983760026], 'DbS': [3.6183385481807036, 5.4964617775680615], 'MLBA': [13.25954077593185, 21.954520696674034], 'SR': [0.14144327809372081, 0.2123168424853048]}}
+info process: stop value -0.4071, share -0.5070, value_time -0.3971, share_time -0.5001, value_minus_share +0.0999, value_minus_share_with_time +0.1030; first observed 0.000, predicted 0.491
+     growth observed +0.7069 [+0.5907, +0.8166], predicted +0.3240 [+0.3007, +0.3469], by size [8.5, 12.28, 22.74] s, looks [3.51, 4.28, 5.51]
+     times chance {'CL': 3.7995, 'DbS': 3.7704, 'MLBA': 2.9478, 'SR': 3.8559}; time errors static 0.7688, SR 0.7806
+     lambda SR [0.19, 0.188, 0.192, 0.186, 0.188, 0.185, 0.187, 0.189, 0.185, 0.188], CL [0.321, 0.317, 0.325, 0.316, 0.318, 0.314, 0.316, 0.32, 0.313, 0.318]
+     diagnostics {'share_rounds_without_selection': 0.040000000000000036, 'share_scored_selections_without_valid_time': 0.009296148738379806, 'share_rounds_without_valid_final_time': 0.011217948717948678, 'smallest_option_value': 1.0, 'largest_option_value': 35.0, 'largest_dense_excess_over_SR_fit': -1.0277290130034089e-10, 'share_of_logistic_fits_at_the_all_equal_limit': 0.0, 'share_of_rule_cells_without_training_selections_original': 0.0, 'share_of_rule_cells_without_training_selections_largest_replicate': 0.0, 'replicate_lambda_ranges': {'CL': [0.2848964459386732, 0.35100811936068926], 'DbS': [4.265785591107966, 6.012253662795292], 'MLBA': [13.983877989816706, 22.424435018625488], 'SR': [0.1689493268010943, 0.2074159310557898]}}
+info C3: SR minus CL +1.4910 [+1.2204, +1.7481] percent, {'margin': 2.0, 'noninferior': True, 'better': True, 'worse': False, 'supported': True}; run 777.8 s for B = 1000
+
+END-TO-END CHECKS PASSED
+
+real	0m42.742s
+user	0m42.324s
+sys	0m0.086s
