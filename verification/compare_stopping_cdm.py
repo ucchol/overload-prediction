@@ -66,6 +66,8 @@ def compare(ledger: Ledger, mine: dict, theirs: dict) -> None:
             _summary(ledger, "first selection", f"{name} first {k}", A["first"][k], B["first"][k])
         for m in CHOICE_MODELS:
             _list(ledger, "parameter", f"{name} lambda {m}", A["lambda"][m], B["lambda"][m], TOL, relative=True)
+        if "unsubmitted" in mine and "unsubmitted" in theirs:
+            _list(ledger, "descriptive", f"{name} unsubmitted", mine["unsubmitted"][name], theirs["unsubmitted"][name])
         for key in ("observed_by_size", "looks_by_size"):
             _list(ledger, "growth", f"{name} {key}", A["growth"][key], B["growth"][key], TOL, relative=True)
 

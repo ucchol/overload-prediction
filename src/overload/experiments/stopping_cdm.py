@@ -53,6 +53,7 @@ from ..cdm import (
     softmax_masked,
     sr_levels,
     static_scores,
+    unsubmitted_shares,
 )
 from .search_confirmatory import fit_time_law
 from .search_confirmatory import noninferiority as _noninferiority
@@ -310,6 +311,7 @@ def run(folder: Path, out: Path, replicates: int = 1000, jobs: int = 1) -> dict:
 
     write_json(out / "point.json", point)
     summary = summarize_all(point, reps)
+    summary["unsubmitted"] = unsubmitted_shares(folder)
     summary["provenance"] = provenance(
         {"replicates": replicates, "seconds": round(time.time() - t0, 1), "status": "confirmatory, Amendment 7"}
     )

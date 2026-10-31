@@ -128,6 +128,30 @@ def load_cdm(folder: str | Path) -> CDMData:
     )
 
 
+def unsubmitted_shares(folder: str | Path) -> dict[str, list[float]]:
+    """Share of rounds that meet every inclusion rule but submission and were not submitted, by experiment and cell.
+
+    Cells in the order of CELLS. A round is counted once, whatever its number of selections.
+    """
+    df = pd.read_csv(Path(folder) / FILE, low_memory=False)
+    df.columns = [c.lower() for c in df.columns]
+    keep = (
+        (df["practice"] == 0)
+        & df["tracking"].isin([0, 1])
+        & df["rndmaxnumoper"].isin(COMPLEXITIES)
+        & ~df["treatid"].isin([21, 24, 25])
+        & (((df["numopts"] == 10) & (df["rndcode"] <= 6)) | (df["numopts"].isin([20, 40]) & df["rndcode"].notna()))
+    )
+    r = df.loc[keep].drop_duplicates(["tracking", "userid", "rndnum"])
+    out = {}
+    for e, name in enumerate(EXPERIMENTS):
+        x = r[r["tracking"] == e]
+        out[name] = [
+            float((x.loc[(x["numopts"] == n) & (x["rndmaxnumoper"] == c), "submit"] != 1).mean()) for n, c in CELLS
+        ]
+    return out
+
+
 # ----------------------------------------------------------------------------- static choice models
 def static_scores(values: np.ndarray, family: str, mlba_scale: float = 6.0 / V_MAX) -> np.ndarray:
     """Scores per option of CL, DbS_avg and MLBA_avg for sets of any size (NaN past n), as in Amendment 3.
@@ -307,6 +331,9 @@ def fit_logistic(X: np.ndarray, y: np.ndarray, w: np.ndarray) -> tuple[np.ndarra
     X = np.atleast_2d(np.asarray(X, float).T).T
     keep = w > 0
     Xk, yk, wk = X[keep], y[keep].astype(float), w[keep]
+    if not keep.any():
+        # no training selection in the cell, so the rule has nothing to learn and predicts one half
+        return np.zeros(X.shape[1] + 1), np.zeros(X.shape[1]), np.ones(X.shape[1])
     mu = wk @ Xk / wk.sum()
     sd = np.sqrt(wk @ (Xk - mu) ** 2 / wk.sum())
     sd = np.where(sd > 0, sd, 1.0)

@@ -96,6 +96,12 @@ def test_logistic_fit_with_one_outcome_takes_its_limit():
         assert scores[1] == pytest.approx(np.log2(1e-300))
 
 
+def test_logistic_fit_without_training_rows_predicts_one_half():
+    beta, mu, sd = cdm.fit_logistic(np.array([[1.0], [2.0]]), np.array([True, False]), np.zeros(2))
+    scores = cdm.logistic_log2(beta, mu, sd, np.array([[3.0], [4.0]]), np.array([True, False]))
+    assert np.allclose(scores, -1.0)
+
+
 def _synthetic(process: str, seed: int) -> cdm.CDMData:
     """Rounds and selections simulated with the design check of scripts/simulate_cdm_tests.py."""
     import importlib.util
