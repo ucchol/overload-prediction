@@ -305,6 +305,28 @@ Reading.
 - Where values must be worked out, people partly read from the top of the list, which the model's attention, drawn by value, does not capture.
 - Choices again matched CL, now on a fifth dataset, where values are money worked out from arithmetic.
 
+### 31 Oct 2026. Forecasting choice overload on Caplin, Dean and Martin and on Reutskaja and colleagues (Amendment 8, confirmatory), run once and verified twice
+
+`results/overload_premonition`, notebook 02. Run once under the frozen amendment (plan digest 876dbadf). A second run reproduced every saved value, and the independent implementation, written blind from `verification/VERIFY_BRIEF_OVERLOAD.md` and tested on simulated data only before the freeze, agreed on every value and decision (largest difference 2e-8, areas under the curve identical). 1000 participant resamples. Every forecast of a set size comes from fits to the panel's other set sizes.
+
+Overload is the growth of missed best options with set size, per doubling of the set.
+
+| Dataset | People | CL | Compensation | Sample until return | O1 | Sample until return minus the near best count (area under the curve) | O2 |
+|---|---|---|---|---|---|---|---|
+| Caplin, Dean and Martin (sums worked out) | +0.156 [0.126, 0.183] | -0.011 | -0.082 | -0.018 | overload, beyond every forecast | -0.007 [-0.029, 0.017], all forecasts near 0.55 | not supported |
+| Reutskaja (three seconds) | +0.099 [0.075, 0.122] | +0.111 | +0.057 | +0.098 | overload, foreseen by fixed sensitivity | +0.093 [0.073, 0.116], 0.70 against 0.61 | supported |
+
+- Caplin, Dean and Martin. Misses rose from 9 to 33 percent (sums of three steps) and from 35 to 73 percent (seven steps) between 10 and 40 options, while every model foresaw flat or falling misses. People's growth exceeded compensation's (+0.238) and CL's (+0.167), both clear.
+- Reutskaja. Misses rose from 28 to 47 percent between 4 and 16 snacks. Sample until return foresaw the growth almost exactly (error 0.001) and the trials of the misses better than the simplest display feature. The share of misses whose best snack was never fixated rose from 25 to 64 percent.
+
+Exploratory, after the run (`results/overload_all_models`, same resamples). DbS and MLBA, which compare options by rank, foresaw misses growing in Caplin, Dean and Martin (+0.234 and +0.215, the closest to people's growth) but at levels far above people's (MLBA 46 to 92 percent), and in Reutskaja they foresaw twice the growth people showed (+0.21). Trial by trial they did worse than sample until return in both.
+
+Reading.
+- Overload appeared in both datasets where judging was costly, as predicted, and people did not compensate there as they did with snacks seen at a glance.
+- Under time pressure the search model forecast overload, how much worse choices got with more options and on which trials. Where values had to be worked out, misses grew for reasons the values do not show, and no value based model foresaw them.
+
+Story update. The paper has its evidence of overload prediction, with a boundary. People compensate when an option can be judged at a glance, overload appears when judging is costly, and the search model foresees it when the cost is time but not when it is working out the values.
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.
