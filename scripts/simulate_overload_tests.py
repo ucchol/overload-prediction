@@ -50,9 +50,9 @@ def main() -> None:
         reps = [op.run_replicate(b) for b in range(a.boot)]
         S = op.summarize_all(point, reps)
         for ds, B in S["datasets"].items():
-            d, o = B["comp_minus_cl_error"], B["growth"]["observed"]
+            d, o = B["observed_minus_comp"], B["growth"]["observed"]
             print(
-                f"{process:18s} {ds:9s} growth {o['point']:+.3f}  compensation minus CL error {d['point']:+.4f} "
+                f"{process:18s} {ds:9s} growth {o['point']:+.3f}  people minus compensation {d['point']:+.4f} "
                 f"[{d['percentile'][0]:+.4f}, {d['percentile'][1]:+.4f}]  O1 {B['O1']['verdict']}  "
                 f"SR AUC {B['auc']['SR']['point']:.3f}  O2 {B['O2']['supported']}"
             )

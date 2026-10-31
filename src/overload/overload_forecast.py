@@ -189,7 +189,9 @@ def panel_measures(panel: Panel, w: np.ndarray) -> dict:
         rate[m] = [float(w[panel.n == s] @ fc[m][panel.n == s] / w[panel.n == s].sum()) for s in sizes]
     growth = {k: slope_on_log2(sizes, r) for k, r in rate.items()}
     auc = {}
-    for name, sc in {**fc, **feats}.items():
+    # model forecasts are rounded to ten significant digits before ranking, so displays equal in exact arithmetic tie
+    rounded = {m: np.array([float(format(x, ".10g")) for x in fc[m]]) for m in MODELS}
+    for name, sc in {**rounded, **feats}.items():
         vals, ws = [], []
         for s in sizes:
             r = panel.n == s
