@@ -12,8 +12,8 @@ When displays grow in the number of options and in the attributes shown for each
 |---|---|---|
 | H1 Narrowing with set size | B1 done. Large gap in both tasks, growing with set size for laptops only. Confirmatory C1 done, no concentration on screen positions. Attention narrowed from 82 to 41 percent of the display | A1a done. Laptops support H1 after Amendment 4 (noise rejected, sharpening at beta +0.5 clear), files do not (sharpening hurts). A1b done, rubric screening predicts poorly. Confirmatory C2 done, noise rejected (-10.3%), beta +0.5 not clear, so not supported by its rule. C3 done, sensitivity rises with set size (elasticity +0.18), also among looked-at items |
 | H2 Comparison under sparse information | B2 revealed weights, known for laptops | A2 known on development data, confirmatory dataset to fix |
-| H3 Inputs over rules | B3 known | A3a ladder known, A3b independent cue to fix and run |
-| H4 Cost depends on cue validity | to specify | to specify |
+| H3 Inputs over rules | B3 known | A3a ladder known. A3b frozen in Amendment 9 (GloVe filename cue), running |
+| H4 Cost depends on cue validity | set aside for a separate paper (Amendment 9) | set aside |
 | O Where overload occurs (research program) | Development done. One factor (alpha 0.87). File displays overloaded people more as they grew, laptop displays never did. Overload went with longer decisions | Premonition within files works for every forecast, set size included. No forecast foresees the gap between tasks or display level regret. Snack data (Amendment 5). The model's expected looks foresee slow decisions (+0.08, supported), but the rating of the best item foresees them far better (-0.32) |
 | T Does each model's work explain decision time (research program) | People took 29 to 40 s on laptops and 42 to 71 s on files | Not fitted. Every fitted time law puts most of the time into its start up constant, and no held out law beats a constant on the development data. On the snack data no model times single decisions better than counting options (S2 not supported). The per step argument was withdrawn on 14 Oct. Gaze data (Amendment 6). Two look satisficing timed decisions no better than one constant time (G1 not supported), and sample until return beat one constant time by about 1 percent of the error (exploratory) |
 | S The search model, sample until return (research program) | | Matches CL on CL values and DbS on DbS values in held out choices. Snack data (Amendment 5). Search grows like the square root of the set size as predicted (S1 supported), but people look at 3.6 times as many items. Choices as well as CL (S5 supported), clearly better than DbS and MLBA. Gaze data (Amendment 6). Choices as well as CL (G3 supported), better than DbS and MLBA. Its looks foresaw slow decisions in all three datasets (+0.21). Two look satisficing, the absolute standard built on the snack data, did no better (G1 and G2 not supported) |
@@ -31,6 +31,7 @@ When displays grow in the number of options and in the attributes shown for each
 | 1.0 with Amendments 1 to 5 | 14 Oct 2026 | 5a073cf3759d2bdf03bd4363e304cf293e1cb426bd308d603cf9c5080aba10fa |
 | 1.0 with Amendments 1 to 6 | 14 Oct 2026 | 634cdbb8aaf68267d32847fcf129cf9885e286fa2b167136725daa0927581985 |
 | 1.0 with Amendments 1 to 8 | 31 Oct 2026 | 876dbadf8f6d0f54b7a5ce0b9c3b47bcdbbc2e38c03dd62f97683d60e079936a |
+| 1.0 with Amendments 1 to 9 | 1 Nov 2026 | 7ebeb737a22d0a463189dcc024354a922d57793daff8769ec39c8434ae72e696 |
 
 ## Results log
 
