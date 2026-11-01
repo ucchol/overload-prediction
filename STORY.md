@@ -12,7 +12,7 @@ When displays grow in the number of options and in the attributes shown for each
 |---|---|---|
 | H1 Narrowing with set size | B1 done. Large gap in both tasks, growing with set size for laptops only. Confirmatory C1 done, no concentration on screen positions. Attention narrowed from 82 to 41 percent of the display | A1a done. Laptops support H1 after Amendment 4 (noise rejected, sharpening at beta +0.5 clear), files do not (sharpening hurts). A1b done, rubric screening predicts poorly. Confirmatory C2 done, noise rejected (-10.3%), beta +0.5 not clear, so not supported by its rule. C3 done, sensitivity rises with set size (elasticity +0.18), also among looked-at items |
 | H2 Comparison under sparse information | B2 revealed weights, known for laptops | A2 known on development data, confirmatory dataset to fix |
-| H3 Inputs over rules | B3 known | A3a ladder known. A3b frozen in Amendment 9 (GloVe filename cue), running |
+| H3 Inputs over rules | B3 known | A3a ladder known. A3b (Amendment 9) not supported, the cue lowered held out completeness (-4.7 points against the spread across rules) |
 | H4 Cost depends on cue validity | set aside for a separate paper (Amendment 9) | set aside |
 | O Where overload occurs (research program) | Development done. One factor (alpha 0.87). File displays overloaded people more as they grew, laptop displays never did. Overload went with longer decisions | Premonition within files works for every forecast, set size included. No forecast foresees the gap between tasks or display level regret. Snack data (Amendment 5). The model's expected looks foresee slow decisions (+0.08, supported), but the rating of the best item foresees them far better (-0.32) |
 | T Does each model's work explain decision time (research program) | People took 29 to 40 s on laptops and 42 to 71 s on files | Not fitted. Every fitted time law puts most of the time into its start up constant, and no held out law beats a constant on the development data. On the snack data no model times single decisions better than counting options (S2 not supported). The per step argument was withdrawn on 14 Oct. Gaze data (Amendment 6). Two look satisficing timed decisions no better than one constant time (G1 not supported), and sample until return beat one constant time by about 1 percent of the error (exploratory) |
@@ -328,6 +328,22 @@ Reading.
 
 Story update. The paper has its evidence of overload prediction, with a boundary. People compensate when an option can be judged at a glance, overload appears when judging is costly, and the search model foresees it when the cost is time but not when it is working out the values.
 
+### 1 Nov 2026. H3, the independent filename cue (Amendment 9, confirmatory), run once and verified twice
+
+Each rule (CL, DbS_avg, MLBA_avg) was given one cue outside the coding, how close a filename's words lie to "which file is most worth taking" in frozen GloVe vectors, and its held out gain was set against the spread across rules, in file selection (`results/h3_cue`).
+
+| | All trials | Low information | High information |
+|---|---|---|---|
+| Spread across rules, points | +2.6 [1.3, 4.7] | +1.2 [0.3, 3.3] | +3.8 [1.8, 7.3] |
+| Gain from the cue, CL, points | -2.1 [-5.5, 0.6] | +1.8 [-1.6, 5.0] | -5.7 [-11.4, -1.4] |
+| A3b, gain minus spread, CL | -4.7 [-8.5, -1.9], clear | +0.6 [-3.5, 4.1] | -9.6 [-16.2, -4.8], clear |
+
+- A3b was clearly negative, so H3 is not supported. DbS_avg and MLBA_avg gave the same picture (-4.5 and -4.3).
+- The cue weight was clearly positive in the pooled fits (+1.2 per unit of cosine for CL). People did lean toward files whose names matched the task's goal, but a weight learned on five trials did not carry over to the sixth. It helped a little where only the names and extensions were shown and hurt once the full listing was shown.
+- Verification. The second run was identical (point, replicates, table, summary apart from time). A blind implementation from the amendment text agreed within 1e-6 on the original sample and replicates 0 to 49.
+
+Reading. A cue outside the coding is real but does not generalize across displays, so the choice of rule and the choice of input mattered about equally little here. Story update. H3 does not carry the paper. The weight stays on forecasting overload from search.
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.
@@ -337,6 +353,6 @@ Story update. The paper has its evidence of overload prediction, with a boundary
 - Laptop displays and rubric. Resolved by Amendment 4 from the storyboard (10 Oct), results rerun and verified (14 Oct).
 - Trial order. The data file does not record whether the six trials of each task were shown in a fixed order. If they were, set size is confounded with practice in decision time and overload ratings. Asked of the study team on 14 Oct.
 - Post-trial question 6 asks "How uncertain are you" with anchors running from very uncertain (1) to very certain (5). Its direction is settled from its correlations with the other five questions before the overload index is built.
-- H2 confirmatory dataset. Confirm that Hensher (2006) is openly downloadable, otherwise choose another open dataset that varies the attributes shown for the same options. Fix by amendment before inspecting outcomes.
-- H3 independent cue. Choose the external source of the filename cue before running A3b.
-- H4. Specify cue validity, the regret contrast and the screening model before running.
+- H2 confirmatory dataset. Hensher (2006) was checked on 1 Nov, its archive holds no choices (only design features and counts of ignored attributes), so it cannot test H2. Candidate, the job candidate study in Psychonomic Bulletin and Review (2025), two options with 3, 4 or 5 attributes within participants, OSF data awaited from the study's author. Fix by amendment before inspecting outcomes.
+- H3 independent cue. Resolved by Amendment 9, run 1 Nov, not supported.
+- H4. Set aside for a separate paper (Amendment 9).
