@@ -182,7 +182,7 @@ def run(
     out.mkdir(parents=True, exist_ok=True)
     part = out / "partial"
     part.mkdir(exist_ok=True)
-    size = max(1, replicates // (4 * max(jobs, 1))) if replicates else 1
+    size = 10  # small chunks, so little is lost when the machine restarts
     chunks = [order[i : i + size] for i in range(0, len(order), size)]
     todo = [c for c in chunks if not (part / f"{c[0]:05d}.jsonl").exists()]
 

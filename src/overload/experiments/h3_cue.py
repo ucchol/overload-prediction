@@ -153,13 +153,26 @@ def run(csv: Path, out: Path, replicates: int, jobs: int, simulate: str | None =
     t0 = time.time()
     point = replicate(task.counts(), S, Z)
     order = list(range(replicates))
-    if jobs > 1 and replicates:
-        size = max(1, replicates // (4 * jobs))
-        groups = [order[i : i + size] for i in range(0, len(order), size)]
+    # Finished chunks are saved and skipped on a restart. Every replicate has its own seed.
+    out.mkdir(parents=True, exist_ok=True)
+    part = out / "partial"
+    part.mkdir(exist_ok=True)
+    groups = [order[i : i + 10] for i in range(0, len(order), 10)]
+    todo = [g for g in groups if not (part / f"{g[0]:05d}.jsonl").exists()]
+
+    def save(g: list[int], res: list[dict]) -> None:
+        tmp = part / f"{g[0]:05d}.tmp"
+        tmp.write_text("".join(json.dumps(r) + "\n" for r in res))
+        tmp.rename(part / f"{g[0]:05d}.jsonl")
+
+    if jobs > 1 and todo:
         with ProcessPoolExecutor(max_workers=jobs) as pool:
-            reps = [r for chunk in pool.map(_worker, groups) for r in chunk]
+            for g, res in zip(todo, pool.map(_worker, todo), strict=True):
+                save(g, res)
     else:
-        reps = _worker(order)
+        for g in todo:
+            save(g, _worker(g))
+    reps = [json.loads(x) for g in groups for x in (part / f"{g[0]:05d}.jsonl").read_text().splitlines()]
     reps.sort(key=lambda r: r["b"])
 
     bench = point["Lstar"]  # full sample benchmark in every replicate (plan, Amendment 1)
@@ -178,6 +191,9 @@ def run(csv: Path, out: Path, replicates: int, jobs: int, simulate: str | None =
             fh.write(json.dumps(r) + "\n")
     write_json(out / "summary.json", summary)
     write_table(summary, out)
+    import shutil
+
+    shutil.rmtree(part)
     return summary
 
 
