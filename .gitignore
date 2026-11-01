@@ -12,3 +12,4 @@ results/**/replicates.jsonl
 
 # per replicate arrays of the independent implementation
 *.npz
+results/**/partial/
