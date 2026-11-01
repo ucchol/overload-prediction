@@ -177,17 +177,31 @@ def run(
     t0 = time.time()
     point = run_replicate(-1)
     order = list(range(replicates))
-    if jobs > 1 and replicates:
-        size = max(1, replicates // (4 * jobs))
-        chunks = [order[i : i + size] for i in range(0, len(order), size)]
+    # Finished chunks are saved as they arrive and skipped when a stopped run is started again. Every
+    # replicate has its own seed, so a resumed run gives the same replicates as an uninterrupted one.
+    out.mkdir(parents=True, exist_ok=True)
+    part = out / "partial"
+    part.mkdir(exist_ok=True)
+    size = max(1, replicates // (4 * max(jobs, 1))) if replicates else 1
+    chunks = [order[i : i + size] for i in range(0, len(order), size)]
+    todo = [c for c in chunks if not (part / f"{c[0]:05d}.jsonl").exists()]
+
+    def save(c: list[int], res: list[dict]) -> None:
+        tmp = part / f"{c[0]:05d}.tmp"
+        tmp.write_text("".join(json.dumps(r) + "\n" for r in res))
+        tmp.rename(part / f"{c[0]:05d}.jsonl")
+
+    if jobs > 1 and todo:
         with ProcessPoolExecutor(max_workers=jobs) as pool:
-            reps = [r for c in pool.map(_worker, chunks) for r in c]
+            for c, res in zip(todo, pool.map(_worker, todo), strict=True):
+                save(c, res)
     else:
-        reps = _worker(order)
+        for c in todo:
+            save(c, _worker(c))
+    reps = [json.loads(line) for c in chunks for line in (part / f"{c[0]:05d}.jsonl").read_text().splitlines()]
     reps.sort(key=lambda r: r["b"])
     from ..engine import provenance, write_json
 
-    out.mkdir(parents=True, exist_ok=True)
     with (out / "replicates.jsonl").open("w") as fh:
         for r in reps:
             fh.write(json.dumps(r) + "\n")
@@ -198,6 +212,9 @@ def run(
     )
     write_json(out / "summary.json", summary)
     (out / "table_overload.md").write_text(table(summary))
+    import shutil
+
+    shutil.rmtree(part)
     return summary
 
 
