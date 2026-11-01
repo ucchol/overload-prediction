@@ -328,6 +328,23 @@ Reading.
 
 Story update. The paper has its evidence of overload prediction, with a boundary. People compensate when an option can be judged at a glance, overload appears when judging is costly, and the search model foresees it when the cost is time but not when it is working out the values.
 
+### 1 Nov 2026. Fitted and held out forecasts of human overload, every model including mixed logit (exploratory), run twice
+
+Every model was also fitted once to all set sizes (`results/overload_fitted`, `results/overload_snack_fitted`), and mixed logit was added throughout. The full table is `results/overload_fitted_vs_heldout.md`.
+
+| Growth of misses per doubling | People | CL | Sample until return | Mixed logit | CL with compensation | DbS | MLBA |
+|---|---|---|---|---|---|---|---|
+| Caplin, Dean and Martin, held out | +0.156 | -0.011 | -0.018 | -0.004 | -0.082 | +0.234 | +0.215 |
+| Caplin, Dean and Martin, fitted | | +0.036 | +0.031 | +0.037 | -0.015 | +0.220 | +0.225 |
+| Reutskaja, held out | +0.099 | +0.111 | +0.098 | +0.101 | +0.057 | +0.208 | +0.209 |
+| Reutskaja, fitted | | +0.113 | +0.105 | +0.106 | +0.076 | +0.183 | +0.180 |
+| Snack, held out | +0.010 | +0.062 | +0.051 | +0.056 | +0.004 | +0.134 | +0.133 |
+| Snack, fitted | | +0.048 | +0.040 | +0.044 | +0.004 | +0.109 | +0.113 |
+
+- Fitting to every set size moves forecasts a little and never changes the order of the models or the O1 verdicts.
+- Mixed logit predicted choices best in every dataset by a small margin (bits per choice, e.g. -2.464 against -2.509 for sample until return fitted on Caplin, Dean and Martin) but forecast overload as CL does. Differences in sensitivity between people do not explain overload.
+- Verification. Second runs identical, original samples recomputed blind (`verification/independent_mxl`).
+
 ### 1 Nov 2026. H3, the independent filename cue (Amendment 9, confirmatory), run once and verified twice
 
 Each rule (CL, DbS_avg, MLBA_avg) was given one cue outside the coding, how close a filename's words lie to "which file is most worth taking" in frozen GloVe vectors, and its held out gain was set against the spread across rules, in file selection (`results/h3_cue`).

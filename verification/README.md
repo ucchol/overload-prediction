@@ -112,6 +112,7 @@ Written from `VERIFY_BRIEF_MXL.md` without access to the new code. The verifier 
 - Original sample, every model (CL, CL with compensation, SR, DbS, MLBA, MXL), held out and fitted, on the four Caplin, Dean and Martin panels, Reutskaja and snack, and MXL on both development tasks. Agreement on every miss rate, growth, bits per choice and MXL parameter (`compare_mxl.py`), largest difference 4e-6 (a held out MXL sigma on the development data), every other value within 7e-7.
 - Rerun with `sh verification/run_independent_mxl.sh PATH_TO_CSV`, about fifteen minutes.
 - The resampled runs (1000 participant resamples) are checked by a second run with identical outputs.
+- Second runs, 1 November 2026. Every stage was rerun from a fresh process, held out and fitted on Caplin, Dean and Martin with Reutskaja, held out and fitted on snack, and the development data. `point.json`, `replicates.jsonl` and every table were identical, and `summary.json` differed only in time, run length, Python patch version and, for the two snack runs, the plan digest (Amendment 9 was added between the runs). Run folders end in `_run2`.
 
 ## Exploratory laptop rubric sensitivity, 9 October 2026 (withdrawn by Amendment 4)
 
