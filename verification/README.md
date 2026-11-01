@@ -18,6 +18,7 @@ A disagreement beyond rounding blocks the result until its cause is found. The b
 | `independent_cdm/` | the confirmatory stopping rule test of Amendment 7 | `sh verification/run_independent_cdm.sh`, about twenty minutes |
 | `independent_overload/` | the confirmatory overload forecasts of Amendment 8 | `sh verification/run_independent_overload.sh`, about five minutes |
 | `independent_mxl/` | mixed logit and the fitted overload forecasts of every model (exploratory) | `sh verification/run_independent_mxl.sh PATH_TO_CSV`, about fifteen minutes |
+| `independent_h3/` | the confirmatory H3 test A3b of Amendment 9 | `sh verification/run_independent_h3.sh PATH_TO_CSV`, seconds |
 
 Both implementations are archived exactly as they were written, with their results. The runners copy data only into temporary folders that are removed afterwards.
 
@@ -127,3 +128,8 @@ Issues the reimplementation raised about Amendment 3.
 3. The looked-at version uses gaze recorded during the choice, so its held-out scores are measurements rather than predictions and are not compared with the all-items version.
 4. What people look at depends partly on value, so the C3 difference cannot fully separate narrowing from value-guided search.
 5. Bootstrap p values of zero mean p < 0.002.
+
+## H3 test A3b, 1 November 2026
+
+- Second run. Identical `point.json`, `replicates.jsonl` and table, summary identical apart from time, run length and Python patch version.
+- Independent reimplementation (`independent_h3/`), written from Amendment 9 and the plan without access to the package or its results. Agreement within 1e-6 on every measure for the original sample and replicates 0 to 49, and exact agreement on every cue value. It reused `verification/independent/` for data loading, which imports the attribute coding as the earlier runners do.
