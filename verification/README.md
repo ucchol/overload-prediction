@@ -145,4 +145,4 @@ Issues the reimplementation raised about Amendment 3.
 ## H2 return rule on gaze, 2 November 2026
 
 - Independent reimplementation (`independent_h2/`), written from Amendment 11 without access to `h2_return.py`, the simulation script, the draft or the results. Its own checks passed (cue construction, gradient and Hessian, recovery of known weights, a return gain near zero under CL choices). On the original sample and replicates 0 to 49, 29 measures agree within 5e-8 relative. The weight of the last cue in Reutskaja is not compared, because the last fixated item is always the chosen one there, so that fit has no finite optimum and each optimizer stops at its own bound.
-- Second run, pending.
+- Second run. Identical `point.json`, `replicates.jsonl` and table, summary identical apart from time.

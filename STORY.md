@@ -394,7 +394,7 @@ The same lottery menus were judged at three costs (1, 3 or 5 operations per priz
 
 Reading. Here cost lowers accuracy at every size instead of steepening its fall, a ceiling, and the best option by expected value is also the riskiest. H1 rests on the comparison across datasets. A clean direct test needs a study of our own.
 
-### 2 Nov 2026. H2, the return rule on gaze sequences (Amendment 11, confirmatory), run once, blind check done, second run pending
+### 2 Nov 2026. H2, the return rule on gaze sequences (Amendment 11, confirmatory), run once and verified twice
 
 CL plus one cue from the gaze order, held out by set size, in bits per choice (`results/h2_return`).
 
@@ -408,7 +408,7 @@ CL plus one cue from the gaze order, held out by set size, in bits per choice (`
 - On snack trials the first returned item was chosen on 26% of trials at 9 items, falling to 17% at 36. About a fifth of snack trials had no return.
 - In Reutskaja the last fixated item is the chosen item on every trial, a feature of how responses were recorded. The last cue there is not interpreted.
 - Simulation checks before freezing separated a return world, a dwell world and no relation, as intended.
-- Verification. A blind implementation from the amendment text agreed within 5e-8 relative on 29 measures, original sample and replicates 0 to 49. Second run pending.
+- Verification. A blind implementation from the amendment text agreed within 5e-8 relative on 29 measures, original sample and replicates 0 to 49. The second run was identical.
 
 Reading. Gaze favours accumulation by looking time over a stop at the first return. Sample until return stays as a choice model that forecasts overload (H3), but not as the process. How H2 is restated is an open decision.
 
