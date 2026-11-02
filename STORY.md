@@ -6,7 +6,19 @@ Living record of the paper's story, the status of every hypothesis and every res
 
 When displays grow in the number of options and in the attributes shown for each option, people do not integrate everything shown. They adapt (Payne, Bettman and Johnson, 1993), screening options on a few salient cues and choosing among what survives, so their choices narrow rather than become noisier. Choice models are formal statements of how choices are computed, and held out prediction decides between them. Each hypothesis predicts a behavioral signature and the model structure that should predict better where that signature appears. The intruder's file choice and the buyer's laptop choice are the development data, and open datasets give the confirmatory tests.
 
-## Hypotheses and status
+## Paper structure (decided 1 Nov 2026)
+
+The NHB paper has three hypotheses. Everything else is a baseline, a supplement or a limit.
+
+| | Question | Claim | Evidence in hand | Still needed |
+|---|---|---|---|---|
+| H1 | When does overload appear | People compensate for more options when an option can be judged at a glance, and choose worse with more options when judging is costly | Snacks at a glance compensate (+0.010, exploratory). Three second snacks (+0.099) and worked out sums (+0.156) overload (Amendment 8). Sensitivity rises with set size on snacks (+0.18, C3) as the mechanism of compensation | A test within one study that varies the cost of judging |
+| H2 | What process produces it | Attention returns to attractive options and the first option looked at twice is chosen (sample until return) | Choices as good as CL everywhere and better than DbS and MLBA (S5, G3, C3). Search grows like the square root of the set (S1). Expected looks foresee slow decisions (S3) | The return rule tested on gaze sequences, a result CL cannot produce |
+| H3 | Can that process forecast overload in people | Fitted to some set sizes, the search model forecasts the growth of misses at others and the trials that end in a miss | Under time pressure, growth +0.098 against +0.099 and the right trials (O2, 0.70 against 0.61). Fitted and held out agree. Mixed logit shows differences between people do not explain it | Nothing new. The worked out sums are reported as the boundary |
+
+Out of the main paper. The original H2 and H3 (comparison models, filename cue) move to the supplement, with DbS and MLBA kept as baselines throughout. The original H4 goes to a separate paper. Decision time per model is a stated limit. The formal account of the sums is future work.
+
+## Hypotheses and status (original plan)
 
 | | Behavior | Algorithm |
 |---|---|---|
