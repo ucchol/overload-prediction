@@ -446,6 +446,34 @@ After comparing the paper with recent Nature Human Behaviour work on choice and 
 - Equivalence for snacks at a glance (Amendment 12 item 10, descriptive). Bound 0.039 per doubling, d = 0.2 (Scheibehenne et al. 2010) at a mean miss rate of 19 percent. The 90 percent interval, -0.002 to +0.023, lies inside it, so snack growth is equivalent to zero at that bound. The interval was known before the bound was set.
 - Verification. The figure script and the detectable effects reproduce their outputs on a second run, and the equivalence numbers were recomputed from the stored replicates by separate code.
 
+### 2 Nov 2026. Review items, second part. Robustness, participants and model recovery (exploratory), run twice and checked separately
+
+- Robustness of the overload measure (`results/overload_robustness`, B = 1000, seeds 130000 + b). Four outcomes, missing the best, missing every near best option, value lost as a share of the scale, and missing the best per 10 more options. In every version snacks at a glance do not grow beyond zero and people overload less than held out CL, three seconds grow and match CL, and the sums grow far beyond CL (people minus CL +0.17 per doubling for the main measure). A second run was identical and the people rows were recomputed by separate code (3e-17).
+- Participants (`results/individual_level`, B = 200, seeds 140000 + b). Dwell predicts better than return for 96 percent of participants on snacks at a glance and 98 percent in three seconds, and return still beats CL alone for 90 and 100 percent. Own misses grow with set size for 51 and 83 percent. The rank correlation between a person's own growth and the growth forecast for them is 0.42 [0.15, 0.66] and 0.47 [0.21, 0.66] for sample until return, 0.43 and 0.48 for CL. A second run was identical. The H3 rows were recomputed by separate code (3e-17) and the H2 rows by separate code with its own likelihood and Nelder Mead fits (identical).
+- Model recovery (`results/model_recovery`, 50 simulated datasets per generating model and dataset). DbS and MLBA are always recovered. CL and sample until return are told apart in 98 and 100 percent of snack datasets but confused in 16 to 24 percent in three seconds and the sums. Sensitivities are recovered without bias (median recovered over true 0.99 to 1.01). A second run was identical. Choices alone do not always separate CL from sample until return, which supports presenting the latter as a forecasting model.
+
+### 2 Nov 2026. Decision time from trial structure (Amendment 12, confirmatory), run once and verified twice
+
+`results/time_structure`, B = 1000. A second run was identical in every replicate (only the creation time and run time differ). The blind implementation agreed on every point value within 4e-10 and on replicates 0 to 19 within 2e-9. The run was stopped once by a container restart and resumed from saved chunks.
+
+| Dataset | Structure, R2 | T1, beyond counting | T2, transferred | T3, search model's looks |
+|---|---|---|---|---|
+| Our study, files | 0.078 | +0.011 | +0.062, supported | -0.001 |
+| Our study, laptops | 0.007 | -0.002 | -0.010 | -0.005 |
+| Snacks at a glance | 0.159 | +0.100, supported | +0.078, supported | +0.001 |
+| Snacks in three seconds | 0.118 | +0.072, supported | +0.066 | -0.001 |
+| Sums worked out | -0.000 | -0.002 | -0.005 | -0.001 |
+| Krajbich 2010 | 0.057 | +0.057, supported | +0.022 | -0.001 |
+| Krajbich 2011 | 0.077 | +0.077, supported | +0.067, supported | -0.001 |
+| Folke 2016 | 0.019 | +0.019 | +0.008 | -0.000 |
+
+Decisions. T1 supported in four of eight sets, T2 in three, T3 in none. Reading. Within a person, which trials take longer follows from the menu, chiefly its size and how good its best option is (log time per doubling about +0.2 on snacks, our files and the sums, about +0.07 in three seconds and on laptops). A law fitted on other datasets transfers. The search model's expected looks and CL's entropy add nothing beyond structure. In the slow tasks, the sums and the laptops, structure predicts nothing. The coefficient of the gap to the runner up changes sign across sets, so single coefficients are not interpreted.
+
+### 2 Nov 2026. Main figures and the preregistration audit
+
+- Figures 1 to 5 (`results/main_figures`, `scripts/main_figures.py`, draft captions in `captions.md`). The datasets, H1 (the synthesis figure), H2, H3 and time. They read stored results only and reproduce byte for byte on a second run.
+- Audit (`docs/preregistration_audit.md`). All thirteen plan digests match the plan at their freeze commits, and every confirmatory result names the frozen digest and was created after its freeze. GitHub's own push record confirms the order for Amendments 7 to 12. For Amendments 1 to 6 (before the first push on 15 Oct) the order rests on our own times. The tests are to be described as planned under version control, not as preregistered with a registry.
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.

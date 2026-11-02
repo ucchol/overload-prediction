@@ -152,3 +152,18 @@ Issues the reimplementation raised about Amendment 3.
 - Second run. `summary.json` and table byte identical.
 - Separate computation from the raw files without package code (`verification/check_h1_within_decompose.py`), lotteries taken from the screens in the paper. All 18 growth values agree within 1e-16. Not blind, since it was written by the same session.
 
+
+## Review items, second part (exploratory), 2 November 2026
+
+- Robustness of the overload measure. Second run identical. People rows recomputed by separate code (largest difference 3e-17). Not blind.
+- Participant level views. Second run identical. H3 rows recomputed by `check_individual_level.py` (3e-17). H2 rows recomputed by `check_individual_h2.py`, which writes its own likelihood and fits by Nelder Mead instead of the package's gradient fits (identical shares). Not blind.
+- Model recovery. Second run identical. The probability functions it uses were checked against the package log likelihoods earlier (exact).
+
+## Decision time from trial structure (Amendment 12), 2 November 2026
+
+- Second run. `point.json`, `replicates.jsonl` and table identical, summary identical apart from creation time and run length. The runs were stopped once by a container restart and resumed from their saved chunks of ten replicates.
+- Independent reimplementation (`independent_time/`), written blind from Amendment 12. Point values agree within 3.9e-10 for every set and law, and T1 to T3 for replicates 0 to 19 within 2.0e-9 (`compare_time_structure.py`). Only the first twenty replicates were compared, so the intervals rest on the package and its identical second run.
+
+## Main figures, 2 November 2026
+
+- `scripts/main_figures.py` reads stored results only. A second run reproduced every PNG byte for byte.
