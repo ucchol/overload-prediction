@@ -435,6 +435,17 @@ Misses split into choosing the default and choosing a lottery below the best, gr
 
 Reading. The preregistered H1w failed because cost moved people to the default at every size, most on small menus, and because the best by expected value is the riskiest lottery. Among people who chose a lottery, and with the best defined by fitted risk attitudes, misses did grow faster at high cost, as H1 predicts. This was found after the test, with r fitted on the same data, so it is reported as exploratory and does not overturn the frozen result.
 
+### 2 Nov 2026. Review items from Nature Human Behaviour papers, first part (exploratory and descriptive)
+
+After comparing the paper with recent Nature Human Behaviour work on choice and attention (Plonsky et al. 2025, Gluth et al. 2020, Maier et al. 2020, Thomas et al. 2019, Reutskaja et al. 2018), the study's author asked for items 1 to 6, 8 and 9 of the review list and for decision time to be revisited (Amendment 12).
+
+- Completeness positioned (`docs/completeness_positioning.md`). Our measure is the completeness of Fudenberg, Kleinberg, Liang and Mullainathan (2022) with log loss, a uniform guess as the naive rule and an exact lookup table, corrected for sample size (Miller 1955). The term is theirs and is cited as such.
+- Deviations table (`docs/deviations_from_plan.md`). Every amendment with its date and kind, and every deviation or correction found after a run.
+- Smallest detectable effects (`results/detectable_effects.md`). For example 0.058 misses per doubling for H1w, 0.14 to 0.17 bits for return minus dwell, 0.03 in area under the curve for O2. Every failed test could have detected an effect of about the size the hypothesis implied.
+- H1 across datasets in one figure (`results/h1_synthesis`). People's growth of misses with each model's forecast, across tasks and within the lottery study.
+- Equivalence for snacks at a glance (Amendment 12 item 10, descriptive). Bound 0.039 per doubling, d = 0.2 (Scheibehenne et al. 2010) at a mean miss rate of 19 percent. The 90 percent interval, -0.002 to +0.023, lies inside it, so snack growth is equivalent to zero at that bound. The interval was known before the bound was set.
+- Verification. The figure script and the detectable effects reproduce their outputs on a second run, and the equivalence numbers were recomputed from the stored replicates by separate code.
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.
