@@ -16,6 +16,8 @@ The NHB paper has three hypotheses. Everything else is a baseline, a supplement 
 | H2 | What process produces it | Attention returns to attractive options and the first option looked at twice is chosen (sample until return) | Choices as good as CL everywhere and better than DbS and MLBA (S5, G3, C3). Search grows like the square root of the set (S1). Expected looks foresee slow decisions (S3) | The return rule tested on gaze sequences, a result CL cannot produce |
 | H3 | Can that process forecast overload in people | Fitted to some set sizes, the search model forecasts the growth of misses at others and the trials that end in a miss | Under time pressure, growth +0.098 against +0.099 and the right trials (O2, 0.70 against 0.61). Fitted and held out agree. Mixed logit shows differences between people do not explain it | Nothing new. The worked out sums are reported as the boundary |
 
+Update 2 Nov. Both new tests failed (results log). The study's author decided H1 rests on the comparison across datasets with the Aguiar test as a limit, and H2 is reported as a preregistered negative result with sample until return kept as a forecasting model.
+
 Out of the main paper. The original H2 and H3 (comparison models, filename cue) move to the supplement, with DbS and MLBA kept as baselines throughout. The original H4 goes to a separate paper. Decision time per model is a stated limit. The formal account of the sums is future work.
 
 ## Hypotheses and status (original plan)
@@ -419,8 +421,8 @@ Reading. Gaze favours accumulation by looking time over a stop at the first retu
 - Laptop displays and rubric. Resolved by Amendment 4 from the storyboard (10 Oct), results rerun and verified (14 Oct).
 - Trial order. The data file does not record whether the six trials of each task were shown in a fixed order. If they were, set size is confounded with practice in decision time and overload ratings. Asked of the study team on 14 Oct.
 - Post-trial question 6 asks "How uncertain are you" with anchors running from very uncertain (1) to very certain (5). Its direction is settled from its correlations with the other five questions before the overload index is built.
-- H2 after Amendment 11. The return rule failed against dwell in both datasets (2 Nov). How H2 is restated, or whether it moves to the supplement, is for the study's author.
-- H1 within one study. Not supported on the Aguiar data (2 Nov). Whether to run a study of our own is for the study's author.
+- H2 after Amendment 11. Resolved 2 Nov by the study's author. H2 stays in the main text as a preregistered negative result, and sample until return is presented as a forecasting model, not the process.
+- H1 within one study. Resolved 2 Nov by the study's author. H1 rests on the comparison across datasets, the Aguiar test is reported as a failed direct test with the ceiling reading, and a study of our own is named as future work.
 - H2 confirmatory dataset (superseded by Amendment 11). Hensher (2006) was checked on 1 Nov, its archive holds no choices (only design features and counts of ignored attributes), so it cannot test H2. Candidate, the job candidate study in Psychonomic Bulletin and Review (2025), two options with 3, 4 or 5 attributes within participants, OSF data awaited from the study's author. Fix by amendment before inspecting outcomes.
 - H3 independent cue. Resolved by Amendment 9, run 1 Nov, not supported.
 - H4. Set aside for a separate paper (Amendment 9).
