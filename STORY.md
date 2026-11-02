@@ -375,6 +375,41 @@ Each rule (CL, DbS_avg, MLBA_avg) was given one cue outside the coding, how clos
 
 Reading. A cue outside the coding is real but does not generalize across displays, so the choice of rule and the choice of input mattered about equally little here. Story update. H3 does not carry the paper. The weight stays on forecasting overload from search.
 
+### 2 Nov 2026. H1 within one study, the cost of judging (Amendment 10, confirmatory), run once and verified twice
+
+The same lottery menus were judged at three costs (1, 3 or 5 operations per prize), data of Aguiar, Boccardi, Kashaev and Kim (2023) (`results/h1_within`).
+
+| | Low cost | Medium cost | High cost |
+|---|---|---|---|
+| Growth of misses per doubling, people | +0.396 | +0.328 | +0.243 |
+| People minus CL, held out | +0.139, clear | +0.116, clear | +0.022 |
+| Miss rate, two options | 32% | 40% | 48% |
+
+- H1w, high minus low growth, was -0.153 [-0.193, -0.112], clearly negative, so H1w is not supported. Medium minus low was -0.068. Against CRRA utility (r = 0.634) the difference was -0.029, not clear.
+- At high cost CL's sensitivity reaches zero, so choices are close to random at every menu size and misses cannot grow further. Cost already hurts with two options.
+- Checks before freezing behaved as intended (fixed sensitivity -0.003, falling sensitivity +0.036, supported).
+- Verification. The second run was identical. A blind implementation from the amendment text agreed within 7e-9 on all 42 measures over 1000 replicates, with every clear call the same.
+
+Reading. Here cost lowers accuracy at every size instead of steepening its fall, a ceiling, and the best option by expected value is also the riskiest. H1 rests on the comparison across datasets. A clean direct test needs a study of our own.
+
+### 2 Nov 2026. H2, the return rule on gaze sequences (Amendment 11, confirmatory), run once, blind check done, second run pending
+
+CL plus one cue from the gaze order, held out by set size, in bits per choice (`results/h2_return`).
+
+| | Snack | Reutskaja |
+|---|---|---|
+| Gain from the return cue | +0.082 [0.062, 0.103], clear | +0.497 [0.441, 0.561], clear |
+| Gain from the dwell cue | +0.705 [0.601, 0.821], clear | +1.398 [1.278, 1.524], clear |
+| Return minus dwell | -0.623 [-0.731, -0.530], clear | -0.901 [-1.021, -0.790], clear |
+
+- The return cue adds information beyond value in both datasets, but much less than dwell share, so H2 is not supported in either dataset.
+- On snack trials the first returned item was chosen on 26% of trials at 9 items, falling to 17% at 36. About a fifth of snack trials had no return.
+- In Reutskaja the last fixated item is the chosen item on every trial, a feature of how responses were recorded. The last cue there is not interpreted.
+- Simulation checks before freezing separated a return world, a dwell world and no relation, as intended.
+- Verification. A blind implementation from the amendment text agreed within 5e-8 relative on 29 measures, original sample and replicates 0 to 49. Second run pending.
+
+Reading. Gaze favours accumulation by looking time over a stop at the first return. Sample until return stays as a choice model that forecasts overload (H3), but not as the process. How H2 is restated is an open decision.
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.
@@ -384,6 +419,8 @@ Reading. A cue outside the coding is real but does not generalize across display
 - Laptop displays and rubric. Resolved by Amendment 4 from the storyboard (10 Oct), results rerun and verified (14 Oct).
 - Trial order. The data file does not record whether the six trials of each task were shown in a fixed order. If they were, set size is confounded with practice in decision time and overload ratings. Asked of the study team on 14 Oct.
 - Post-trial question 6 asks "How uncertain are you" with anchors running from very uncertain (1) to very certain (5). Its direction is settled from its correlations with the other five questions before the overload index is built.
-- H2 confirmatory dataset. Hensher (2006) was checked on 1 Nov, its archive holds no choices (only design features and counts of ignored attributes), so it cannot test H2. Candidate, the job candidate study in Psychonomic Bulletin and Review (2025), two options with 3, 4 or 5 attributes within participants, OSF data awaited from the study's author. Fix by amendment before inspecting outcomes.
+- H2 after Amendment 11. The return rule failed against dwell in both datasets (2 Nov). How H2 is restated, or whether it moves to the supplement, is for the study's author.
+- H1 within one study. Not supported on the Aguiar data (2 Nov). Whether to run a study of our own is for the study's author.
+- H2 confirmatory dataset (superseded by Amendment 11). Hensher (2006) was checked on 1 Nov, its archive holds no choices (only design features and counts of ignored attributes), so it cannot test H2. Candidate, the job candidate study in Psychonomic Bulletin and Review (2025), two options with 3, 4 or 5 attributes within participants, OSF data awaited from the study's author. Fix by amendment before inspecting outcomes.
 - H3 independent cue. Resolved by Amendment 9, run 1 Nov, not supported.
 - H4. Set aside for a separate paper (Amendment 9).
