@@ -1,0 +1,11 @@
+# Draft captions for the main figures
+
+Figure 1. The datasets. Each row is one dataset and each dot a set size it contains. Colour gives how costly it is to judge one option. On the right, what each dataset records and which question it serves. Participant numbers are not shown.
+
+Figure 2. When overload appears (H1). Growth of missed best options per doubling of the set, for people (black, 95 percent intervals) and as forecast by CL and sample until return fitted to the other set sizes. Left, across tasks ordered by the cost of judging. Right, the lottery study that varied the cost of judging within one design, where growth fell rather than rose with cost. The grey band is the equivalence bound for snacks at a glance (d = 0.2, Scheibehenne et al. 2010).
+
+Figure 3. The return rule is not the process (H2, preregistered negative result). a, Gain in bits per choice over CL when one gaze cue is added, each set size predicted from fits to the others. Dwell time predicts far better than which item was returned to first. b, Share of trials in which the first item looked at twice was chosen. c, Share of participants for whom dwell beats return, and for whom return still beats CL alone. Intervals are 95 percent participant bootstrap intervals.
+
+Figure 4. Forecasting overload at unseen set sizes (H3). a to c, How often people missed the best option (black, grey band 95 percent interval) against forecasts from models fitted only to the other set sizes. d, How well the sample until return forecast picks out the trials that end in a miss (CL gives the same areas to the second decimal), against a count of near best options. e, Rank correlation across participants between each person's own growth of misses and the growth forecast for them.
+
+Figure 5. Decision time from trial structure (Amendment 12). a, Held out share of within person variance in log time explained by counting options, by trial structure (set size, best value, gap to the runner up, mean of the rest), and by the structure law fitted on the other seven datasets. b, Gain of structure over counting options. c, What the search model's expected looks and CL's entropy add to structure. Supported marks a clearly positive value after Holm's correction across the eight datasets.
