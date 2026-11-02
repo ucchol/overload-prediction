@@ -20,6 +20,7 @@ A disagreement beyond rounding blocks the result until its cause is found. The b
 | `independent_mxl/` | mixed logit and the fitted overload forecasts of every model (exploratory) | `sh verification/run_independent_mxl.sh PATH_TO_CSV`, about fifteen minutes |
 | `independent_h3/` | the confirmatory H3 test A3b of Amendment 9 | `sh verification/run_independent_h3.sh PATH_TO_CSV`, seconds |
 | `independent_h1w/` | H1 within one study, Amendment 10 (Aguiar and colleagues 2023) | `sh verification/run_independent_h1w.sh data/aguiar`, then `python3 -I verification/compare_h1_within.py`, about 13 minutes |
+| `independent_h2/` | H2 return rule on gaze, Amendment 11 | `sh verification/run_independent_h2.sh 50`, then `python3 -I verification/compare_h2_return.py` |
 
 Both implementations are archived exactly as they were written, with their results. The runners copy data only into temporary folders that are removed afterwards.
 
@@ -140,3 +141,8 @@ Issues the reimplementation raised about Amendment 3.
 
 - Second run. Identical `point.json`, `replicates.jsonl` and table.
 - Independent reimplementation (`independent_h1w/`), written from Amendment 10 without access to `h1_within.py` or its results. Its own checks passed (SR probabilities against simulation, recovery of known sensitivities and CRRA r). Over all 1000 replicates, 42 measures agree within 7e-9 on points and intervals, and every clear call matches. The agent stopped when the container restarted, after writing its code, so its runner was started by hand without changing the code.
+
+## H2 return rule on gaze, 2 November 2026
+
+- Independent reimplementation (`independent_h2/`), written from Amendment 11 without access to `h2_return.py`, the simulation script, the draft or the results. Its own checks passed (cue construction, gradient and Hessian, recovery of known weights, a return gain near zero under CL choices). On the original sample and replicates 0 to 49, 29 measures agree within 5e-8 relative. The weight of the last cue in Reutskaja is not compared, because the last fixated item is always the chosen one there, so that fit has no finite optimum and each optimizer stops at its own bound.
+- Second run, pending.
