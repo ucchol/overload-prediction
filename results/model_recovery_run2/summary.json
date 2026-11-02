@@ -1,0 +1,140 @@
+{
+ "cdm": {
+  "confusion_percent": {
+   "CL": {
+    "CL": 80.0,
+    "DbS": 0.0,
+    "MLBA": 0.0,
+    "SR": 20.0
+   },
+   "DbS": {
+    "CL": 0.0,
+    "DbS": 100.0,
+    "MLBA": 0.0,
+    "SR": 0.0
+   },
+   "MLBA": {
+    "CL": 0.0,
+    "DbS": 0.0,
+    "MLBA": 100.0,
+    "SR": 0.0
+   },
+   "SR": {
+    "CL": 16.0,
+    "DbS": 0.0,
+    "MLBA": 0.0,
+    "SR": 84.0
+   }
+  },
+  "parameter": {
+   "CL": {
+    "median_ratio": 0.9925969402455566,
+    "rank_correlation": 0.9966386554621849
+   },
+   "DbS": {
+    "median_ratio": 1.0063768235647,
+    "rank_correlation": 0.9919327731092438
+   },
+   "MLBA": {
+    "median_ratio": 1.0066917497630334,
+    "rank_correlation": 0.9943337334933974
+   },
+   "SR": {
+    "median_ratio": 0.993683710944394,
+    "rank_correlation": 0.9950060024009604
+   }
+  }
+ },
+ "reutskaja": {
+  "confusion_percent": {
+   "CL": {
+    "CL": 84.0,
+    "DbS": 0.0,
+    "MLBA": 0.0,
+    "SR": 16.0
+   },
+   "DbS": {
+    "CL": 0.0,
+    "DbS": 100.0,
+    "MLBA": 0.0,
+    "SR": 0.0
+   },
+   "MLBA": {
+    "CL": 0.0,
+    "DbS": 0.0,
+    "MLBA": 100.0,
+    "SR": 0.0
+   },
+   "SR": {
+    "CL": 24.0,
+    "DbS": 0.0,
+    "MLBA": 0.0,
+    "SR": 76.0
+   }
+  },
+  "parameter": {
+   "CL": {
+    "median_ratio": 0.9961128116141149,
+    "rank_correlation": 0.9975990396158463
+   },
+   "DbS": {
+    "median_ratio": 0.9989900667783522,
+    "rank_correlation": 0.9957743097238896
+   },
+   "MLBA": {
+    "median_ratio": 1.0049317776361102,
+    "rank_correlation": 0.9925090036014406
+   },
+   "SR": {
+    "median_ratio": 1.0018735668205463,
+    "rank_correlation": 0.9969267707082833
+   }
+  }
+ },
+ "snack": {
+  "confusion_percent": {
+   "CL": {
+    "CL": 98.0,
+    "DbS": 0.0,
+    "MLBA": 0.0,
+    "SR": 2.0
+   },
+   "DbS": {
+    "CL": 0.0,
+    "DbS": 100.0,
+    "MLBA": 0.0,
+    "SR": 0.0
+   },
+   "MLBA": {
+    "CL": 0.0,
+    "DbS": 0.0,
+    "MLBA": 100.0,
+    "SR": 0.0
+   },
+   "SR": {
+    "CL": 0.0,
+    "DbS": 0.0,
+    "MLBA": 0.0,
+    "SR": 100.0
+   }
+  },
+  "parameter": {
+   "CL": {
+    "median_ratio": 0.9988338860033732,
+    "rank_correlation": 0.999423769507803
+   },
+   "DbS": {
+    "median_ratio": 0.9998215870972484,
+    "rank_correlation": 0.9979831932773109
+   },
+   "MLBA": {
+    "median_ratio": 0.9990228578357976,
+    "rank_correlation": 0.9989435774309724
+   },
+   "SR": {
+    "median_ratio": 0.9983227880621623,
+    "rank_correlation": 0.9991356542617047
+   }
+  }
+ }
+}
