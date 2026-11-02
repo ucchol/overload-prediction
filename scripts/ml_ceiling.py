@@ -210,17 +210,17 @@ if __name__ == "__main__":
     full = {n: np.ones(len(p.choice)) for n, p in panels}
     point = measure(full)
     ceiling = {g: ("NN" if point[g]["NN"] >= point[g]["GBM"] else "GBM") for g in point}
-    by_group = {"snack": ["snack"], "reutskaja": ["reutskaja"], "cdm": groups_out["cdm"]}
-    P_of = {"snack": G["snack"][1], "reutskaja": G["reutskaja"][1], "cdm": G["cdm_standard"][1]}
+    # Participants are resampled within each source group (cdm_standard, cdm_process, reutskaja, snack, in the
+    # order groups() returns them), as in the forecasting bootstrap, because the two Caplin, Dean and Martin
+    # treatments hold different people.
     reps = []
     for b in range(B):
         rng = np.random.default_rng(170000 + b)
         sel = {}
-        for g in ("cdm", "reutskaja", "snack"):
-            mult = np.bincount(rng.integers(0, P_of[g], size=P_of[g]), minlength=P_of[g]).astype(float)
-            for n in by_group[g]:
-                pp = dict(panels)[n].participant
-                sel[n] = mult[pp]
+        for _, (gpanels, P) in G.items():
+            mult = np.bincount(rng.integers(0, P, size=P), minlength=P).astype(float)
+            for p in gpanels:
+                sel[p.name] = mult[p.participant]
         reps.append(measure(sel))
     s = {}
     for g in point:
