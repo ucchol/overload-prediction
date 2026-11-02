@@ -19,6 +19,7 @@ A disagreement beyond rounding blocks the result until its cause is found. The b
 | `independent_overload/` | the confirmatory overload forecasts of Amendment 8 | `sh verification/run_independent_overload.sh`, about five minutes |
 | `independent_mxl/` | mixed logit and the fitted overload forecasts of every model (exploratory) | `sh verification/run_independent_mxl.sh PATH_TO_CSV`, about fifteen minutes |
 | `independent_h3/` | the confirmatory H3 test A3b of Amendment 9 | `sh verification/run_independent_h3.sh PATH_TO_CSV`, seconds |
+| `independent_h1w/` | H1 within one study, Amendment 10 (Aguiar and colleagues 2023) | `sh verification/run_independent_h1w.sh data/aguiar`, then `python3 -I verification/compare_h1_within.py`, about 13 minutes |
 
 Both implementations are archived exactly as they were written, with their results. The runners copy data only into temporary folders that are removed afterwards.
 
@@ -134,3 +135,8 @@ Issues the reimplementation raised about Amendment 3.
 
 - Second run. Identical `point.json`, `replicates.jsonl` and table, summary identical apart from time, run length and Python patch version.
 - Independent reimplementation (`independent_h3/`), written from Amendment 9 and the plan without access to the package or its results. Agreement within 1e-6 on every measure for the original sample and replicates 0 to 49, and exact agreement on every cue value. It reused `verification/independent/` for data loading, which imports the attribute coding as the earlier runners do.
+
+## H1 within one study, 2 November 2026
+
+- Second run. Identical `point.json`, `replicates.jsonl` and table.
+- Independent reimplementation (`independent_h1w/`), written from Amendment 10 without access to `h1_within.py` or its results. Its own checks passed (SR probabilities against simulation, recovery of known sensitivities and CRRA r). Over all 1000 replicates, 42 measures agree within 7e-9 on points and intervals, and every clear call matches. The agent stopped when the container restarted, after writing its code, so its runner was started by hand without changing the code.
