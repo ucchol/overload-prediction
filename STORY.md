@@ -48,6 +48,7 @@ Out of the main paper. The original H2 and H3 (comparison models, filename cue) 
 | 1.0 with Amendments 1 to 9 | 1 Nov 2026 | 7ebeb737a22d0a463189dcc024354a922d57793daff8769ec39c8434ae72e696 |
 | 1.0 with Amendments 1 to 10 | 1 Nov 2026 | 001cfdc59f374f8ec5b1ef1f51ffcdf67106418508e0f92b678b93838fc92047 |
 | 1.0 with Amendments 1 to 11 | 1 Nov 2026 | 043885899644f34df676bb73fbad7a0fda1f78955653bcaf37621f1423934232 |
+| 1.0 with Amendments 1 to 12 | 2 Nov 2026 | 6edfbf9f677fe2bbd03d841885b273a27e9f9ffb3e1f08269650f2123d3c0c76 |
 
 ## Results log
 
