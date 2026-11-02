@@ -412,6 +412,28 @@ CL plus one cue from the gaze order, held out by set size, in bits per choice (`
 
 Reading. Gaze favours accumulation by looking time over a stop at the first return. Sample until return stays as a choice model that forecasts overload (H3), but not as the process. How H2 is restated is an open decision.
 
+### 2 Nov 2026. H1 within, checked against the paper of Aguiar and colleagues, and its misses split (exploratory, after the test), run twice and checked independently
+
+The paper and appendix were read after Amendment 10 was run. What they settle.
+
+- Our miss rates at two options (32, 40 and 48 percent) are exactly the authors' rates of choosing the default with one lottery (their Figure 6), so the coding of menus and choices is confirmed.
+- The default (sure 12 tokens) is shown first and preselected, and is chosen when a participant skips the task. Cost pushes people to it at every menu size, more so on small menus. The authors report no support for choice overload in the sense of more default choices on larger menus.
+- Correction to a stated limit. Each participant faced the same one or two menus at all three costs, not about two choices overall. Resampling choices within menu and cost ignores that a person's choices are linked across costs. For a difference between costs this most likely makes our intervals wider than they should be, so the clear results stand.
+- Their Table 1 lists expected values 24.125 and 21.625 for lotteries 4 and 5, while the probabilities on their screens (Figure 3) give 24.2 and 21.7, as we used. The order of the lotteries is the same either way, so no miss changes.
+- Under CRRA with r = 0.634 the safest lottery (30 or 10 tokens) ranks first and the best by expected value ranks fifth. Lottery 2 is also the most chosen lottery in their Figure 7, so misses against expected value mostly measure risk aversion.
+
+Misses split into choosing the default and choosing a lottery below the best, growth per doubling (`results/h1_within_decompose`).
+
+| | Low cost | Medium cost | High cost | High minus low |
+|---|---|---|---|---|
+| Default chosen | -0.138 | -0.133 | -0.146 | -0.008, not clear |
+| Wrong lottery, among lottery choices, expected value | +0.580 | +0.553 | +0.498 | -0.083 [-0.118, -0.049], clear |
+| Wrong lottery, among lottery choices, CRRA | +0.414 | +0.373 | +0.464 | +0.050 [+0.009, +0.087], clear |
+
+- Verification. The second run was identical, and a separate computation from the raw files without package code agreed on all 18 growth values (1e-16).
+
+Reading. The preregistered H1w failed because cost moved people to the default at every size, most on small menus, and because the best by expected value is the riskiest lottery. Among people who chose a lottery, and with the best defined by fitted risk attitudes, misses did grow faster at high cost, as H1 predicts. This was found after the test, with r fitted on the same data, so it is reported as exploratory and does not overturn the frozen result.
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.

@@ -146,3 +146,9 @@ Issues the reimplementation raised about Amendment 3.
 
 - Independent reimplementation (`independent_h2/`), written from Amendment 11 without access to `h2_return.py`, the simulation script, the draft or the results. Its own checks passed (cue construction, gradient and Hessian, recovery of known weights, a return gain near zero under CL choices). On the original sample and replicates 0 to 49, 29 measures agree within 5e-8 relative. The weight of the last cue in Reutskaja is not compared, because the last fixated item is always the chosen one there, so that fit has no finite optimum and each optimizer stops at its own bound.
 - Second run. Identical `point.json`, `replicates.jsonl` and table, summary identical apart from time.
+
+## H1 within, misses split (exploratory), 2 November 2026
+
+- Second run. `summary.json` and table byte identical.
+- Separate computation from the raw files without package code (`verification/check_h1_within_decompose.py`), lotteries taken from the screens in the paper. All 18 growth values agree within 1e-16. Not blind, since it was written by the same session.
+
