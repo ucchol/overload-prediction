@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this code or these results, please cite them as below."
+title: "overload-prediction: planned tests of when choice overload appears and whether it can be forecast"
+type: software
+license: MIT
+repository-code: "https://github.com/ucchol/overload-prediction"
+authors:
+  - family-names: Rahman
+    given-names: Asif
+    affiliation: "The University of Texas at El Paso"
+    orcid: "https://orcid.org/0009-0004-4939-2065"
+keywords:
+  - choice overload
+  - decision making
+  - choice models

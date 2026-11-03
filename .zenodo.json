@@ -1,0 +1,11 @@
+{
+  "title": "overload-prediction: planned tests of when choice overload appears and whether it can be forecast (code, plan history and results)",
+  "upload_type": "software",
+  "description": "<p>Analysis code, the full version controlled analysis plan with its dated amendments, stored results, figures, notebooks and separate verification code for a study of choice overload on open datasets.</p><p>The plan was kept in ANALYSIS_PLAN.md and every freeze is recorded by its SHA-256 digest in STORY.md. This deposit was made after the tests were run. It gives the whole git history an independent timestamp but does not by itself date the plan before the tests. The order of plan and results is documented in docs/preregistration_audit.md.</p><p>Raw data are not included. They are open datasets downloaded by the scripts in this repository from their original sources.</p>",
+  "creators": [
+    {"name": "Rahman, Asif", "affiliation": "The University of Texas at El Paso", "orcid": "0009-0004-4939-2065"}
+  ],
+  "license": "MIT",
+  "keywords": ["choice overload", "decision making", "choice models", "held out prediction", "attention", "open data"],
+  "access_right": "open"
+}

@@ -2,19 +2,19 @@
 
 [![ci](https://github.com/ucchol/overload-prediction/actions/workflows/ci.yml/badge.svg)](https://github.com/ucchol/overload-prediction/actions/workflows/ci.yml)
 
-Preregistered tests of how people choose when choice sets grow, built on held out prediction with one parameter choice models.
+Planned tests of when choice overload appears, what process produces it and whether a model can forecast it, built on held out prediction with one parameter choice models and open datasets.
 
-Does a larger set make choices noisier, or do people narrow their search and choose more selectively? Each choice model here states a mechanism, has a single free parameter and is judged by how well it predicts choices it was not fitted to. Every hypothesis, model, measure and decision rule is fixed in a written plan before its test runs, and every reported number is computed twice by this package and once more by an independent implementation.
+Every hypothesis, model, measure and decision rule is fixed in a written plan kept under version control before its test runs (the plan was not registered with a third party registry, see [`docs/preregistration_audit.md`](docs/preregistration_audit.md)). Every reported number is computed twice by this package and once more by separate code.
 
-## Status, October 2026
+## Status, November 2026
 
-| Hypothesis | Development data (file selection, laptop purchase) | Confirmatory data (open snack choices and open gaze data) |
-|---|---|---|
-| H1 Narrowing with set size | Choices were more concentrated than the models predicted in both tasks. For laptops the gap grew with set size, noise was rejected and sensitivity rose with set size. Files show the concentration only | Noise rejected. Sensitivity to liking rose with set size while attention narrowed |
-| H2 Comparison under sparse information | Known for laptops, not for files | Open dataset being chosen |
-| H3 Inputs over rules | To run | |
-| H4 Cost depends on cue validity | To specify | |
-| Overload, time and search (research program) | Overload rose with set size for files and never appeared for laptops. No model's work explained how long people took. The search model, sample until return, matched the best models on choices | Search grew like the square root of the set size, as the search model predicted, though people looked at 3.6 times as many items. Its choices were as accurate as CL's and its expected looks foresaw slow decisions, but it did not time single decisions better (Amendment 5). An absolute standard (two look satisficing), built on the snack data, was frozen and tested on three gaze datasets (Amendment 6). It did no better than sample until return on time or slow decisions, while its choices, those of sample until return, matched CL and beat DbS and MLBA. Overload forecast (Amendment 8). With snacks seen at a glance people compensated and no overload appeared. With three seconds per choice misses grew as the search model forecast, and it picked out the trials of the misses better than the near best count. Where values were worked out (Caplin, Dean and Martin), misses grew beyond every model's forecast |
+| Hypothesis | Result |
+|---|---|
+| H1 When overload appears | Across datasets, people compensate when an option can be judged at a glance and overload appears when judging is costly. The direct test within one lottery study (Amendment 10) was not supported, because cost mainly pushed people to the default at every menu size |
+| H2 What process produces it | The return rule of sample until return was not supported on gaze (Amendment 11). Looking time predicts the choice far better than the first item returned to |
+| H3 Forecasting overload | Under time pressure the search model forecast both how fast misses grew and on which trials (Amendment 8). Where values were worked out, misses grew beyond every forecast |
+| Decision time | Within a person, menu structure predicts which trials take longer in four of eight datasets, and the search model's looks add nothing beyond it (Amendment 12) |
+| Machine learning ceiling | On the snack data the one parameter models reach 96 to 99 percent of a flexible model's held out fit, in the worked out sums 91 percent (exploratory) |
 
 Laptop trials 5 and 6 were corrected from the study's storyboard on 10 October 2026 (plan, Amendment 4), and every laptop result was rerun and verified again. The full record is in [`STORY.md`](STORY.md), and the program of the next analyses (overload, decision time and a search model) in [`RESEARCH_PROGRAM.md`](RESEARCH_PROGRAM.md).
 
