@@ -84,3 +84,16 @@ What was seen.
 2. S2 plus the Wald race with a growing threshold (S2+Wald_n), to ask whether the best race adds anything beyond structure.
 
 After round 3 the list is frozen as every model run in rounds 1 to 3, so the vault judges every model and nothing is selected on development scores.
+
+## Round 3 results, 3 November 2026
+
+| Model | Our files | Our laptops | Snacks at a glance | Snacks in three seconds | Sums | Krajbich 2010 | Krajbich 2011 | Folke 2016 |
+|---|---|---|---|---|---|---|---|---|
+| S2 plus two look satisficing looks, sensitivity fitted to time | +0.116 | +0.001 | +0.173 | +0.126 | -0.009 | +0.059 | +0.072 | +0.037 |
+| S2 plus Wald race with growing threshold | +0.091 | +0.012 | +0.163 | +0.121 | -0.003 | +0.055 | +0.071 | +0.038 |
+
+What was seen. Fitting the satisficing sensitivity to time together with structure lifts our files from +0.090 to +0.116, close to the best ceiling (+0.120), and keeps the gains in snacks. The Wald race adds nothing beyond structure in any set. A development bootstrap of all models (the vault evaluation script run on development predictions, as a test of the script) found that two look satisficing alone, with its sensitivity fitted to choices or to time, already met the satisfactory rule, and that S2 plus satisficing looks fell clearly below S2 in our laptops.
+
+## Frozen list, 3 November 2026
+
+Every model run in rounds 1 to 3, 24 fitted models and the calibrated versions of the 8 races, 32 in all. S1, S2, CL entropy, DbS entropy, MLBA entropy, sample until return looks, two look satisficing looks, LBA, MLBA LBA, Wald race, relative Wald, sample until return timing, Ceiling, S2+TLS, S2+SR, S2+CLH, TLS_tfit, Ceiling2, LBA_n, Wald_n, RWald_n, MLBA_LBA_n, S2+TLS_tfit, S2+Wald_n. In snacks in three seconds every race is conditioned on the deadline, as in round 2. The vault is opened now, twice for an identical second run, and evaluated by `scripts/time_models_vault_eval.py` with the key numbers recomputed by `verification/check_time_vault.py`.
