@@ -71,11 +71,11 @@ def fit_predict(name: str, tr: tm.Trials, te: tm.Trials, opts: dict) -> tuple[np
             if dl is None:
                 return R.expected_logt(t)
             return R.expected_logt_deadline(t, tm.relative_time(t) * dl / np.exp(t.logt))
-        if name.endswith("_cal"):
-            b = tm.lsq_center(E(tr)[:, None], tr.logt, tr.pid)
-            extra["slope"] = float(b[0])
-            return E(te) * b[0], extra
-        return E(te), extra
+        b = tm.lsq_center(E(tr)[:, None], tr.logt, tr.pid)
+        extra["slope"] = float(b[0])
+        et = E(te)
+        extra["cal_pred"] = et * b[0]  # calibrated version from the same fit
+        return et, extra
     if name in ("S2+TLS", "S2+SR", "S2+CLH"):
         if name == "S2+CLH":
             lam = tm.fit_lambda(tm.scores(tr, "CL"), tr.choice)
@@ -86,6 +86,27 @@ def fit_predict(name: str, tr: tm.Trials, te: tm.Trials, opts: dict) -> tuple[np
             q = lambda t: np.log(g(lam, t))
         F = lambda t: np.column_stack([tm.structure(t), q(t)])
         b = tm.lsq_center(F(tr), tr.logt, tr.pid); return F(te) @ b, {"lambda": lam, "coef": b.tolist()}
+    if name == "S2+TLS_tfit":
+        best = None
+        for lam in np.geomspace(0.5, 200, 30):
+            F = np.column_stack([tm.structure(tr), np.log(tm.tls_expected_looks(lam, tr))])
+            b = tm.lsq_center(F, tr.logt, tr.pid)
+            r = tm.r2(tr.logt, F @ b, tr.pid)
+            if best is None or r > best[0]:
+                best = (r, lam, b)
+        _, lam, b = best
+        Fte = np.column_stack([tm.structure(te), np.log(tm.tls_expected_looks(lam, te))])
+        return Fte @ b, {"lambda": float(lam), "coef": b.tolist()}
+    if name == "S2+Wald_n":
+        dl = opts.get("deadline")
+        R = tm.Race("wald_n").fit(tr, starts=opts.get("starts", 3), eps=opts.get("eps", 0.0), deadline_s=dl)
+        def E(t):
+            if dl is None:
+                return R.expected_logt(t)
+            return R.expected_logt_deadline(t, tm.relative_time(t) * dl / np.exp(t.logt))
+        F = lambda t: np.column_stack([tm.structure(t), E(t)])
+        b = tm.lsq_center(F(tr), tr.logt, tr.pid)
+        return F(te) @ b, {"theta": R.theta.tolist(), "coef": b.tolist()}
     if name == "TLS_tfit":
         grid = np.geomspace(0.5, 200, 30)
         best = None
@@ -144,19 +165,26 @@ def run_set(name: str, T: tm.Trials, models: list[str], stage: str, opts: dict, 
                 if not te.any():
                     continue
                 yk, e = fit_predict(m, D.take(~te), D.take(te), opts)
-                yhat[te] = yk; ex.append(e)
+                yhat[te] = yk
+                if "cal_pred" in e:
+                    yc = preds.setdefault(f"{m}_cal", np.full(len(D.n), np.nan)); yc[te] = e.pop("cal_pred")
+                ex.append(e)
             preds[m] = yhat; extras[m] = ex
             log(f"{name} {m} R2 {tm.r2(D.logt, yhat, D.pid):+.4f} ({time.time() - t0:.0f}s)")
+            if f"{m}_cal" in preds:
+                log(f"{name} {m}_cal R2 {tm.r2(D.logt, preds[f'{m}_cal'], D.pid):+.4f} slopes {[round(x['slope'], 3) for x in ex]}")
         E = D
     else:
         D, V = T.take(~vault[T.pid]), T.take(vault[T.pid])
         for m in models:
             t0 = time.time()
             yhat, e = fit_predict(m, D, V, opts)
+            if "cal_pred" in e:
+                preds[f"{m}_cal"] = e.pop("cal_pred")
             preds[m] = yhat; extras[m] = [e]
             log(f"{name} {m} vault R2 {tm.r2(V.logt, yhat, V.pid):+.4f} ({time.time() - t0:.0f}s)")
         E = V
-    out["r2"] = {m: tm.r2(E.logt, preds[m], E.pid) for m in models}
+    out["r2"] = {m: tm.r2(E.logt, preds[m], E.pid) for m in preds}
     out["extras"] = extras
     return out, E, preds
 

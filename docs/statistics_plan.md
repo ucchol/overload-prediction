@@ -28,3 +28,12 @@ For every confirmatory test, the smallest effect it could detect with 80 percent
 ## Reporting
 
 Tables in `results/statistics/`, one row per result, with the original decision unchanged. Any result whose mixed model disagrees with the bootstrap decision is reported and discussed, not reconciled.
+
+## Decision time models on the vault, details fixed before the vault is opened
+
+Written on 3 November 2026 after development round 3 was launched and before any vault trial was used. For each set and each frozen model, on the vault participants only.
+1. Held out R2 of within person log time, with a 95 percent participant bootstrap interval (B = 1000, numpy.random.default_rng(130500 + b), people drawn with replacement, no refitting).
+2. Its difference from S1 and from S2 on the same draws, percentile and basic intervals, clear when both exclude zero (the satisfactory rule of docs/time_models_plan.md).
+3. A linear mixed model of the per trial difference in squared error of within person centered predictions, S2 minus the model, random intercept per participant by REML, with Holm's correction across the eight sets for each model. Cohen's dz of the per person mean difference.
+4. Where a model is not clearly above S2, BF01 for no gain over S2 against a half normal gain with scale equal to the development gain of S2 over S1 in that set (at least 0.01), and at half and double that scale, from the bootstrap estimate and standard error of the R2 difference.
+5. The share of the ceiling, the model's R2 divided by the best R2 of the two ceilings in that set, when that ceiling R2 is positive.
