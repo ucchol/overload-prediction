@@ -46,3 +46,41 @@ What was seen. Two look satisficing's looks alone match or beat the structure la
 4. Combined laws, structure plus one model quantity (S2+TLS, S2+SR, S2+CLH), to see whether a model adds to structure.
 5. Two look satisficing with its sensitivity chosen to fit training times rather than choices (TLS_tfit, grid of 30 values).
 6. Ceiling2, boosted trees on the rich features and their within person centered versions, complexity chosen by two inner folds of the training people.
+
+## Round 2 results, 3 November 2026
+
+Development scores, held out R2 of within person log time over ten folds of the non vault participants. Round 1 rows for S1 and S2 are repeated for reference.
+
+| Model | Our files | Our laptops | Snacks at a glance | Snacks in three seconds | Sums | Krajbich 2010 | Krajbich 2011 | Folke 2016 |
+|---|---|---|---|---|---|---|---|---|
+| S1, log2 n (round 1) | +0.083 | +0.011 | +0.057 | +0.050 | +0.000 | +0.000 | +0.000 | +0.000 |
+| S2, structure (round 1) | +0.090 | +0.016 | +0.162 | +0.123 | -0.003 | +0.056 | +0.072 | +0.036 |
+| S2 plus two look satisficing looks | +0.095 | +0.004 | +0.175 | +0.126 | -0.002 | +0.058 | +0.071 | +0.035 |
+| S2 plus sample until return looks | +0.092 | +0.001 | +0.163 | +0.121 | -0.003 | +0.054 | +0.071 | +0.036 |
+| S2 plus CL entropy | +0.093 | -0.000 | +0.162 | +0.122 | -0.005 | +0.057 | +0.072 | +0.035 |
+| Two look satisficing, sensitivity fitted to time | +0.091 | +0.014 | +0.172 | +0.131 | -0.002 | +0.042 | +0.072 | +0.021 |
+| Ceiling2, boosted trees, centered features, inner tuning | +0.120 | +0.009 | +0.154 | +0.091 | -0.002 | +0.003 | +0.028 | -0.020 |
+| LBA, threshold grows with n | +0.026 | +0.002 | +0.057 | +0.112 | -0.082 | +0.003 | +0.033 | -0.018 |
+| LBA, threshold grows with n, calibrated | +0.050 | +0.021 | +0.096 | +0.124 | -0.002 | +0.020 | +0.057 | +0.004 |
+| Wald race, threshold grows with n | +0.075 | +0.013 | +0.070 | +0.122 | -0.005 | +0.015 | +0.040 | -0.006 |
+| Wald race, threshold grows with n, calibrated | +0.075 | +0.013 | +0.070 | +0.121 | +0.001 | +0.020 | +0.057 | +0.004 |
+| Relative Wald, threshold grows with n | +0.078 | +0.010 | +0.033 | +0.029 | -0.005 | +0.044 | +0.028 | +0.009 |
+| Relative Wald, threshold grows with n, calibrated | +0.078 | +0.010 | +0.040 | +0.035 | -0.000 | +0.058 | +0.029 | +0.003 |
+| MLBA LBA, threshold grows with n | +0.007 | -0.026 | -0.036 | +0.040 | -0.020 | +0.049 | +0.057 | +0.040 |
+| MLBA LBA, threshold grows with n, calibrated | +0.017 | +0.006 | +0.012 | +0.039 | -0.000 | +0.056 | +0.058 | +0.038 |
+
+Snacks in three seconds, fixed threshold races conditioned on the deadline. LBA +0.019 (calibrated +0.030), Wald race -0.200 (+0.000), relative Wald -0.093 (+0.009), MLBA LBA -0.041 (+0.004).
+
+What was seen.
+1. A threshold that grows with set size turns the races from negative to positive wherever n varies. In snacks in three seconds the Wald and LBA races now match structure (+0.122 and +0.124 against +0.123). In snacks at a glance they reach about half of structure. The deadline alone does not repair a fixed threshold race.
+2. Two look satisficing remains the strongest process quantity. Added to structure it gives the best score in snacks at a glance, our files and Krajbich 2010. With its sensitivity fitted to time it gives the best score in snacks in three seconds.
+3. Calibration slopes are positive and stable across folds for the Wald races. For LBA and MLBA LBA they vary in sign across folds in our files, our laptops and snacks at a glance, so those fits are unstable there.
+4. In our laptops every model is near zero, and adding a second feature to structure lowers the score, which points to overfitting in a small set. In sums nothing predicts time, including both ceilings.
+5. Ceiling2 is far better than the first ceiling and beats structure in our files only.
+
+## Round 3, changes decided from round 2 (written before round 3 ran)
+
+1. S2 plus two look satisficing looks with the sensitivity chosen to fit training times (S2+TLS_tfit), choosing the sensitivity on the same grid of 30 values by the training R2 of the combined law. Round 2 found the two halves best separately.
+2. S2 plus the Wald race with a growing threshold (S2+Wald_n), to ask whether the best race adds anything beyond structure.
+
+After round 3 the list is frozen as every model run in rounds 1 to 3, so the vault judges every model and nothing is selected on development scores.
