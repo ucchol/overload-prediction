@@ -57,13 +57,65 @@ def fit_predict(name: str, tr: tm.Trials, te: tm.Trials, opts: dict) -> tuple[np
         g = tm.sr_expected_looks if name == "SR_looks" else tm.tls_expected_looks
         L = lambda t: np.log(g(lam, t))[:, None]
         b = tm.lsq_center(L(tr), tr.logt, tr.pid); return L(te) @ b, {"lambda": lam, "coef": b.tolist()}
-    if name in ("LBA", "MLBA_LBA", "Wald", "RWald"):
-        kind = {"LBA": "lba", "MLBA_LBA": "mlba", "Wald": "wald", "RWald": "rwald"}[name]
-        R = tm.Race(kind).fit(tr, starts=opts.get("starts", 3), eps=opts.get("eps", 0.0))
+    RACES = {"LBA": "lba", "MLBA_LBA": "mlba", "Wald": "wald", "RWald": "rwald",
+             "LBA_n": "lba_n", "MLBA_LBA_n": "mlba_n", "Wald_n": "wald_n", "RWald_n": "rwald_n"}
+    if name.replace("_cal", "") in RACES:
+        base = name.replace("_cal", "")
+        kind = RACES[base]
+        dl = opts.get("deadline")
+        R = tm.Race(kind).fit(tr, starts=opts.get("starts", 3), eps=opts.get("eps", 0.0), deadline_s=dl)
         extra = {"theta": R.theta.tolist(), "nll": R.nll}
-        if opts.get("bits", True):
+        if opts.get("bits", True) and not name.endswith("_cal"):
             extra["bits_te"] = (R.choice_log2(te) + np.log2(te.n)).tolist()
-        return R.expected_logt(te), extra
+        def E(t):
+            if dl is None:
+                return R.expected_logt(t)
+            return R.expected_logt_deadline(t, tm.relative_time(t) * dl / np.exp(t.logt))
+        if name.endswith("_cal"):
+            b = tm.lsq_center(E(tr)[:, None], tr.logt, tr.pid)
+            extra["slope"] = float(b[0])
+            return E(te) * b[0], extra
+        return E(te), extra
+    if name in ("S2+TLS", "S2+SR", "S2+CLH"):
+        if name == "S2+CLH":
+            lam = tm.fit_lambda(tm.scores(tr, "CL"), tr.choice)
+            q = lambda t: tm.entropy_bits(tm.softmax_masked(lam * t.x))
+        else:
+            lam = tm.fit_sr_lambda(tr)
+            g = tm.tls_expected_looks if name == "S2+TLS" else tm.sr_expected_looks
+            q = lambda t: np.log(g(lam, t))
+        F = lambda t: np.column_stack([tm.structure(t), q(t)])
+        b = tm.lsq_center(F(tr), tr.logt, tr.pid); return F(te) @ b, {"lambda": lam, "coef": b.tolist()}
+    if name == "TLS_tfit":
+        grid = np.geomspace(0.5, 200, 30)
+        best = None
+        for lam in grid:
+            L = np.log(tm.tls_expected_looks(lam, tr))[:, None]
+            b = tm.lsq_center(L, tr.logt, tr.pid)
+            r = tm.r2(tr.logt, L @ b, tr.pid)
+            if best is None or r > best[0]:
+                best = (r, lam, b)
+        _, lam, b = best
+        return np.log(tm.tls_expected_looks(lam, te))[:, None] @ b, {"lambda": float(lam), "coef": b.tolist()}
+    if name == "Ceiling2":
+        from sklearn.ensemble import HistGradientBoostingRegressor
+        def Fc(t):
+            F = np.nan_to_num(tm.rich_features(t), nan=-1.0)
+            return np.column_stack([F, np.column_stack([tm.center(F[:, j], t.pid) for j in range(F.shape[1])])])
+        Ftr, Fte, ytr = Fc(tr), Fc(te), tm.center(tr.logt, tr.pid)
+        # inner choice of complexity on two folds of the training participants
+        people = np.unique(tr.pid); half = np.isin(tr.pid, people[::2])
+        best = None
+        for it, lr, leaf in ((100, 0.05, 80), (200, 0.05, 80), (300, 0.03, 120), (150, 0.1, 200)):
+            sc = 0.0
+            for a in (half, ~half):
+                g = HistGradientBoostingRegressor(random_state=0, max_iter=it, learning_rate=lr, min_samples_leaf=leaf)
+                g.fit(Ftr[a], ytr[a]); sc += tm.r2(tr.logt[~a], g.predict(Ftr[~a]), tr.pid[~a])
+            if best is None or sc > best[0]:
+                best = (sc, it, lr, leaf)
+        _, it, lr, leaf = best
+        g = HistGradientBoostingRegressor(random_state=0, max_iter=it, learning_rate=lr, min_samples_leaf=leaf).fit(Ftr, ytr)
+        return g.predict(Fte), {"hp": [it, lr, leaf]}
     if name == "SR_timing":
         m = tm.SRTiming().fit(tr)
         return m.expected_logt(te), {"lambda": m.lam, "theta": m.theta.tolist()}
@@ -128,7 +180,11 @@ def main():
     log(f"round {a.round} stage {a.stage} models {a.models} eps {a.eps}")
     for name in a.sets:
         T = tm.from_timeset(S[name], SCALE[name])
-        res, E, preds = run_set(name, T, a.models, a.stage, {"eps": a.eps}, log)
+        opts = {"eps": a.eps, "deadline": 3.0 if name == "reutskaja" else None}
+        res, E, preds = run_set(name, T, a.models, a.stage, opts, log)
+        old = a.out / f"{name}_pred.npz"
+        if old.exists():  # keep predictions of earlier models of the same round
+            prev = dict(np.load(old)); preds = {**{k: v for k, v in prev.items() if k not in ("logt", "pid", "n", "choice")}, **preds}
         np.savez_compressed(a.out / f"{name}_pred.npz", logt=E.logt, pid=E.pid, n=E.n, choice=E.choice,
                             **{m: v for m, v in preds.items()})
         json.dump(res, open(a.out / f"{name}_summary.json", "w"), indent=1, default=float)

@@ -183,7 +183,8 @@ def wald_fS(u: np.ndarray, v: np.ndarray, b: float):
 
 @dataclass
 class Race:
-    """A race of accumulators whose drifts come from a trial's values. kind is lba, mlba, wald or rwald."""
+    """A race of accumulators whose drifts come from a trial's values. kind is lba, mlba, wald or rwald, and a
+    suffix _n lets the threshold grow with set size, b n^gamma (gamma >= 0, one more parameter)."""
     kind: str
     theta: np.ndarray = field(default_factory=lambda: np.zeros(0))
 
@@ -194,20 +195,34 @@ class Race:
     start = {"lba": [0.5, 1.0, 0.0, 0.0, 0.0], "mlba": [1.0, 1.0, 0.0, 0.0, 0.0, 0.0],
              "wald": [0.0, 0.5, 0.5, 0.0], "rwald": [0.5, 1.5, 0.5, 0.0]}
 
+    @property
+    def base(self) -> str:
+        return self.kind.removesuffix("_n")
+
+    @property
+    def nscale(self) -> bool:
+        return self.kind.endswith("_n")
+
+    def _split(self, th):
+        if self.nscale:
+            return np.r_[th[:-2], th[-1]], float(np.exp(th[-2]))
+        return th, 0.0
+
     def drifts(self, x: np.ndarray, th: np.ndarray) -> np.ndarray:
+        th, _ = self._split(th)
         ok = np.isfinite(x)
         x0 = np.where(ok, x, 0.0)
-        if self.kind == "lba":
+        if self.base == "lba":
             return th[0] + np.exp(th[1]) * x0
-        if self.kind == "mlba":
+        if self.base == "mlba":
             d = x0[:, :, None] - x0[:, None, :]
             pair = ok[:, :, None] & ok[:, None, :]
             n = ok.sum(axis=1, keepdims=True)
             m = np.where(pair, np.exp(-np.exp(th[2]) * np.abs(d)) * d, 0.0).sum(axis=2) / np.maximum(n - 1, 1)
             return th[0] + np.exp(th[1]) * m
-        if self.kind == "wald":
+        if self.base == "wald":
             return np.exp(th[0]) + np.exp(th[1]) * x0
-        if self.kind == "rwald":
+        if self.base == "rwald":
             xm = np.where(ok, x, -np.inf)
             top2 = -np.sort(-xm, axis=1)[:, :2]
             other = np.where(xm >= top2[:, :1], top2[:, 1:2], top2[:, :1])
@@ -217,38 +232,57 @@ class Race:
     def t0(self, th: np.ndarray, tmin: float) -> float:
         return tmin / (1 + np.exp(-th[-1]))
 
-    def fS(self, u: np.ndarray, v: np.ndarray, th: np.ndarray):
-        if self.kind in ("lba", "mlba"):
-            A = np.exp(th[-3]); b = A + np.exp(th[-2])
+    def fS(self, u: np.ndarray, v: np.ndarray, th: np.ndarray, n=None):
+        th, g = self._split(th)
+        mult = 1.0 if (n is None or g == 0.0) else np.asarray(n, float) ** g
+        if self.base in ("lba", "mlba"):
+            A = np.exp(th[-3]); b = A + np.exp(th[-2]) * mult
             return lba_fS(u, v, A, b)
-        return wald_fS(u, v, np.exp(th[-2]))
+        return wald_fS(u, v, np.exp(th[-2]) * mult)
 
-    def loglik(self, th: np.ndarray, tr: Trials, rt: np.ndarray, tmin: float, eps: float = 0.0) -> np.ndarray:
-        """Log density of the chosen option finishing first at the observed (relative) time, per trial."""
+    def loglik(self, th: np.ndarray, tr: Trials, rt: np.ndarray, tmin: float, eps: float = 0.0,
+               deadline: np.ndarray | None = None) -> np.ndarray:
+        """Log density of the chosen option finishing first at the observed (relative) time, per trial. With a
+        deadline (relative units, per trial), the density is conditioned on a response before it."""
         ok = tr.mask
         v = self.drifts(tr.x, th)
         u = np.maximum(rt - self.t0(th, tmin), 1e-6)[:, None]
-        f, S = self.fS(u, v, th)
+        f, S = self.fS(u, v, th, tr.n[:, None])
         logS = np.where(ok, np.log(S), 0.0)
         idx = np.arange(len(rt))
         ll = np.log(f[idx, tr.choice]) + logS.sum(axis=1) - logS[idx, tr.choice]
-        if self.kind in ("lba", "mlba"):  # condition on some accumulator finishing
+        if self.base in ("lba", "mlba"):  # condition on some accumulator finishing
             pnone = np.where(ok, log_ndtr(-v), 0.0).sum(axis=1)
             ll = ll - np.log1p(-np.exp(np.minimum(pnone, -1e-12)))
+        if deadline is not None:
+            ud = np.maximum(deadline - self.t0(th, tmin), 1e-6)[:, None]
+            _, Sd = self.fS(ud, v, th, tr.n[:, None])
+            smin = np.exp(np.where(ok, np.log(Sd), 0.0).sum(axis=1))
+            if self.base in ("lba", "mlba"):
+                pn = np.exp(np.where(ok, log_ndtr(-v), 0.0).sum(axis=1))
+                pin = (1 - smin) / np.maximum(1 - pn, 1e-300)
+            else:
+                pin = 1 - smin
+            ll = ll - np.log(np.clip(pin, 1e-300, 1.0))
         if eps > 0:
             ll = np.logaddexp(np.log1p(-eps) + ll, np.log(eps) - np.log(tr.n) - np.log(20.0))
         return ll
 
-    def fit(self, tr: Trials, starts: int = 3, seed: int = 0, eps: float = 0.0) -> "Race":
+    def fit(self, tr: Trials, starts: int = 3, seed: int = 0, eps: float = 0.0, deadline_s: float | None = None) -> "Race":
         rt = relative_time(tr)
+        dl = None if deadline_s is None else rt * deadline_s / np.exp(tr.logt)
         tmin = float(np.min(rt))
         rng = np.random.default_rng(seed)
         best = None
-        th0 = np.array(self.start[self.kind] if self.theta.size == 0 else self.theta, float)
+        if self.theta.size:
+            th0 = np.array(self.theta, float)
+        else:
+            b0 = list(self.start[self.base])
+            th0 = np.array(b0[:-1] + [np.log(0.3), b0[-1]] if self.nscale else b0, float)
         for k in range(starts):
             x0 = th0 if k == 0 else th0 + rng.normal(0, 0.7, th0.size)
             def obj(th):
-                ll = self.loglik(th, tr, rt, tmin, eps)
+                ll = self.loglik(th, tr, rt, tmin, eps, dl)
                 val = -np.sum(ll)
                 return val if np.isfinite(val) else 1e12
             r = minimize(obj, x0, method="L-BFGS-B", options={"maxiter": 800})
@@ -258,6 +292,17 @@ class Race:
         out.tmin, out.nll, out.eps = tmin, float(best.fun), eps
         return out
 
+    def expected_logt_deadline(self, tr: Trials, deadline_rel: np.ndarray) -> np.ndarray:
+        """Expected log relative time given a response before a per trial deadline (relative units)."""
+        S, pn = self.min_survival(tr)
+        t0 = self.t0(self.theta, self.tmin)
+        S = np.column_stack([np.ones(len(S)), S])
+        mass = (S[:, :-1] - S[:, 1:])
+        mid = np.concatenate([[GRID[0] / 2], np.sqrt(GRID[:-1] * GRID[1:])])
+        keep = (t0 + GRID)[None, :] <= deadline_rel[:, None]
+        mass = np.where(keep, mass, 0.0)
+        return (mass @ np.log(t0 + mid)) / np.maximum(mass.sum(axis=1), 1e-300)
+
     def min_survival(self, tr: Trials, chunk: int = 400):
         """Survival of the race's finishing time on GRID, per trial, and the probability nothing finishes."""
         th = self.theta
@@ -266,9 +311,9 @@ class Race:
             sl = slice(a, a + chunk)
             x = tr.x[sl]; ok = np.isfinite(x)
             v = self.drifts(x, th)
-            _, S = self.fS(GRID[None, None, :], v[:, :, None], th)
+            _, S = self.fS(GRID[None, None, :], v[:, :, None], th, ok.sum(axis=1)[:, None, None])
             out[sl] = np.exp(np.where(ok[:, :, None], np.log(S), 0.0).sum(axis=1))
-            if self.kind in ("lba", "mlba"):
+            if self.base in ("lba", "mlba"):
                 pn[sl] = np.exp(np.where(ok, log_ndtr(-v), 0.0).sum(axis=1))
         return out, pn
 
@@ -291,7 +336,7 @@ class Race:
             sl = slice(a, a + chunk)
             x = tr.x[sl]; ok = np.isfinite(x); c = tr.choice[sl]
             v = self.drifts(x, th)
-            f, S = self.fS(GRID[None, None, :], v[:, :, None], th)
+            f, S = self.fS(GRID[None, None, :], v[:, :, None], th, ok.sum(axis=1)[:, None, None])
             logS = np.where(ok[:, :, None], np.log(S), 0.0)
             tot = logS.sum(axis=1)
             idx = np.arange(len(c))

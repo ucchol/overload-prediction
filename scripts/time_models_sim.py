@@ -28,6 +28,8 @@ def sim_race(R: tm.Race, tr: tm.Trials, rng, reps: int = 1):
     """Simulate (choice, relative decision time) from a race with parameters R.theta, t0 in relative units R.t0abs."""
     th = R.theta
     v = R.drifts(tr.x, th)
+    pth, gam = R._split(th)
+    mult = tr.n.astype(float) ** gam
     ok = tr.mask
     n = len(tr.n)
     T = np.full((reps, n), np.inf); C = np.zeros((reps, n), int)
@@ -36,15 +38,15 @@ def sim_race(R: tm.Race, tr: tm.Trials, rng, reps: int = 1):
         while todo.any():
             idx = np.where(todo)[0]
             vv = v[idx]
-            if R.kind in ("lba", "mlba"):
-                A = np.exp(th[-3]); b = A + np.exp(th[-2])
+            if R.base in ("lba", "mlba"):
+                A = np.exp(pth[-3]); b = A + np.exp(pth[-2]) * mult[idx][:, None]
                 d = vv + rng.normal(0, 1, vv.shape)
                 k0 = rng.uniform(0, A, vv.shape)
                 t = np.where((d > 0) & ok[idx], (b - k0) / np.where(d > 0, d, 1), np.inf)
             else:
-                b = np.exp(th[-2])
+                b = np.exp(pth[-2]) * mult[idx][:, None]
                 mu = b / np.maximum(vv, 1e-9)
-                t = np.where(ok[idx], rng.wald(np.where(ok[idx], mu, 1.0), b ** 2), np.inf)
+                t = np.where(ok[idx], rng.wald(np.where(ok[idx], mu, 1.0), np.broadcast_to(b ** 2, mu.shape)), np.inf)
             fin = np.isfinite(t.min(axis=1))
             T[r, idx[fin]] = t[fin].min(axis=1)
             C[r, idx[fin]] = t[fin].argmin(axis=1)
@@ -75,6 +77,7 @@ def main():
     ap.add_argument("--set", default="snack")
     ap.add_argument("--max_people", type=int, default=30)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--only", default="")
     a = ap.parse_args()
     np.seterr(all="ignore")
     rng = np.random.default_rng(777)
@@ -84,7 +87,10 @@ def main():
     T = T.take(keep)
     P = int(T.pid.max()) + 1
     speed = np.exp(rng.normal(0, 0.4, P))
+    only = a.only.split(",") if a.only else None
     truth = {
+        "lba_n": tm.Race("lba_n", np.array([0.8, np.log(2.5), np.log(0.6), np.log(0.8), np.log(0.4), 0.0])),
+        "wald_n": tm.Race("wald_n", np.array([np.log(0.6), np.log(2.0), np.log(1.5), np.log(0.4), 0.0])),
         "lba": tm.Race("lba", np.array([0.8, np.log(2.5), np.log(0.6), np.log(0.8), 0.0])),
         "mlba": tm.Race("mlba", np.array([1.0, np.log(3.0), np.log(2.0), np.log(0.6), np.log(0.8), 0.0])),
         "wald": tm.Race("wald", np.array([np.log(0.6), np.log(2.0), np.log(1.5), 0.0])),
@@ -93,6 +99,8 @@ def main():
     report = {}
     half = T.pid < P // 2
     for kind, R in truth.items():
+        if only and kind not in only:
+            continue
         R.t0abs = 0.3
         C, Tm = sim_race(R, T, rng, reps=1)
         sim = tm.Trials(T.x, T.n, C[0], np.log(Tm[0] * speed[T.pid]), T.pid)
@@ -115,6 +123,8 @@ def main():
         }
         report[kind] = rep
         print(kind, json.dumps({k: (round(v, 4) if isinstance(v, float) else v) for k, v in rep.items()}), flush=True)
+    if only and "sr_timing" not in only:
+        a.out.mkdir(parents=True, exist_ok=True); json.dump(report, open(a.out / f"sim_{a.set}_{a.only}.json", "w"), indent=1); return
     m = tm.SRTiming(lam=6.0, theta=np.array([np.log(1.5), np.log(0.25), 0.0])); m.t0abs = 0.3
     C, Tm = sim_sr(m, T, rng, reps=1)
     sim = tm.Trials(T.x, T.n, C[0], np.log(Tm[0] * speed[T.pid]), T.pid)
