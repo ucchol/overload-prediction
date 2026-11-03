@@ -1,0 +1,33 @@
+H1w lotteries, growth high minus low       est -0.1531 se 0.0205 MDE80 0.0573  BF01 16.9 (strong against the hypothesis, estimate in the opposite direction) [8.57, 33.6]  supported False
+H2 snack, return minus dwell               est -0.6231 se 0.0513 MDE80 0.1435  BF01 320 (strong against the hypothesis, estimate in the opposite direction) [160, 640]  supported False
+H2 snack, return gain over CL              est +0.0822 se 0.0107 MDE80 0.0299  supported True
+H2 reutskaja, return minus dwell           est -0.9006 se 0.0599 MDE80 0.1676  BF01 120 (strong against the hypothesis, estimate in the opposite direction) [60.1, 240]  supported False
+H2 reutskaja, return gain over CL          est +0.4974 se 0.0314 MDE80 0.0878  supported True
+O1 reutskaja, people minus compensation    est +0.0416 se 0.0144 MDE80 0.0403  supported True
+O2 reutskaja, SR AUC minus near best       est +0.0934 se 0.0110 MDE80 0.0307  supported True
+O1 cdm, people minus compensation          est +0.2382 se 0.0194 MDE80 0.0543  supported True
+O2 cdm, SR AUC minus near best             est -0.0074 se 0.0117 MDE80 0.0328  BF01 12.4 (strong against the hypothesis, estimate in the opposite direction) [6.29, 24.7]  supported False
+T1 dev_file                                est +0.0107 se 0.0123 MDE80 0.0344  BF01 2.07 (inconclusive) [1.17, 4.01]  supported False
+T1 dev_laptop                              est -0.0024 se 0.0151 MDE80 0.0424  BF01 4.42 (moderate against the hypothesis, estimate in the opposite direction) [2.39, 8.64]  supported False
+T1 snack                                   est +0.0999 se 0.0140 MDE80 0.0392  supported True
+T1 reutskaja                               est +0.0715 se 0.0122 MDE80 0.0341  supported True
+T1 cdm                                     est -0.0017 se 0.0028 MDE80 0.0080  BF01 30.5 (strong against the hypothesis, estimate in the opposite direction) [15.3, 60.9]  supported False
+T1 krajbich2010                            est +0.0574 se 0.0131 MDE80 0.0366  supported True
+T1 krajbich2011                            est +0.0769 se 0.0182 MDE80 0.0509  supported True
+T1 folke2016                               est +0.0195 se 0.0103 MDE80 0.0290  BF01 0.52 (inconclusive) [0.318, 0.985]  supported False
+T2 dev_file                                est +0.0615 se 0.0161 MDE80 0.0451  supported True
+T2 dev_laptop                              est -0.0100 se 0.0200 MDE80 0.0560  BF01 4.56 (moderate against the hypothesis, estimate in the opposite direction) [2.49, 8.89]  supported False
+T2 snack                                   est +0.0776 se 0.0097 MDE80 0.0273  supported True
+T2 reutskaja                               est +0.0657 se 0.0316 MDE80 0.0884  BF01 0.203 (moderate for the effect) [0.262, 0.269]  supported False
+T2 cdm                                     est -0.0050 se 0.0063 MDE80 0.0176  BF01 16.8 (strong against the hypothesis, estimate in the opposite direction) [8.47, 33.5]  supported False
+T2 krajbich2010                            est +0.0216 se 0.0159 MDE80 0.0445  BF01 0.931 (inconclusive) [0.594, 1.73]  supported False
+T2 krajbich2011                            est +0.0671 se 0.0142 MDE80 0.0397  supported True
+T2 folke2016                               est +0.0078 se 0.0168 MDE80 0.0469  BF01 2.55 (inconclusive) [1.46, 4.91]  supported False
+T3 dev_file                                est -0.0007 se 0.0043 MDE80 0.0119  BF01 15.3 (strong against the hypothesis, estimate in the opposite direction) [7.7, 30.5]  supported False
+T3 dev_laptop                              est -0.0052 se 0.0057 MDE80 0.0159  BF01 18.5 (strong against the hypothesis, estimate in the opposite direction) [9.31, 36.9]  supported False
+T3 snack                                   est +0.0007 se 0.0011 MDE80 0.0030  BF01 27.7 (strong for no effect) [13.9, 55.4]  supported False
+T3 reutskaja                               est -0.0007 se 0.0012 MDE80 0.0033  BF01 75.5 (strong against the hypothesis, estimate in the opposite direction) [37.8, 151]  supported False
+T3 cdm                                     est -0.0009 se 0.0014 MDE80 0.0040  BF01 61.9 (strong against the hypothesis, estimate in the opposite direction) [31, 124]  supported False
+T3 krajbich2010                            est -0.0008 se 0.0012 MDE80 0.0034  BF01 76 (strong against the hypothesis, estimate in the opposite direction) [38, 152]  supported False
+T3 krajbich2011                            est -0.0009 se 0.0011 MDE80 0.0031  BF01 88.7 (strong against the hypothesis, estimate in the opposite direction) [44.4, 177]  supported False
+T3 folke2016                               est -0.0004 se 0.0017 MDE80 0.0048  BF01 40.6 (strong against the hypothesis, estimate in the opposite direction) [20.3, 81.2]  supported False

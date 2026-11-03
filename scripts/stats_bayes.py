@@ -37,7 +37,7 @@ def bf01(est, se, scale, sign=+1):
     e = sign * est
     like0 = norm.pdf(e, 0, se)
     f = lambda d: norm.pdf(e, d, se) * 2 * norm.pdf(d, 0, scale)
-    like1, _ = integrate.quad(f, 0, np.inf, limit=200)
+    like1, _ = integrate.quad(f, 0, 50 * (scale + se), limit=400, epsabs=0, epsrel=1e-11)
     return float(like0 / like1)
 
 

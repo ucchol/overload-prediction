@@ -11,9 +11,9 @@
    "supported": false,
    "prior_scale": 0.036,
    "prior_source": "plan simulation, Amendment 10",
-   "BF01": 16.564321751468427,
-   "BF01_half_scale": 8.384776476346596,
-   "BF01_double_scale": 33.019994322078624,
+   "BF01": 16.88004890871676,
+   "BF01_half_scale": 8.56781460739359,
+   "BF01_double_scale": 33.62796580271573,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   },
   {
@@ -27,9 +27,9 @@
    "supported": false,
    "prior_scale": 1.07,
    "prior_source": "plan simulation, Amendment 11",
-   "BF01": 318.773602162588,
-   "BF01_half_scale": 159.3940121116425,
-   "BF01_double_scale": 637.5399925325828,
+   "BF01": 320.1207521253562,
+   "BF01_half_scale": 160.0675935699907,
+   "BF01_double_scale": 640.2342859601383,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   },
   {
@@ -53,9 +53,9 @@
    "supported": false,
    "prior_scale": 0.38,
    "prior_source": "plan simulation, Amendment 11",
-   "BF01": 119.51842270570876,
-   "BF01_half_scale": 59.77833624101712,
-   "BF01_double_scale": 239.01770535503036,
+   "BF01": 120.18791800897228,
+   "BF01_half_scale": 60.11329398614339,
+   "BF01_double_scale": 240.35648588102487,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   },
   {
@@ -109,9 +109,9 @@
    "supported": false,
    "prior_scale": 0.09335764980516503,
    "prior_source": "O2 effect in snacks in three seconds",
-   "BF01": 12.405297380119396,
-   "BF01_half_scale": 6.291215315681195,
-   "BF01_double_scale": 24.720844595895592,
+   "BF01": 12.405297380119402,
+   "BF01_half_scale": 6.2912153156812,
+   "BF01_double_scale": 24.720844595895606,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   },
   {
@@ -125,9 +125,9 @@
    "supported": false,
    "prior_scale": 0.05738298597742231,
    "prior_source": "smallest supported T1 gain",
-   "BF01": 2.0747010354116333,
-   "BF01_half_scale": 1.1716834378602048,
-   "BF01_double_scale": 4.011250076545451,
+   "BF01": 2.074701035411633,
+   "BF01_half_scale": 1.1716834378602041,
+   "BF01_double_scale": 4.01125007654545,
    "reading": "inconclusive"
   },
   {
@@ -141,8 +141,8 @@
    "supported": false,
    "prior_scale": 0.05738298597742231,
    "prior_source": "smallest supported T1 gain",
-   "BF01": 4.41817408225104,
-   "BF01_half_scale": 2.391243785852086,
+   "BF01": 4.418174082251042,
+   "BF01_half_scale": 2.3912437858520863,
    "BF01_double_scale": 8.64339260534432,
    "reading": "moderate against the hypothesis, estimate in the opposite direction"
   },
@@ -177,8 +177,8 @@
    "supported": false,
    "prior_scale": 0.05738298597742231,
    "prior_source": "smallest supported T1 gain",
-   "BF01": 30.482751255049692,
-   "BF01_half_scale": 15.27706228988197,
+   "BF01": 30.482751255049703,
+   "BF01_half_scale": 15.277062289881979,
    "BF01_double_scale": 60.92973951017168,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   },
@@ -213,9 +213,9 @@
    "supported": false,
    "prior_scale": 0.05738298597742231,
    "prior_source": "smallest supported T1 gain",
-   "BF01": 0.5203825464901376,
-   "BF01_half_scale": 0.3178261646653975,
-   "BF01_double_scale": 0.9849231160173851,
+   "BF01": 0.5203825464901375,
+   "BF01_half_scale": 0.3178261646653977,
+   "BF01_double_scale": 0.9849231160173846,
    "reading": "inconclusive"
   },
   {
@@ -239,8 +239,8 @@
    "supported": false,
    "prior_scale": 0.06154427899222481,
    "prior_source": "smallest supported T2 gain",
-   "BF01": 4.557782407243381,
-   "BF01_half_scale": 2.4910144639794667,
+   "BF01": 4.557782407243382,
+   "BF01_half_scale": 2.491014463979467,
    "BF01_double_scale": 8.885880912272722,
    "reading": "moderate against the hypothesis, estimate in the opposite direction"
   },
@@ -267,7 +267,7 @@
    "prior_source": "smallest supported T2 gain",
    "BF01": 0.20329976627194193,
    "BF01_half_scale": 0.261787350100135,
-   "BF01_double_scale": 0.26905539558650254,
+   "BF01_double_scale": 0.2690553955865026,
    "reading": "moderate for the effect"
   },
   {
@@ -281,9 +281,9 @@
    "supported": false,
    "prior_scale": 0.06154427899222481,
    "prior_source": "smallest supported T2 gain",
-   "BF01": 16.804374450373604,
-   "BF01_half_scale": 8.473135813385916,
-   "BF01_double_scale": 33.537192565202034,
+   "BF01": 16.804374450373547,
+   "BF01_half_scale": 8.473135813385886,
+   "BF01_double_scale": 33.537192565201934,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   },
   {
@@ -298,7 +298,7 @@
    "prior_scale": 0.06154427899222481,
    "prior_source": "smallest supported T2 gain",
    "BF01": 0.9307361593211821,
-   "BF01_half_scale": 0.5941422713047986,
+   "BF01_half_scale": 0.5941422713047985,
    "BF01_double_scale": 1.7315637202093666,
    "reading": "inconclusive"
   },
@@ -324,7 +324,7 @@
    "prior_scale": 0.06154427899222481,
    "prior_source": "smallest supported T2 gain",
    "BF01": 2.55298077677658,
-   "BF01_half_scale": 1.4588878822568367,
+   "BF01_half_scale": 1.4588878822568363,
    "BF01_double_scale": 4.912803389519631,
    "reading": "inconclusive"
   },
@@ -339,9 +339,9 @@
    "supported": false,
    "prior_scale": 0.05738298597742231,
    "prior_source": "smallest supported T1 gain",
-   "BF01": 15.297402536660144,
-   "BF01_half_scale": 7.703869225181778,
-   "BF01_double_scale": 30.53935551247198,
+   "BF01": 15.29740253666014,
+   "BF01_half_scale": 7.703869225181776,
+   "BF01_double_scale": 30.539355512471978,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   },
   {
@@ -355,9 +355,9 @@
    "supported": false,
    "prior_scale": 0.05738298597742231,
    "prior_source": "smallest supported T1 gain",
-   "BF01": 18.47512714796159,
-   "BF01_half_scale": 9.30520794909549,
-   "BF01_double_scale": 36.882081730125016,
+   "BF01": 18.47512714796151,
+   "BF01_half_scale": 9.305207949095447,
+   "BF01_double_scale": 36.88208173012485,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   },
   {
@@ -371,9 +371,9 @@
    "supported": false,
    "prior_scale": 0.05738298597742231,
    "prior_source": "smallest supported T1 gain",
-   "BF01": 27.68642482542447,
-   "BF01_half_scale": 13.8561116660207,
-   "BF01_double_scale": 55.35994696167108,
+   "BF01": 27.686424825424396,
+   "BF01_half_scale": 13.856111666020661,
+   "BF01_double_scale": 55.35994696167092,
    "reading": "strong for no effect"
   },
   {
@@ -387,9 +387,9 @@
    "supported": false,
    "prior_scale": 0.05738298597742231,
    "prior_source": "smallest supported T1 gain",
-   "BF01": 75.51719344382062,
-   "BF01_half_scale": 37.77316335922335,
-   "BF01_double_scale": 151.01981506756292,
+   "BF01": 75.51719344382103,
+   "BF01_half_scale": 37.773163359223545,
+   "BF01_double_scale": 151.01981506756368,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   },
   {
@@ -403,9 +403,9 @@
    "supported": false,
    "prior_scale": 0.05738298597742231,
    "prior_source": "smallest supported T1 gain",
-   "BF01": 61.91819328403762,
-   "BF01_half_scale": 30.976872990390582,
-   "BF01_double_scale": 123.81860079829116,
+   "BF01": 61.91819328403777,
+   "BF01_half_scale": 30.97687299039066,
+   "BF01_double_scale": 123.81860079829147,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   },
   {
@@ -419,9 +419,9 @@
    "supported": false,
    "prior_scale": 0.05738298597742231,
    "prior_source": "smallest supported T1 gain",
-   "BF01": 76.01216341827183,
-   "BF01_half_scale": 38.02111993381201,
-   "BF01_double_scale": 152.00928289798944,
+   "BF01": 76.01216341827225,
+   "BF01_half_scale": 38.02111993381223,
+   "BF01_double_scale": 152.00928289799026,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   },
   {
@@ -435,9 +435,9 @@
    "supported": false,
    "prior_scale": 0.05738298597742231,
    "prior_source": "smallest supported T1 gain",
-   "BF01": 88.70832375277459,
-   "BF01_half_scale": 44.36782710920277,
-   "BF01_double_scale": 177.40297796928996,
+   "BF01": 88.70832375277533,
+   "BF01_half_scale": 44.36782710920315,
+   "BF01_double_scale": 177.40297796929147,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   },
   {
@@ -451,9 +451,9 @@
    "supported": false,
    "prior_scale": 0.05738298597742231,
    "prior_source": "smallest supported T1 gain",
-   "BF01": 40.59351339441543,
-   "BF01_half_scale": 20.318993091455837,
-   "BF01_double_scale": 81.16477204016589,
+   "BF01": 40.59351339441547,
+   "BF01_half_scale": 20.31899309145585,
+   "BF01_double_scale": 81.16477204016594,
    "reading": "strong against the hypothesis, estimate in the opposite direction"
   }
  ],
