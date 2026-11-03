@@ -91,7 +91,7 @@ for s in SETS:
                                    "double": bf01(e, se, scale * 2)}
         r["share_of_ceiling"] = point[m] / ceil if ceil > 0 else None
         rows[m] = r
-    res[s] = {"people": int(P), "trials": int(y.size), "prior_scale": scale, "ceiling_R2": ceil,
+    res[s] = {"prior_scale": scale, "ceiling_R2": ceil,
               "S2_clear_above_S1": rows["S2"]["minus_S1"]["clear_above"], "models": rows}
 
 models = sorted(set.intersection(*[set(res[s]["models"]) for s in SETS]))

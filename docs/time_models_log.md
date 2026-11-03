@@ -97,3 +97,15 @@ What was seen. Fitting the satisficing sensitivity to time together with structu
 ## Frozen list, 3 November 2026
 
 Every model run in rounds 1 to 3, 24 fitted models and the calibrated versions of the 8 races, 32 in all. S1, S2, CL entropy, DbS entropy, MLBA entropy, sample until return looks, two look satisficing looks, LBA, MLBA LBA, Wald race, relative Wald, sample until return timing, Ceiling, S2+TLS, S2+SR, S2+CLH, TLS_tfit, Ceiling2, LBA_n, Wald_n, RWald_n, MLBA_LBA_n, S2+TLS_tfit, S2+Wald_n. In snacks in three seconds every race is conditioned on the deadline, as in round 2. The vault is opened now, twice for an identical second run, and evaluated by `scripts/time_models_vault_eval.py` with the key numbers recomputed by `verification/check_time_vault.py`.
+
+## Vault, opened once on 3 November 2026
+
+Both runs gave identical predictions for all 32 models in all eight sets. `verification/check_time_vault.py` recomputed every R2 and the bootstrap intervals of the key models against S2, largest difference 1e-15. Full results in `results/time_models_vault/` (second run `results/time_models_vault_run2/`, identical), table in `vault_table.md`.
+
+Satisfactory by the rule fixed before any fit. S2, two look satisficing looks (one parameter fitted to choices), two look satisficing with the parameter fitted to time, S2+TLS, S2+SR, S2+Wald_n and the calibrated LBA race with a growing threshold. Not satisfactory. Every fixed threshold race, every entropy law, sample until return looks and timing, S2+CLH, S2+TLS_tfit (below S2 nowhere but not clearly above S1 in Krajbich 2010) and both ceilings.
+
+Main observations.
+1. Two look satisficing, one parameter fitted to choices only, predicts time as well as the four feature structure law in snacks at a glance (+0.145 against +0.145, BF01 for no difference 18.7), snacks in three seconds (+0.111 against +0.112, BF01 11.3) and Krajbich 2011 (+0.088 against +0.088, BF01 12.2).
+2. Added to structure it is clearly better than structure in snacks at a glance, +0.162 against +0.145, gain +0.017 [+0.010, +0.024], Holm p 0.0002, dz 1.15, 80 percent of vault people better, 98 percent of the best ceiling.
+3. A race reaches the rule only with a threshold that grows with set size and a time slope (LBA_n_cal).
+4. In sums, our two sets and Folke 2016 no model, including the ceilings, explains time in the vault. Folke 2016 was positive in development and is negative for every model in its small vault.
