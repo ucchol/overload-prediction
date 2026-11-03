@@ -30,4 +30,6 @@ What the paper can and cannot claim.
 
 Suggested Methods text. "All confirmatory analyses followed a written plan kept under version control (ANALYSIS_PLAN.md in the public repository). The plan was frozen before the first test and extended only by dated amendments appended before each new test was run. We record the SHA-256 digest of the plan at every freeze, and every result file records the digest of the plan it was run under. For the tests of Amendments 7 to 12 the plan was pushed to GitHub before the results were created, which GitHub's own record confirms. The plan was not registered with a third party registry, and we describe these tests as planned rather than preregistered. Deviations are listed in Supplementary Table X."
 
+Commit history rewritten on 3 November 2026. Author names on every commit were changed and commit IDs changed with them, while files and commit times were not. The freeze commits in the table above are therefore found under new IDs through `docs/provenance/commit_map.tsv`, and GitHub's push record for the original IDs is kept in `docs/provenance/github_activity.json`. See `docs/provenance/README.md`.
+
 Recommendation. Before submission, deposit the current repository on OSF or Zenodo with a DOI, so that the whole history has an independent timestamp, and say plainly that this deposit postdates the tests.

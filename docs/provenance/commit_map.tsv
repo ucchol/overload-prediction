@@ -1,0 +1,97 @@
+old_commit	new_commit	commit_time_utc	subject
+032993ec23858a129a3382d1323263baaa472e45	6789d96c3decf59d87218b026eb3b1840cb75398	2026-11-02T09:48:50+00:00	Comparison script for the blind Amendment 12 check, point values agree within 4e-10
+0628deefd6331a7a9a9628f286b402cd7cd77039	ac6a2b2a009a0690f862d4a0d8135065b79f210a	2026-11-02T19:55:40+00:00	Main figures 1 to 5 with draft captions
+0667dad049b4f9e9f2e97258d8592c7e07130200	52ba721b3b4d209d2b2a45149b273d9f8a116258	2026-11-02T11:27:09+00:00	Separate check of participant-level H3 values (max difference 3e-17)
+0871d09c8c1ed65735383c39075879d4acb3b554	84ebd7670635eb340e1ade8090d5eed5afaf9e9f	2026-10-09T12:02:46+00:00	Exploratory laptop rubric sensitivity, verified twice
+098a158c0a94ff4193d3fd6980d5f1a47a4dbde8	607750341d891e25d4721b6c60cb7b2fd34f1120	2026-11-01T10:09:08+00:00	Blind reimplementation of H3 test A3b (Amendment 9), original sample and 50 replicates, point values agree with the package to 4e-7
+0a2939d45ca0bbddfa497fc94e34267a8a02bfa2	0c08decda4915c709a4c547cf4e8c7af99d3ba44	2026-11-01T11:13:31+00:00	H3 test A3b run twice and verified blind. Not supported, the filename cue lowers held out completeness
+0deb780f52b6f20b0420643cc6dc44fc0df690fe	1d68cbb8e285aa8c25cad6ebe4b33bd00bb68775	2026-11-02T05:28:50+00:00	STORY. H1 within and H2 return rule results
+0ebc8236306f93b7054ff62dbd2192b56542fc4b	c663ef39e3565b52e737455f8dc5bea416ea08ce	2026-11-01T04:38:17+00:00	Snack, held out overload forecasts with every model including mixed logit (first run of two)
+0f62b063a4d6287b650e11fdecab628f86a22f7c	6c9d641836542fb8577f29edbda8584129f2f3d0	2026-10-09T11:48:17+00:00	Lint the whole repository except archived verifier code and notebooks
+1288db7e69d0377a4a63c9104e4e2bd35d877ebb	1a5345f388d7ee3d5f81935a1931ae5659544c26	2026-10-14T15:05:34+00:00	Search model on the snack data (Amendment 5), run once and verified twice
+15328bf9be558aaa12e03a5babe365fa20b34788	6452b35b512483f8d7ea82d87ad67316c8a28cfb	2026-11-01T07:31:04+00:00	Second runs of development, held out and fitted stages, identical to the first apart from timestamps and run time
+1946ac9df4aff06d4ea91e7ad09cc36051969b9a	2b68b0e1e3e0bcf716f752b71c206eb17f670f18	2026-11-02T07:58:18+00:00	STORY. Future work left open until the end
+1997dcb60462f5f9f142efb0d98a52a49e717197	9e176ee4a7682706ed0d142d3432d9bf3e1650ad	2026-11-01T02:21:57+00:00	CDM and Reutskaja, fitted overload predictions with every model including mixed logit (first run of two)
+1c7930551993700d039ce5612934326e9de123af	299396e36c7e139502ca387d3d0d1acc91a2df1a	2026-10-09T10:42:53+00:00	Fix colliding seeds of sampled effective numbers, before any H1 run
+1cb684b1ba3dce818570c91a86e422280a0cdea0	f8c12665653f335c4c99a982b32c7f00cdc0e910	2026-11-02T11:26:48+00:00	Individual-level and model recovery results, second runs identical
+21b822fcaf90c5b49d6ff80e81dcd48872a5ce27	92091892c5923f9183a8bc061762c7a6171c9fe1	2026-10-14T17:41:22+00:00	Withdraw the per step time argument, report fitted time laws instead
+23bf70e1a14283b17d3eb7d6f51328518448a492	5e3bf78e70e16d8b7ebd31ac3e2da93253110e75	2026-10-30T06:20:46+00:00	Stopping rule test on the Caplin, Dean and Martin data, code before the freeze
+2587fd4c222c25909150ade582297e953283229b	306e377a6384169bd121cef8376e60ab5161ff83	2026-11-01T12:21:14+00:00	Ignore partial chunks of runs in progress
+261d212ffd3458fc7a1847a16ef9f2f749b9a3b5	17fc031ae6ce746f0a7219db770f8541f952a345	2026-10-31T09:31:32+00:00	Behavior against felt overload, and the overload tests revised before the freeze
+264ae914dd713bf9c1ce93677505201632792878	fa4247653479a14f6035999e899b9a14ec81f2ac	2026-11-02T05:29:22+00:00	Notebook sections 17 (H1 within) and 18 (H2 return rule)
+27c6137c8753d34f5d853c67c10805209a5c59b6	3dcdde361a7d9d31d72f6da1d3726ea0d3f0c19a	2026-11-02T03:29:32+00:00	Blind reimplementation of H1 within, work in progress
+2bef592d9ecd90c3c58c40e2ff849ad03075a345	614d2b2436dbdb7da16e008f4b7d0cf9037c7279	2026-10-09T11:47:52+00:00	Verify R0 and H1 by a second run and an independent reimplementation
+326cef615dc7369357e1ed8a9c06fd7ba2556945	33ac95b13ef6b82acb68171e48b3ce0ffc4988ad	2026-10-15T02:49:41+00:00	Amendment 6 results, run once and verified twice
+3280af81e3dadddc1b1b734d1c90651de991c7aa	249e4b17143cddfe3e0000a9eecfccf47e8b6fa7	2026-10-09T10:40:25+00:00	R0 baseline and plan Amendment 1
+3500d3c963afaba8ffcf9fd8d99f09b1b6a993ba	8119e39761c3d02a6ad274d4601eb465052f6737	2026-10-31T19:16:23+00:00	Add mixed logit (random sensitivity, population average) and choice accuracy to every overload comparison
+3ace260976ebcaae372eb6866c115f4f1ff8918e	8a478162337a3fe85080f802513675b2b32cce2c	2026-11-01T10:00:00+00:00	Amendment 9 frozen. Independent GloVe filename cue for H3 test A3b, H4 set aside for a separate paper
+406a7bb37073bef49c404d1aff76e0f9ae7a2d34	af7dd9c977b2f10827fa396c9f3bcc4ae92c4d3e	2026-11-02T03:00:04+00:00	Amendment 11 frozen. H2, the return rule on snack and Reutskaja gaze sequences
+41d8357f7ee26717305e14165508b16dadafb6ff	731081a27a8b027bac5c096b8c908e312b5ab015	2026-11-02T09:35:13+00:00	Robustness of the overload measure (first run), participant level and recovery scripts, blind time check in progress
+4974bb717b62f3646c3c8a38bc801c44c4da918d	7f65abe390dc037271b57dd76fda0432b96e1665	2026-10-31T09:40:44+00:00	Amendments 7 and 8 frozen, before the run
+4e882249f4461a82f166f492aa74566dd486bdcd	4fa32751c23fc5fbed61dc631f052bcefb415da5	2026-10-10T02:56:43+00:00	Prepare the repository for GitHub
+510fc00eecfc4a653d18cad1480b2838a6feab5c	354e36d731f144b678b1b4ff7b0c4fc114c98f54	2026-11-02T05:14:31+00:00	Blind check of H1 within agrees within 7e-9 on all 42 measures
+511a3bf85171c5f05d7bcae34bd995d46fd1ae18	e10ccad3fd448d03c3dff03c4930a7c5efcf1e79	2026-10-31T10:29:30+00:00	Amendment 7 verified twice: blind implementation archived, STORY entry
+5316a4963ff9964452c40eca344da7726589b75f	155be56e78dc9539b5d8b96a5704bdf67681a48e	2026-10-14T14:19:56+00:00	Plan Amendment 5 and its code, the confirmatory search model tests on the snack data, before the run
+53bc3b7844c5b11a5bd224863cb906a8ddb4957c	0154bdf6c3b1d8b97df57aa457099902b9aac57e	2026-10-09T10:50:52+00:00	Colab notebook for the baseline and H1
+543f06900a7f8e092914457bed9c77dfdcf741bb	ca382b6780ad8bbc24a12b4c2c71778cec4b0119	2026-11-02T09:39:16+00:00	Overload measure robustness, second run identical, people rows checked by separate code
+58c8d8a48ffa930c8cb8a1a6255b163c4c3d5524	086cb473af71486888425d038b1e5a285dfe4cc1	2026-11-02T06:28:40+00:00	STORY. Decisions on H1 and H2 after their tests
+58cbe969a43db71266152acee7ea0f0a284440fe	4206bbecb21625f22fe63b99da4603e77305af7d	2026-11-02T05:27:43+00:00	Blind reimplementation of H2, the return rule (Amendment 11), B = 50
+5978fff2d5ab16ef89a297245cb6c8b863034547	d74dd8d53b8f84934ba5e1db3aed587b1b2175dc	2026-11-02T09:47:42+00:00	Blind independent Amendment 12 time check, results with B = 20
+5d07ed4af4ff4c3efe03a571cc082654b585171a	6ddf79539a916c697de7ddc05f8869a025cd9d1d	2026-10-31T18:36:50+00:00	Fitted predictions of overload next to held out ones (exploratory), all four datasets
+603199447d2d8a5cb9ec3b00aae531da87ea10cb	7dd4c19ed8f85288e74995ddbddb436e3bb5054e	2026-11-02T14:10:01+00:00	Amendment 12 time results, second run identical, blind check within 2e-9
+630946b00452843a950dcd557e6265d532819c85	d552fc1944e12df6d083347a2c973e8c8282ef48	2026-10-31T11:31:33+00:00	Amendment 8 verified twice, recorded in STORY; exploratory DbS and MLBA forecasts
+65747969f97499121de2e4b92d2a96e248ba29dd	4090825455d6b9b86057a0d931a1716d88af00b8	2026-10-09T12:57:56+00:00	H1 confirmatory on the open snack data, run once and verified twice
+6b65d3724ba13c4a05d130d2f6bb6607bd0baf7c	30c0640640a85c5823fddd6d04800ec3e517c1b7	2026-10-14T03:31:14+00:00	Laptop results after Amendment 4, verified twice, and the research program
+71c48a473203ea88cd0254f02932449432575aed	ecf2a07f818db9c51ecc2c1036aac2d5a635c168	2026-11-02T19:52:39+00:00	Separate check of participant-level H2 shares (identical)
+76e7318dce4c795186f0aa84272a12280b0b8ba5	fd4cccbd575df7312c170ce5316c125fdd900f6e	2026-11-02T20:08:49+00:00	Preregistration audit, plan freezes against runs and GitHub push records
+780b36c0f6c3cc53f4a977424627ce2be2bf499f	ac3ac6b4d8450a0578a1b35864fcd1a4ea0f8de5	2026-11-02T07:31:42+00:00	H1 within checked against the paper, misses split into default and wrong lottery (exploratory)
+79e2e86c9abca42a55a20a817c8f820ea57f2831	23381a1d1bec522a7244fdbd93b020b0ed612035	2026-11-01T14:25:31+00:00	Report of fitted and held out overload forecasts for every model (snack fitted pending its second run)
+7c3663a65b57a6f746d7526df48b3195d167cbf4	f2aa86a68b16213744f5e3f4480e9f152fac173b	2026-10-09T12:16:05+00:00	Confirmatory H1 code for the snack data, written before its run
+80cdb661f2eedd7885b043aabd08c7fa51e6e478	a124667cbc4fa13d80ed7a03586d4cc5ddd680c7	2026-10-31T19:55:03+00:00	Archive the blind check of mixed logit and the fitted overload forecasts
+85aca6822dabd792f66b3ebaab709db6bdf76963	c443f0ef3aa55961909aa862afd24ef8c6928e58	2026-10-09T12:03:02+00:00	Plan Amendment 3, the confirmatory H1 test on the open snack choice data
+87b54b01239f52efae8d7adb7d64198e2be075cb	6052cb16879dc1b6e23ce64ea1dc918ddcdf6e7d	2026-11-02T07:00:39+00:00	H2 second run identical to the first
+894481899baa24a8a0ceeeb59812d1e5b4520ac6	04ccb0f25372ce287fa917ef1cd580796b546097	2026-10-31T10:22:17+00:00	Amendments 7 and 8, single run of the package, verification in progress
+8d68297a89c97e6fd29576441c14514e56241600	3ffd55c3c768f1856d65f37755f166d9d2965336	2026-10-15T02:50:50+00:00	State the DbS and MLBA comparisons on the gaze data as pooled
+938422a64d6e6684357fd5fb784e2fa9b4ffdfb8	2af9ebdc48f8a14089534fab8472b6aec607ceb3	2026-10-09T10:50:22+00:00	H1 figure
+93ca6ddb1c37ec5b17490f15b7634eacf16dea2b	12db00a96cbebf59f3a6f9f0591854ef6a70b603	2026-11-03T00:39:41+00:00	Prepare the Zenodo deposit, update README status, add citation metadata
+95090217e288064f0ba6f819bd50d32e0a49054d	c6b317db016df770892dc95889612d94c4f4c97f	2026-10-14T10:26:46+00:00	Overload index, decision time, search models and premonition (development data, exploratory), verified twice
+98d74084c468002dfe02a0e4fc9eb34a6007c491	5eecc176afcc88667ad37b6d01628ff58487e4b8	2026-11-02T05:00:33+00:00	H2 return rule, first run (Amendment 11). Not supported in either dataset
+99cdbd433782475c0df380752dc4f359bf1dba73	06927863d19e4791460f120122534998ef442840	2026-11-01T14:43:34+00:00	Snack fitted second run, identical to the first
+9b834dc0c5f56f5379173651d7990292b5c94f39	19946a456ef6e9cd03b9d41edd500828aa059492	2026-10-09T10:48:27+00:00	Story wording on the noise result
+9d325ac0e1a751f8528bb96c670607ab7498380f	ef45bdfd7ec87b23364a8c6051386c1ce5cfe7ed	2026-11-01T14:44:07+00:00	Notebook sections 15 and 16, fitted vs held out overload forecasts for every model and the H3 test, STORY and verification log updated
+9e18562340efdd56be18b7d25e57d1311985deb2	09b9c0446ab1552a144ef8bec73c3fb75fa9b875	2026-11-01T10:21:36+00:00	Chunks of ten replicates, saved as they finish, for the premonition and A3b runs, so restarts lose little
+a0852f758663d881876049e1cdbc03e042f7f3d5	46d828b324041c238184768c42bbdf4676a7dc4b	2026-11-01T10:02:49+00:00	Premonition runs save finished chunks and resume after a restart, replicates unchanged
+a1039d6551d996a79ae1108092a48eb1377f0b6c	ca40dfda2817bb7d7298178b94f9509f94d631dd	2026-11-02T02:41:40+00:00	Amendment 10 frozen. H1 within one study on the cost of judging (Aguiar et al. 2023)
+a409ce433293838f63ab4daab341e82a3672923e	62216093715620403a5af9ba4eba9ccc099688ee	2026-11-02T05:28:28+00:00	Blind check of H2 return rule agrees within 5e-8 on 29 measures
+a6cb5c5748d8d3143877e066d8c520da2291ff86	bfe48af084bcb8dfd089005b3cfce683a5dc2317	2026-10-15T01:53:19+00:00	Amendment 6 and its code, before the run
+a947da17f5809207d4294e5a2d838fefea4bc639	9bb0175e1b4fac448525a1e21e7109a7398acdce	2026-10-31T09:17:28+00:00	Overload forecast test (Amendment 8) and Amendment 7 updates, code before the freeze
+a9b809afcdb2bed495a17c0a99061c3ca68df651	daaf34b3ff303d85387b257ac239b88aa696a541	2026-11-02T03:29:14+00:00	H1 within (Amendment 10) run twice, identical. Not supported, misses grew less with set size at high cost
+acbc2705d27bf2e55ab9281d163ecead8e870f06	e27ddfa57b2acb46f0a03cf0cab5abde315a1c1e	2026-11-01T14:24:58+00:00	Snack held out second run, identical to the first apart from time and the plan digest (Amendment 9 added in between)
+ae3ecc7dfdbdb6b0dd7b3068620d421f711eefea	91b06d9457ff1958265fc1c03d47e1dd2d321441	2026-11-02T02:28:32+00:00	Verified citations for the search model
+b46dd8a92a30cb7a9672edd4d7cc3013b0878f65	11cba045ea122e74c3566af8277ca93fbdd020f0	2026-10-31T18:37:01+00:00	Format figures module
+b5e383aa2cc1625b4da0d9da60aa84c258336f3a	7f0d043079172980c6181db3fceea5a8b522bf04	2026-10-10T02:58:22+00:00	Amendment 4, correct the laptop definitions of trials 5 and 6 from the study's storyboard
+b6b13ace47c9f66c010d46d2c16efa832ebba2c2	11dcea80ec50fc1b68adf230b8fd79059bfbb38a	2026-11-02T20:09:25+00:00	STORY and verification entries for robustness, participants, recovery, time, figures and audit
+b85286fe7e7e35a906ab55794289fc04c05b77eb	927b280b0af20fba07960ee867e7d02da309b903	2026-11-02T09:37:18+00:00	Ignore in-progress partial result files
+bc46d78b02af99af98ed690bc83b572a1f3b36ba	3d3ede3ed2bf56cdc4ead07c3ae6503da23dba15	2026-10-31T21:32:20+00:00	CDM and Reutskaja, held out overload forecasts with every model including mixed logit (first run of two)
+bd93f66c491d7f9a0c29e21c7cfdd69f76de2630	0dcd6961b48af589f024c5a4853ea88b6deb3ddc	2026-10-09T10:42:30+00:00	Plan Amendment 2 and the H1 experiment, before any H1 test
+c00f276105559660f70bb056301d8d4993ee8c28	ab64fb732f7a9b72ecf27fdd5a80563af5228ba8	2026-11-02T09:30:19+00:00	Amendment 12 frozen (decision time from trial structure). Deviations table, detectable effects, H1 synthesis figure and equivalence, completeness positioning
+c2f20f95e80410b83a115a7102c081f9da00e138	0d12257138c43da703329fd1b6936687ff6883ec	2026-10-15T01:42:33+00:00	Two look satisficing on the snack data, exploratory, verified twice
+c9926686edde702053d483c3df1898f0fac25754	60a7d3e7e762f9cb54734ce39cb9e5d51f350570	2026-11-02T02:33:59+00:00	Search for a within-study cost of judging dataset, with a fallback study sketch
+ca06e3fc27030d9af5f5449697f69400703e280c	987e6f87462a686c344ca554919937240e32899d	2026-11-03T00:36:05+00:00	ML ceiling results, run twice and checked separately
+cf67c009fb54fbec5a5147b0151a3eaba7ddfc5d	a249124322b4db1559b1d6c4ac6e417a2686146c	2026-11-02T02:17:48+00:00	Paper structure reduced to three hypotheses (when overload appears, the search process, forecasting overload)
+cfa9d595d3edde69867add1307ebf081239c8871	5ede88fa7e991a716a283f803d919ec0aed5bf8b	2026-10-09T10:34:55+00:00	Freeze analysis plan v1.0 and rebuild the core pipeline
+d0e6706d0e282ae3c58d6d6ec5fb02a2e092b737	8feb61fa7969458c393b185aeb026499c6868454	2026-11-02T21:56:27+00:00	Record the two ML ceiling deviations
+d6c285d79c9088dcb61d52e4407bb69cc0ef6530	0e121633b803c3121eb4e380a759ad5b20975596	2026-10-31T20:29:06+00:00	Development data, fitted and held out overload predictions with mixed logit (first run of two)
+ddc70b96b6ba79e6a1f40ddfcef255bb983635ac	b3bd160f4ec56df51ad8ce3bd902b57b255a9892	2026-11-02T21:55:57+00:00	ML ceiling, resample participants within each source group in the bootstrap
+e216ebd6cc715547fc90333cbd1d604799011df2	46938b4f95bbadcbec43ce9690329716c13aba71	2026-10-31T10:32:07+00:00	Overload forecast figure, blind Amendment 8 implementation archived
+e5c67036df9de734fe9cb4b4a00c6791ddd65237	4660872e63033426f5614bc799b8ae3fc1d73c9f	2026-11-02T20:10:41+00:00	Notebook sections 20 to 25 with outputs
+e8a45a65ae5ab2fae997f6266cabc3bb20db838b	d508eb30cf2de7843d787474a307b6497a70eda8	2026-10-09T10:48:14+00:00	H1 results on the development data
+ea3c5946a5a1da200d374d68bcf12ab14715d1c3	10191af089917ef13e19ca695cdbf86bc2946645	2026-10-31T12:41:59+00:00	Notebook sections 12 to 14 (stopping rule, overload forecast, summary), overload figure, README
+ee0ee5787a1816fd5c829dd13e5af97222842174	9118153a7e99a1898980737279516ef8e1953804	2026-11-02T09:34:44+00:00	STORY. Review items, first part
+f1fd8bee08ce2b81fbb9b1e240ba25bef40e18f8	8db3709f8cbb2056f7d2b3cf666fefc85a74571d	2026-11-01T05:30:28+00:00	Snack, fitted overload forecasts with every model including mixed logit (first run of two)
+f3626f3382b46053ae82d207b201eaa1e8a1b0ca	80aeee4a1b69e51913fe30ebc69d1305ab222ac7	2026-10-31T09:45:44+00:00	Add DbS and MLBA to the overload forecasts as an exploratory option
+fa6dae71489be0a5a1202feabb019ec5005cbc5f	25ce2a2bab1c4422de6f78d4e2972f05ac5a46e9	2026-11-03T00:36:26+00:00	Notebook section 26, ML ceiling
+fd6a395096592b1267769a45be13a4e7c03baa81	8101e396af559ab262bae93cfdf8937bdcc29e2a	2026-11-02T02:28:48+00:00	Simulation of the return rule test on the real snack displays (draft, simulated choices only)
+fe902ba8407a711b5a598647b4edb4b3d941d1b7	6f4c2f54528216171cc472c242d97e8e361a35c8	2026-10-14T15:07:06+00:00	Word the level gap of search as two possible causes
+ff901e2d609487bc0f6cfc19ca8fcffa14b1f9dd	335f2d09138e16425b7f4e0e22da1d79e23ef5b3	2026-11-02T20:18:45+00:00	Machine learning ceiling script and its separate check (runs in progress)
+ffd921f56d1bb926b59b7cac345ff7309e7ab07c	3c1e51b618761882308f65e74f2461c28f10b366	2026-11-02T19:56:31+00:00	Plan for the machine learning ceiling, fixed before running
