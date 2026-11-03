@@ -1,0 +1,92 @@
+[
+ {
+  "dataset": "snack",
+  "contrast": "CL minus network",
+  "mean_bits": -0.01990866531290685,
+  "estimate": -0.01990866531290685,
+  "clustered_se": 0.010038079895716702,
+  "p": 0.04733235630153795,
+  "cohen_dz": -0.28243127660221523,
+  "share_people_below_ceiling": 0.5918367346938775
+ },
+ {
+  "dataset": "snack",
+  "contrast": "SR minus network",
+  "mean_bits": -0.02627884995673474,
+  "estimate": -0.026278849956734747,
+  "clustered_se": 0.012043995284123636,
+  "p": 0.029116566661744447,
+  "cohen_dz": -0.3116437840137397,
+  "share_people_below_ceiling": 0.5918367346938775
+ },
+ {
+  "dataset": "snack",
+  "contrast": "GBM minus network",
+  "mean_bits": -0.03240327521772617,
+  "estimate": -0.032403275217726166,
+  "clustered_se": 0.00542065440000582,
+  "p": 2.2625123275070167e-09,
+  "cohen_dz": -0.8355517271161453,
+  "share_people_below_ceiling": 0.8571428571428571
+ },
+ {
+  "dataset": "reutskaja",
+  "contrast": "CL minus network",
+  "mean_bits": -0.021756449179729277,
+  "estimate": -0.021756449179729284,
+  "clustered_se": 0.008589683718877687,
+  "p": 0.011313677244048507,
+  "cohen_dz": -0.3961221554921575,
+  "share_people_below_ceiling": 0.6097560975609756
+ },
+ {
+  "dataset": "reutskaja",
+  "contrast": "SR minus network",
+  "mean_bits": -0.02932473675486525,
+  "estimate": -0.029324736754865265,
+  "clustered_se": 0.009973661308740157,
+  "p": 0.0032798158607396056,
+  "cohen_dz": -0.4583887034321886,
+  "share_people_below_ceiling": 0.6097560975609756
+ },
+ {
+  "dataset": "reutskaja",
+  "contrast": "GBM minus network",
+  "mean_bits": -0.020141048344393384,
+  "estimate": -0.020141048344393397,
+  "clustered_se": 0.007331705734246152,
+  "p": 0.0060121810763640446,
+  "cohen_dz": -0.4273896780434252,
+  "share_people_below_ceiling": 0.6585365853658537
+ },
+ {
+  "dataset": "cdm",
+  "contrast": "CL minus network",
+  "mean_bits": -0.20833561038444676,
+  "estimate": -0.20833561038444687,
+  "clustered_se": 0.022594801627614514,
+  "p": 2.9568848552874836e-20,
+  "cohen_dz": -0.9371244372518801,
+  "share_people_below_ceiling": 0.8686868686868687
+ },
+ {
+  "dataset": "cdm",
+  "contrast": "SR minus network",
+  "mean_bits": -0.2038213452896965,
+  "estimate": -0.2038213452896966,
+  "clustered_se": 0.021894568671670066,
+  "p": 1.2877516018470161e-20,
+  "cohen_dz": -0.9632909968761875,
+  "share_people_below_ceiling": 0.8888888888888888
+ },
+ {
+  "dataset": "cdm",
+  "contrast": "GBM minus network",
+  "mean_bits": -0.45350020706648675,
+  "estimate": -0.45350020706648697,
+  "clustered_se": 0.11733396643870116,
+  "p": 0.00011107202931604591,
+  "cohen_dz": -0.4263993960602204,
+  "share_people_below_ceiling": 0.6666666666666666
+ }
+]
