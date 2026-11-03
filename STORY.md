@@ -474,6 +474,18 @@ Decisions. T1 supported in four of eight sets, T2 in three, T3 in none. Reading.
 - Figures 1 to 5 (`results/main_figures`, `scripts/main_figures.py`, draft captions in `captions.md`). The datasets, H1 (the synthesis figure), H2, H3 and time. They read stored results only and reproduce byte for byte on a second run.
 - Audit (`docs/preregistration_audit.md`). All thirteen plan digests match the plan at their freeze commits, and every confirmatory result names the frozen digest and was created after its freeze. GitHub's own push record confirms the order for Amendments 7 to 12. For Amendments 1 to 6 (before the first push on 15 Oct) the order rests on our own times. The tests are to be described as planned under version control, not as preregistered with a registry.
 
+### 3 Nov 2026. A machine learning ceiling for completeness (exploratory, plan fixed before the run)
+
+`results/ml_ceiling`, plan in `docs/ml_ceiling_plan.md`. Following Fudenberg et al. (2022), a flexible model fitted to the same held out folds bounds how much of the predictable signal a theory captures. Two flexible models were fitted on nine features of each option (value, gaps to the best and the mean, rank, position, the share of near best options, set size). A neural network (16 tanh units, softmax over the trial's options, penalty chosen by inner folds) and boosted trees. The ceiling is the better of the two, which was the network in every dataset. Held out bits per choice above a uniform guess, participant bootstrap without refitting.
+
+| Dataset | CL | Sample until return | Ceiling (network) | CL, percent of ceiling | Sample until return, percent of ceiling |
+|---|---|---|---|---|---|
+| Snacks at a glance | 1.935 | 1.928 | 1.955 | 99 [98, 100] | 99 [97, 100] |
+| Snacks in three seconds | 0.711 | 0.703 | 0.732 | 97 [95, 99] | 96 [93, 99] |
+| Sums worked out | 1.951 | 1.954 | 2.153 | 91 [88, 93] | 91 [89, 93] |
+
+Reading. On both snack datasets the one parameter models reach nearly all the signal any of these features can carry, so better choice prediction is not where the room lies. In the worked out sums about a tenth of the predictable signal is left, which fits H1 (where judging is costly, choices depend on more than the values) and the sums being the one dataset where overload outgrew every forecast. Shares are upper bounds on completeness. Second run identical, the crashed first run saved the same trial scores, and a separate CL refit agrees within 3e-7 (two deviations recorded, the seed scheme and the bootstrap pool).
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.

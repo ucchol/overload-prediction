@@ -167,3 +167,9 @@ Issues the reimplementation raised about Amendment 3.
 ## Main figures, 2 November 2026
 
 - `scripts/main_figures.py` reads stored results only. A second run reproduced every PNG byte for byte.
+
+## Machine learning ceiling (exploratory), 3 November 2026
+
+- Second run. `summary.json`, `table.md` and `trial_scores.npz` byte identical. The held out trial scores also equal those saved by the first run, which crashed in the bootstrap before writing a summary.
+- `check_ml_ceiling.py` refits CL with its own likelihood and Nelder Mead on folds it rebuilds (largest difference in trial scores 3.1e-7, optimizer tolerance) and recomputes every point value of the summary from the trial scores (5.7e-14).
+- The network and boosted trees were first checked on simulated choices from CL and from sample until return over a real sums panel, where the network came within 0.02 bits of the generating model.
