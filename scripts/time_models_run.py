@@ -63,7 +63,20 @@ def fit_predict(name: str, tr: tm.Trials, te: tm.Trials, opts: dict) -> tuple[np
         base = name.replace("_cal", "")
         kind = RACES[base]
         dl = opts.get("deadline")
-        if opts.get("warm") and kind.endswith("_n"):
+        if opts.get("warm") == "repair" and kind.endswith("_n"):
+            # deviation of 5 Nov 2026, keep the original cold fit when it passes the nesting check, otherwise the
+            # warm start fit from the converged fixed threshold fit with gamma = 0.02, if that passes and is finite
+            R0 = tm.Race(kind[:-2]).fit(tr, starts=opts.get("starts", 3), eps=opts.get("eps", 0.0), deadline_s=dl)
+            R = tm.Race(kind).fit(tr, starts=opts.get("starts", 3), eps=opts.get("eps", 0.0), deadline_s=dl)
+            nll_fixed = R0.nll
+            extra_fit = {"nll_cold": R.nll, "chosen": "cold"}
+            if R.nll > R0.nll + 1.0:
+                th0 = np.r_[R0.theta[:-1], np.log(0.02), R0.theta[-1]]
+                Rw = tm.Race(kind, th0).fit(tr, starts=opts.get("starts", 3), eps=opts.get("eps", 0.0), deadline_s=dl)
+                extra_fit["nll_warm"] = Rw.nll
+                if Rw.nll <= R0.nll + 1.0:
+                    R = Rw; extra_fit["chosen"] = "warm"
+        elif opts.get("warm") and kind.endswith("_n"):
             # warm start (deviation of 5 Nov 2026), from the converged fixed threshold fit with gamma = 0.02
             R0 = tm.Race(kind[:-2]).fit(tr, starts=opts.get("starts", 3), eps=opts.get("eps", 0.0), deadline_s=dl)
             th0 = np.r_[R0.theta[:-1], np.log(0.02), R0.theta[-1]]
@@ -83,7 +96,7 @@ def fit_predict(name: str, tr: tm.Trials, te: tm.Trials, opts: dict) -> tuple[np
         if nll_fixed is not None:
             extra["nll_fixed"] = nll_fixed
             extra["converged"] = bool(R.nll <= nll_fixed + 1.0)
-            if opts.get("warm") == "best":
+            if opts.get("warm") in ("best", "repair"):
                 extra.update(extra_fit)
         if opts.get("bits", True) and not name.endswith("_cal"):
             extra["bits_te"] = (R.choice_log2(te) + np.log2(te.n)).tolist()
@@ -94,6 +107,9 @@ def fit_predict(name: str, tr: tm.Trials, te: tm.Trials, opts: dict) -> tuple[np
         b = tm.lsq_center(E(tr)[:, None], tr.logt, tr.pid)
         extra["slope"] = float(b[0])
         et = E(te)
+        if opts.get("warm") == "repair" and kind.endswith("_n"):
+            extra["finite"] = bool(np.all(np.isfinite(et)) and np.all(np.isfinite(E(tr))))
+            extra["converged"] = bool(extra["converged"] and extra["finite"])
         extra["cal_pred"] = et * b[0]  # calibrated version from the same fit
         return et, extra
     if name in ("S2+TLS", "S2+SR", "S2+CLH"):
@@ -217,7 +233,9 @@ def main():
     ap.add_argument("--sets", nargs="*", default=list(SETS))
     ap.add_argument("--models", nargs="*", default=MODELS_R1)
     ap.add_argument("--eps", type=float, default=0.0)
-    ap.add_argument("--warm", action="store_true", help="warm start the rising threshold races (deviation of 5 Nov 2026)")
+    ap.add_argument("--warm", nargs="?", const="warm", default="",
+                    help="warm start the rising threshold races, or 'best' to keep the better of the cold and warm fits "
+                         "(deviation of 5 Nov 2026)")
     ap.add_argument("--out", type=Path, required=True)
     a = ap.parse_args()
     np.seterr(all="ignore")

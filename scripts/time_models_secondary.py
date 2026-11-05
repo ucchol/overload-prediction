@@ -55,7 +55,7 @@ def main():
     ap.add_argument("--skip_b", action="store_true")
     ap.add_argument("--sets", nargs="*", default=SETS)
     ap.add_argument("--models", nargs="*", default=MODELS, help="models for the unseen set size part")
-    ap.add_argument("--warm", default="", help="warm start the rising threshold races, 'best' keeps the better of the cold and warm fits (deviation of 5 Nov 2026)")
+    ap.add_argument("--warm", default="", help="warm start the rising threshold races, 'repair' keeps the cold fit unless it fails the nesting check (deviation of 5 Nov 2026)")
     a = ap.parse_args()
     np.seterr(all="ignore")
     a.out.mkdir(parents=True, exist_ok=True)
@@ -124,7 +124,8 @@ def main():
                     if "converged" in e:
                         conv.setdefault(m, []).append({"size": int(s), "converged": e["converged"], "nll": e["nll"],
                                                        "nll_fixed": e["nll_fixed"], "nll_cold": e.get("nll_cold"),
-                                                       "nll_warm": e.get("nll_warm"), "chosen": e.get("chosen")})
+                                                       "nll_warm": e.get("nll_warm"), "chosen": e.get("chosen"),
+                                                       "finite": e.get("finite")})
                     outs = {m: yhat}
                     if "cal_pred" in e:
                         outs[m + "_cal"] = e["cal_pred"]
