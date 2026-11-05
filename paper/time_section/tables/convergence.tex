@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Negative log likelihood of the vault fits of the two rising threshold races, on the training participants. Fixed is the nested fixed threshold race (ten starts for LBA, three for MLBA LBA), Frozen the fit of the frozen run and Final the fit used in this section. A rising threshold fit can never be worse than its fixed threshold version at a true optimum, so a frozen fit worse than the fixed one by more than 1 failed (dagger). For LBA, Final is the best admissible fit of the fuller search in every dataset, with its $\gamma$, which is not identified in the two and three option datasets because set size never changes there. For MLBA LBA, a frozen fit was replaced only where it failed, by a warm start refit that passed the check.}
+\label{tab:convergence}
+\begin{tabular}{lccccccc}
+\toprule
+ & \multicolumn{4}{c}{LBA, rising threshold} & \multicolumn{3}{c}{MLBA LBA, rising threshold} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-8}
+Dataset & Fixed & Frozen & Final & $\gamma$ & Fixed & Frozen & Final \\
+\midrule
+Our study, files & $1{,}448$ & $1{,}417$ & $1{,}417$ & $0.55$ & $1{,}450$ & $1{,}421$ & $1{,}421$ \\
+Our study, laptops & $1{,}300$ & $1{,}263$ & $1{,}263$ & $0.60$ & $1{,}298$ & $1{,}264$ & $1{,}264$ \\
+Snacks at a glance & $17{,}143$ & $164{,}548$\textsuperscript{\dag} & $16{,}986$ & $0.26$ & $17{,}290$ & $16{,}781$ & $16{,}781$ \\
+Snacks in three seconds & $3{,}599$ & $3{,}540$ & $3{,}540$ & $0.42$ & $3{,}580$ & $3{,}432$ & $3{,}432$ \\
+Sums worked out & $3{,}731$ & $3{,}721$ & $3{,}721$ & $1.11$ & $3{,}666$ & $42{,}060$\textsuperscript{\dag} & $3{,}665$ \\
+Two foods & $3{,}188$ & $3{,}188$ & $3{,}188$ & $0.58$ & $2{,}824$ & $2{,}824$ & $2{,}824$ \\
+Three foods & $2{,}769$ & $2{,}769$ & $2{,}769$ & $0.45$ & $2{,}527$ & $2{,}527$ & $2{,}527$ \\
+Three snacks & $3{,}631$ & $3{,}631$ & $3{,}631$ & $0.45$ & $3{,}266$ & $3{,}266$ & $3{,}266$ \\
+\bottomrule
+\end{tabular}
+\end{table}

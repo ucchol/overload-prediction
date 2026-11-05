@@ -138,11 +138,26 @@ MAIN = ["S1", "S2", "CL_entropy", "SR_looks", "TLS_looks", "TLS_tfit", "S2+TLS",
         "LBA", "LBA_n_cal", "Wald_n", "Ceiling2"]
 
 
-def vault_rows(models):
-    ev = json.load(open(R / "time_models_vault/vault_eval.json"))
+def failed_vault_fits():
+    """Entries of the frozen vault run whose rising threshold fit failed (results/time_models_vault_corrected)."""
+    c = json.load(open(R / "time_models_vault_corrected/corrections.json"))
+    bad = set()
+    for k, r in c.items():
+        for m, v in r.items():
+            if not v["original_converged"]:
+                bad |= {(k, m), (k, m + "_cal")}
+    return bad
+
+
+SHORT_FIXED = {("snack", "LBA"), ("snack", "LBA_cal"), ("reutskaja", "LBA"), ("reutskaja", "LBA_cal"),
+               ("snack", "MLBA_LBA"), ("snack", "MLBA_LBA_cal")}  # verification/check_race_starts.py
+
+
+def vault_rows(models, ev_path="time_models_vault_corrected/vault_eval.json", dagger=None, suffix="", short=None):
+    ev = json.load(open(R / ev_path))
     rows = []
     for m in models:
-        cells = [NAME[m]]
+        cells = [NAME[m] + suffix]
         for k, _, _ in SETS:
             r = ev["sets"][k]["models"][m]
             mark = ""
@@ -151,6 +166,10 @@ def vault_rows(models):
                     mark = "\\,$\\uparrow$"
                 elif r["minus_S2"]["clear_below"]:
                     mark = "\\,$\\downarrow$"
+            if dagger and (k, m) in dagger:
+                mark += "\\textsuperscript{\\dag}"
+            if short and (k, m) in short:
+                mark += "\\textsuperscript{\\S}"
             cells.append(f(r["R2"]) + mark)
         cells.append("yes" if ev["verdict"][m]["satisfactory"] else "no")
         rows.append(" & ".join(cells) + " \\\\")
@@ -163,7 +182,7 @@ def table_vault_main():
 \centering
 \footnotesize
 \setlength{\tabcolsep}{2.6pt}
-\caption{Held out $R^2$ of within person log time on the vault for the main models. Every model was fitted once on the participants outside the vault. Arrows mark a model clearly above or below the structure law (both 95 percent bootstrap intervals of the difference exclude zero). The structure law is clearly above the set size law in snacks at a glance, snacks in three seconds, two foods and three foods. Satisfactory follows the rule fixed before any fit. Every model is in Table~\ref{tab:vaultall}.}
+\caption{Held out $R^2$ of within person log time on the vault for the main models. Every model was fitted once on the participants outside the vault. Arrows mark a model clearly above or below the structure law (both 95 percent bootstrap intervals of the difference exclude zero). The structure law is clearly above the set size law in snacks at a glance, snacks in three seconds, two foods and three foods. Satisfactory follows the rule fixed before any fit. The rising threshold LBA race uses the corrected fit for snacks at a glance (Section~\ref{sec:refit}). Every model, with the frozen and the corrected fits, is in Table~\ref{tab:vaultall}.}
 \label{tab:vaultmain}
 \begin{tabular}{""" + NAMECOL % "3.4cm" + "c" * (len(SETS) + 1) + r"""}
 \toprule
@@ -182,13 +201,17 @@ def table_vault_all():
 \centering
 \scriptsize
 \setlength{\tabcolsep}{2.6pt}
-\caption{Every frozen model on the vault, held out $R^2$ of within person log time. Arrows as in Table~\ref{tab:vaultmain}. In snacks in three seconds every race is conditioned on a response before the three second limit.}
+\caption{Every frozen model on the vault, held out $R^2$ of within person log time. Arrows as in Table~\ref{tab:vaultmain}. A dagger marks a frozen fit that failed to converge, and a section sign a frozen fixed threshold fit that stopped short of its ten start optimum (by 75 and 1.2 for LBA at a glance and in three seconds, and by 72 for MLBA LBA at a glance), Section~\ref{sec:refit}. The last four rows give the final fits, which at three decimals differ from the frozen ones only where a dagger stands. In snacks in three seconds every race is conditioned on a response before the three second limit.}
 \label{tab:vaultall}
-\begin{tabular}{""" + NAMECOL % "4.3cm" + "c" * (len(SETS) + 1) + r"""}
+\begin{tabular}{""" + NAMECOL % "3.9cm" + "c" * (len(SETS) + 1) + r"""}
 \toprule
 """ + head + r""" \\
 \midrule
-""" + "\n".join(vault_rows(ORDER)) + r"""
+""" + "\n".join(vault_rows(ORDER, "time_models_vault/vault_eval.json", dagger=failed_vault_fits(), short=SHORT_FIXED)) + r"""
+\midrule
+\multicolumn{""" + str(len(SETS) + 2) + r"""}{l}{Corrected fits, refitted after the vault was opened} \\
+\midrule
+""" + "\n".join(vault_rows(["LBA_n", "LBA_n_cal", "MLBA_LBA_n", "MLBA_LBA_n_cal"], suffix=", corrected")) + r"""
 \bottomrule
 \end{tabular}
 \end{table}
@@ -197,7 +220,7 @@ def table_vault_all():
 
 # ------------------------------------------------------------------ Table, contrasts with the structure law
 def table_contrasts():
-    ev = json.load(open(R / "time_models_vault/vault_eval.json"))["sets"]
+    ev = json.load(open(R / "time_models_vault_corrected/vault_eval.json"))["sets"]
     keys = ["snack", "reutskaja", "krajbich2010", "krajbich2011"]
     lab = {k: l for k, l, _ in SETS}
     rows = []
@@ -231,6 +254,23 @@ Model & Dataset & Difference & 95\% interval & Holm $p$ & $d_z$ & \makecell{Bett
 # ------------------------------------------------------------------ Table, development rounds
 def table_dev():
     d = json.load(open(R / "time_models_dev/dev_r2_all.json"))
+    devfail = set()
+    for k, _, _ in SETS:
+        if k == "reutskaja":
+            continue  # its round 2 fit records were overwritten by the time limit rerun
+        e1 = json.load(open(R / f"time_models_dev/r1_{k}_summary.json"))["extras"]
+        e2 = json.load(open(R / f"time_models_dev/r2_{k}_summary.json"))["extras"]
+        for b in ("LBA", "MLBA_LBA", "Wald", "RWald"):
+            if any(n["nll"] > f0["nll"] + 1.0 for f0, n in zip(e1[b], e2[b + "_n"])):
+                devfail.add((k, b + "_n"))
+
+    def mk(k, m, rnd):
+        base = m.replace("_cal", "")
+        if (k, base) in devfail:
+            return "\\textsuperscript{\\dag}"
+        if k == "reutskaja" and rnd == "2" and base in ("LBA_n", "MLBA_LBA_n", "Wald_n", "RWald_n"):
+            return "\\textsuperscript{\\ddag}"
+        return ""
     head = " & ".join(["Round", "Model"] + [s[2] for s in SETS])
     rows = []
     for rnd in ("1", "2", "3"):
@@ -242,13 +282,13 @@ def table_dev():
                 label = NAME[m] + ", with the time limit"
             else:
                 label = NAME[m]
-            rows.append(" & ".join([rnd, label] + [f(vals[k]) if k in vals else "" for k, _, _ in SETS]) + " \\\\")
+            rows.append(" & ".join([rnd, label] + [f(vals[k]) + mk(k, m, rnd) if k in vals else "" for k, _, _ in SETS]) + " \\\\")
         rows.append("\\addlinespace")
     write("dev_rounds.tex", r"""\begin{table}[p]
 \centering
 \scriptsize
 \setlength{\tabcolsep}{2.6pt}
-\caption{Development scores, held out $R^2$ of within person log time over ten folds of the participants outside the vault. Round 2 reran the four fixed threshold races in snacks in three seconds conditioned on the three second limit. Each round was logged before the next was run.}
+\caption{Development scores, held out $R^2$ of within person log time over ten folds of the participants outside the vault. Round 2 reran the four fixed threshold races in snacks in three seconds conditioned on the three second limit. Each round was logged before the next was run. A dagger marks a rising threshold race whose fit failed to converge in at least one fold (its negative log likelihood stayed worse than the fixed threshold fit's by more than 1), and a double dagger one whose convergence could not be checked (Section~\ref{sec:refit}).}
 \label{tab:dev}
 \begin{tabular}{c""" + NAMECOL % "4.6cm" + "c" * len(SETS) + r"""}
 \toprule
@@ -263,7 +303,7 @@ def table_dev():
 
 # ------------------------------------------------------------------ Table, secondary measures
 def table_secondary():
-    p = R / "time_models_vault/secondary.json"
+    p = R / "time_models_vault_corrected/secondary.json"
     if not p.exists():
         print("secondary.json missing, skipped")
         return
@@ -277,10 +317,11 @@ def table_secondary():
     usets = [k for k, _, _ in SETS if s[k].get("unseen_size")]
     rows = []
     for m in models:
-        cells = [NAME[m]]
+        cells = [NAME[m] + ("\\textsuperscript{\\dag}" if m == "LBA_n_cal" else "")]
         for k in usets:
             u = s[k]["unseen_size"][m]
-            cells.append(cell2(f(u['skill'], 2), f"$[{u['skill_ci'][0]:+.2f}, {u['skill_ci'][1]:+.2f}]$"))
+            mark = "\\textsuperscript{\\ddag}" if (m in ("LBA", "LBA_n_cal") and k == "cdm") else ""
+            cells.append(cell2(f(u['skill'], 2) + mark, f"$[{u['skill_ci'][0]:+.2f}, {u['skill_ci'][1]:+.2f}]$"))
         rows.append(" & ".join(cells) + " \\\\")
     lab = {k: l for k, _, l in SETS}
     unseen = "\n".join(rows)
@@ -318,7 +359,7 @@ def table_secondary():
 \centering
 \footnotesize
 \setlength{\tabcolsep}{4pt}
-\caption{Forecasting the time cost of a set size the model never saw, on the vault, in datasets with three or more set sizes. Each set size is left out in turn and every model is refitted on the others. Skill is one minus the mean squared error of each vault participant's predicted difference between mean log time at the left out size and at the other sizes, relative to forecasting no difference, with a 95 percent bootstrap interval. Negative skill is worse than forecasting no difference.}
+\caption{Forecasting the time cost of a set size the model never saw, on the vault, in datasets with three or more set sizes. Each set size is left out in turn and every model is refitted on the others. Skill is one minus the mean squared error of each vault participant's predicted difference between mean log time at the left out size and at the other sizes, relative to forecasting no difference, with a 95 percent bootstrap interval. Negative skill is worse than forecasting no difference. Race refits at each left out size use three starts. A dagger marks the rising threshold LBA race, whose refits only replace fits that fail the nesting check, without the fuller search of Section~\ref{sec:refit}. A double dagger marks the two LBA races in the sums. With set size 20 left out, the fixed LBA refit stopped far from its optimum (negative log likelihood 8{,}115 against 2{,}237 with ten starts), and the rising LBA refit (2{,}488) passed the nesting check only against that failed fixed fit.}
 \label{tab:unseen}
 \begin{tabular}{""" + NAMECOL % "4.4cm" + "c" * len(usets) + r"""}
 \toprule
@@ -331,5 +372,39 @@ def table_secondary():
 """)
 
 
+def table_convergence():
+    c = json.load(open(R / "time_models_vault_corrected/corrections.json"))
+    srch = json.load(open(R / "time_models_vault_corrected/lba_search.json"))
+    num = lambda x: "$" + f"{x:,.0f}".replace(",", "{,}") + "$"
+    rows = []
+    for k, lab, _ in SETS:
+        v, q = c[k]["LBA_n"], srch[k]
+        fail_l = "\\textsuperscript{\\dag}" if v["nll_original"] > q["nll_fixed_ten_starts"] + 1.0 else ""
+        w = c[k]["MLBA_LBA_n"]
+        fail_m = "" if w["original_converged"] else "\\textsuperscript{\\dag}"
+        final_m = w["nll_refit"] if w["kept"] == "refit" else w["nll_original"]
+        rows.append(" & ".join([lab, num(q["nll_fixed_ten_starts"]), num(v["nll_original"]) + fail_l, num(q["nll"]),
+                                f"${q['gamma']:.2f}$", num(w["nll_fixed"]), num(w["nll_original"]) + fail_m,
+                                num(final_m)]) + " \\\\")
+    write("convergence.tex", r"""\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Negative log likelihood of the vault fits of the two rising threshold races, on the training participants. Fixed is the nested fixed threshold race (ten starts for LBA, three for MLBA LBA), Frozen the fit of the frozen run and Final the fit used in this section. A rising threshold fit can never be worse than its fixed threshold version at a true optimum, so a frozen fit worse than the fixed one by more than 1 failed (dagger). For LBA, Final is the best admissible fit of the fuller search in every dataset, with its $\gamma$, which is not identified in the two and three option datasets because set size never changes there. For MLBA LBA, a frozen fit was replaced only where it failed, by a warm start refit that passed the check.}
+\label{tab:convergence}
+\begin{tabular}{lccccccc}
+\toprule
+ & \multicolumn{4}{c}{LBA, rising threshold} & \multicolumn{3}{c}{MLBA LBA, rising threshold} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-8}
+Dataset & Fixed & Frozen & Final & $\gamma$ & Fixed & Frozen & Final \\
+\midrule
+""" + "\n".join(rows) + r"""
+\bottomrule
+\end{tabular}
+\end{table}
+""")
+
+
 if __name__ == "__main__":
     table_a12(); table_lmm(); table_vault_main(); table_vault_all(); table_contrasts(); table_dev(); table_secondary()
+    table_convergence()

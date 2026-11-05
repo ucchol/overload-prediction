@@ -1,0 +1,130 @@
+{
+ "dev_file": {
+  "LBA_n": {
+   "nll_original": 1417.2590082092202,
+   "nll_refit": 1417.2590010096446,
+   "nll_fixed": 1448.0224308826976,
+   "original_converged": true,
+   "kept": "original"
+  },
+  "MLBA_LBA_n": {
+   "nll_original": 1420.6175149308158,
+   "nll_refit": 1420.617652676505,
+   "nll_fixed": 1449.906694095302,
+   "original_converged": true,
+   "kept": "original"
+  }
+ },
+ "dev_laptop": {
+  "LBA_n": {
+   "nll_original": 1262.789744310488,
+   "nll_refit": 1262.7896177037403,
+   "nll_fixed": 1299.9502240979446,
+   "original_converged": true,
+   "kept": "original"
+  },
+  "MLBA_LBA_n": {
+   "nll_original": 1263.8592935030013,
+   "nll_refit": 1263.8592580297036,
+   "nll_fixed": 1298.0972095490079,
+   "original_converged": true,
+   "kept": "original"
+  }
+ },
+ "snack": {
+  "LBA_n": {
+   "nll_original": 164548.16934349324,
+   "nll_refit": 17052.660034435445,
+   "nll_fixed": 17218.85423629341,
+   "original_converged": false,
+   "kept": "refit"
+  },
+  "MLBA_LBA_n": {
+   "nll_original": 16780.773919830775,
+   "nll_refit": 17200.36164883216,
+   "nll_fixed": 17289.745869606395,
+   "original_converged": true,
+   "kept": "original"
+  }
+ },
+ "reutskaja": {
+  "LBA_n": {
+   "nll_original": 3540.138529956746,
+   "nll_refit": 3542.6535040957783,
+   "nll_fixed": 3600.4628313036637,
+   "original_converged": true,
+   "kept": "original"
+  },
+  "MLBA_LBA_n": {
+   "nll_original": 3431.5271275073383,
+   "nll_refit": 3431.5270390454216,
+   "nll_fixed": 3580.1258319330445,
+   "original_converged": true,
+   "kept": "original"
+  }
+ },
+ "cdm": {
+  "LBA_n": {
+   "nll_original": 3720.5432662901085,
+   "nll_refit": 3720.740871692111,
+   "nll_fixed": 3731.2118112126254,
+   "original_converged": true,
+   "kept": "original"
+  },
+  "MLBA_LBA_n": {
+   "nll_original": 42060.49267170422,
+   "nll_refit": 3665.3844370509796,
+   "nll_fixed": 3665.6799540333295,
+   "original_converged": false,
+   "kept": "refit"
+  }
+ },
+ "krajbich2010": {
+  "LBA_n": {
+   "nll_original": 3187.75470463936,
+   "nll_refit": 3187.754887514472,
+   "nll_fixed": 3187.7548804687904,
+   "original_converged": true,
+   "kept": "original"
+  },
+  "MLBA_LBA_n": {
+   "nll_original": 2823.7960143106257,
+   "nll_refit": 2823.7959376148906,
+   "nll_fixed": 2823.795961493165,
+   "original_converged": true,
+   "kept": "original"
+  }
+ },
+ "krajbich2011": {
+  "LBA_n": {
+   "nll_original": 2768.621324105412,
+   "nll_refit": 2768.62130916037,
+   "nll_fixed": 2768.6213114681204,
+   "original_converged": true,
+   "kept": "original"
+  },
+  "MLBA_LBA_n": {
+   "nll_original": 2527.201790898208,
+   "nll_refit": 2527.201799135716,
+   "nll_fixed": 2527.2018099547004,
+   "original_converged": true,
+   "kept": "original"
+  }
+ },
+ "folke2016": {
+  "LBA_n": {
+   "nll_original": 3630.60761185292,
+   "nll_refit": 3630.6076118784085,
+   "nll_fixed": 3630.6076118665587,
+   "original_converged": true,
+   "kept": "original"
+  },
+  "MLBA_LBA_n": {
+   "nll_original": 3266.11178757952,
+   "nll_refit": 3266.111789023321,
+   "nll_fixed": 3266.111788619278,
+   "original_converged": true,
+   "kept": "original"
+  }
+ }
+}

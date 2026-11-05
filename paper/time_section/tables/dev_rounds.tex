@@ -2,7 +2,7 @@
 \centering
 \scriptsize
 \setlength{\tabcolsep}{2.6pt}
-\caption{Development scores, held out $R^2$ of within person log time over ten folds of the participants outside the vault. Round 2 reran the four fixed threshold races in snacks in three seconds conditioned on the three second limit. Each round was logged before the next was run.}
+\caption{Development scores, held out $R^2$ of within person log time over ten folds of the participants outside the vault. Round 2 reran the four fixed threshold races in snacks in three seconds conditioned on the three second limit. Each round was logged before the next was run. A dagger marks a rising threshold race whose fit failed to converge in at least one fold (its negative log likelihood stayed worse than the fixed threshold fit's by more than 1), and a double dagger one whose convergence could not be checked (Section~\ref{sec:refit}).}
 \label{tab:dev}
 \begin{tabular}{c>{\raggedright\arraybackslash}p{4.6cm}cccccccc}
 \toprule
@@ -25,20 +25,20 @@ Round & Model & \makecell{Our\\files} & \makecell{Our\\laptops} & \makecell{Snac
 2 & Two look satisficing, sensitivity fitted to time & $+0.091$ & $+0.014$ & $+0.172$ & $+0.131$ & $-0.002$ & $+0.042$ & $+0.072$ & $+0.021$ \\
 2 & LBA, with the time limit &  &  &  & $+0.019$ &  &  &  &  \\
 2 & LBA, time slope, with the time limit &  &  &  & $+0.030$ &  &  &  &  \\
-2 & LBA, rising threshold & $+0.026$ & $+0.002$ & $+0.057$ & $+0.112$ & $-0.082$ & $+0.003$ & $+0.033$ & $-0.018$ \\
-2 & LBA, rising threshold, time slope & $+0.050$ & $+0.021$ & $+0.096$ & $+0.124$ & $-0.002$ & $+0.020$ & $+0.057$ & $+0.004$ \\
+2 & LBA, rising threshold & $+0.026$\textsuperscript{\dag} & $+0.002$\textsuperscript{\dag} & $+0.057$\textsuperscript{\dag} & $+0.112$\textsuperscript{\ddag} & $-0.082$\textsuperscript{\dag} & $+0.003$ & $+0.033$ & $-0.018$ \\
+2 & LBA, rising threshold, time slope & $+0.050$\textsuperscript{\dag} & $+0.021$\textsuperscript{\dag} & $+0.096$\textsuperscript{\dag} & $+0.124$\textsuperscript{\ddag} & $-0.002$\textsuperscript{\dag} & $+0.020$ & $+0.057$ & $+0.004$ \\
 2 & MLBA LBA, with the time limit &  &  &  & $-0.041$ &  &  &  &  \\
 2 & MLBA LBA, time slope, with the time limit &  &  &  & $+0.004$ &  &  &  &  \\
-2 & MLBA LBA, rising threshold & $+0.007$ & $-0.026$ & $-0.036$ & $+0.040$ & $-0.020$ & $+0.049$ & $+0.057$ & $+0.040$ \\
-2 & MLBA LBA, rising threshold, time slope & $+0.017$ & $+0.006$ & $+0.012$ & $+0.039$ & $-0.000$ & $+0.056$ & $+0.058$ & $+0.038$ \\
+2 & MLBA LBA, rising threshold & $+0.007$ & $-0.026$ & $-0.036$\textsuperscript{\dag} & $+0.040$\textsuperscript{\ddag} & $-0.020$\textsuperscript{\dag} & $+0.049$ & $+0.057$ & $+0.040$ \\
+2 & MLBA LBA, rising threshold, time slope & $+0.017$ & $+0.006$ & $+0.012$\textsuperscript{\dag} & $+0.039$\textsuperscript{\ddag} & $-0.000$\textsuperscript{\dag} & $+0.056$ & $+0.058$ & $+0.038$ \\
 2 & Wald race, with the time limit &  &  &  & $-0.200$ &  &  &  &  \\
 2 & Wald race, time slope, with the time limit &  &  &  & $+0.000$ &  &  &  &  \\
-2 & Wald race, rising threshold & $+0.075$ & $+0.013$ & $+0.070$ & $+0.122$ & $-0.005$ & $+0.015$ & $+0.040$ & $-0.006$ \\
-2 & Wald race, rising threshold, time slope & $+0.075$ & $+0.013$ & $+0.070$ & $+0.121$ & $+0.001$ & $+0.020$ & $+0.057$ & $+0.004$ \\
+2 & Wald race, rising threshold & $+0.075$ & $+0.013$ & $+0.070$ & $+0.122$\textsuperscript{\ddag} & $-0.005$ & $+0.015$ & $+0.040$ & $-0.006$ \\
+2 & Wald race, rising threshold, time slope & $+0.075$ & $+0.013$ & $+0.070$ & $+0.121$\textsuperscript{\ddag} & $+0.001$ & $+0.020$ & $+0.057$ & $+0.004$ \\
 2 & Relative Wald, with the time limit &  &  &  & $-0.093$ &  &  &  &  \\
 2 & Relative Wald, time slope, with the time limit &  &  &  & $+0.009$ &  &  &  &  \\
-2 & Relative Wald, rising threshold & $+0.078$ & $+0.010$ & $+0.033$ & $+0.029$ & $-0.005$ & $+0.044$ & $+0.028$ & $+0.009$ \\
-2 & Relative Wald, rising threshold, time slope & $+0.078$ & $+0.010$ & $+0.040$ & $+0.035$ & $-0.000$ & $+0.058$ & $+0.029$ & $+0.003$ \\
+2 & Relative Wald, rising threshold & $+0.078$ & $+0.010$ & $+0.033$ & $+0.029$\textsuperscript{\ddag} & $-0.005$ & $+0.044$ & $+0.028$ & $+0.009$ \\
+2 & Relative Wald, rising threshold, time slope & $+0.078$ & $+0.010$ & $+0.040$ & $+0.035$\textsuperscript{\ddag} & $-0.000$ & $+0.058$ & $+0.029$ & $+0.003$ \\
 2 & Structure plus satisficing looks & $+0.095$ & $+0.004$ & $+0.175$ & $+0.126$ & $-0.002$ & $+0.058$ & $+0.071$ & $+0.035$ \\
 2 & Structure plus sample until return looks & $+0.092$ & $+0.001$ & $+0.163$ & $+0.121$ & $-0.003$ & $+0.054$ & $+0.071$ & $+0.036$ \\
 2 & Structure plus CL entropy & $+0.093$ & $-0.000$ & $+0.162$ & $+0.122$ & $-0.005$ & $+0.057$ & $+0.072$ & $+0.035$ \\

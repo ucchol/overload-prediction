@@ -2,9 +2,9 @@
 \centering
 \scriptsize
 \setlength{\tabcolsep}{2.6pt}
-\caption{Every frozen model on the vault, held out $R^2$ of within person log time. Arrows as in Table~\ref{tab:vaultmain}. In snacks in three seconds every race is conditioned on a response before the three second limit.}
+\caption{Every frozen model on the vault, held out $R^2$ of within person log time. Arrows as in Table~\ref{tab:vaultmain}. A dagger marks a frozen fit that failed to converge, and a section sign a frozen fixed threshold fit that stopped short of its ten start optimum (by 75 and 1.2 for LBA at a glance and in three seconds, and by 72 for MLBA LBA at a glance), Section~\ref{sec:refit}. The last four rows give the final fits, which at three decimals differ from the frozen ones only where a dagger stands. In snacks in three seconds every race is conditioned on a response before the three second limit.}
 \label{tab:vaultall}
-\begin{tabular}{>{\raggedright\arraybackslash}p{4.3cm}ccccccccc}
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.9cm}ccccccccc}
 \toprule
 Model & \makecell{Our\\files} & \makecell{Our\\laptops} & \makecell{Snacks,\\glance} & \makecell{Snacks,\\3 s} & Sums & \makecell{Two\\foods} & \makecell{Three\\foods} & \makecell{Three\\snacks} & Satisfactory \\
 \midrule
@@ -17,14 +17,14 @@ Sample until return looks & $+0.029$ & $+0.001$ & $+0.071$\,$\downarrow$ & $+0.0
 Two look satisficing looks & $+0.037$ & $+0.004$ & $+0.145$ & $+0.111$ & $+0.001$ & $+0.042$ & $+0.088$ & $-0.031$ & yes \\
 Two look satisficing, sensitivity fitted to time & $+0.044$ & $+0.007$ & $+0.155$ & $+0.111$ & $+0.006$ & $+0.047$ & $+0.088$ & $-0.033$ & yes \\
 Sample until return timing & $+0.027$ & $-0.043$ & $+0.070$\,$\downarrow$ & $-0.031$\,$\downarrow$ & $-0.027$ & $+0.021$ & $+0.041$\,$\downarrow$ & $+0.001$\,$\uparrow$ & no \\
-LBA & $-0.065$ & $-0.171$ & $-0.050$\,$\downarrow$ & $+0.022$\,$\downarrow$ & $-0.037$ & $+0.012$ & $+0.047$ & $-0.098$\,$\downarrow$ & no \\
-LBA, time slope & $+0.014$ & $-0.004$ & $+0.011$\,$\downarrow$ & $+0.038$\,$\downarrow$ & $-0.003$ & $+0.030$ & $+0.061$ & $-0.020$ & no \\
-LBA, rising threshold & $+0.013$ & $-0.016$ & $+0.068$\,$\downarrow$ & $+0.096$ & $-0.021$ & $+0.012$ & $+0.047$ & $-0.098$\,$\downarrow$ & no \\
-LBA, rising threshold, time slope & $+0.003$ & $-0.000$ & $+0.129$ & $+0.107$ & $+0.001$ & $+0.030$ & $+0.061$ & $-0.020$ & yes \\
-MLBA LBA & $-0.026$ & $-0.157$ & $-0.066$\,$\downarrow$ & $-0.032$\,$\downarrow$ & $+0.005$ & $+0.040$ & $+0.064$\,$\downarrow$ & $-0.023$ & no \\
-MLBA LBA, time slope & $+0.029$ & $-0.004$ & $-0.002$\,$\downarrow$ & $+0.001$\,$\downarrow$ & $-0.004$ & $+0.039$ & $+0.066$\,$\downarrow$ & $-0.038$\,$\downarrow$ & no \\
-MLBA LBA, rising threshold & $+0.001$ & $-0.008$ & $-0.057$\,$\downarrow$ & $+0.055$\,$\downarrow$ & $-0.009$ & $+0.040$ & $+0.064$\,$\downarrow$ & $-0.023$ & no \\
-MLBA LBA, rising threshold, time slope & $-0.022$ & $-0.000$ & $-0.004$\,$\downarrow$ & $+0.054$\,$\downarrow$ & $+0.004$ & $+0.039$ & $+0.066$\,$\downarrow$ & $-0.038$\,$\downarrow$ & no \\
+LBA & $-0.065$ & $-0.171$ & $-0.050$\,$\downarrow$\textsuperscript{\S} & $+0.022$\,$\downarrow$\textsuperscript{\S} & $-0.037$ & $+0.012$ & $+0.047$ & $-0.098$\,$\downarrow$ & no \\
+LBA, time slope & $+0.014$ & $-0.004$ & $+0.011$\,$\downarrow$\textsuperscript{\S} & $+0.038$\,$\downarrow$\textsuperscript{\S} & $-0.003$ & $+0.030$ & $+0.061$ & $-0.020$ & no \\
+LBA, rising threshold & $+0.013$ & $-0.016$ & $+0.068$\,$\downarrow$\textsuperscript{\dag} & $+0.096$ & $-0.021$ & $+0.012$ & $+0.047$ & $-0.098$\,$\downarrow$ & no \\
+LBA, rising threshold, time slope & $+0.003$ & $-0.000$ & $+0.129$\textsuperscript{\dag} & $+0.107$ & $+0.001$ & $+0.030$ & $+0.061$ & $-0.020$ & yes \\
+MLBA LBA & $-0.026$ & $-0.157$ & $-0.066$\,$\downarrow$\textsuperscript{\S} & $-0.032$\,$\downarrow$ & $+0.005$ & $+0.040$ & $+0.064$\,$\downarrow$ & $-0.023$ & no \\
+MLBA LBA, time slope & $+0.029$ & $-0.004$ & $-0.002$\,$\downarrow$\textsuperscript{\S} & $+0.001$\,$\downarrow$ & $-0.004$ & $+0.039$ & $+0.066$\,$\downarrow$ & $-0.038$\,$\downarrow$ & no \\
+MLBA LBA, rising threshold & $+0.001$ & $-0.008$ & $-0.057$\,$\downarrow$ & $+0.055$\,$\downarrow$ & $-0.009$\textsuperscript{\dag} & $+0.040$ & $+0.064$\,$\downarrow$ & $-0.023$ & no \\
+MLBA LBA, rising threshold, time slope & $-0.022$ & $-0.000$ & $-0.004$\,$\downarrow$ & $+0.054$\,$\downarrow$ & $+0.004$\textsuperscript{\dag} & $+0.039$ & $+0.066$\,$\downarrow$ & $-0.038$\,$\downarrow$ & no \\
 Wald race & $-0.352$\,$\downarrow$ & $-0.156$ & $-0.232$\,$\downarrow$ & $-0.154$\,$\downarrow$ & $-0.062$ & $+0.024$ & $+0.048$ & $-0.077$\,$\downarrow$ & no \\
 Wald race, time slope & $+0.025$ & $+0.003$ & $+0.052$\,$\downarrow$ & $+0.004$\,$\downarrow$ & $+0.004$ & $+0.029$ & $+0.059$ & $-0.020$ & no \\
 Wald race, rising threshold & $+0.037$ & $-0.005$ & $+0.076$\,$\downarrow$ & $+0.097$ & $-0.001$ & $+0.024$ & $+0.048$ & $-0.077$\,$\downarrow$ & no \\
@@ -40,6 +40,13 @@ Structure plus satisficing looks, sensitivity fitted to time & $+0.014$ & $+0.01
 Structure plus Wald race, rising threshold & $+0.032$ & $+0.021$\,$\uparrow$ & $+0.146$ & $+0.108$ & $-0.008$ & $+0.055$ & $+0.088$ & $-0.017$ & yes \\
 Boosted trees ceiling & $+0.007$ & $+0.013$ & $+0.110$\,$\downarrow$ & $-0.088$\,$\downarrow$ & $-0.004$ & $+0.023$ & $+0.036$ & $-0.167$\,$\downarrow$ & no \\
 Boosted trees ceiling, centered features & $+0.011$ & $+0.016$ & $+0.165$\,$\uparrow$ & $+0.095$ & $-0.014$ & $+0.022$ & $+0.042$\,$\downarrow$ & $-0.045$ & no \\
+\midrule
+\multicolumn{10}{l}{Corrected fits, refitted after the vault was opened} \\
+\midrule
+LBA, rising threshold, corrected & $+0.013$ & $-0.016$ & $+0.086$\,$\downarrow$ & $+0.096$ & $-0.021$ & $+0.012$ & $+0.047$ & $-0.098$\,$\downarrow$ & no \\
+LBA, rising threshold, time slope, corrected & $+0.003$ & $-0.000$ & $+0.152$ & $+0.107$ & $+0.001$ & $+0.030$ & $+0.061$ & $-0.020$ & yes \\
+MLBA LBA, rising threshold, corrected & $+0.001$ & $-0.008$ & $-0.057$\,$\downarrow$ & $+0.055$\,$\downarrow$ & $+0.006$ & $+0.040$ & $+0.064$\,$\downarrow$ & $-0.023$ & no \\
+MLBA LBA, rising threshold, time slope, corrected & $-0.022$ & $-0.000$ & $-0.004$\,$\downarrow$ & $+0.054$\,$\downarrow$ & $-0.004$ & $+0.039$ & $+0.066$\,$\downarrow$ & $-0.038$\,$\downarrow$ & no \\
 \bottomrule
 \end{tabular}
 \end{table}
