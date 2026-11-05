@@ -54,6 +54,8 @@ def main():
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--skip_b", action="store_true")
     ap.add_argument("--sets", nargs="*", default=SETS)
+    ap.add_argument("--models", nargs="*", default=MODELS, help="models for the unseen set size part")
+    ap.add_argument("--warm", default="", help="warm start the rising threshold races, 'best' keeps the better of the cold and warm fits (deviation of 5 Nov 2026)")
     a = ap.parse_args()
     np.seterr(all="ignore")
     a.out.mkdir(parents=True, exist_ok=True)
@@ -102,8 +104,9 @@ def main():
         # (b)
         sizes = sorted(set(T.n.tolist()))
         if len(sizes) >= 3 and not a.skip_b:
-            opts = {"eps": 0.0, "deadline": 3.0 if name == "reutskaja" else None, "bits": False}
+            opts = {"eps": 0.0, "deadline": 3.0 if name == "reutskaja" else None, "bits": False, "warm": a.warm}
             err = {}
+            conv = {}
             obs_all = []
             for s in sizes:
                 tr = D.take(D.n != s)
@@ -115,9 +118,13 @@ def main():
                     return at - ot, ok
                 dobs, ok = diff(V.logt)
                 obs_all.append((s, dobs, ok))
-                for m in MODELS:
+                for m in a.models:
                     t0 = time.time()
                     yhat, e = fit_predict(m, tr, V, opts)
+                    if "converged" in e:
+                        conv.setdefault(m, []).append({"size": int(s), "converged": e["converged"], "nll": e["nll"],
+                                                       "nll_fixed": e["nll_fixed"], "nll_cold": e.get("nll_cold"),
+                                                       "nll_warm": e.get("nll_warm"), "chosen": e.get("chosen")})
                     outs = {m: yhat}
                     if "cal_pred" in e:
                         outs[m + "_cal"] = e["cal_pred"]
@@ -140,6 +147,8 @@ def main():
                 out[mm] = {"rmse": float(np.sqrt(sq.sum() / k0.sum())), "skill": float(1 - sq.sum() / sq0.sum()),
                            "skill_ci": np.percentile(bt, [2.5, 97.5]).tolist(),
                            "predicted_mean_difference": {str(s): float(dp[ok].mean()) for s, e_, ok, dp in lst}}
+            if conv:
+                out["convergence"] = conv
             rec["unseen_size"] = out
         res[name] = rec
         json.dump(res, open(a.out / "secondary.json", "w"), indent=1, default=float)

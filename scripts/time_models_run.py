@@ -63,8 +63,28 @@ def fit_predict(name: str, tr: tm.Trials, te: tm.Trials, opts: dict) -> tuple[np
         base = name.replace("_cal", "")
         kind = RACES[base]
         dl = opts.get("deadline")
-        R = tm.Race(kind).fit(tr, starts=opts.get("starts", 3), eps=opts.get("eps", 0.0), deadline_s=dl)
+        if opts.get("warm") and kind.endswith("_n"):
+            # warm start (deviation of 5 Nov 2026), from the converged fixed threshold fit with gamma = 0.02
+            R0 = tm.Race(kind[:-2]).fit(tr, starts=opts.get("starts", 3), eps=opts.get("eps", 0.0), deadline_s=dl)
+            th0 = np.r_[R0.theta[:-1], np.log(0.02), R0.theta[-1]]
+            R = tm.Race(kind, th0).fit(tr, starts=opts.get("starts", 3), eps=opts.get("eps", 0.0), deadline_s=dl)
+            nll_fixed = R0.nll
+            if opts.get("warm") == "best":
+                # the original cold fit as well, keeping whichever has the lower negative log likelihood
+                Rc = tm.Race(kind).fit(tr, starts=opts.get("starts", 3), eps=opts.get("eps", 0.0), deadline_s=dl)
+                extra_fit = {"nll_cold": Rc.nll, "nll_warm": R.nll}
+                if Rc.nll <= R.nll:
+                    R = Rc
+                extra_fit["chosen"] = "cold" if R is Rc else "warm"
+        else:
+            R = tm.Race(kind).fit(tr, starts=opts.get("starts", 3), eps=opts.get("eps", 0.0), deadline_s=dl)
+            nll_fixed = None
         extra = {"theta": R.theta.tolist(), "nll": R.nll}
+        if nll_fixed is not None:
+            extra["nll_fixed"] = nll_fixed
+            extra["converged"] = bool(R.nll <= nll_fixed + 1.0)
+            if opts.get("warm") == "best":
+                extra.update(extra_fit)
         if opts.get("bits", True) and not name.endswith("_cal"):
             extra["bits_te"] = (R.choice_log2(te) + np.log2(te.n)).tolist()
         def E(t):
@@ -197,6 +217,7 @@ def main():
     ap.add_argument("--sets", nargs="*", default=list(SETS))
     ap.add_argument("--models", nargs="*", default=MODELS_R1)
     ap.add_argument("--eps", type=float, default=0.0)
+    ap.add_argument("--warm", action="store_true", help="warm start the rising threshold races (deviation of 5 Nov 2026)")
     ap.add_argument("--out", type=Path, required=True)
     a = ap.parse_args()
     np.seterr(all="ignore")
@@ -205,10 +226,10 @@ def main():
     logf = open(a.out / "log.txt", "a")
     def log(s):
         print(s, flush=True); logf.write(s + "\n"); logf.flush()
-    log(f"round {a.round} stage {a.stage} models {a.models} eps {a.eps}")
+    log(f"round {a.round} stage {a.stage} models {a.models} eps {a.eps} warm {a.warm}")
     for name in a.sets:
         T = tm.from_timeset(S[name], SCALE[name])
-        opts = {"eps": a.eps, "deadline": 3.0 if name == "reutskaja" else None}
+        opts = {"eps": a.eps, "deadline": 3.0 if name == "reutskaja" else None, "warm": a.warm}
         res, E, preds = run_set(name, T, a.models, a.stage, opts, log)
         old = a.out / f"{name}_pred.npz"
         if old.exists():  # keep predictions of earlier models of the same round
