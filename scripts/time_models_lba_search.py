@@ -2,7 +2,8 @@
 
 For each set, the race is fitted on the participants outside the vault from ten cold starts and from the ten start
 fixed threshold optimum with gamma 0.02, 0.3 and 0.7 (three starts each). Among fits whose expected log times are
-finite and within 50 of zero on the training and vault trials, the lowest negative log likelihood is kept. Writes
+finite and within 50 of zero on the training and vault trials, and whose gamma is at most 3 (which excludes the singular
+optima under the time limit), the lowest negative log likelihood is kept. Writes
 OUT/<set>_pred.npz with LBA_n and LBA_n_cal (calibrated by one slope on the training participants) and
 OUT/search.json with every candidate.
 Usage, python3 -I scripts/time_models_lba_search.py DEV_CSV OUT SET...
@@ -44,7 +45,9 @@ for name in sets:
     best = None
     for lab, R in cands:
         etr, ete = E(R, D), E(R, V)
-        ok = bool(np.all(np.isfinite(etr)) and np.all(np.isfinite(ete)) and np.max(np.abs(etr)) < 50 and np.max(np.abs(ete)) < 50)
+        gam = float(np.exp(R.theta[-2]))
+        ok = bool(np.all(np.isfinite(etr)) and np.all(np.isfinite(ete)) and np.max(np.abs(etr)) < 50 and np.max(np.abs(ete)) < 50
+                  and gam <= 3.0)
         rec["candidates"].append({"start": lab, "nll": R.nll, "gamma": float(np.exp(R.theta[-2])), "admissible": ok})
         if ok and (best is None or R.nll < best[1].nll):
             best = (lab, R, etr, ete)
