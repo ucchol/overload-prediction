@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Forecasting the time cost of a set size the model never saw, on the vault, in datasets with three or more set sizes. Each set size is left out in turn and every model is refitted on the others. Skill is one minus the mean squared error of each vault participant's predicted difference between mean log time at the left out size and at the other sizes, relative to forecasting no difference, with a 95 percent bootstrap interval. Negative skill is worse than forecasting no difference.}
+\label{tab:unseen}
+\begin{tabular}{>{\raggedright\arraybackslash}p{4.4cm}ccccc}
+\toprule
+Model & \makecell{Our\\files} & \makecell{Our\\laptops} & \makecell{Snacks,\\glance} & \makecell{Snacks,\\3 s} & Sums \\
+\midrule
+Set size law & \makecell{$-0.05$ \\ {\scriptsize $[-0.19, +0.20]$}} & \makecell{$-0.00$ \\ {\scriptsize $[-0.07, +0.05]$}} & \makecell{$+0.62$ \\ {\scriptsize $[+0.47, +0.70]$}} & \makecell{$+0.48$ \\ {\scriptsize $[-0.03, +0.69]$}} & \makecell{$+0.04$ \\ {\scriptsize $[-0.19, +0.17]$}} \\
+Structure law & \makecell{$-26.59$ \\ {\scriptsize $[-55.69, -13.95]$}} & \makecell{$-1.36$ \\ {\scriptsize $[-2.27, -0.83]$}} & \makecell{$+0.55$ \\ {\scriptsize $[+0.35, +0.70]$}} & \makecell{$+0.17$ \\ {\scriptsize $[-0.49, +0.45]$}} & \makecell{$+0.05$ \\ {\scriptsize $[-0.19, +0.19]$}} \\
+Sample until return looks & \makecell{$-0.06$ \\ {\scriptsize $[-0.20, +0.19]$}} & \makecell{$-0.00$ \\ {\scriptsize $[-0.07, +0.05]$}} & \makecell{$+0.63$ \\ {\scriptsize $[+0.48, +0.73]$}} & \makecell{$+0.43$ \\ {\scriptsize $[-0.20, +0.68]$}} & \makecell{$+0.02$ \\ {\scriptsize $[-0.02, +0.04]$}} \\
+Two look satisficing looks & \makecell{$-0.15$ \\ {\scriptsize $[-0.34, +0.10]$}} & \makecell{$-0.01$ \\ {\scriptsize $[-0.08, +0.05]$}} & \makecell{$+0.64$ \\ {\scriptsize $[+0.52, +0.74]$}} & \makecell{$+0.43$ \\ {\scriptsize $[-0.41, +0.76]$}} & \makecell{$+0.00$ \\ {\scriptsize $[-0.00, +0.01]$}} \\
+Structure plus satisficing looks & \makecell{$-3.20$ \\ {\scriptsize $[-6.99, -1.39]$}} & \makecell{$-1.87$ \\ {\scriptsize $[-3.21, -1.18]$}} & \makecell{$+0.60$ \\ {\scriptsize $[+0.46, +0.72]$}} & \makecell{$+0.31$ \\ {\scriptsize $[-0.26, +0.56]$}} & \makecell{$+0.04$ \\ {\scriptsize $[-0.19, +0.17]$}} \\
+LBA & \makecell{$-0.65$ \\ {\scriptsize $[-1.63, -0.15]$}} & \makecell{$-0.46$ \\ {\scriptsize $[-0.81, -0.24]$}} & \makecell{$-1.96$ \\ {\scriptsize $[-2.62, -1.51]$}} & \makecell{$-0.63$ \\ {\scriptsize $[-1.08, -0.40]$}} & \makecell{$-0.32$ \\ {\scriptsize $[-0.68, -0.04]$}} \\
+Wald race & \makecell{$-0.53$ \\ {\scriptsize $[-1.33, -0.13]$}} & \makecell{$-0.30$ \\ {\scriptsize $[-0.55, -0.15]$}} & \makecell{$-2.34$ \\ {\scriptsize $[-3.13, -1.95]$}} & \makecell{$-3.55$ \\ {\scriptsize $[-6.06, -2.42]$}} & \makecell{$-0.67$ \\ {\scriptsize $[-1.30, -0.14]$}} \\
+LBA, rising threshold, time slope & \makecell{$-1.13$ \\ {\scriptsize $[-2.16, -0.71]$}} & \makecell{$-0.04$ \\ {\scriptsize $[-0.06, -0.01]$}} & \makecell{$+0.05$ \\ {\scriptsize $[-0.22, +0.20]$}} & \makecell{$+0.47$ \\ {\scriptsize $[-0.07, +0.70]$}} & \makecell{$-0.01$ \\ {\scriptsize $[-0.03, +0.01]$}} \\
+Wald race, rising threshold & \makecell{$-0.07$ \\ {\scriptsize $[-0.21, +0.18]$}} & \makecell{$-0.02$ \\ {\scriptsize $[-0.08, +0.04]$}} & \makecell{$+0.62$ \\ {\scriptsize $[+0.43, +0.72]$}} & \makecell{$-6.09$ \\ {\scriptsize $[-9.91, -4.40]$}} & \makecell{$+0.04$ \\ {\scriptsize $[-0.42, +0.31]$}} \\
+Boosted trees ceiling, centered features & \makecell{$+0.00$ \\ {\scriptsize $[-0.15, +0.12]$}} & \makecell{$+0.01$ \\ {\scriptsize $[-0.04, +0.04]$}} & \makecell{$+0.50$ \\ {\scriptsize $[+0.29, +0.64]$}} & \makecell{$+0.30$ \\ {\scriptsize $[+0.09, +0.46]$}} & \makecell{$+0.05$ \\ {\scriptsize $[-0.08, +0.13]$}} \\
+\bottomrule
+\end{tabular}
+\end{table}

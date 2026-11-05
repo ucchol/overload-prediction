@@ -486,6 +486,25 @@ Decisions. T1 supported in four of eight sets, T2 in three, T3 in none. Reading.
 
 Reading. On both snack datasets the one parameter models reach nearly all the signal any of these features can carry, so better choice prediction is not where the room lies. In the worked out sums about a tenth of the predictable signal is left, which fits H1 (where judging is costly, choices depend on more than the values) and the sums being the one dataset where overload outgrew every forecast. Shares are upper bounds on completeness. Second run identical, the crashed first run saved the same trial scores, and a separate CL refit agrees within 3e-7 (two deviations recorded, the seed scheme and the bootstrap pool).
 
+### 3 Nov 2026. Statistics layer for every result (plan fixed before computing)
+
+`docs/statistics_plan.md`, results in `results/statistics/` (second run `results/statistics_run2/`, identical). Logistic GLMMs (Laplace, `src/overload/glmm.py`), linear mixed models (REML), Cohen's dz, Bayes factors BF01 for every unsupported result at half, equal and double prior scale (Dienes 2014), and the smallest effect each test could detect at 80 percent power.
+
+- Overload growth, odds ratio of missing the best per doubling of the set, 1.00 snacks at a glance, 1.54 snacks in three seconds, 2.22 sums. Lotteries 7.90, 5.34 and 3.40 at low, medium and high cost (high over low 0.43, p 3e-13).
+- H2, return minus dwell dz -1.73 and -2.39, BF01 319 and 120 against the return rule. H1 within one study BF01 16.6. T3 of Amendment 12 BF01 15 to 89.
+- Decision time, mixed model per dataset, time grows 21 percent per doubling in snacks at a glance (39 with values held fixed), marginal R2 0.15.
+- No confirmatory test was underpowered for the effect its plan hypothesized. Ceiling contrasts use participant clustered least squares because the mixed model's person variance was on the boundary (recorded as a deviation).
+
+### 3 to 4 Nov 2026. Decision time from choice models, a sealed vault (exploratory)
+
+Plan `docs/time_models_plan.md`, log of rounds `docs/time_models_log.md`, vault results `results/time_models_vault/`, write up `paper/time_section/`. Each model predicts how long a person takes on a particular trial, against that person's usual time. 30 percent of every dataset's participants were sealed before any fit. Three development rounds on the rest, each logged before the next, then all 32 models frozen and scored once on the vault (two identical runs, key numbers recomputed by `verification/check_time_vault.py`).
+
+- Seven models met the satisfactory rule fixed before any fit, among them two look satisficing with its one sensitivity fitted to choices. It timed decisions as well as the four feature structure law in snacks at a glance (+0.145 against +0.145), snacks in three seconds (+0.111 against +0.112) and three foods (+0.088 against +0.088), BF01 18.7, 11.3 and 12.2 for no difference.
+- Structure plus satisficing looks beat structure in snacks at a glance (+0.017, dz 1.15, 80 percent of vault participants better), the dataset on which two look satisficing was built.
+- Sample until return's looks, with the same choices, fell clearly below structure in both snack sets. Its looks ignore how good the menu is as a whole, and people take longer when the best option is poor.
+- Races with a fixed threshold predict faster choices from larger menus. A threshold rising as b n^gamma repairs them (gamma 0.24 to 0.42 in the two snack datasets), and the calibrated LBA race then met the rule.
+- Nothing, the ceilings included, beat a constant time on the vault in the sums, both tasks of our study and three snacks. The best scores stay below a sixth of the within person variance.
+
 ## Setup facts checked against the data
 
 - The data file holds recruitment platform identifiers (a Prolific ID column and Prolific screening questions) and a nine question security knowledge quiz (SQL injection, SSL, firewall, proxy, DDoS, IDS, honeypot, TCP, Nmap). The Study Design should describe recruitment and screening from these.

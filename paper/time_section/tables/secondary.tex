@@ -1,0 +1,38 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\caption{Secondary measures on the vault. (a) Mean within person rank correlation of predicted and observed time. (b) Bits per choice gained over a uniform guess on vault trials. Two look satisficing makes the same choices as sample until return.}
+\label{tab:secondary}
+\begin{tabular}{>{\raggedright\arraybackslash}p{4.4cm}cccccccc}
+\toprule
+\multicolumn{9}{l}{(a) Rank correlation with time} \\
+\midrule
+Model & \makecell{Our\\files} & \makecell{Our\\laptops} & \makecell{Snacks,\\glance} & \makecell{Snacks,\\3 s} & Sums & \makecell{Two\\foods} & \makecell{Three\\foods} & \makecell{Three\\snacks} \\
+\midrule
+Set size law & $+0.20$ & $+0.06$ & $+0.30$ & $+0.23$ & $+0.03$ & $+0.00$ & $+0.00$ & $+0.00$ \\
+Structure law & $+0.23$ & $+0.11$ & $+0.39$ & $+0.36$ & $-0.05$ & $+0.22$ & $+0.28$ & $+0.07$ \\
+Sample until return looks & $+0.23$ & $+0.07$ & $+0.30$ & $+0.25$ & $+0.09$ & $+0.19$ & $+0.25$ & $+0.07$ \\
+Two look satisficing looks & $+0.23$ & $+0.10$ & $+0.39$ & $+0.35$ & $+0.07$ & $+0.18$ & $+0.28$ & $+0.02$ \\
+Structure plus satisficing looks & $+0.22$ & $+0.11$ & $+0.41$ & $+0.36$ & $-0.04$ & $+0.22$ & $+0.28$ & $+0.06$ \\
+LBA & $-0.15$ & $-0.02$ & $+0.05$ & $+0.18$ & $+0.06$ & $+0.16$ & $+0.22$ & $-0.01$ \\
+Wald race & $-0.18$ & $-0.02$ & $-0.24$ & $-0.09$ & $-0.04$ & $+0.16$ & $+0.23$ & $-0.01$ \\
+LBA, rising threshold, time slope & $+0.18$ & $-0.00$ & $+0.39$ & $+0.34$ & $+0.07$ & $+0.16$ & $+0.23$ & $-0.01$ \\
+Wald race, rising threshold & $+0.20$ & $+0.10$ & $+0.34$ & $+0.34$ & $+0.01$ & $+0.16$ & $+0.22$ & $-0.01$ \\
+Boosted trees ceiling, centered features & $+0.20$ & $+0.11$ & $+0.42$ & $+0.33$ & $+0.06$ & $+0.20$ & $+0.20$ & $+0.11$ \\
+\midrule
+\multicolumn{9}{l}{(b) Choices, bits per choice above a uniform guess} \\
+\midrule
+CL & $0.272$ & $0.617$ & $1.967$ & $0.754$ & $2.010$ & $0.240$ & $0.609$ & $0.298$ \\
+Sample until return and two look satisficing & $0.272$ & $0.631$ & $1.964$ & $0.744$ & $2.015$ & $0.240$ & $0.610$ & $0.297$ \\
+LBA & $0.276$ & $0.634$ & $1.889$ & $0.721$ & $2.139$ & $0.130$ & $0.487$ & $0.194$ \\
+LBA, rising threshold & $0.273$ & $0.646$ & $1.541$ & $0.699$ & $2.142$ & $0.130$ & $0.487$ & $0.194$ \\
+MLBA LBA & $0.278$ & $0.624$ & $1.922$ & $0.726$ & $2.217$ & $0.231$ & $0.615$ & $0.325$ \\
+MLBA LBA, rising threshold & $0.279$ & $0.634$ & $1.872$ & $0.725$ & $0.917$ & $0.231$ & $0.615$ & $0.325$ \\
+Wald race & $0.000$ & $0.093$ & $0.409$ & $0.650$ & $0.585$ & $0.117$ & $0.497$ & $0.188$ \\
+Wald race, rising threshold & $0.000$ & $0.149$ & $0.572$ & $0.676$ & $0.708$ & $0.117$ & $0.497$ & $0.188$ \\
+Relative Wald & $0.058$ & $0.412$ & $1.488$ & $0.754$ & $1.430$ & $0.233$ & $0.586$ & $0.293$ \\
+Relative Wald, rising threshold & $0.075$ & $0.484$ & $1.488$ & $0.759$ & $1.299$ & $0.233$ & $0.586$ & $0.293$ \\
+\bottomrule
+\end{tabular}
+\end{table}

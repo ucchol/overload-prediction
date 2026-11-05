@@ -1,0 +1,37 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Each model against the structure law on the vault, in the four datasets where structure beats set size. Difference in held out $R^2$ with its 95 percent bootstrap interval. Holm $p$ is from a linear mixed model of the per trial difference in squared error with a random intercept per participant, corrected across the eight datasets. $d_z$ is Cohen's effect size of the per participant mean difference, and Better is the percentage of vault participants whose predictions improved. BF$_{01}$ is the Bayes factor for no gain over structure, at the prior scale of the development gain of structure over set size and, in brackets, at half and double that scale. It is not computed where a model is clearly above structure.}
+\label{tab:contrasts}
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.0cm}lcccccc}
+\toprule
+Model & Dataset & Difference & 95\% interval & Holm $p$ & $d_z$ & \makecell{Better,\\\%} & \makecell{BF$_{01}$\\$[\tfrac12, 2]$} \\
+\midrule
+Two look satisficing looks & Snacks, glance & $-0.000$ & $[-0.013, +0.010]$ & $1.00$ & $-0.05$ & $40$ & $18.7$ $[9.4, 37.3]$ \\
+ & Snacks, 3 s & $-0.001$ & $[-0.015, +0.013]$ & $1.00$ & $-0.04$ & $38$ & $11.3$ $[5.7, 22.6]$ \\
+ & Two foods & $-0.014$ & $[-0.044, +0.016]$ & $1.00$ & $-0.26$ & $42$ & $6.79$ $[3.6, 13.4]$ \\
+ & Three foods & $-0.000$ & $[-0.014, +0.010]$ & $1.00$ & $-0.01$ & $44$ & $12.2$ $[6.2, 24.4]$ \\
+\addlinespace
+Structure plus satisficing looks & Snacks, glance & $+0.017$ & $[+0.010, +0.024]$ & $<0.001$ & $+1.15$ & $80$ & -- \\
+ & Snacks, 3 s & $+0.000$ & $[-0.010, +0.009]$ & $1.00$ & $+0.02$ & $62$ & $14.4$ $[7.3, 28.8]$ \\
+ & Two foods & $-0.005$ & $[-0.015, +0.002]$ & $1.00$ & $-0.37$ & $50$ & $28.2$ $[14.1, 56.3]$ \\
+ & Three foods & $+0.003$ & $[-0.001, +0.006]$ & $0.66$ & $+0.53$ & $67$ & $2.88$ $[1.4, 5.8]$ \\
+\addlinespace
+Sample until return looks & Snacks, glance & $-0.074$ & $[-0.113, -0.030]$ & $0.02$ & $-0.78$ & $20$ & $23.2$ $[11.7, 46.3]$ \\
+ & Snacks, 3 s & $-0.066$ & $[-0.103, -0.025]$ & $0.01$ & $-0.88$ & $8$ & $15.2$ $[7.7, 30.2]$ \\
+ & Two foods & $-0.014$ & $[-0.024, +0.003]$ & $1.00$ & $-0.50$ & $25$ & $24.4$ $[12.3, 48.7]$ \\
+ & Three foods & $-0.018$ & $[-0.037, -0.002]$ & $1.00$ & $-0.66$ & $22$ & $23.7$ $[11.9, 47.3]$ \\
+\addlinespace
+LBA, rising threshold, time slope & Snacks, glance & $-0.016$ & $[-0.045, +0.015]$ & $1.00$ & $-0.22$ & $53$ & $13.3$ $[6.8, 26.6]$ \\
+ & Snacks, 3 s & $-0.005$ & $[-0.020, +0.011]$ & $1.00$ & $-0.15$ & $46$ & $14.1$ $[7.1, 28.1]$ \\
+ & Two foods & $-0.027$ & $[-0.059, +0.009]$ & $1.00$ & $-0.39$ & $33$ & $7.70$ $[4.0, 15.2]$ \\
+ & Three foods & $-0.027$ & $[-0.061, +0.002]$ & $0.70$ & $-0.57$ & $33$ & $12.2$ $[6.2, 24.3]$ \\
+\addlinespace
+Boosted trees ceiling, centered features & Snacks, glance & $+0.020$ & $[+0.002, +0.037]$ & $0.22$ & $+0.55$ & $67$ & -- \\
+ & Snacks, 3 s & $-0.017$ & $[-0.047, +0.010]$ & $1.00$ & $-0.32$ & $46$ & $10.4$ $[5.3, 20.6]$ \\
+ & Two foods & $-0.035$ & $[-0.080, +0.000]$ & $0.48$ & $-0.52$ & $25$ & $7.87$ $[4.1, 15.5]$ \\
+ & Three foods & $-0.046$ & $[-0.082, -0.024]$ & $1.00$ & $-1.22$ & $11$ & $20.3$ $[10.2, 40.5]$ \\
+\bottomrule
+\end{tabular}
+\end{table}

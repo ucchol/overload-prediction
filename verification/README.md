@@ -173,3 +173,18 @@ Issues the reimplementation raised about Amendment 3.
 - Second run. `summary.json`, `table.md` and `trial_scores.npz` byte identical. The held out trial scores also equal those saved by the first run, which crashed in the bootstrap before writing a summary.
 - `check_ml_ceiling.py` refits CL with its own likelihood and Nelder Mead on folds it rebuilds (largest difference in trial scores 3.1e-7, optimizer tolerance) and recomputes every point value of the summary from the trial scores (5.7e-14).
 - The network and boosted trees were first checked on simulated choices from CL and from sample until return over a real sums panel, where the network came within 0.02 bits of the generating model.
+
+
+## Statistics layer, 3 November 2026
+
+- Second run. Every table in `results/statistics_run2/` identical to `results/statistics/`.
+- GLMM. Recovery on simulated data with known parameters (`check_glmm_simulation.py`), and the Laplace fit against adaptive Gauss Hermite quadrature with 25 nodes written without package code (`check_glmm_quadrature.py`), slopes equal to five decimals.
+- Bayes factors against a closed form for the half normal prior (`check_bayes.py`), within 5e-14.
+
+## Decision time from choice models (exploratory), 3 and 4 November 2026
+
+- Simulation recovery of every process model before any real fit (`scripts/time_models_sim.py`), fitted against true expected log time R2 0.92 to 0.99.
+- Vault run twice, predictions identical for all 32 models in all eight sets. Vault evaluation identical on both runs.
+- `check_time_vault.py` recomputes every vault R2 with pandas group means and the bootstrap intervals of the key models by copying rows of resampled people (largest differences 6e-16 and 1e-15).
+- Secondary measures run twice. `check_time_secondary.py` recomputes the rank correlations, the unseen set size skill of the set size and structure laws (refitted with numpy) and the CL bits per choice (refitted with scipy), without the package's model code.
+- Not blind, since the checks were written by the same session.

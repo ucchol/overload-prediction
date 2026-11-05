@@ -1,0 +1,294 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[authoryear,round]{natbib}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{makecell}
+\usepackage{array}
+\setlength{\emergencystretch}{2em}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
+
+\setlength{\parskip}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\newcommand{\Rtwo}{R^2}
+
+\title{Predicting how long each choice takes\\[4pt]\large Decision time section, draft for the choice overload paper}
+\author{Asif Rahman}
+\date{4 November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent Choice models are usually judged by the choices they predict. This section asks whether they can also say how long a particular choice will take. We used eight datasets that record both choices and decision times. The outcome is log time centered within each participant, so a prediction says which of a person's trials will take longer, not who is faster. In a confirmatory test, four features of the trial (the number of options, the best value, the gap to the runner up and the mean of the rest) predicted which trials took longer in four of the eight datasets, and a law fitted to the other datasets carried over to three. In an exploratory comparison of 32 models, developed over three rounds and then scored once on a sealed 30 percent of each dataset's participants, two look satisficing timed decisions as well as the four feature law. It is a search model whose one sensitivity is fitted to choices alone and which needs only a time slope to turn expected looks into time. The Bayes factors for no difference from the four feature law were 11 to 19 in three datasets, and its predictions were calibrated across the whole range of times. Races of accumulators predicted faster choices from larger menus and needed a threshold that rises with set size. On the vault, no model clearly beat a constant time in the sums, the two tasks of our study and three snacks, and neither did a flexible machine learning model. Decision time follows the menu in a way a search model with an absolute standard can capture, but even the best models explain at most about a sixth of the variation between a person's trials.
+\end{abstract}
+
+\section{What this section asks}
+
+A model of how people choose also implies how long they take. Times are recorded in most choice experiments but are rarely used to test choice models, which are fitted and compared on choices. This section asks two questions of every dataset in the paper that records times. The first is whether the structure of a trial, meaning how many options there are and how their values are spread, predicts which of a person's trials take longer. The second is whether a model of the choice process can predict each trial's time as well as that structure does, and which models can.
+
+The first question was a confirmatory test, fixed in the analysis plan before any time was analysed in this way (Amendment 12). The second was exploratory. It allowed repeated rounds of model building on part of the data, followed by a single test on participants who had been held back from every round (Section~\ref{sec:models}).
+
+\section{Data, outcome and score}
+\label{sec:data}
+
+\paragraph{Datasets.} Table~\ref{tab:data} lists the eight datasets. Two come from our own study, in which participants chose files and laptops from fixed displays of 8 to 32 options scored by a rubric. Three are open datasets of choices from menus with many options. In the first, snacks are chosen from sets of 9 to 36 items \citep{thomas2021}. In the second, snacks are chosen from 4, 9 or 16 items within three seconds \citep{reutskaja2011}. In the third, sums of money have to be worked out from arithmetic and are chosen from 10 to 40 options \citep{caplin2011}. The last three are open eye tracking datasets of choices between two or three foods \citep{krajbich2010,krajbich2011,folke2016}, in the versions prepared by \citet{thomas2019}. Values were rescaled to run from 0 to 1 using the ends of each dataset's value scale. Trial inclusion follows the amendment that first used each dataset.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Datasets with decision times. The labels are used throughout the paper.}
+\label{tab:data}
+\begin{tabular}{llcll}
+\toprule
+Dataset & Source & Set sizes & Time recorded & Values \\
+\midrule
+Our study, files & This study & 8, 16, 32 & time on the trial page & rubric scores \\
+Our study, laptops & This study & 8, 16, 30, 32 & time on the trial page & rubric scores \\
+Snacks at a glance & \citet{thomas2021} & 9, 16, 25, 36 & response time & ratings \\
+Snacks in three seconds & \citet{reutskaja2011} & 4, 9, 16 & response time, 3 s limit & ratings \\
+Sums worked out & \citet{caplin2011} & 10, 20, 40 & final selection & sums to work out \\
+Two foods & \citet{krajbich2010} & 2 & response time & ratings, 0 to 10 \\
+Three foods & \citet{krajbich2011} & 3 & response time & ratings, 0 to 10 \\
+Three snacks & \citet{folke2016} & 3 & response time & ratings, 0 to 10 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Outcome.} The outcome is log decision time in seconds, centered within participant,
+\begin{equation}
+y_{it} = \log t_{it} - \frac{1}{T_i}\sum_{s} \log t_{is},
+\end{equation}
+where the sum runs over the $T_i$ included trials of person $i$. Centering removes how fast each person is, so a model is judged on which of a person's trials take longer and not on who is faster. Every model's predictions are centered within person over the same trials.
+
+\paragraph{Score.} The score is the share of within person variance in log time that a model explains in people it was not fitted to,
+\begin{equation}
+\Rtwo = 1 - \frac{\sum_{i,t} (y_{it} - \hat y_{it})^2}{\sum_{i,t} y_{it}^2}.
+\end{equation}
+A score of zero is what a constant time for each person achieves, and a negative score is worse than that. In the two and three option datasets the set size never changes, so a law that uses only set size scores exactly zero there.
+
+\paragraph{Trial structure.} Four features describe a trial, $\log_2 n$, the value of the best option, the gap between the best and the second best, and the mean value of the remaining options. Each is centered within participant. A feature that does not vary within a dataset is dropped. In our study each task used six fixed displays in which the best option always scored 100, so the best value cannot predict time there.
+
+\section{Which trials take longer (confirmatory)}
+\label{sec:structure}
+
+\paragraph{Laws and tests.} Four laws were fitted by least squares without an intercept on the centered data. The set size law uses $\log_2 n$ alone and the structure law the four features. Two more laws add one model quantity to structure, the log of the expected number of looks of sample until return (Section~\ref{sec:modellist}) or the entropy of the choice probabilities of conditional logit (CL), each with its sensitivity fitted to the training participants' choices. Within a dataset the laws were scored over ten folds of participants. Across datasets, the structure law was fitted to the other seven datasets pooled, each weighted equally, and applied unchanged to the dataset left out. Three tests were fixed before the analysis. T1 is the structure law minus the set size law, T2 the score of the transferred law, and T3 the gain from adding the search model's looks to structure. A test is supported in a dataset when it is clearly positive after Holm's correction across the eight datasets \citep{holm1979}. Clear means that the 95 percent percentile and basic intervals of a participant bootstrap both exclude zero ($B = 1000$, every fold refitted in every replicate, \citealp{davison1997}). Where a test was not supported, a Bayes factor BF$_{01}$ weighs no effect against a half normal prior on the effect \citep{dienes2014}, scaled to the smallest effect seen where the same kind of test was supported (0.057 for T1 and T3, 0.062 for T2).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figT1_structure.pdf}
+\caption{Which trials take longer, from the structure of the trial (Amendment 12). This is Figure 5 of the paper, where the set size law is labelled counting options and the structure law trial structure. (a) Held out share of within person variance in log time for the set size law, the structure law and the structure law fitted to the other seven datasets, with 95 percent participant bootstrap intervals. (b) T1, structure minus the set size law. (c) T3, the gain from adding sample until return's expected looks to structure, and the gain from adding the entropy of CL's choice probabilities.}
+\label{fig:structure}
+\end{figure}
+
+\input{tables/a12_tests.tex}
+
+\paragraph{Structure predicts which trials take longer.} The structure law beat the set size law in four datasets (Figure~\ref{fig:structure}, Table~\ref{tab:a12}). In snacks at a glance T1 was $+0.100$ $[+0.072, +0.125]$, in snacks in three seconds $+0.072$ $[+0.046, +0.094]$, in two foods $+0.057$ $[+0.031, +0.083]$ and in three foods $+0.077$ $[+0.041, +0.111]$. With two or three options the set size law scores zero, so T1 there is the structure law's own score. In three snacks the structure law reached $+0.020$, with an interval just touching zero and an inconclusive Bayes factor (BF$_{01} = 0.52$). In our file task it reached $+0.011$ beyond set size (BF$_{01} = 2.07$). There the best value was fixed by design, which removes the feature that carries most of T1 elsewhere. In the sums and the laptop task structure added nothing (BF$_{01} = 30.5$ and $4.42$).
+
+\paragraph{A law from other datasets carries over.} Fitted to the seven other datasets and applied unchanged, the structure law predicted which trials took longer in our file task ($+0.062$ $[+0.034, +0.097]$), snacks at a glance ($+0.078$ $[+0.060, +0.098]$) and three foods ($+0.067$ $[+0.040, +0.095]$). In snacks in three seconds it reached $+0.066$, but its percentile interval reached below zero, so the test was not passed although the Bayes factor favoured an effect (BF$_{01} = 0.20$). In two foods and three snacks the evidence was inconclusive (BF$_{01} = 0.93$ and $2.55$), and in the sums and the laptop task it favoured no transfer (16.8 and 4.56).
+
+\paragraph{The search model's looks add nothing to structure.} Sample until return's expected looks added nothing in any dataset. Every T3 estimate lay within 0.006 of zero, and the Bayes factors favoured no gain, from 15.3 to 88.7. The entropy of CL's choice probabilities added nothing either (every estimate within 0.004 of zero, Figure~\ref{fig:structure}c).
+
+\input{tables/lmm_structure.tex}
+
+\paragraph{How large the effects are.} A linear mixed model with a random intercept and a random slope of set size for each participant gives the size of these effects (Table~\ref{tab:lmm}). Time grew by 21 percent for each doubling of the set in snacks at a glance, 7 percent in snacks in three seconds, 17 percent in the sums, 23 percent in our file task and 8 percent in our laptop task, all with intervals above zero. With the value features held fixed the growth was larger, 39 percent per doubling in snacks at a glance and 12 percent in three seconds. Larger menus held better best options (the mean best value rose from 0.92 of the scale with 9 snacks to 0.99 with 36, and from 0.81 to 0.92 in three seconds), and a better best option speeds the choice, so part of the cost of more options is hidden when values are ignored. After set size, the best value had the largest standardized effect wherever it varied ($-0.35$ in snacks at a glance, $-0.30$ in three seconds, $-0.28$ in three foods and $-0.21$ in three snacks). In two foods the gap between the two options mattered more ($-0.17$). The fixed effects explained 15 and 11 percent of the variance in the two snack datasets and between 1 and 5 percent in the others (marginal $\Rtwo$, \citealp{nakagawa2013}).
+
+\section{Predicting each trial's time with choice models (exploratory)}
+\label{sec:models}
+
+The structure law describes time but does not explain it. This part asks whether a model of the choice process, fitted mainly to choices, predicts the same regularities.
+
+\subsection{A sealed vault and rounds of development}
+
+Asking models to fit time, and changing them until they do, invites fitting noise. The work was therefore split before any fit. In every dataset a random 30 percent of the participants, drawn with a fixed seed, formed a vault. No vault trial was used to fit, select or tune anything. Models were developed on the remaining participants over three rounds. Each round was scored over ten folds of those participants and logged, with what changed and why, before the next round began. After the third round every model of the three rounds was frozen, 24 fitted models and calibrated versions of the 8 races, and the vault was opened once for all 32. The vault run was repeated and gave identical predictions, and separate code recomputed every vault $\Rtwo$ and the bootstrap intervals of the main comparisons (largest difference $10^{-15}$).
+
+A rule for a satisfactory fit was fixed before any fit. A model is satisfactory when, on the vault, its score is clearly above the set size law in every dataset where the structure law is, and it is not clearly below the structure law in any dataset. Clear uses the same two intervals as above, from a bootstrap of vault participants without refitting ($B = 1000$). Comparisons with the structure law are also tested with a linear mixed model of the per trial difference in squared error, with a random intercept for each participant and Holm's correction across the eight datasets, and summarized by Cohen's $d_z$ of the per participant mean difference and by the share of vault participants whose predictions improved. Where a model is not clearly above structure, a Bayes factor weighs no gain against a half normal gain scaled to the development gain of structure over set size in that dataset (at least 0.01), and at half and double that scale.
+
+\subsection{The models}
+\label{sec:modellist}
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{The models compared on the vault. Choice parameters are fitted to the training participants' choices. Process races are fitted jointly to choices and to times divided by each person's geometric mean time. The round in which a model entered is given in brackets.}
+\label{tab:models}
+\begin{tabular}{p{2.6cm}p{6.2cm}p{6.6cm}}
+\toprule
+Group & Models & What predicts a trial's time \\
+\midrule
+Baselines & Set size law, structure law [1] & $\log_2 n$, or the four structure features, by least squares \\
+Laws from choice models & CL, DbS and MLBA entropy, sample until return looks, two look satisficing looks [1], two look satisficing with its sensitivity chosen on time [2] & One quantity the choice model computes (entropy of its choice probabilities, or log expected looks) times one time slope \\
+Process races & LBA, MLBA LBA, Wald race, relative Wald [1], each also with a threshold that rises with set size [2], each with and without one time slope [2] & The race's expected log time, from its joint fit to choices and times \\
+Search timing & Sample until return timing [1] & Nondecision time plus a sum of gamma distributed look durations \\
+Combined laws & Structure plus satisficing looks, plus sample until return looks, plus CL entropy [2], plus satisficing looks with sensitivity chosen on time, plus the Wald race with a rising threshold [3] & Structure features and one model quantity, by least squares \\
+Ceilings & Boosted trees [1], boosted trees with centered features and inner tuning [2] & Thirteen trial features \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:models} lists the models.
+
+\paragraph{Time laws from choice models.} Each law takes a quantity $q$ that a choice model computes for the trial and predicts the centered time as $\beta q$, with the model's choice sensitivity fitted to the training choices and one time slope $\beta$ fitted by least squares. Entropy laws use the entropy in bits of the model's choice probabilities, as in Hick's law \citep{hick1952,hyman1953}, for CL, for decision by sampling scores \citep{stewart2006} and for averaged pairwise comparisons in the manner of MLBA. Looks laws use the log of a search model's expected number of looks.
+
+\paragraph{Sample until return.} In sample until return (SR), each look falls on option $i$ with probability $q_i = e^{\lambda v_i} / \sum_j e^{\lambda v_j}$, and the search stops when some option receives its second look. That option is chosen. The expected number of looks is
+\begin{equation}
+\mathrm{E}[L_{\mathrm{SR}}] = \sum_{k=0}^{n} \Pr(L > k) = \sum_{k=0}^{n} k!\, e_k(q_1, \ldots, q_n),
+\end{equation}
+where $e_k$ is the elementary symmetric polynomial of degree $k$. A larger set takes more looks before the first repeat, so SR predicts that time grows with set size.
+
+\paragraph{Two look satisficing.} Two look satisficing (TLS) adds an absolute standard to the same search \citep[in the spirit of][]{simon1955}. Looks fall on option $i$ with probability $\pi_i \propto e^{\lambda v_i / 2}$, and a look registers only with probability $h_i = e^{\lambda (v_i - 1)/2}$, which equals one for an option at the top of the value scale and is smaller the further an option lies below the top. The first option with two registered looks is chosen. Registered looks fall on option $i$ with probability $\pi_i h_i / \sum_j \pi_j h_j = q_i$, so TLS makes exactly the same choices as SR at the same $\lambda$. It takes
+\begin{equation}
+\mathrm{E}[L_{\mathrm{TLS}}] = \frac{\mathrm{E}[L_{\mathrm{SR}}]}{P}, \qquad P = \sum_i \pi_i h_i ,
+\end{equation}
+looks, where $P$ is the probability that a look registers. SR's looks do not change when every value in a menu moves by the same amount, because only differences in value enter $q$. TLS's looks do change. A menu whose options all lie far below the top of the scale registers few looks and takes longer. Both models have one choice sensitivity $\lambda$, fitted by maximum likelihood to the training choices, and one time slope. A variant chooses $\lambda$ instead from a grid of 30 values between 0.5 and 200 by the training score of its time law.
+
+\paragraph{Process races.} Each race is fitted jointly to choices and times by maximum likelihood, the density of the chosen accumulator finishing first at the observed time, with each person's times divided by that person's geometric mean time so that speed does not enter the fit. LBA has drifts $d_0 + d_1 v_i$ with unit standard deviation, start points uniform on $[0, A]$, threshold $b = A + k$ and a nondecision time \citep{brown2008}. MLBA LBA replaces the drift with averaged weighted comparisons, $d_0 + g \sum_{j} w_{ij}(v_i - v_j)/(n-1)$ with $w_{ij} = e^{-l |v_i - v_j|}$ \citep{trueblood2014}. The Wald race uses racing diffusions with drifts $d_0 + d_1 v_i$, unit noise and threshold $b$ \citep{tillman2020}. The relative Wald race uses the drift $\nu / (1 + e^{-\tau (v_i - \max_{j \neq i} v_j)})$, the drift of the gaze weighted linear accumulator without gaze \citep{thomas2019}. In snacks in three seconds the likelihood is conditioned on a response before the limit. A race's prediction is its expected log time, computed by numerical integration, and its calibrated version multiplies that by one slope fitted on the training participants. From round 2 each race also had a version whose threshold grows as $b\, n^{\gamma}$ with $\gamma \geq 0$, one more parameter. Race accounts of Hick's law slow down with more options in this way, by raising the threshold to hold accuracy \citep{usher2002}.
+
+\paragraph{Other models.} SR timing treats time as a nondecision time plus the sum of $L$ look durations, each gamma distributed, with $L$ drawn from SR at the sensitivity fitted to choices. Combined laws add one model quantity to the four structure features, to ask whether a model adds anything to structure. The two ceilings are boosted trees (scikit learn's HistGradientBoostingRegressor, \citealp{pedregosa2011}) trained on centered log time with thirteen trial features, namely $\log_2 n$, the five largest values, the gap, the mean and spread of the rest, the number of options within 0.1 of the best, and CL entropy at three fixed sensitivities. The second ceiling adds a within person centered copy of each feature and chooses its complexity by inner folds. A model's share of the better ceiling's score bounds its completeness for time in the sense of \citet{fudenberg2022}.
+
+\paragraph{Checks on simulated data.} Before any real fit, each process model was fitted to choices and times simulated from known parameters on the real displays of one dataset, with a speed factor for each person. The fitted models recovered the true trial by trial expected log time ($\Rtwo$ between 0.92 and 0.99) and matched the held out score of the true model (Table~\ref{tab:sim}).
+
+\subsection{What the development rounds changed}
+
+\paragraph{Round 1.} Every model of the plan was run. Two look satisficing's looks alone matched or beat the structure law in both snack datasets ($+0.168$ against $+0.162$ at a glance and $+0.128$ against $+0.123$ in three seconds). The races scored near or below zero wherever set size varied, down to $-0.667$ for LBA in snacks in three seconds. Their predictions correlated negatively with time within person ($r$ from $-0.07$ to $-0.30$). A race of independent accumulators with a fixed threshold finishes sooner when more accumulators run, so it predicts faster choices from larger menus, the opposite of what people do. With two or three options, where set size is fixed, the races scored above zero (MLBA LBA $+0.049$, $+0.057$ and $+0.040$).
+
+\paragraph{Round 2.} Six changes followed from round 1. Every race received a version whose threshold rises with set size, every race in snacks in three seconds was conditioned on the time limit, every race received a calibrated version, structure was combined with each of three model quantities, TLS's sensitivity was also chosen on time, and the ceiling was given centered features and inner tuning. The rising threshold turned the races positive wherever set size varies. In snacks in three seconds the rising threshold Wald race and the calibrated rising threshold LBA race now matched structure ($+0.122$ and $+0.124$ against $+0.123$). The time limit alone did not repair a fixed threshold (Wald race $-0.200$). Structure plus satisficing looks gave the best score in snacks at a glance ($+0.175$), and TLS with its sensitivity chosen on time the best in three seconds ($+0.131$).
+
+\paragraph{Round 3.} Two combined laws were added. Structure plus satisficing looks with the sensitivity chosen on time lifted our file task from $+0.090$ to $+0.116$, close to the ceiling ($+0.120$). Structure plus the Wald race added nothing anywhere. Table~\ref{tab:dev} gives every development score.
+
+\subsection{The vault}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figT3_vault.pdf}
+\caption{Every main model scored once on the vault, after fitting on the other participants. (a) Held out share of within person variance in log time, with 95 percent bootstrap intervals over vault participants. (b) Each model's difference from the structure law. A label marks a difference whose percentile and basic intervals both exclude zero.}
+\label{fig:vault}
+\end{figure}
+
+\input{tables/vault_main.tex}
+
+\paragraph{Seven models meet the rule.} The structure law was clearly above the set size law in snacks at a glance, snacks in three seconds, two foods and three foods, so these four datasets carried the first part of the rule (Figure~\ref{fig:vault}, Table~\ref{tab:vaultmain}). Seven of the 32 models met it, the structure law itself, two look satisficing with its sensitivity fitted to choices, two look satisficing with its sensitivity chosen on time, structure plus satisficing looks, structure plus sample until return's looks, structure plus the rising threshold Wald race, and the calibrated LBA race with a rising threshold. No entropy law, no fixed threshold race, neither form of sample until return on its own and neither ceiling met it. Structure plus CL entropy fell clearly below structure in our laptop task and in three snacks, and structure plus satisficing looks with the sensitivity chosen on time was not clearly above zero in two foods.
+
+\input{tables/vault_contrasts.tex}
+
+\paragraph{One choice parameter times decisions as well as four features.} Two look satisficing, with its sensitivity fitted to choices and one time slope, scored as well as the four feature structure law (Table~\ref{tab:contrasts}). In snacks at a glance it reached $+0.145$ $[+0.095, +0.198]$ against $+0.145$ $[+0.097, +0.198]$ for structure, in snacks in three seconds $+0.111$ against $+0.112$, and in three foods $+0.088$ against $+0.088$. The Bayes factors favoured no difference (BF$_{01} = 18.7$, $11.3$ and $12.2$, and above 5 at half the prior scale). In two foods it scored lower ($+0.042$ against $+0.056$), but not clearly (difference $-0.014$ $[-0.044, +0.016]$, BF$_{01} = 6.79$). It reached 88 percent of the better ceiling in snacks at a glance and exceeded both ceilings in the other three datasets, where the trees overfit.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figT5_bestvalue.pdf}
+\caption{Time and the value of the best option on the vault, with the effect of set size removed. Each person's log time and each model's prediction are centered within person and then have their mean at each set size removed. Trials are binned in quintiles of the best option's value on the 0 to 1 scale. Ties at the top of the scale leave fewer than five bins in the snack datasets, and bins with fewer than 20 trials are not drawn. Points are observed means with 95 percent bootstrap intervals over vault participants.}
+\label{fig:bestvalue}
+\end{figure}
+
+\paragraph{The absolute standard is what matters.} Sample until return makes exactly the same choices as two look satisficing at the same sensitivity, but its looks fell clearly below structure in both snack datasets ($-0.074$ $[-0.113, -0.030]$ at a glance and $-0.066$ $[-0.103, -0.025]$ in three seconds). It already predicts the growth of time with set size (Figure~\ref{fig:setsize}). What it misses is the effect of values within a set size. Its looks depend on values only through their differences, so a menu of poor options takes as long as a menu of good ones, while people take longer when the best option is poor (Table~\ref{tab:lmm}). Figure~\ref{fig:bestvalue} shows this directly. With set size held fixed, people in snacks at a glance took 67 percent longer than usual on the trials with the lowest rated best snack and 7 percent less when the best snack was at the top of the scale. Sample until return's looks predicted $+12$ and $-2$ percent, two look satisficing $+103$ and $-8$, overshooting at the low end, and the structure law $+89$ and $-7$. In three seconds the pattern was the same (observed $+9$ and $-4$, sample until return $+1$ and $0$, two look satisficing $+7$ and $-3$). With two or three options sample until return's looks did fall as the best value rose, since a close pair takes more looks to separate, and both search models followed the data, two look satisficing more closely when the best option was good.
+
+\paragraph{Satisficing adds to structure in the dataset it was built on.} Adding satisficing looks to structure improved on structure in snacks at a glance by $+0.017$ $[+0.010, +0.024]$ (Holm $p < 0.001$, $d_z = 1.15$, better for 80 percent of vault participants), reaching 98 percent of the better ceiling. Two look satisficing was first built on this dataset, so this gain is not a test on new data. Elsewhere the combination equalled structure (BF$_{01}$ from 2.88 to 28.2 in the other three datasets). In our laptop task it was clearly above structure, but by only $+0.004$ and with Holm $p = 0.43$ in the mixed model.
+
+\paragraph{Races and ceilings.} The calibrated LBA race with a rising threshold met the rule. It scored a little below structure in the four datasets where structure beats set size, but never clearly (BF$_{01}$ from 7.70 to 14.1). Structure plus the Wald race added nothing (BF$_{01}$ between 21.5 and 577 in the four datasets). The better ceiling was clearly above structure only in snacks at a glance ($+0.020$ $[+0.002, +0.037]$) and clearly below it in three foods ($-0.046$ $[-0.082, -0.024]$). No model and no ceiling explained more than 17 percent of the within person variance in any dataset.
+
+\subsection{Why races need a rising threshold}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figT2_setsize.pdf}
+\caption{Mean decision time at each set size on the vault, against each person's usual time. Points are observed means with 95 percent bootstrap intervals over vault participants. Lines are the predictions of the structure law, two look satisficing's looks and the LBA race with a fixed threshold and with a threshold that rises with set size, both on the race's own time scale. The laptop task has sets of 30 and 32 options next to each other.}
+\label{fig:setsize}
+\end{figure}
+
+Figure~\ref{fig:setsize} shows the problem and its repair. In snacks at a glance people took 20 percent less than their usual time with 9 snacks and 20 percent more with 36. The LBA race with a fixed threshold predicted the reverse, 19 percent more with 9 and 16 percent less with 36, and the fixed threshold Wald race predicted $+31$ and $-20$ percent. With a threshold growing as $b\,n^{\gamma}$ the trend turned around. The fitted exponents were $\gamma = 0.30$ for LBA and $0.36$ for the Wald race in snacks at a glance and $0.42$ and $0.24$ in three seconds. On its own time scale the rising threshold LBA race still undershot the growth ($-6$ to $+8$ percent at a glance), and its time slope had to stretch its predictions by a factor of 3.1 at a glance and 1.6 in three seconds. The rising threshold Wald race needed no stretching (slopes 0.99 and 1.16) and got the growth with set size right ($-18$ to $+23$ percent at a glance), but it captured less of the variation within a set size and scored about half of structure at a glance ($+0.076$). In three seconds the fixed threshold LBA race conditioned on the limit predicted almost no change with set size, since the limit truncates its slow responses.
+
+\subsection{Calibration}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/figT4_calibration.pdf}
+\caption{Calibration on the vault. Vault trials are binned in deciles of predicted time, and each point is the mean predicted and the mean observed time of a bin, as percent faster or slower than the person's usual time. Bins with fewer than 20 trials are not drawn. The dashed line is perfect calibration.}
+\label{fig:calibration}
+\end{figure}
+
+The predictions were calibrated across the range of times (Figure~\ref{fig:calibration}). In snacks at a glance, the tenth of trials that two look satisficing predicted to take longest were predicted to take 53 percent longer than the person's usual time and took 54 percent longer, and the tenth predicted to be fastest were predicted at 36 percent and observed at 32 percent below the usual time. Regressing observed on predicted centered log time over all vault trials gave slopes near one, 1.00 for structure, 0.95 for two look satisficing and 0.99 for the two combined in snacks at a glance, 0.87, 0.86 and 0.82 in three seconds, 0.90, 1.00 and 0.83 in two foods, and 1.21, 1.26 and 1.25 in three foods.
+
+\subsection{Secondary measures}
+
+\input{tables/secondary.tex}
+\input{tables/unseen.tex}
+
+The plan named three secondary measures, computed on the vault for every frozen model (Tables~\ref{tab:secondary} and~\ref{tab:unseen}).
+
+\paragraph{Ranking a person's trials.} The within person rank correlation of predicted and observed time told the same story as $\Rtwo$. In snacks at a glance it was 0.39 for structure, 0.39 for two look satisficing and 0.41 for the two combined, against 0.30 for the set size law and 0.30 for sample until return. In three seconds the same models reached 0.36, 0.35 and 0.36, against 0.23 and 0.25. The fixed threshold LBA race reached only 0.05 at a glance.
+
+\paragraph{An unseen set size.} Each set size was left out in turn, every model was refitted on the other sizes, and the test was how much longer or shorter each vault participant's choices were at the left out size than at the others. In snacks at a glance the search models forecast this at least as well as the laws, with a skill of 0.64 $[0.52, 0.74]$ for two look satisficing and 0.63 for sample until return, against 0.62 for the set size law and 0.55 for the structure law. The fixed threshold races forecast the wrong direction (skill $-1.96$ for LBA and $-2.34$ for the Wald race). In three seconds the intervals were wide (two look satisficing 0.43 $[-0.41, 0.76]$, set size law 0.48 $[-0.03, 0.69]$), and the rising threshold Wald race failed badly ($-6.09$), mostly because it got the smallest sets wrong when they were left out. In our two tasks the structure law could not extrapolate at all (skill $-26.6$ for files and $-1.36$ for laptops), because each left out display had feature values outside the range of the displays it was fitted on, while the search models stayed between $-0.15$ and $0.00$. In the sums no model forecast the unseen sizes.
+
+\paragraph{What timing costs in choices.} Two look satisficing makes the same choices as sample until return, which predicted vault choices as well as CL in every dataset (within 0.015 bits per choice). The races, fitted jointly to choices and times, mostly predicted choices worse than CL. LBA lost 0.08 bits per choice at a glance, 0.03 in three seconds, 0.11 in two foods and 0.12 in three foods, and the Wald races lost far more. The exception was the sums, where LBA predicted choices better than CL by 0.13 bits $[0.10, 0.16]$ and MLBA LBA by 0.21 $[0.14, 0.28]$. That is about the size of the gap between CL and the machine learning ceiling for choices in the sums (about 0.2 bits), the dataset where judging is costly and overload outgrew every forecast. It was not a planned comparison and deserves its own test.
+
+\subsection{Where the vault shows nothing}
+
+In the sums, both tasks of our study and three snacks, no model reached a clearly positive score on the vault, the ceilings included (Figure~\ref{fig:vault}a). The reasons differ. In the sums, time grows with set size (17 percent per doubling, Table~\ref{tab:lmm}), but set size and values explain almost none of the variation between a person's trials, in the full sample of Amendment 12, in development and on the vault. Working out a sum takes time that the sum's value does not reveal. In our file task time was predictable in the full sample (set size law $+0.068$ and structure law $+0.078$ in Amendment 12, both clear), but the vault intervals were too wide to show it ($[-0.072, +0.152]$ for structure). In the laptop task every score was near zero throughout. Three snacks scored above zero in development (structure $+0.036$) and below zero for every model on its vault, which is the smallest of the eight. We read this as sampling noise in a small vault rather than as a failure of the models, but it means that three snacks supports no model.
+
+\section{What the time results mean}
+
+\paragraph{One quantity carries what the structure says.} When satisficing looks are added to the structure law, the coefficients of set size and of the best value shrink toward zero. In the fits used for the vault in snacks at a glance, the coefficient of the best value fell from $-2.76$ to $-0.17$ and that of $\log_2 n$ from $0.32$ to $0.08$. In snacks in three seconds they fell from $-0.67$ to $-0.03$ and from $0.12$ to $-0.02$. In three foods the best value's coefficient fell from $-0.68$ to $-0.24$. So in these datasets the expected looks of a search with an absolute standard carry most of what set size and the best value say about time. Search takes longer when the menu is large, because the first repeat comes later, and when nothing on it is close to the top of the scale, because fewer looks register.
+
+\paragraph{Relation to the confirmatory tests of time.} Two earlier confirmatory tests also concerned TLS and time. On the three gaze datasets (Amendment 6), TLS's law for absolute time, $\log(t_0 + \tau L)$ on uncentered log seconds, was no better than a constant time (difference in error $-0.0002$ $[-0.0054, +0.0056]$) and slightly worse than SR's by its percentile interval ($+0.0045$ $[+0.0001, +0.0106]$), and its within person rank correlation with time ($+0.19$) did not exceed SR's ($+0.21$). In Amendment 12, SR's looks added nothing to structure (T3). The vault agrees with both. On the gaze datasets TLS and SR scored alike (two foods $+0.042$ and $+0.043$, three foods $+0.088$ and $+0.070$, three snacks $-0.031$ and $-0.029$), and SR's looks added nothing to structure (Table~\ref{tab:vaultmain}). The difference lies in the menus with many options, where an absolute standard separates a menu of poor snacks from a menu of good ones. The Amendment 6 test also scored absolute times, whose variation is mostly how fast each person is, while this analysis scores which of a person's trials take longer.
+
+\paragraph{Limits.} The work is exploratory. The vault guards against fitting the development rounds to noise, but two look satisficing itself was built on snacks at a glance, so the evidence that it times decisions as well as structure comes from snacks in three seconds and three foods, where it matched structure (BF$_{01} = 11.3$ and $12.2$) and which played no part in building it. The vaults of the gaze datasets are small, so not being clearly below structure is weak evidence on its own, and the Bayes factors carry the claim of equality. The models predict which trials take longer for a person, not how fast that person is, and TLS needs a time slope in addition to its choice sensitivity. Finally, the explained variance is modest. The best model and the ceiling both stay below a sixth of the within person variance, so most of the variation between a person's trials is not predictable from set size and values with these models.
+
+\bibliographystyle{apalike}
+\bibliography{refs}
+
+\appendix
+\section{Supplementary tables}
+
+\begin{table}[h]
+\centering
+\footnotesize
+\caption{Recovery of the process models on simulated data, before any real fit. Choices and times were simulated from known parameters on the real displays of snacks in three seconds (rising threshold races on snacks at a glance), with a speed factor for each person. Half the simulated people were fitted and the other half predicted. Columns give the $\Rtwo$ of the fitted model's expected log time against the true expected log time, the held out score of the fitted and of the true model on the simulated times, and the agreement of the numerical expectation with a Monte Carlo average.}
+\label{tab:sim}
+\begin{tabular}{lcccc}
+\toprule
+Model & \makecell{Fitted against\\true} & \makecell{Held out,\\fitted} & \makecell{Held out,\\true} & \makecell{Numerical against\\Monte Carlo} \\
+\midrule
+LBA & $0.983$ & $0.292$ & $0.289$ & $0.986$ \\
+MLBA LBA & $0.962$ & $0.197$ & $0.201$ & $0.977$ \\
+Wald race & $0.982$ & $0.212$ & $0.207$ & $0.983$ \\
+Relative Wald & $0.949$ & $0.086$ & $0.078$ & $0.954$ \\
+Sample until return timing & $0.924$ & $0.097$ & $0.085$ & $0.927$ \\
+LBA, rising threshold & $0.988$ & $0.411$ & $0.414$ & $0.993$ \\
+Wald race, rising threshold & $0.991$ & $0.491$ & $0.491$ & $0.996$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\input{tables/dev_rounds.tex}
+\input{tables/vault_all.tex}
+
+\FloatBarrier
+\section{Reproducibility}
+
+The plan for the model comparison and the log of every round were committed before the runs they describe. The vault was drawn with seed 20261103, the development folds with seed 20261014, and the vault bootstrap with seeds $130500 + b$. The files are listed below, all in the project repository.
+
+{\raggedright
+\begin{itemize}\setlength{\itemsep}{0pt}
+\item Plan and log, \texttt{docs/time\_models\_plan.md} and \texttt{docs/time\_models\_log.md}
+\item Amendment 12, \texttt{ANALYSIS\_PLAN.md} and \texttt{src/overload/experiments/time\_structure.py}
+\item Models, \texttt{src/overload/time\_models.py}
+\item Development and vault runs, \texttt{scripts/time\_models\_run.py} and \texttt{scripts/time\_models\_vault.sh}
+\item Vault statistics, \texttt{scripts/time\_models\_vault\_eval.py}
+\item Separate check of the vault numbers, \texttt{verification/check\_time\_vault.py}
+\item Secondary measures, \texttt{scripts/time\_models\_secondary.py}
+\item Mixed models and Bayes factors for Amendment 12, \texttt{scripts/stats\_misc.py} and \texttt{scripts/stats\_bayes.py}
+\item Figures and tables of this section, \texttt{scripts/fig\_time\_writeup.py}, \texttt{scripts/fig\_time\_bestvalue.py} and \texttt{scripts/time\_writeup\_tables.py}
+\end{itemize}
+}
+
+\end{document}
