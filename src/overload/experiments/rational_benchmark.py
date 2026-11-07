@@ -453,6 +453,9 @@ def main(argv=None) -> None:
     ap.add_argument("--data", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--B", type=int, default=1000)
+    ap.add_argument("--start", type=int, default=0, help="first replicate of a slice")
+    ap.add_argument("--stop", type=int, default=None, help="end of a slice, replicates saved to slice_<start>.json")
+    ap.add_argument("--merge", action="store_true", help="read every slice in --out and summarize")
     ap.add_argument("--simulate", choices=("sat", "ft", "fixed_stop", "ft_stop"))
     args = ap.parse_args(argv)
     root, out = Path(args.data), Path(args.out)
@@ -475,7 +478,18 @@ def main(argv=None) -> None:
     boots = {k: [] for k in flat_point}
     d_boot = {c: [] for c in aguiar.COSTS}
     d_growth = {c: [] for c in aguiar.COSTS}
-    for b in range(args.B):
+    stop = args.B if args.stop is None else args.stop
+    if args.merge:
+        for f in sorted(out.glob("slice_*.json"), key=lambda q: int(q.stem.split("_")[1])):
+            sl = json.loads(f.read_text())
+            for k in boots:
+                boots[k].extend(sl["boots"][k])
+            for c in aguiar.COSTS:
+                d_boot[c].extend(sl["d_boot"][c])
+                d_growth[c].extend(sl["d_growth"][c])
+        if len(d_growth["low"]) != args.B:
+            raise ValueError("slices do not cover every replicate")
+    for b in range(args.start, stop) if not args.merge else ():
         rec = flatten(replicate(panels, tabs, data, groups, draw(groups, b), stand, bench=bench))
         for k in boots:
             boots[k].append(rec.get(k, np.nan))
@@ -485,6 +499,11 @@ def main(argv=None) -> None:
             d_growth[c].append(dm[c]["growth"])
         if b % 50 == 0:
             print(f"replicate {b} at {time.time() - t0:.0f} s", flush=True)
+    if args.stop is not None and not args.merge:
+        write_json(out / f"slice_{args.start}.json", {"boots": {k: [float(x) for x in v] for k, v in boots.items()},
+                                                      "d_boot": {c: [list(map(float, r)) for r in d_boot[c]] for c in d_boot},
+                                                      "d_growth": {c: list(map(float, d_growth[c])) for c in d_growth}})
+        return
     summary = {k: summarize(flat_point[k], boots[k]) for k in flat_point} if args.B else {}
     D = {}
     pairs = nested_pairs()
