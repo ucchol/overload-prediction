@@ -522,3 +522,24 @@ Plan `docs/time_models_plan.md`, log of rounds `docs/time_models_log.md`, vault 
 - H2 confirmatory dataset (superseded by Amendment 11). Hensher (2006) was checked on 1 Nov, its archive holds no choices (only design features and counts of ignored attributes), so it cannot test H2. Candidate, the job candidate study in Psychonomic Bulletin and Review (2025), two options with 3, 4 or 5 attributes within participants, OSF data awaited from the study's author. Fix by amendment before inspecting outcomes.
 - H3 independent cue. Resolved by Amendment 9, run 1 Nov, not supported.
 - H4. Set aside for a separate paper (Amendment 9).
+
+### 7 Nov 2026. Overload against a rational search benchmark (Amendment 13), run twice, checked blind
+
+Prompted by de Lara and Dean (Rational Choice Overload), who define overload as the default chosen more often in a bigger set and show that search with a fixed threshold, a known value distribution and a constant cost per item can never produce it. Our measure, the growth of missed best options, grows even under that search. `results/rational_benchmark`, B = 1000, second run identical, blind reimplementation agrees on every point estimate (satisficer fits to six decimals, falling threshold within 0.0004).
+
+| Test | Snacks at a glance | Snacks in three seconds | Sums (mean of four panels) |
+|---|---|---|---|
+| Chosen value per doubling (V) | +0.22 rating points, clear | +0.26, clear | +1.0 to +2.3 dollars, all clear |
+| People's growth of misses | +0.010 | +0.099 | +0.156 |
+| Satisficer with a fixed threshold, held out | +0.058 | +0.100 | +0.180 |
+| R1, people minus satisficer | -0.048 [-0.065, -0.030], clear | -0.001 [-0.040, +0.032] | -0.024 [-0.071, +0.011] |
+
+- No open dataset shows overload in the welfare sense. The chosen option's value rises with set size everywhere, also after removing the mean option value.
+- A satisficer with a fixed threshold in random order, thresholds mixed over people, forecasts the growth of misses under time pressure and in the sums. The growth in the sums that every softmax model missed (Amendment 8) is what rational satisficing produces. At a glance people's misses grow less than the satisficer's, compensation beyond the rational benchmark.
+- Order matters. The same satisficer reading from the top of the list undershoots the sums (people minus it +0.101, clear).
+- A threshold that falls with each inspected option forecast worse than the fixed one at a glance and in three seconds (both clear), not clearly in the sums.
+- Stopping (S1, choice process experiment). Given the value found, people stopped more often the longer they had searched, +0.115 [+0.091, +0.142] beyond the fixed threshold benchmark (also +0.086, clear, in Experiment 1), the signature of a threshold that falls with search. Set size added nothing beyond the benchmark (-0.007). Stopping followed value less than the benchmark (-0.068, clear), as errors in working out sums would make it. Benchmark time scale as the amendment states, recomputed from the stored replicates (the runs as made gave +0.105, see the deviations log).
+- Default (D1, Aguiar lotteries). The default share fell with menu size at every cost (-0.13 to -0.15 per doubling, clear), and none of the 180 nested pairs of menus per cost showed a clear rise. No overload in the default sense.
+- Limits. R1 in the sums has little power against a mildly falling threshold (pre-freeze simulation). Part V and the sums version of R1 were not blind (quick script and a printed panel before the freeze). Three deviations are logged, all found by the blind check, a SQUAREM fitting bug fixed before the final runs, tie handling at the end of the list in the screen order rows, and the benchmark's time scale.
+
+Story update. The sums are no longer a boundary where overload outgrows every forecast. A rational satisficer with a fixed threshold foresees how misses grow there and under time pressure, and people at a glance do better than it. Overload in our data means missing the best more often while still choosing better options, the pattern optimal search predicts, and the stopping data show fatigue on top of it.

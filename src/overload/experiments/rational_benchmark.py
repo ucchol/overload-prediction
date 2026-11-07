@@ -327,14 +327,18 @@ def stopping(data, experiment: int, wp: np.ndarray, stand: dict | None = None) -
     return {"value": float(beta[0]), "log_time": float(beta[1]), "log2_n": float(beta[2])}, stand
 
 
-def stopping_benchmark(data, panels, stand: dict, sims: int = 100) -> dict:
+def stopping_benchmark(data, panels, stand: dict, sims: int = 100, scale_at: str = "final") -> dict:
     """Coefficients of the Part S regression on selections simulated from SAT, averaged over sims datasets.
 
     SAT is fitted to every set size of each Caplin, Dean and Martin panel's choices. In a simulated round t is drawn
     from pi, options are inspected in a uniformly random order, every new best found is selected (the first option
     always is, since the default is worth nothing), and search stops once the best found reaches t or the list ends.
     Inspection times are gamma with shape 2, their mean per panel set so that the mean time of the final selection
-    equals people's. Lapses are not simulated. Dataset s uses numpy.random.default_rng(BENCH_SEED + s)."""
+    equals people's. Lapses are not simulated. Dataset s uses numpy.random.default_rng(BENCH_SEED + s).
+
+    scale_at "final" sets the time scale from the options inspected up to the final selection, as the amendment says.
+    "stop" uses the options inspected when search stops (the whole list when no option reaches t), which is what the
+    frozen runs of 7 Nov used (docs/deviations_from_plan.md)."""
     fits = {p.name: fit_em(sat_tables(p)[0], p.n, np.ones(p.n.size))[0] for p in panels if p.name.startswith("cdm")}
     names = {0: "cdm_standard", 1: "cdm_process"}
     key = [f"{names[int(e)]}_{int(c)}" for e, c in zip(data.experiment, data.complexity, strict=True)]
@@ -344,8 +348,8 @@ def stopping_benchmark(data, panels, stand: dict, sims: int = 100) -> dict:
     insp = {k: [] for k in fits}
     for r in range(data.rounds):
         for _ in range(20):
-            _, _, k = _bench_round(data.values[r, : data.n[r]], levels[rng.choice(levels.size, p=fits[key[r]])], rng)
-            insp[key[r]].append(k)
+            sels, _, k = _bench_round(data.values[r, : data.n[r]], levels[rng.choice(levels.size, p=fits[key[r]])], rng)
+            insp[key[r]].append(k if scale_at == "stop" else sels[-1][1] + 1)
     scale = {}
     for k in fits:
         rows = np.array(key) == k
@@ -464,6 +468,8 @@ def main(argv=None) -> None:
     ap.add_argument("--start", type=int, default=0, help="first replicate of a slice")
     ap.add_argument("--stop", type=int, default=None, help="end of a slice, replicates saved to slice_<start>.json")
     ap.add_argument("--merge", action="store_true", help="read every slice in --out and summarize")
+    ap.add_argument("--bench-scale", choices=("final", "stop"), default="final",
+                    help="time scale of the Part S benchmark, stop reproduces the runs of 7 Nov")
     ap.add_argument("--simulate", choices=("sat", "ft", "fixed_stop", "ft_stop"))
     args = ap.parse_args(argv)
     root, out = Path(args.data), Path(args.out)
@@ -479,7 +485,7 @@ def main(argv=None) -> None:
     tabs = {p.name: tables(p) for p in panels}
     ones = {g: np.ones(P) for g, P in groups.items()}
     stand = {g: stopping(data, e, ones[g])[1] for e, g in ((0, "cdm_standard"), (1, "cdm_process"))}
-    bench = stopping_benchmark(data_bench if args.simulate else data, panels_bench if args.simulate else panels, stand)
+    bench = stopping_benchmark(data_bench, panels_bench, stand, scale_at=args.bench_scale)
     point = replicate(panels, tabs, data, groups, ones, stand, extra=not args.simulate, bench=bench)
     point["D"] = default_measures(counts)
     flat_point = flatten({k: point[k] for k in ("V", "R", "S")})
