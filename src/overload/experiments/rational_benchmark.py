@@ -201,9 +201,17 @@ def fit_em(a_ch: np.ndarray, n: np.ndarray, w: np.ndarray) -> tuple[np.ndarray, 
         r, v = c1 - c, c2 - 2 * c1 + c
         nv = np.linalg.norm(v)
         if nv > 0:
-            alpha = -np.linalg.norm(r) / nv
-            cn = np.maximum(c - 2 * alpha * r + alpha * alpha * v, 0.0)
-            cn = em(cn / cn.sum()) if cn.sum() > 0 else c2
+            # the step must keep every component positive (EM can never revive a component set to zero), so the
+            # step length is halved toward alpha = -1, which gives c2, until it does
+            alpha = min(-np.linalg.norm(r) / nv, -1.0)
+            cn = c - 2 * alpha * r + alpha * alpha * v
+            while np.any(cn <= 0):
+                alpha = (alpha - 1.0) / 2.0
+                if alpha > -1.0 - 1e-8:
+                    cn = c2
+                    break
+                cn = c - 2 * alpha * r + alpha * alpha * v
+            cn = em(cn / cn.sum())
             if not (ll_of(cn) >= ll_of(c2)):
                 cn = c2
         else:
